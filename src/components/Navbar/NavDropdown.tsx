@@ -68,24 +68,26 @@ export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
   return (
     <div 
       ref={dropdownRef}
-      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-auto min-w-[800px] z-50 animate-fade-in"
+      className="absolute top-full left-0 right-0 w-full z-50 animate-fade-in"
     >
-      <div className="rounded-[15px] bg-eastdigital-dark bg-opacity-90 backdrop-blur-md p-4 shadow-lg border border-gray-800">
-        <div className="flex">
-          {expertiseData.map((item, index) => (
-            <React.Fragment key={index}>
-              <NavDropdownItem
-                title={item.title}
-                link={item.link}
-                shortText={item.shortText}
-                subItems={item.subItems}
-                bottomText={item.bottomText}
-              />
-              {index < expertiseData.length - 1 && (
-                <div className="w-px bg-gray-800"></div>
-              )}
-            </React.Fragment>
-          ))}
+      <div className="mx-auto w-[80%]">
+        <div className="rounded-[15px] bg-eastdigital-dark bg-opacity-95 backdrop-blur-md p-4 shadow-lg border border-gray-800">
+          <div className="flex">
+            {expertiseData.map((item, index) => (
+              <React.Fragment key={index}>
+                <NavDropdownItem
+                  title={item.title}
+                  link={item.link}
+                  shortText={item.shortText}
+                  subItems={item.subItems}
+                  bottomText={item.bottomText}
+                />
+                {index < expertiseData.length - 1 && (
+                  <div className="w-px bg-gray-800"></div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       </div>
     </div>
