@@ -2,18 +2,17 @@
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 
-const Index = () => {
+const Approach = () => {
   return (
     <div className="min-h-screen flex flex-col bg-eastdigital-dark">
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-12">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-            Transform Your Real Estate<br className="hidden md:block" /> Marketing Vision
+            Our Approach
           </h1>
           <p className="text-xl text-eastdigital-lightgray max-w-3xl mx-auto">
-            East Digital specializes in cutting-edge 3D visualization and strategic digital campaigns
-            to help real estate developers and architects bring their projects to life.
+            Learn about our process and how we deliver exceptional results for our clients.
           </p>
         </div>
       </main>
@@ -21,4 +20,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Approach;

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -12,12 +13,22 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: {
+				DEFAULT: '1rem',
+				sm: '2rem',
+			},
 			screens: {
-				'2xl': '1400px'
-			}
+				sm: '100%',
+				md: '90%',
+				lg: '90%',
+				xl: '1140px',
+				'2xl': '1320px',
+			},
 		},
 		extend: {
+			fontFamily: {
+				poppins: ['Poppins', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,7 +72,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				eastdigital: {
+					orange: '#FF6900',
+					hover: '#FFE0CA',
+					dark: '#0E0E0E',
+					gray: '#363636',
+					lightgray: '#999999',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
