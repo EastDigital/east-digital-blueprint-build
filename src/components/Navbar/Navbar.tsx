@@ -47,18 +47,20 @@ export const Navbar = () => {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center">
             <ul className="flex space-x-10">
-              <li 
-                className="relative"
-                onMouseEnter={handleExpertiseEnter}
-                onMouseLeave={handleExpertiseLeave}
-              >
-                <button 
-                  className={`flex items-center text-base font-medium tracking-wider transition-colors duration-200 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
-                  onClick={toggleDropdown}
+              <li className="relative">
+                <div
+                  onMouseEnter={handleExpertiseEnter}
+                  onMouseLeave={handleExpertiseLeave}
+                  className="pb-2"
                 >
-                  Expertise
-                  <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
+                  <button 
+                    className={`flex items-center text-base font-medium tracking-wider transition-colors duration-200 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
+                    onClick={toggleDropdown}
+                  >
+                    Expertise
+                    <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                </div>
               </li>
               <li>
                 <a href="/impact" className="text-base font-medium tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Impact</a>
