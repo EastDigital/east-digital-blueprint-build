@@ -1,30 +1,29 @@
 
 import React from 'react';
-import { LucideIcon, ArrowUpRight } from 'lucide-react';
 
 interface ProjectCardProps {
   name: string;
-  icon: LucideIcon;
+  image: string;
 }
 
-export const ProjectCard = ({ name, icon: Icon }: ProjectCardProps) => {
+export const ProjectCard = ({ name, image }: ProjectCardProps) => {
   return (
-    <div className="flex-shrink-0 w-72 h-48 bg-gradient-to-br from-eastdigital-gray/80 to-eastdigital-dark/90 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer group">
-      <div className="flex flex-col h-full justify-between">
-        {/* Icon and Arrow */}
-        <div className="flex justify-between items-start">
-          <div className="p-3 bg-eastdigital-orange/10 rounded-xl group-hover:bg-eastdigital-orange/20 transition-colors duration-300">
-            <Icon className="w-6 h-6 text-eastdigital-orange" />
-          </div>
-          <ArrowUpRight className="w-5 h-5 text-eastdigital-lightgray group-hover:text-eastdigital-orange transition-colors duration-300" />
-        </div>
-        
-        {/* Project Name */}
-        <div>
-          <h3 className="text-white font-poppins font-semibold text-lg group-hover:text-eastdigital-hover transition-colors duration-300">
-            {name}
-          </h3>
-        </div>
+    <div className="flex-shrink-0 w-72 h-48 bg-gradient-to-br from-eastdigital-gray/80 to-eastdigital-dark/90 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer group relative">
+      {/* Background Image */}
+      <img 
+        src={image} 
+        alt={name}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+      
+      {/* Gradient Overlay - covers top 30% */}
+      <div className="absolute top-0 left-0 right-0 h-[30%] bg-gradient-to-b from-black to-transparent z-10"></div>
+      
+      {/* Project Name - positioned on top left over the overlay */}
+      <div className="absolute top-4 left-4 z-20">
+        <h3 className="text-white font-poppins font-semibold text-lg group-hover:text-eastdigital-hover transition-colors duration-300">
+          {name}
+        </h3>
       </div>
     </div>
   );

@@ -3,40 +3,40 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ProjectCard } from './ProjectCard';
 import { Building, Home, Factory, Zap, TreePine } from 'lucide-react';
 
-// Mock project data - will be replaced with dynamic data from admin
+// Mock project data with images - will be replaced with dynamic data from admin
 const mockProjects = [
-  { id: 1, name: 'Ascon Group', icon: Building },
-  { id: 2, name: 'Reliance Energy', icon: Zap },
-  { id: 3, name: 'Omaxe', icon: Home },
-  { id: 4, name: 'Industrial Complex', icon: Factory },
-  { id: 5, name: 'Green Valley', icon: TreePine },
-  { id: 6, name: 'Metro Heights', icon: Building },
-  { id: 7, name: 'Solar Park', icon: Zap },
-  { id: 8, name: 'Luxury Villas', icon: Home },
+  { id: 1, name: 'Ascon Group', icon: Building, image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop' },
+  { id: 2, name: 'Reliance Energy', icon: Zap, image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop' },
+  { id: 3, name: 'Omaxe', icon: Home, image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop' },
+  { id: 4, name: 'Industrial Complex', icon: Factory, image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop' },
+  { id: 5, name: 'Green Valley', icon: TreePine, image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop' },
+  { id: 6, name: 'Metro Heights', icon: Building, image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop' },
+  { id: 7, name: 'Solar Park', icon: Zap, image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop' },
+  { id: 8, name: 'Luxury Villas', icon: Home, image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop' },
 ];
 
 export const ProjectCarousel = () => {
   const [isPaused, setIsPaused] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
+  const scrollPositionRef = useRef(0);
 
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
-    let scrollPosition = 0;
     const scrollSpeed = 0.5; // pixels per frame
 
     const animate = () => {
       if (!isPaused && carousel) {
-        scrollPosition += scrollSpeed;
+        scrollPositionRef.current += scrollSpeed;
         
         // Reset position when we've scrolled past the first set of items
-        if (scrollPosition >= carousel.scrollWidth / 2) {
-          scrollPosition = 0;
+        if (scrollPositionRef.current >= carousel.scrollWidth / 2) {
+          scrollPositionRef.current = 0;
         }
         
-        carousel.scrollLeft = scrollPosition;
+        carousel.scrollLeft = scrollPositionRef.current;
       }
       animationRef.current = requestAnimationFrame(animate);
     };
@@ -51,6 +51,10 @@ export const ProjectCarousel = () => {
   }, [isPaused]);
 
   const handleMouseEnter = () => {
+    const carousel = carouselRef.current;
+    if (carousel) {
+      scrollPositionRef.current = carousel.scrollLeft;
+    }
     setIsPaused(true);
   };
 
@@ -72,7 +76,7 @@ export const ProjectCarousel = () => {
           <ProjectCard
             key={`${project.id}-${index}`}
             name={project.name}
-            icon={project.icon}
+            image={project.image}
           />
         ))}
       </div>
