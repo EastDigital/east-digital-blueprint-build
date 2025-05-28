@@ -106,42 +106,6 @@ export const Navbar = () => {
     };
   }, [isDropdownOpen]);
 
-  const expertiseData = [
-    {
-      title: "3D RENDERING & VISUALIZATION",
-      link: "/3d-rendering-visualization",
-      shortText: "Bring Your Architectural Visions to Life with Photo-Realistic Precision.",
-      subItems: [
-        { title: "Architectural 3D Rendering", anchor: "#architectural-3d-rendering" },
-        { title: "Architectural Walkthrough Videos", anchor: "#architectural-walkthrough-videos" },
-        { title: "VR-Ready Property Tours", anchor: "#vr-ready-property-tours" }
-      ],
-      bottomText: "Ideal for: Developers, Architects, & Engineers to visualize and present projects."
-    },
-    {
-      title: "REAL ESTATE DIGITAL CAMPAIGNS",
-      link: "/real-estate-digital-campaigns",
-      shortText: "Drive Leads & Sales with Strategic Digital Campaigns.",
-      subItems: [
-        { title: "Targeted Facebook & Google Ads", anchor: "#targeted-ads" },
-        { title: "Drone Videography", anchor: "#drone-videography" },
-        { title: "Broker & Investor Outreach", anchor: "#broker-investor-outreach" }
-      ],
-      bottomText: "Ideal for: Developers & Brokers to generate leads and drive property sales."
-    },
-    {
-      title: "CORPORATE SOLUTIONS",
-      link: "/corporate-solutions",
-      shortText: "Elevate Your Brand and Connect with Your Audience.",
-      subItems: [
-        { title: "Brand Identity Design", anchor: "#brand-identity-design" },
-        { title: "UI/UX Design", anchor: "#ui-ux-design" },
-        { title: "Web & Apps", anchor: "#web-apps" }
-      ],
-      bottomText: "Ideal for: Companies building strong brands & digital platforms."
-    }
-  ];
-
   const handleMobileDropdownItemClick = () => {
     setIsDropdownOpen(false);
     setIsMenuOpen(false);
@@ -239,61 +203,23 @@ export const Navbar = () => {
             <nav className="flex flex-col space-y-6 ml-2.5">
               <a href="/" className="text-base font-medium tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Home</a>
               
-              <div>
+              <div ref={mobileDropdownRef}>
                 <button 
-                  className="flex justify-between items-center text-base font-medium tracking-wider text-white w-full touch-manipulation"
+                  className="flex justify-between items-center text-base font-medium tracking-wider text-white w-full"
                   onClick={toggleDropdown}
-                  onTouchEnd={(e) => e.preventDefault()}
                 >
                   <span>Expertise</span>
                   <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 
                 {isDropdownOpen && (
-                  <div 
-                    ref={mobileDropdownRef}
-                    className="bg-[#1A1A1A]/80 backdrop-blur-md rounded-[15px] border border-gray-800/30 shadow-2xl overflow-hidden mt-4 animate-fade-in"
-                  >
-                    <div className="flex flex-col md:flex-row">
-                      {expertiseData.map((item, index) => (
-                        <React.Fragment key={index}>
-                          <div className="flex-1 px-6 py-6">
-                            <a 
-                              href={item.link} 
-                              className="block font-poppins text-sm md:text-base font-semibold bg-gradient-to-b from-[#FF6900] to-[#FBA971] bg-clip-text text-transparent hover:from-[#FF6900] hover:to-[#FF6900] transition-all duration-300 mb-2"
-                              onClick={handleMobileDropdownItemClick}
-                            >
-                              {item.title}
-                            </a>
-                            
-                            <p className="font-poppins text-xs font-normal text-[#999999] mb-4 leading-relaxed">
-                              {item.shortText}
-                            </p>
-                            
-                            <ul className="space-y-2 mb-4">
-                              {item.subItems.map((subItem, subIndex) => (
-                                <li key={subIndex}>
-                                  <a 
-                                    href={subItem.anchor} 
-                                    className="block font-poppins text-sm font-medium text-white hover:text-[#FFE0CA] transition-colors duration-200"
-                                    onClick={handleMobileDropdownItemClick}
-                                  >
-                                    {subItem.title}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                            
-                            <p className="font-poppins text-xs font-normal text-[#999999] leading-relaxed">
-                              {item.bottomText}
-                            </p>
-                          </div>
-                          {index < expertiseData.length - 1 && (
-                            <div className="md:w-px md:bg-gray-700/50 h-px md:h-auto bg-gray-700/50 mx-6 md:mx-0"></div>
-                          )}
-                        </React.Fragment>
-                      ))}
-                    </div>
+                  <div className="mt-4">
+                    <NavDropdown 
+                      isOpen={isDropdownOpen} 
+                      onClose={closeDropdown} 
+                      isMobile={true}
+                      onItemClick={handleMobileDropdownItemClick}
+                    />
                   </div>
                 )}
               </div>

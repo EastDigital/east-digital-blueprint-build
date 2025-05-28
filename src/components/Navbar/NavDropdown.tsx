@@ -5,9 +5,11 @@ import NavDropdownItem from './NavDropdownItem';
 interface NavDropdownProps {
   isOpen: boolean;
   onClose: () => void;
+  isMobile?: boolean;
+  onItemClick?: () => void;
 }
 
-export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
+export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: NavDropdownProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   if (!isOpen) return null;
@@ -47,6 +49,34 @@ export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
       bottomText: "Ideal for: Companies building strong brands & digital platforms."
     }
   ];
+
+  if (isMobile) {
+    return (
+      <div 
+        ref={dropdownRef}
+        className="bg-[#1A1A1A]/80 backdrop-blur-md rounded-[15px] border border-gray-800/30 shadow-2xl overflow-hidden animate-fade-in"
+      >
+        <div className="flex flex-col md:flex-row">
+          {expertiseData.map((item, index) => (
+            <React.Fragment key={index}>
+              <NavDropdownItem
+                title={item.title}
+                link={item.link}
+                shortText={item.shortText}
+                subItems={item.subItems}
+                bottomText={item.bottomText}
+                isMobile={true}
+                onItemClick={onItemClick}
+              />
+              {index < expertiseData.length - 1 && (
+                <div className="md:w-px md:bg-gray-700/50 h-px md:h-auto bg-gray-700/50 mx-6 md:mx-0"></div>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div 
