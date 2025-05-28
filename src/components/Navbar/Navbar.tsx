@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
 import { Button } from '@/components/ui/button';
@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const [showButtonEffect, setShowButtonEffect] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -23,49 +21,8 @@ export const Navbar = () => {
     setIsDropdownOpen(false);
   };
 
-  const handleExpertiseMouseEnter = () => {
-    setIsDropdownOpen(true);
-  };
-
-  const handleExpertiseMouseLeave = () => {
-    setIsDropdownOpen(false);
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      if (scrollPosition > 10) {
-        setHasScrolled(true);
-      } else {
-        setHasScrolled(false);
-        setShowButtonEffect(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    let timerId: number;
-    if (hasScrolled) {
-      timerId = window.setTimeout(() => {
-        setShowButtonEffect(true);
-      }, 1000);
-    } else {
-      setShowButtonEffect(false);
-    }
-
-    return () => {
-      if (timerId) window.clearTimeout(timerId);
-    };
-  }, [hasScrolled]);
-
   return (
-    <header className={`w-full sticky top-0 z-50 transition-all duration-300 ${hasScrolled ? 'bg-eastdigital-dark bg-opacity-95 backdrop-blur-md shadow-md' : 'bg-eastdigital-dark'} font-poppins`}>
+    <header className="w-full bg-eastdigital-dark font-poppins">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-5">
           {/* Logo */}
@@ -82,11 +39,7 @@ export const Navbar = () => {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center">
             <ul className="flex space-x-10">
-              <li 
-                className="relative"
-                onMouseEnter={handleExpertiseMouseEnter}
-                onMouseLeave={handleExpertiseMouseLeave}
-              >
+              <li className="relative">
                 <button 
                   className={`flex items-center text-base font-medium tracking-wider transition-colors duration-200 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
                   onClick={toggleDropdown}
@@ -111,7 +64,7 @@ export const Navbar = () => {
           {/* CTA Button */}
           <div className="hidden lg:block">
             <Button 
-              className={`${showButtonEffect ? 'bg-eastdigital-orange' : 'bg-eastdigital-gray'} text-white border border-eastdigital-orange hover:bg-eastdigital-orange transition-colors duration-200 rounded-[60px] py-3 px-6 text-base font-semibold`}
+              className="bg-eastdigital-gray text-white border border-eastdigital-orange hover:bg-eastdigital-orange transition-colors duration-200 rounded-[60px] py-3 px-6 text-base font-semibold"
             >
               Get Your Blueprint
             </Button>
@@ -192,7 +145,7 @@ export const Navbar = () => {
               
               <div className="pt-2">
                 <Button 
-                  className={`w-full ${showButtonEffect ? 'bg-eastdigital-orange' : 'bg-eastdigital-gray'} text-white border border-eastdigital-orange hover:bg-eastdigital-orange transition-colors duration-200 rounded-[60px] py-3 px-6 text-base font-semibold`}
+                  className="w-full bg-eastdigital-gray text-white border border-eastdigital-orange hover:bg-eastdigital-orange transition-colors duration-200 rounded-[60px] py-3 px-6 text-base font-semibold"
                 >
                   Get Your Blueprint
                 </Button>
