@@ -7,16 +7,47 @@ import { Button } from '@/components/ui/button';
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showCtaAnimation, setShowCtaAnimation] = useState(false);
   const dropdownContainerRef = useRef<HTMLDivElement>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Handle scroll effects
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 0);
+
+      // Clear existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      // Set timeout for CTA animation
+      scrollTimeoutRef.current = setTimeout(() => {
+        setShowCtaAnimation(scrollTop > 0);
+      }, 2000);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     if (isDropdownOpen) setIsDropdownOpen(false);
   };
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
 
@@ -40,12 +71,11 @@ export const Navbar = () => {
     }, 150);
   };
 
-  // Handle clicks outside the dropdown - separate handlers for desktop and mobile
+  // Handle clicks outside the dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       // For desktop dropdown
       if (dropdownContainerRef.current && !dropdownContainerRef.current.contains(event.target as Node)) {
-        // Only close if we're on desktop and the click is outside the entire dropdown area
         if (window.innerWidth >= 1024) {
           const desktopDropdown = document.querySelector('.desktop-dropdown');
           if (desktopDropdown && !desktopDropdown.contains(event.target as Node)) {
@@ -64,7 +94,7 @@ export const Navbar = () => {
 
     if (isDropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('touchstart', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside, { passive: true });
     }
     
     return () => {
@@ -112,8 +142,17 @@ export const Navbar = () => {
     }
   ];
 
+  const handleMobileDropdownItemClick = () => {
+    setIsDropdownOpen(false);
+    setIsMenuOpen(false);
+  };
+
   return (
-    <header className="w-full bg-eastdigital-dark font-poppins relative">
+    <header className={`w-full font-poppins relative transition-all duration-300 lg:sticky lg:top-0 lg:z-50 ${
+      isScrolled 
+        ? 'bg-eastdigital-dark/90 backdrop-blur-md border-b border-gray-800/30' 
+        : 'bg-eastdigital-dark'
+    }`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-5">
           {/* Logo */}
@@ -127,7 +166,7 @@ export const Navbar = () => {
             </a>
           </div>
 
-          {/* Desktop Nav - improved alignment */}
+          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center">
             <ul className="flex items-center space-x-8">
               <li>
@@ -169,7 +208,11 @@ export const Navbar = () => {
           {/* CTA Button */}
           <div className="hidden lg:block">
             <Button 
-              className="bg-eastdigital-gray text-white border border-eastdigital-orange hover:bg-eastdigital-orange transition-colors duration-200 rounded-[60px] py-3 px-6 text-base font-semibold"
+              className={`transition-all duration-500 ease-in-out border border-eastdigital-orange hover:bg-eastdigital-orange rounded-[60px] py-3 px-6 text-base font-semibold text-white ${
+                showCtaAnimation 
+                  ? 'bg-eastdigital-orange shadow-lg shadow-eastdigital-orange/30' 
+                  : 'bg-eastdigital-gray'
+              }`}
             >
               Get Your Blueprint
             </Button>
@@ -190,7 +233,7 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu - improved spacing and positioning */}
+        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="lg:hidden py-4 pb-6 border-t border-gray-800 animate-fade-in">
             <nav className="flex flex-col space-y-6 ml-2.5">
@@ -198,8 +241,9 @@ export const Navbar = () => {
               
               <div>
                 <button 
-                  className="flex justify-between items-center text-base font-medium tracking-wider text-white w-full"
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex justify-between items-center text-base font-medium tracking-wider text-white w-full touch-manipulation"
+                  onClick={toggleDropdown}
+                  onTouchEnd={(e) => e.preventDefault()}
                 >
                   <span>Expertise</span>
                   <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
@@ -210,7 +254,6 @@ export const Navbar = () => {
                     ref={mobileDropdownRef}
                     className="bg-[#1A1A1A]/80 backdrop-blur-md rounded-[15px] border border-gray-800/30 shadow-2xl overflow-hidden mt-4 animate-fade-in"
                   >
-                    {/* Mobile glassmorphism dropdown with same structure as desktop */}
                     <div className="flex flex-col md:flex-row">
                       {expertiseData.map((item, index) => (
                         <React.Fragment key={index}>
@@ -218,11 +261,7 @@ export const Navbar = () => {
                             <a 
                               href={item.link} 
                               className="block font-poppins text-sm md:text-base font-semibold bg-gradient-to-b from-[#FF6900] to-[#FBA971] bg-clip-text text-transparent hover:from-[#FF6900] hover:to-[#FF6900] transition-all duration-300 mb-2"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setIsDropdownOpen(false);
-                                setIsMenuOpen(false);
-                              }}
+                              onClick={handleMobileDropdownItemClick}
                             >
                               {item.title}
                             </a>
@@ -237,11 +276,7 @@ export const Navbar = () => {
                                   <a 
                                     href={subItem.anchor} 
                                     className="block font-poppins text-sm font-medium text-white hover:text-[#FFE0CA] transition-colors duration-200"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      setIsDropdownOpen(false);
-                                      setIsMenuOpen(false);
-                                    }}
+                                    onClick={handleMobileDropdownItemClick}
                                   >
                                     {subItem.title}
                                   </a>
