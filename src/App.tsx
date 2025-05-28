@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import Impact from "./pages/Impact";
 import Approach from "./pages/Approach";
 import Connect from "./pages/Connect";
+import ThreeDRenderingVisualization from "./pages/3DRenderingVisualization";
+import RealEstateDigitalCampaigns from "./pages/RealEstateDigitalCampaigns";
+import CorporateSolutions from "./pages/CorporateSolutions";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +26,9 @@ const App = () => (
           <Route path="/impact" element={<Impact />} />
           <Route path="/approach" element={<Approach />} />
           <Route path="/connect" element={<Connect />} />
+          <Route path="/3d-rendering-visualization" element={<ThreeDRenderingVisualization />} />
+          <Route path="/real-estate-digital-campaigns" element={<RealEstateDigitalCampaigns />} />
+          <Route path="/corporate-solutions" element={<CorporateSolutions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
