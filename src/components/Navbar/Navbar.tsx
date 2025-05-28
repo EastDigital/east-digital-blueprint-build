@@ -23,6 +23,14 @@ export const Navbar = () => {
     setIsDropdownOpen(false);
   };
 
+  const handleExpertiseMouseEnter = () => {
+    setIsDropdownOpen(true);
+  };
+
+  const handleExpertiseMouseLeave = () => {
+    setIsDropdownOpen(false);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -74,7 +82,11 @@ export const Navbar = () => {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center">
             <ul className="flex space-x-10">
-              <li className="relative">
+              <li 
+                className="relative"
+                onMouseEnter={handleExpertiseMouseEnter}
+                onMouseLeave={handleExpertiseMouseLeave}
+              >
                 <button 
                   className={`flex items-center text-base font-medium tracking-wider transition-colors duration-200 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
                   onClick={toggleDropdown}

@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { cn } from '@/lib/utils';
 
 interface SubItem {
   title: string;
@@ -23,21 +22,46 @@ export const NavDropdownItem = ({
   bottomText 
 }: NavDropdownItemProps) => {
   return (
-    <div className="px-6 py-5">
+    <div className="flex-1 p-[10%]">
       <a 
         href={link} 
-        className="block font-semibold text-base tracking-wide bg-gradient-to-r from-eastdigital-orange to-white bg-clip-text text-transparent hover:from-eastdigital-hover hover:to-white transition-all duration-300"
+        className="block font-semibold text-base tracking-wide transition-all duration-300"
+        style={{
+          fontFamily: 'Poppins',
+          fontSize: '16px',
+          fontWeight: '600',
+          background: 'linear-gradient(to bottom, #FF6900, #FBA971)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text'
+        }}
       >
         {title}
       </a>
-      <p className="text-xs text-eastdigital-lightgray mt-1 mb-3">{shortText}</p>
+      <p 
+        className="mt-1 mb-3"
+        style={{
+          fontFamily: 'Poppins',
+          fontSize: '12px',
+          fontWeight: '400',
+          color: '#999999'
+        }}
+      >
+        {shortText}
+      </p>
       
       <ul className="space-y-2">
         {subItems.map((item, index) => (
           <li key={index}>
             <a 
               href={item.anchor} 
-              className="block text-white text-base font-medium hover:text-eastdigital-hover transition-colors duration-200"
+              className="block transition-colors duration-200 hover:text-[#FFE0CA]"
+              style={{
+                fontFamily: 'Poppins',
+                fontSize: '16px',
+                fontWeight: '500',
+                color: '#FFFFFF'
+              }}
             >
               {item.title}
             </a>
@@ -45,7 +69,17 @@ export const NavDropdownItem = ({
         ))}
       </ul>
       
-      <p className="text-xs text-eastdigital-lightgray mt-4">{bottomText}</p>
+      <p 
+        className="mt-4"
+        style={{
+          fontFamily: 'Poppins',
+          fontSize: '12px',
+          fontWeight: '400',
+          color: '#999999'
+        }}
+      >
+        {bottomText}
+      </p>
     </div>
   );
 };
