@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
@@ -57,6 +58,42 @@ export const Navbar = () => {
       }
     };
   }, [isDropdownOpen]);
+
+  const expertiseData = [
+    {
+      title: "3D RENDERING & VISUALIZATION",
+      link: "/3d-rendering-visualization",
+      shortText: "Bring Your Architectural Visions to Life with Photo-Realistic Precision.",
+      subItems: [
+        { title: "Architectural 3D Rendering", anchor: "#architectural-3d-rendering" },
+        { title: "Architectural Walkthrough Videos", anchor: "#architectural-walkthrough-videos" },
+        { title: "VR-Ready Property Tours", anchor: "#vr-ready-property-tours" }
+      ],
+      bottomText: "Ideal for: Developers, Architects, & Engineers to visualize and present projects."
+    },
+    {
+      title: "REAL ESTATE DIGITAL CAMPAIGNS",
+      link: "/real-estate-digital-campaigns",
+      shortText: "Drive Leads & Sales with Strategic Digital Campaigns.",
+      subItems: [
+        { title: "Targeted Facebook & Google Ads", anchor: "#targeted-ads" },
+        { title: "Drone Videography", anchor: "#drone-videography" },
+        { title: "Broker & Investor Outreach", anchor: "#broker-investor-outreach" }
+      ],
+      bottomText: "Ideal for: Developers & Brokers to generate leads and drive property sales."
+    },
+    {
+      title: "CORPORATE SOLUTIONS",
+      link: "/corporate-solutions",
+      shortText: "Elevate Your Brand and Connect with Your Audience.",
+      subItems: [
+        { title: "Brand Identity Design", anchor: "#brand-identity-design" },
+        { title: "UI/UX Design", anchor: "#ui-ux-design" },
+        { title: "Web & Apps", anchor: "#web-apps" }
+      ],
+      bottomText: "Ideal for: Companies building strong brands & digital platforms."
+    }
+  ];
 
   return (
     <header className="w-full bg-eastdigital-dark font-poppins relative">
@@ -146,43 +183,45 @@ export const Navbar = () => {
               </button>
               
               {isDropdownOpen && (
-                <div className="bg-gray-900 rounded-md p-4 ml-4">
-                  <div className="space-y-6">
-                    <div>
-                      <a href="/3d-rendering-visualization" className="block text-eastdigital-orange font-semibold text-sm mb-1">
-                        3D RENDERING & VISUALIZATION
-                      </a>
-                      <p className="text-xs text-eastdigital-lightgray mb-2">Bring Your Architectural Visions to Life</p>
-                      <ul className="space-y-2 ml-2">
-                        <li><a href="#architectural-3d-rendering" className="text-sm text-white hover:text-eastdigital-hover">Architectural 3D Rendering</a></li>
-                        <li><a href="#architectural-walkthrough-videos" className="text-sm text-white hover:text-eastdigital-hover">Architectural Walkthrough Videos</a></li>
-                        <li><a href="#vr-ready-property-tours" className="text-sm text-white hover:text-eastdigital-hover">VR-Ready Property Tours</a></li>
-                      </ul>
-                    </div>
-                    
-                    <div>
-                      <a href="/real-estate-digital-campaigns" className="block text-eastdigital-orange font-semibold text-sm mb-1">
-                        REAL ESTATE DIGITAL CAMPAIGNS
-                      </a>
-                      <p className="text-xs text-eastdigital-lightgray mb-2">Drive Leads & Sales with Strategic Campaigns</p>
-                      <ul className="space-y-2 ml-2">
-                        <li><a href="#targeted-ads" className="text-sm text-white hover:text-eastdigital-hover">Targeted Facebook & Google Ads</a></li>
-                        <li><a href="#drone-videography" className="text-sm text-white hover:text-eastdigital-hover">Drone Videography</a></li>
-                        <li><a href="#broker-investor-outreach" className="text-sm text-white hover:text-eastdigital-hover">Broker & Investor Outreach</a></li>
-                      </ul>
-                    </div>
-                    
-                    <div>
-                      <a href="/corporate-solutions" className="block text-eastdigital-orange font-semibold text-sm mb-1">
-                        CORPORATE SOLUTIONS
-                      </a>
-                      <p className="text-xs text-eastdigital-lightgray mb-2">Elevate Your Brand and Connect</p>
-                      <ul className="space-y-2 ml-2">
-                        <li><a href="#brand-identity-design" className="text-sm text-white hover:text-eastdigital-hover">Brand Identity Design</a></li>
-                        <li><a href="#ui-ux-design" className="text-sm text-white hover:text-eastdigital-hover">UI/UX Design</a></li>
-                        <li><a href="#web-apps" className="text-sm text-white hover:text-eastdigital-hover">Web & Apps</a></li>
-                      </ul>
-                    </div>
+                <div className="bg-[#1A1A1A]/80 backdrop-blur-md rounded-[15px] border border-gray-800/30 shadow-2xl overflow-hidden mx-2 animate-fade-in">
+                  {/* Mobile glassmorphism dropdown with same structure as desktop */}
+                  <div className="flex flex-col md:flex-row">
+                    {expertiseData.map((item, index) => (
+                      <React.Fragment key={index}>
+                        <div className="flex-1 px-6 py-6">
+                          <a 
+                            href={item.link} 
+                            className="block font-poppins text-sm md:text-base font-semibold bg-gradient-to-b from-[#FF6900] to-[#FBA971] bg-clip-text text-transparent hover:from-[#FF6900] hover:to-[#FF6900] transition-all duration-300 mb-2"
+                          >
+                            {item.title}
+                          </a>
+                          
+                          <p className="font-poppins text-xs font-normal text-[#999999] mb-4 leading-relaxed">
+                            {item.shortText}
+                          </p>
+                          
+                          <ul className="space-y-2 mb-4">
+                            {item.subItems.map((subItem, subIndex) => (
+                              <li key={subIndex}>
+                                <a 
+                                  href={subItem.anchor} 
+                                  className="block font-poppins text-sm font-medium text-white hover:text-[#FFE0CA] transition-colors duration-200"
+                                >
+                                  {subItem.title}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                          
+                          <p className="font-poppins text-xs font-normal text-[#999999] leading-relaxed">
+                            {item.bottomText}
+                          </p>
+                        </div>
+                        {index < expertiseData.length - 1 && (
+                          <div className="md:w-px md:bg-gray-700/50 h-px md:h-auto bg-gray-700/50 mx-6 md:mx-0"></div>
+                        )}
+                      </React.Fragment>
+                    ))}
                   </div>
                 </div>
               )}
