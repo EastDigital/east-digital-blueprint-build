@@ -39,9 +39,9 @@ export const Navbar = () => {
     }, 150);
   };
 
-  // Handle clicks outside the dropdown
+  // Handle clicks outside the dropdown and touch events for mobile
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (dropdownContainerRef.current && !dropdownContainerRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
       }
@@ -49,10 +49,12 @@ export const Navbar = () => {
 
     if (isDropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
     }
     
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
       }
@@ -113,6 +115,9 @@ export const Navbar = () => {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center">
             <ul className="flex space-x-10">
+              <li>
+                <a href="/" className="text-base font-medium tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Home</a>
+              </li>
               <li className="relative">
                 <div 
                   ref={dropdownContainerRef}
@@ -174,6 +179,8 @@ export const Navbar = () => {
         {isMenuOpen && (
           <div className="lg:hidden py-4 pb-6 border-t border-gray-800 animate-fade-in">
             <nav className="flex flex-col space-y-4">
+              <a href="/" className="text-base font-medium tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Home</a>
+              
               <button 
                 className="flex justify-between items-center text-base font-medium tracking-wider text-white"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -192,6 +199,7 @@ export const Navbar = () => {
                           <a 
                             href={item.link} 
                             className="block font-poppins text-sm md:text-base font-semibold bg-gradient-to-b from-[#FF6900] to-[#FBA971] bg-clip-text text-transparent hover:from-[#FF6900] hover:to-[#FF6900] transition-all duration-300 mb-2"
+                            onClick={() => setIsDropdownOpen(false)}
                           >
                             {item.title}
                           </a>
@@ -206,6 +214,7 @@ export const Navbar = () => {
                                 <a 
                                   href={subItem.anchor} 
                                   className="block font-poppins text-sm font-medium text-white hover:text-[#FFE0CA] transition-colors duration-200"
+                                  onClick={() => setIsDropdownOpen(false)}
                                 >
                                   {subItem.title}
                                 </a>
@@ -242,11 +251,11 @@ export const Navbar = () => {
         )}
       </div>
 
-      {/* Dropdown positioned with seamless hover connection */}
+      {/* Desktop Dropdown positioned with seamless hover connection */}
       <div
         onMouseEnter={handleExpertiseEnter}
         onMouseLeave={handleExpertiseLeave}
-        className={`absolute top-full left-0 right-0 z-50 ${isDropdownOpen ? 'block' : 'hidden'}`}
+        className={`hidden lg:block absolute top-full left-0 right-0 z-50 ${isDropdownOpen ? 'block' : 'hidden'}`}
       >
         <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} />
       </div>
