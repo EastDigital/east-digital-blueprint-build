@@ -63,10 +63,10 @@ export const ProjectCarousel = () => {
   };
 
   return (
-    <div className="w-full px-2 sm:px-0">
+    <div className="w-full px-1 sm:px-2">
       <div 
         ref={carouselRef}
-        className="flex gap-4 sm:gap-6 overflow-hidden"
+        className="flex gap-3 sm:gap-4 md:gap-6 overflow-hidden"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{ scrollBehavior: 'auto' }}
