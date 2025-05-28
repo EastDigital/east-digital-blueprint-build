@@ -8,7 +8,7 @@ interface ProjectCardProps {
 
 export const ProjectCard = ({ name, image }: ProjectCardProps) => {
   return (
-    <div className="flex-shrink-0 w-72 h-64 bg-gradient-to-br from-eastdigital-gray/80 to-eastdigital-dark/90 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer group relative">
+    <div className="flex-shrink-0 w-60 h-48 sm:w-72 sm:h-64 bg-gradient-to-br from-eastdigital-gray/80 to-eastdigital-dark/90 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer group relative">
       {/* Background Image */}
       <img 
         src={image} 
@@ -20,8 +20,8 @@ export const ProjectCard = ({ name, image }: ProjectCardProps) => {
       <div className="absolute top-0 left-0 right-0 h-[30%] bg-gradient-to-b from-black to-transparent z-10"></div>
       
       {/* Project Name - positioned on top left over the overlay */}
-      <div className="absolute top-4 left-4 z-20">
-        <h3 className="text-white font-poppins font-semibold text-lg group-hover:text-eastdigital-hover transition-colors duration-300">
+      <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20">
+        <h3 className="text-white font-poppins font-semibold text-base sm:text-lg group-hover:text-eastdigital-hover transition-colors duration-300">
           {name}
         </h3>
       </div>

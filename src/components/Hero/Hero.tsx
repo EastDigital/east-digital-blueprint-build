@@ -6,19 +6,19 @@ import { InteractiveBackground } from './InteractiveBackground';
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen bg-eastdigital-dark overflow-hidden">
+    <section className="relative min-h-screen bg-eastdigital-dark overflow-hidden flex flex-col">
       {/* Interactive Background Animation */}
       <InteractiveBackground />
       
       {/* Hero Content */}
-      <div className="relative z-10 container mx-auto px-4 flex flex-col min-h-screen">
-        {/* Top Row - Content */}
-        <div className="flex-1 flex items-center justify-center">
+      <div className="relative z-10 container mx-auto px-2 sm:px-4 flex flex-col min-h-screen">
+        {/* Top Row - Content with optimized spacing */}
+        <div className="flex-1 flex items-center justify-center py-8 md:py-16">
           <HeroContent />
         </div>
         
-        {/* Bottom Row - Carousel */}
-        <div className="pb-12">
+        {/* Bottom Row - Carousel with reduced bottom padding on mobile */}
+        <div className="pb-6 md:pb-12">
           <ProjectCarousel />
         </div>
       </div>
