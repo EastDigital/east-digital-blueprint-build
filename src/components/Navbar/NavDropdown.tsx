@@ -71,10 +71,10 @@ export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
       className="fixed top-[89px] left-0 right-0 z-50 animate-fade-in"
     >
       {/* Edge-to-edge glassmorphism background */}
-      <div className="w-full bg-[#1A1A1A] backdrop-blur-xl border-t border-gray-700/30">
+      <div className="w-full bg-[#0E0E0E] bg-opacity-90 backdrop-blur-md">
         {/* Content container with full width */}
         <div className="w-full">
-          <div className="bg-[#1A1A1A]/95 backdrop-blur-xl mx-[10%] border-l border-r border-b border-gray-700/30 shadow-2xl overflow-hidden rounded-b-[15px]">
+          <div className="bg-[#0E0E0E]/90 backdrop-blur-md rounded-[15px] mx-[10%] border border-gray-800/30 shadow-2xl overflow-hidden">
             <div className="flex">
               {expertiseData.map((item, index) => (
                 <React.Fragment key={index}>
@@ -86,7 +86,7 @@ export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
                     bottomText={item.bottomText}
                   />
                   {index < expertiseData.length - 1 && (
-                    <div className="w-px bg-gray-600/50"></div>
+                    <div className="w-px bg-gray-700/50"></div>
                   )}
                 </React.Fragment>
               ))}
