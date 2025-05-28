@@ -1,7 +1,7 @@
-
 import React, { useState, useRef, useEffect } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
+import { AnimatedHamburger } from './AnimatedHamburger';
 import { Button } from '@/components/ui/button';
 
 export const Navbar = () => {
@@ -182,18 +182,12 @@ export const Navbar = () => {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Now using AnimatedHamburger */}
           <div className="lg:hidden">
-            <button 
-              className="p-2 text-white"
+            <AnimatedHamburger 
+              isOpen={isMenuOpen}
               onClick={toggleMenu}
-            >
-              {isMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
+            />
           </div>
         </div>
 
