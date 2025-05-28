@@ -8,7 +8,7 @@ interface ProjectCardProps {
 
 export const ProjectCard = ({ name, image }: ProjectCardProps) => {
   return (
-    <div className="flex-shrink-0 w-72 h-48 bg-gradient-to-br from-eastdigital-gray/80 to-eastdigital-dark/90 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer group relative">
+    <div className="flex-shrink-0 w-72 h-64 bg-gradient-to-br from-eastdigital-gray/80 to-eastdigital-dark/90 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer group relative">
       {/* Background Image */}
       <img 
         src={image} 
