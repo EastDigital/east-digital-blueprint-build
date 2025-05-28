@@ -8,6 +8,7 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownContainerRef = useRef<HTMLDivElement>(null);
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const toggleMenu = () => {
@@ -39,11 +40,25 @@ export const Navbar = () => {
     }, 150);
   };
 
-  // Handle clicks outside the dropdown and touch events for mobile
+  // Handle clicks outside the dropdown - separate handlers for desktop and mobile
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      // For desktop dropdown
       if (dropdownContainerRef.current && !dropdownContainerRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
+        // Only close if we're on desktop and the click is outside the entire dropdown area
+        if (window.innerWidth >= 1024) {
+          const desktopDropdown = document.querySelector('.desktop-dropdown');
+          if (desktopDropdown && !desktopDropdown.contains(event.target as Node)) {
+            setIsDropdownOpen(false);
+          }
+        }
+      }
+      
+      // For mobile dropdown - only close on clicks outside the mobile dropdown container
+      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
+        if (window.innerWidth < 1024) {
+          setIsDropdownOpen(false);
+        }
       }
     };
 
@@ -112,9 +127,9 @@ export const Navbar = () => {
             </a>
           </div>
 
-          {/* Desktop Nav */}
+          {/* Desktop Nav - improved alignment */}
           <nav className="hidden lg:flex items-center">
-            <ul className="flex space-x-10">
+            <ul className="flex items-center space-x-8">
               <li>
                 <a href="/" className="text-base font-medium tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Home</a>
               </li>
@@ -175,65 +190,78 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - improved spacing and positioning */}
         {isMenuOpen && (
           <div className="lg:hidden py-4 pb-6 border-t border-gray-800 animate-fade-in">
-            <nav className="flex flex-col space-y-4">
+            <nav className="flex flex-col space-y-6 ml-2.5">
               <a href="/" className="text-base font-medium tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Home</a>
               
-              <button 
-                className="flex justify-between items-center text-base font-medium tracking-wider text-white"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              >
-                <span>Expertise</span>
-                <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              
-              {isDropdownOpen && (
-                <div className="bg-[#1A1A1A]/80 backdrop-blur-md rounded-[15px] border border-gray-800/30 shadow-2xl overflow-hidden mx-2 animate-fade-in">
-                  {/* Mobile glassmorphism dropdown with same structure as desktop */}
-                  <div className="flex flex-col md:flex-row">
-                    {expertiseData.map((item, index) => (
-                      <React.Fragment key={index}>
-                        <div className="flex-1 px-6 py-6">
-                          <a 
-                            href={item.link} 
-                            className="block font-poppins text-sm md:text-base font-semibold bg-gradient-to-b from-[#FF6900] to-[#FBA971] bg-clip-text text-transparent hover:from-[#FF6900] hover:to-[#FF6900] transition-all duration-300 mb-2"
-                            onClick={() => setIsDropdownOpen(false)}
-                          >
-                            {item.title}
-                          </a>
-                          
-                          <p className="font-poppins text-xs font-normal text-[#999999] mb-4 leading-relaxed">
-                            {item.shortText}
-                          </p>
-                          
-                          <ul className="space-y-2 mb-4">
-                            {item.subItems.map((subItem, subIndex) => (
-                              <li key={subIndex}>
-                                <a 
-                                  href={subItem.anchor} 
-                                  className="block font-poppins text-sm font-medium text-white hover:text-[#FFE0CA] transition-colors duration-200"
-                                  onClick={() => setIsDropdownOpen(false)}
-                                >
-                                  {subItem.title}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                          
-                          <p className="font-poppins text-xs font-normal text-[#999999] leading-relaxed">
-                            {item.bottomText}
-                          </p>
-                        </div>
-                        {index < expertiseData.length - 1 && (
-                          <div className="md:w-px md:bg-gray-700/50 h-px md:h-auto bg-gray-700/50 mx-6 md:mx-0"></div>
-                        )}
-                      </React.Fragment>
-                    ))}
+              <div>
+                <button 
+                  className="flex justify-between items-center text-base font-medium tracking-wider text-white w-full"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  <span>Expertise</span>
+                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {isDropdownOpen && (
+                  <div 
+                    ref={mobileDropdownRef}
+                    className="bg-[#1A1A1A]/80 backdrop-blur-md rounded-[15px] border border-gray-800/30 shadow-2xl overflow-hidden mt-4 animate-fade-in"
+                  >
+                    {/* Mobile glassmorphism dropdown with same structure as desktop */}
+                    <div className="flex flex-col md:flex-row">
+                      {expertiseData.map((item, index) => (
+                        <React.Fragment key={index}>
+                          <div className="flex-1 px-6 py-6">
+                            <a 
+                              href={item.link} 
+                              className="block font-poppins text-sm md:text-base font-semibold bg-gradient-to-b from-[#FF6900] to-[#FBA971] bg-clip-text text-transparent hover:from-[#FF6900] hover:to-[#FF6900] transition-all duration-300 mb-2"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setIsDropdownOpen(false);
+                                setIsMenuOpen(false);
+                              }}
+                            >
+                              {item.title}
+                            </a>
+                            
+                            <p className="font-poppins text-xs font-normal text-[#999999] mb-4 leading-relaxed">
+                              {item.shortText}
+                            </p>
+                            
+                            <ul className="space-y-2 mb-4">
+                              {item.subItems.map((subItem, subIndex) => (
+                                <li key={subIndex}>
+                                  <a 
+                                    href={subItem.anchor} 
+                                    className="block font-poppins text-sm font-medium text-white hover:text-[#FFE0CA] transition-colors duration-200"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setIsDropdownOpen(false);
+                                      setIsMenuOpen(false);
+                                    }}
+                                  >
+                                    {subItem.title}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                            
+                            <p className="font-poppins text-xs font-normal text-[#999999] leading-relaxed">
+                              {item.bottomText}
+                            </p>
+                          </div>
+                          {index < expertiseData.length - 1 && (
+                            <div className="md:w-px md:bg-gray-700/50 h-px md:h-auto bg-gray-700/50 mx-6 md:mx-0"></div>
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
               <a href="/impact" className="text-base font-medium tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Impact</a>
               <a href="/approach" className="text-base font-medium tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Approach</a>
@@ -255,7 +283,7 @@ export const Navbar = () => {
       <div
         onMouseEnter={handleExpertiseEnter}
         onMouseLeave={handleExpertiseLeave}
-        className={`hidden lg:block absolute top-full left-0 right-0 z-50 ${isDropdownOpen ? 'block' : 'hidden'}`}
+        className={`desktop-dropdown hidden lg:block absolute top-full left-0 right-0 z-50 ${isDropdownOpen ? 'block' : 'hidden'}`}
       >
         <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} />
       </div>
