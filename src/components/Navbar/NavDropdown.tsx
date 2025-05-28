@@ -68,24 +68,30 @@ export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
   return (
     <div 
       ref={dropdownRef}
-      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-auto min-w-[800px] z-50 animate-fade-in"
+      className="fixed top-[89px] left-0 right-0 z-50 animate-fade-in"
     >
-      <div className="rounded-[15px] bg-eastdigital-dark bg-opacity-90 backdrop-blur-md p-4 shadow-lg border border-gray-800">
-        <div className="flex">
-          {expertiseData.map((item, index) => (
-            <React.Fragment key={index}>
-              <NavDropdownItem
-                title={item.title}
-                link={item.link}
-                shortText={item.shortText}
-                subItems={item.subItems}
-                bottomText={item.bottomText}
-              />
-              {index < expertiseData.length - 1 && (
-                <div className="w-px bg-gray-800"></div>
-              )}
-            </React.Fragment>
-          ))}
+      {/* Edge-to-edge background with glassmorphism */}
+      <div className="w-full bg-eastdigital-dark bg-opacity-90 backdrop-blur-md border border-gray-800/30">
+        {/* Content container with 10% margins */}
+        <div className="mx-[10%] py-8">
+          <div className="bg-eastdigital-dark/90 backdrop-blur-md rounded-[15px] border border-gray-800/50 shadow-2xl overflow-hidden">
+            <div className="flex">
+              {expertiseData.map((item, index) => (
+                <React.Fragment key={index}>
+                  <NavDropdownItem
+                    title={item.title}
+                    link={item.link}
+                    shortText={item.shortText}
+                    subItems={item.subItems}
+                    bottomText={item.bottomText}
+                  />
+                  {index < expertiseData.length - 1 && (
+                    <div className="w-px bg-gray-700/50"></div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

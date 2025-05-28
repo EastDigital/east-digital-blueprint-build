@@ -21,8 +21,16 @@ export const Navbar = () => {
     setIsDropdownOpen(false);
   };
 
+  const handleExpertiseHover = () => {
+    setIsDropdownOpen(true);
+  };
+
+  const handleExpertiseLeave = () => {
+    setIsDropdownOpen(false);
+  };
+
   return (
-    <header className="w-full bg-eastdigital-dark font-poppins">
+    <header className="w-full bg-eastdigital-dark font-poppins relative">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-5">
           {/* Logo */}
@@ -39,7 +47,11 @@ export const Navbar = () => {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center">
             <ul className="flex space-x-10">
-              <li className="relative">
+              <li 
+                className="relative"
+                onMouseEnter={handleExpertiseHover}
+                onMouseLeave={handleExpertiseLeave}
+              >
                 <button 
                   className={`flex items-center text-base font-medium tracking-wider transition-colors duration-200 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
                   onClick={toggleDropdown}
@@ -47,7 +59,6 @@ export const Navbar = () => {
                   Expertise
                   <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
-                <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} />
               </li>
               <li>
                 <a href="/impact" className="text-base font-medium tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Impact</a>
@@ -154,6 +165,9 @@ export const Navbar = () => {
           </div>
         )}
       </div>
+
+      {/* Dropdown positioned outside container for edge-to-edge effect */}
+      <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} />
     </header>
   );
 };
