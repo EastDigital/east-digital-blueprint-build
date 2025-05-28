@@ -1,6 +1,5 @@
 
-import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import React, { useRef } from 'react';
 import NavDropdownItem from './NavDropdownItem';
 
 interface NavDropdownProps {
@@ -10,22 +9,6 @@ interface NavDropdownProps {
 
 export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -68,28 +51,29 @@ export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
   return (
     <div 
       ref={dropdownRef}
-      className="fixed top-[89px] left-0 right-0 z-50"
+      className="w-full"
     >
-      {/* Dropdown content that continues the glassmorphism effect */}
-      <div className="w-full">
-        <div className="mx-[10%]">
-          <div className="bg-[#1A1A1A]/80 backdrop-blur-md rounded-b-[15px] border border-gray-800/30 shadow-2xl overflow-hidden">
-            <div className="flex">
-              {expertiseData.map((item, index) => (
-                <React.Fragment key={index}>
-                  <NavDropdownItem
-                    title={item.title}
-                    link={item.link}
-                    shortText={item.shortText}
-                    subItems={item.subItems}
-                    bottomText={item.bottomText}
-                  />
-                  {index < expertiseData.length - 1 && (
-                    <div className="w-px bg-gray-700/50"></div>
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
+      {/* Seamless connection area - no gap */}
+      <div className="h-0"></div>
+      
+      {/* Dropdown content with glassmorphism that continues from button */}
+      <div className="mx-[10%]">
+        <div className="bg-[#1A1A1A]/80 backdrop-blur-md rounded-b-[15px] border border-gray-800/30 shadow-2xl overflow-hidden">
+          <div className="flex">
+            {expertiseData.map((item, index) => (
+              <React.Fragment key={index}>
+                <NavDropdownItem
+                  title={item.title}
+                  link={item.link}
+                  shortText={item.shortText}
+                  subItems={item.subItems}
+                  bottomText={item.bottomText}
+                />
+                {index < expertiseData.length - 1 && (
+                  <div className="w-px bg-gray-700/50"></div>
+                )}
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </div>

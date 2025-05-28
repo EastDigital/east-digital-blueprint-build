@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
 import { Button } from '@/components/ui/button';
@@ -7,6 +6,8 @@ import { Button } from '@/components/ui/button';
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownContainerRef = useRef<HTMLDivElement>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -22,15 +23,40 @@ export const Navbar = () => {
   };
 
   const handleExpertiseEnter = () => {
+    // Clear any existing timeout
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
     setIsDropdownOpen(true);
   };
 
   const handleExpertiseLeave = () => {
-    // Add a small delay to prevent premature closing
-    setTimeout(() => {
+    // Set a timeout to close the dropdown after a delay
+    hoverTimeoutRef.current = setTimeout(() => {
       setIsDropdownOpen(false);
-    }, 100);
+    }, 150);
   };
+
+  // Handle clicks outside the dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownContainerRef.current && !dropdownContainerRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, [isDropdownOpen]);
 
   return (
     <header className="w-full bg-eastdigital-dark font-poppins relative">
@@ -51,31 +77,24 @@ export const Navbar = () => {
           <nav className="hidden lg:flex items-center">
             <ul className="flex space-x-10">
               <li className="relative">
-                <div className="relative">
-                  {/* Extended hover area that includes both button and dropdown */}
-                  <div
-                    onMouseEnter={handleExpertiseEnter}
-                    onMouseLeave={handleExpertiseLeave}
-                    className="relative"
+                <div 
+                  ref={dropdownContainerRef}
+                  className="relative"
+                  onMouseEnter={handleExpertiseEnter}
+                  onMouseLeave={handleExpertiseLeave}
+                >
+                  {/* Glassmorphism background that covers both button and creates seamless connection */}
+                  {isDropdownOpen && (
+                    <div className="absolute -top-5 -left-6 -right-6 h-[calc(100%+25px)] bg-[#1A1A1A]/80 backdrop-blur-md rounded-t-[15px] z-40"></div>
+                  )}
+                  
+                  <button 
+                    className={`relative z-50 flex items-center text-base font-medium tracking-wider transition-colors duration-200 px-2 py-1 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
+                    onClick={toggleDropdown}
                   >
-                    {/* Glassmorphism background for Expertise area only */}
-                    {isDropdownOpen && (
-                      <div className="absolute -top-5 -left-4 -right-4 h-[calc(100%+10px)] bg-[#1A1A1A]/80 backdrop-blur-md rounded-t-[15px] z-40"></div>
-                    )}
-                    
-                    <button 
-                      className={`relative z-50 flex items-center text-base font-medium tracking-wider transition-colors duration-200 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
-                      onClick={toggleDropdown}
-                    >
-                      Expertise
-                      <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                    </button>
-
-                    {/* Extended hover area that bridges to dropdown */}
-                    {isDropdownOpen && (
-                      <div className="absolute top-full left-0 w-full h-5 z-30"></div>
-                    )}
-                  </div>
+                    Expertise
+                    <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
                 </div>
               </li>
               <li>
@@ -184,11 +203,11 @@ export const Navbar = () => {
         )}
       </div>
 
-      {/* Dropdown with extended hover area */}
+      {/* Dropdown positioned with seamless hover connection */}
       <div
         onMouseEnter={handleExpertiseEnter}
         onMouseLeave={handleExpertiseLeave}
-        className={`${isDropdownOpen ? 'block' : 'hidden'}`}
+        className={`absolute top-full left-0 right-0 z-50 ${isDropdownOpen ? 'block' : 'hidden'}`}
       >
         <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} />
       </div>
