@@ -21,7 +21,7 @@ export const Navbar = () => {
     setIsDropdownOpen(false);
   };
 
-  const handleExpertiseHover = () => {
+  const handleExpertiseEnter = () => {
     setIsDropdownOpen(true);
   };
 
@@ -49,7 +49,7 @@ export const Navbar = () => {
             <ul className="flex space-x-10">
               <li 
                 className="relative"
-                onMouseEnter={handleExpertiseHover}
+                onMouseEnter={handleExpertiseEnter}
                 onMouseLeave={handleExpertiseLeave}
               >
                 <button 
@@ -167,7 +167,12 @@ export const Navbar = () => {
       </div>
 
       {/* Dropdown positioned outside container for edge-to-edge effect */}
-      <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} />
+      <div
+        onMouseEnter={handleExpertiseEnter}
+        onMouseLeave={handleExpertiseLeave}
+      >
+        <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} />
+      </div>
     </header>
   );
 };

@@ -70,11 +70,11 @@ export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
       ref={dropdownRef}
       className="fixed top-[89px] left-0 right-0 z-50 animate-fade-in"
     >
-      {/* Edge-to-edge background with glassmorphism */}
-      <div className="w-full bg-eastdigital-dark bg-opacity-90 backdrop-blur-md border border-gray-800/30">
-        {/* Content container with 10% margins */}
-        <div className="mx-[10%] py-8">
-          <div className="bg-eastdigital-dark/90 backdrop-blur-md rounded-[15px] border border-gray-800/50 shadow-2xl overflow-hidden">
+      {/* Edge-to-edge glassmorphism background */}
+      <div className="w-full bg-[#0E0E0E] bg-opacity-90 backdrop-blur-md">
+        {/* Content container with full width */}
+        <div className="w-full">
+          <div className="bg-[#0E0E0E]/90 backdrop-blur-md rounded-[15px] mx-[10%] border border-gray-800/30 shadow-2xl overflow-hidden">
             <div className="flex">
               {expertiseData.map((item, index) => (
                 <React.Fragment key={index}>
