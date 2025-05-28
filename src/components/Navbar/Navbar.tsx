@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
@@ -51,7 +50,6 @@ export const Navbar = () => {
                 <div
                   onMouseEnter={handleExpertiseEnter}
                   onMouseLeave={handleExpertiseLeave}
-                  className="pb-2"
                 >
                   <button 
                     className={`flex items-center text-base font-medium tracking-wider transition-colors duration-200 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}

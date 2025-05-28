@@ -68,11 +68,8 @@ export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
   return (
     <div 
       ref={dropdownRef}
-      className="fixed top-[84px] left-0 right-0 z-50 animate-fade-in"
+      className="fixed top-[89px] left-0 right-0 z-50 animate-fade-in"
     >
-      {/* Bridge area to prevent gap hover issues */}
-      <div className="h-[5px] w-full"></div>
-      
       {/* Edge-to-edge glassmorphism background */}
       <div className="w-full bg-[#0E0E0E] bg-opacity-90 backdrop-blur-md">
         {/* Content container with full width */}

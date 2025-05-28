@@ -26,7 +26,7 @@ export const NavDropdownItem = ({
     <div className="flex-1 px-8 py-6">
       <a 
         href={link} 
-        className="block font-poppins text-base font-semibold bg-gradient-to-b from-[#FF6900] to-[#FBA971] bg-clip-text text-transparent hover:from-[#FF6900] hover:to-[#FF6900] transition-all duration-300 mb-2"
+        className="block font-poppins text-base font-semibold bg-gradient-to-b from-[#FF6900] to-[#FBA971] bg-clip-text text-transparent hover:from-[#FF6900] hover:to-[#FF6900] transition-all duration-300 mb-2 whitespace-nowrap"
       >
         {title}
       </a>
