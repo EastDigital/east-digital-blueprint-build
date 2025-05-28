@@ -68,13 +68,12 @@ export const NavDropdown = ({ isOpen, onClose }: NavDropdownProps) => {
   return (
     <div 
       ref={dropdownRef}
-      className="fixed top-[89px] left-0 right-0 z-50 animate-fade-in"
+      className="fixed top-[89px] left-0 right-0 z-50"
     >
-      {/* Edge-to-edge glassmorphism background */}
-      <div className="w-full bg-[#0E0E0E] bg-opacity-90 backdrop-blur-md">
-        {/* Content container with full width */}
-        <div className="w-full">
-          <div className="bg-[#0E0E0E]/90 backdrop-blur-md rounded-[15px] mx-[10%] border border-gray-800/30 shadow-2xl overflow-hidden">
+      {/* Seamless dropdown content that continues the glassmorphism effect */}
+      <div className="w-full">
+        <div className="mx-[10%]">
+          <div className="bg-[#1A1A1A]/80 backdrop-blur-md rounded-[15px] border border-gray-800/30 shadow-2xl overflow-hidden">
             <div className="flex">
               {expertiseData.map((item, index) => (
                 <React.Fragment key={index}>

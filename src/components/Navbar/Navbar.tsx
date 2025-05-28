@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
@@ -50,9 +51,17 @@ export const Navbar = () => {
                 <div
                   onMouseEnter={handleExpertiseEnter}
                   onMouseLeave={handleExpertiseLeave}
+                  className="relative"
                 >
+                  {/* Seamless glassmorphism background */}
+                  {isDropdownOpen && (
+                    <div className="fixed inset-0 top-0 z-40">
+                      <div className="absolute inset-0 bg-[#1A1A1A]/80 backdrop-blur-md"></div>
+                    </div>
+                  )}
+                  
                   <button 
-                    className={`flex items-center text-base font-medium tracking-wider transition-colors duration-200 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
+                    className={`relative z-50 flex items-center text-base font-medium tracking-wider transition-colors duration-200 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
                     onClick={toggleDropdown}
                   >
                     Expertise
@@ -166,7 +175,7 @@ export const Navbar = () => {
         )}
       </div>
 
-      {/* Dropdown positioned outside container for edge-to-edge effect */}
+      {/* Dropdown positioned outside container */}
       <div
         onMouseEnter={handleExpertiseEnter}
         onMouseLeave={handleExpertiseLeave}
