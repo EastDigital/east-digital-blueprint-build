@@ -5,21 +5,21 @@ import { Button } from '@/components/ui/button';
 export const HeroContent = () => {
   return (
     <div className="text-center max-w-5xl mx-auto px-4">
-      {/* Subheading - Minimal spacing on mobile */}
+      {/* Subheading - Almost no margin on mobile */}
       <p className="text-eastdigital-lightgray text-sm sm:text-base md:text-lg lg:text-xl mb-1 sm:mb-2 md:mb-4 font-poppins tracking-wide">
         Real Estate Developers
       </p>
       
-      {/* Main Heading - Tighter spacing on mobile */}
-      <h1 className="text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-bold mb-2 sm:mb-3 md:mb-5 text-white font-poppins leading-tight">
+      {/* Main Heading - Very tight spacing on mobile */}
+      <h1 className="text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-bold mb-1 sm:mb-3 md:mb-5 text-white font-poppins leading-tight">
         Drive Sales<br />
         <span className="bg-gradient-to-r from-white to-eastdigital-hover bg-clip-text text-transparent">
           Elevate Marketing
         </span>
       </h1>
       
-      {/* Description - Minimal spacing on mobile */}
-      <p className="text-xs sm:text-sm md:text-lg max-w-3xl mx-auto mb-3 sm:mb-4 md:mb-6 font-poppins font-light text-orange-200">
+      {/* Description - Very tight spacing on mobile */}
+      <p className="text-xs sm:text-sm md:text-lg max-w-3xl mx-auto mb-2 sm:mb-4 md:mb-6 font-poppins font-light text-orange-200">
         With over 100 clients using East Digital™ to power their creative sales and marketing.
       </p>
       
