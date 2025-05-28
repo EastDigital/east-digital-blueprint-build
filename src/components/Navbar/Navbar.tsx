@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
@@ -53,11 +52,9 @@ export const Navbar = () => {
                   onMouseLeave={handleExpertiseLeave}
                   className="relative"
                 >
-                  {/* Seamless glassmorphism background */}
+                  {/* Glassmorphism background for Expertise area only */}
                   {isDropdownOpen && (
-                    <div className="fixed inset-0 top-0 z-40">
-                      <div className="absolute inset-0 bg-[#1A1A1A]/80 backdrop-blur-md"></div>
-                    </div>
+                    <div className="absolute -top-5 -left-4 -right-4 h-[calc(100%+10px)] bg-[#1A1A1A]/80 backdrop-blur-md rounded-t-[15px] z-40"></div>
                   )}
                   
                   <button 
