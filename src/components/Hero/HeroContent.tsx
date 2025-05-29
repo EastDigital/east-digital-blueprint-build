@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 export const HeroContent = () => {
   return (
@@ -24,10 +25,12 @@ export const HeroContent = () => {
         to power their creative sales and marketing.
       </p>
       
-      {/* CTA Button - Matching reference styling, removed bottom margin */}
-      <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins w-[150px]">
-        Connect
-      </Button>
+      {/* CTA Button - Now linked to Connect page */}
+      <Link to="/connect">
+        <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins w-[150px]">
+          Connect
+        </Button>
+      </Link>
     </div>
   );
 };
