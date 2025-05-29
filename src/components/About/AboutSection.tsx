@@ -1,52 +1,41 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Target, Lightbulb, Rocket, Users, Zap, Shield } from 'lucide-react';
 import { IndustrySection } from '../Industry/IndustrySection';
-
 export const AboutSection = () => {
-  const approaches = [
-    {
-      icon: Target,
-      title: "Strategic Precision",
-      description: "We don't just create—we strategize. Every project begins with deep market research and competitive analysis to ensure your vision aligns with market opportunities."
-    },
-    {
-      icon: Lightbulb,
-      title: "Innovation-First Mindset",
-      description: "Leveraging cutting-edge technologies and creative solutions, we transform complex challenges into breakthrough digital experiences that set you apart."
-    },
-    {
-      icon: Rocket,
-      title: "Accelerated Delivery",
-      description: "Our streamlined processes and agile methodology ensure rapid deployment without compromising quality, getting you to market faster than traditional approaches."
-    },
-    {
-      icon: Users,
-      title: "Collaborative Partnership",
-      description: "We believe in transparent communication and collaborative decision-making, ensuring you're involved in every critical milestone of your project journey."
-    },
-    {
-      icon: Zap,
-      title: "Performance Optimization",
-      description: "Every solution is built for scale and performance, utilizing modern architectures and best practices to ensure your digital assets perform flawlessly."
-    },
-    {
-      icon: Shield,
-      title: "Future-Proof Solutions",
-      description: "We design with tomorrow in mind, creating scalable solutions that adapt to evolving market demands and technological advancements."
-    }
-  ];
-
-  return (
-    <>
-      <section className="relative lg:py-32 bg-eastdigital-dark overflow-hidden py-0">
+  const approaches = [{
+    icon: Target,
+    title: "Strategic Precision",
+    description: "We don't just create—we strategize. Every project begins with deep market research and competitive analysis to ensure your vision aligns with market opportunities."
+  }, {
+    icon: Lightbulb,
+    title: "Innovation-First Mindset",
+    description: "Leveraging cutting-edge technologies and creative solutions, we transform complex challenges into breakthrough digital experiences that set you apart."
+  }, {
+    icon: Rocket,
+    title: "Accelerated Delivery",
+    description: "Our streamlined processes and agile methodology ensure rapid deployment without compromising quality, getting you to market faster than traditional approaches."
+  }, {
+    icon: Users,
+    title: "Collaborative Partnership",
+    description: "We believe in transparent communication and collaborative decision-making, ensuring you're involved in every critical milestone of your project journey."
+  }, {
+    icon: Zap,
+    title: "Performance Optimization",
+    description: "Every solution is built for scale and performance, utilizing modern architectures and best practices to ensure your digital assets perform flawlessly."
+  }, {
+    icon: Shield,
+    title: "Future-Proof Solutions",
+    description: "We design with tomorrow in mind, creating scalable solutions that adapt to evolving market demands and technological advancements."
+  }];
+  return <>
+      <section className="relative bg-eastdigital-dark overflow-hidden py-0 lg:py-[100px]">
         {/* Background Animation */}
         <div className="absolute inset-0 opacity-5 pointer-events-none">
           <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-eastdigital-orange/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 left-10 w-32 h-32 bg-gradient-to-tr from-eastdigital-orange/15 to-transparent rounded-full blur-2xl animate-pulse" style={{
-            animationDelay: '3s'
-          }}></div>
+          animationDelay: '3s'
+        }}></div>
         </div>
 
         <div className="relative z-10 container mx-auto px-4">
@@ -65,8 +54,7 @@ export const AboutSection = () => {
 
           {/* Approach Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-16">
-            {approaches.map((approach, index) => (
-              <div key={index} className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-8 hover:border-eastdigital-orange/30 transition-all duration-300 hover:transform hover:scale-105">
+            {approaches.map((approach, index) => <div key={index} className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-8 hover:border-eastdigital-orange/30 transition-all duration-300 hover:transform hover:scale-105">
                 {/* Icon */}
                 <div className="w-16 h-16 bg-gradient-to-br from-eastdigital-orange to-eastdigital-orange/80 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <approach.icon className="h-8 w-8 text-white" />
@@ -82,8 +70,7 @@ export const AboutSection = () => {
 
                 {/* Hover Effect Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-eastdigital-orange/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"></div>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           {/* Stats Section */}
@@ -129,8 +116,6 @@ export const AboutSection = () => {
       
       {/* Industry Section */}
       <IndustrySection />
-    </>
-  );
+    </>;
 };
-
 export default AboutSection;
