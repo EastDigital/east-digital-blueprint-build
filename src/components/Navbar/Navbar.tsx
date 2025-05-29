@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
@@ -112,7 +113,7 @@ export const Navbar = () => {
   };
 
   return (
-    <header className={`w-full font-poppins relative transition-all duration-300 lg:sticky lg:top-0 lg:z-50 ${
+    <header className={`w-full font-poppins fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
         ? 'bg-eastdigital-dark/90 backdrop-blur-md border-b border-gray-800/30' 
         : 'bg-eastdigital-dark'
@@ -145,7 +146,7 @@ export const Navbar = () => {
                 >
                   {/* Glassmorphism background that covers both button and creates seamless connection */}
                   {isDropdownOpen && (
-                    <div className="absolute -top-5 -left-6 -right-6 h-[calc(100%+25px)] bg-[#000000]/90 backdrop-blur-md rounded-t-[15px] z-40"></div>
+                    <div className="absolute -top-5 -left-6 -right-6 h-[calc(100%+25px)] bg-[#000000]/85 backdrop-blur-md rounded-t-[15px] z-40"></div>
                   )}
                   
                   <button 

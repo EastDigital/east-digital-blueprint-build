@@ -53,7 +53,7 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
     return (
       <div 
         ref={dropdownRef}
-        className="bg-[#000000]/90 backdrop-blur-md rounded-[15px] border border-gray-800/30 shadow-2xl overflow-hidden animate-fade-in"
+        className="bg-[#000000]/85 backdrop-blur-md rounded-[15px] border border-gray-800/30 shadow-2xl overflow-hidden animate-fade-in"
       >
         <div className="flex flex-col md:flex-row">
           {expertiseData.map((item, index) => (
@@ -87,7 +87,7 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
       
       {/* Dropdown content with glassmorphism that continues from button */}
       <div className="mx-[10%]">
-        <div className="bg-[#000000]/90 backdrop-blur-md rounded-b-[15px] border border-gray-800/30 shadow-2xl overflow-hidden">
+        <div className="bg-[#000000]/85 backdrop-blur-md rounded-b-[15px] border border-gray-800/30 shadow-2xl overflow-hidden">
           <div className="flex">
             {expertiseData.map((item, index) => (
               <React.Fragment key={index}>
