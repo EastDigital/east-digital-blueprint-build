@@ -132,7 +132,7 @@ export const ProjectCarousel = () => {
     <div className="w-full">
       <div 
         ref={carouselRef}
-        className="flex gap-3 sm:gap-4 md:gap-6 overflow-hidden pl-4 sm:pl-4 md:pl-4 lg:pl-4 cursor-grab active:cursor-grabbing select-none"
+        className="flex gap-3 sm:gap-4 md:gap-6 overflow-hidden pl-0 sm:pl-4 md:pl-4 lg:pl-4 cursor-grab active:cursor-grabbing select-none"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onMouseDown={handleMouseDown}
