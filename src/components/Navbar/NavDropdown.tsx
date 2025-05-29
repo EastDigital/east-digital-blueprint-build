@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import NavDropdownItem from './NavDropdownItem';
 
@@ -78,14 +79,9 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
   }
 
   return (
-    <div 
-      ref={dropdownRef}
-      className="w-full"
-    >
-      {/* Seamless connection area - no gap */}
+    <div ref={dropdownRef} className="w-full">
       <div className="h-0"></div>
       
-      {/* Dropdown content with glassmorphism that continues from button */}
       <div className="mx-[10%]">
         <div className="bg-[#000000]/85 backdrop-blur-md rounded-b-[15px] border border-gray-800/30 shadow-2xl overflow-hidden">
           <div className="flex">

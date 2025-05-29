@@ -18,7 +18,6 @@ export const AnimatedHamburger = ({ isOpen, onClick, className }: AnimatedHambur
       onClick={onClick}
       aria-label={isOpen ? "Close menu" : "Open menu"}
     >
-      {/* Top line */}
       <div
         className={cn(
           "absolute left-1 w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-in-out",
@@ -28,7 +27,6 @@ export const AnimatedHamburger = ({ isOpen, onClick, className }: AnimatedHambur
         )}
       />
       
-      {/* Middle line */}
       <div
         className={cn(
           "absolute left-1 w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-in-out",
@@ -38,7 +36,6 @@ export const AnimatedHamburger = ({ isOpen, onClick, className }: AnimatedHambur
         )}
       />
       
-      {/* Bottom line */}
       <div
         className={cn(
           "absolute left-1 w-6 h-0.5 bg-white rounded-full transition-all duration-300 ease-in-out",
@@ -48,7 +45,6 @@ export const AnimatedHamburger = ({ isOpen, onClick, className }: AnimatedHambur
         )}
       />
       
-      {/* Subtle background animation */}
       <div
         className={cn(
           "absolute inset-0 rounded-md transition-all duration-300 ease-in-out",
