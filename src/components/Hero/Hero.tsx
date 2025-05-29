@@ -8,7 +8,7 @@ export const Hero = () => {
       <InteractiveBackground />
       
       {/* Hero Content */}
-      <div className="relative z-10 container mx-auto px-2 sm:px-4 flex flex-col justify-between min-h-[calc(80vh-30px)] sm:min-h-[calc(100vh-30px)]">
+      <div className="relative z-10 container mx-auto px-2 sm:px-4 flex flex-col justify-between min-h-[calc(40vh-30px)] sm:min-h-[calc(40vh-30px)]">
         {/* Main Content - Matching reference spacing */}
         <div className="pt-[60px] pb-[20px] sm:pt-16 sm:pb-[20px]">
           <HeroContent />
