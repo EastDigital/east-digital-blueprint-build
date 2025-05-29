@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 export const HeroContent = () => {
   return <div className="text-left sm:text-center max-w-5xl mx-auto px-[15px]">
       {/* Subheading - Matching reference styles */}
-      <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-3 sm:mb-4 md:mb-6 font-poppins tracking-wide text-gray-300 font-weight-thin">
+      <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-3 sm:mb-4 md:mb-6 font-poppins tracking-wide text-gray-300 md:font-weight-thin">
         Real Estate Developers
       </p>
       
