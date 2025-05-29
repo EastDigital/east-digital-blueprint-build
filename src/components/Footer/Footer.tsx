@@ -21,7 +21,7 @@ const Footer = () => {
         {/* Main CTA Section */}
         <div className="text-center mb-16">
           <p className="text-gray-400 text-lg mb-4">Let's Talk</p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 max-w-4xl mx-auto leading-tight">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6 max-w-4xl mx-auto leading-tight text-gray-100">
             Your Digital Presence<br />
             Is About To Take Off
           </h2>
@@ -114,7 +114,17 @@ const Footer = () => {
           {/* Logo and Navigation */}
           <div className="flex items-center space-x-8 mb-6 md:mb-0">
             <button onClick={() => handleNavigation('/')} className="flex items-center cursor-pointer">
-              <div className="w-8 h-8 rounded-full border-2 border-eastdigital-orange mr-3">
+              <img 
+                src="https://eastdigital.in/web-images/logo-east-digital-india" 
+                alt="East Digital Logo" 
+                className="h-8 w-auto mr-3"
+                onError={(e) => {
+                  // Fallback to original design if image fails to load
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling.style.display = 'flex';
+                }}
+              />
+              <div className="w-8 h-8 rounded-full border-2 border-eastdigital-orange mr-3" style={{ display: 'none' }}>
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-eastdigital-orange to-orange-600"></div>
               </div>
               <span className="text-xl font-bold">EAST DIGITAL</span>
