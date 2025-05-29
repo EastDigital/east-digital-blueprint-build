@@ -301,7 +301,7 @@ export const getProjectById = (id: string): Project | undefined => {
 };
 
 export const getProjectsByCategory = (category: string): Project[] => {
-  if (category === 'ALL') {
+  if (category === 'ALL' || category === 'All Projects') {
     return projectsData;
   }
   return projectsData.filter(project => project.category === category);

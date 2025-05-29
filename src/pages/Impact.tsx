@@ -1,6 +1,6 @@
-
 import React, { useState, useMemo, useCallback } from 'react';
 import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Play, ArrowRight, Award, Users, Target, Calendar, Loader2 } from 'lucide-react';
@@ -59,11 +59,20 @@ const Impact = () => {
   const handleCategoryChange = (categoryLabel: string) => {
     setActiveCategory(categoryLabel);
     setDisplayedProjects(PROJECTS_PER_PAGE);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Remove the scroll to top behavior
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-black relative overflow-hidden">
+      {/* Subtle Background Animation */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-eastdigital-orange/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-48 h-48 bg-gradient-to-l from-eastdigital-orange/15 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-b from-eastdigital-orange/10 to-transparent rounded-full blur-2xl animate-pulse" style={{ animationDelay: '4s' }}></div>
+        </div>
+      </div>
+
       <Navbar />
       
       {/* Hero Section */}
@@ -92,7 +101,7 @@ const Impact = () => {
       </section>
 
       {/* Video Showreel Section */}
-      <section className="py-16 lg:py-24 bg-gray-900">
+      <section className="py-16 lg:py-24 bg-gray-800">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-6">
@@ -135,7 +144,7 @@ const Impact = () => {
       </section>
 
       {/* Portfolio Section */}
-      <section className="py-16 lg:py-24 bg-black">
+      <section className="py-16 lg:py-24 bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-6">
@@ -210,53 +219,6 @@ const Impact = () => {
         </div>
       </section>
 
-      {/* SEO Content Section - Simplified for mobile */}
-      <section className="py-16 lg:py-24 bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 lg:mb-8 text-center">
-              Real Estate Marketing Excellence
-            </h2>
-            
-            <div className="prose prose-lg max-w-none text-gray-300">
-              <p className="text-lg lg:text-xl leading-relaxed mb-8 lg:mb-12 text-center">
-                EastDigital stands at the forefront of real estate marketing innovation, delivering comprehensive solutions that transform how properties are marketed, visualized, and sold. Our expertise spans 3D architectural visualization, digital marketing campaigns, and corporate branding solutions specifically tailored for the real estate industry.
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16">
-                <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700/50">
-                  <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">3D Visualization & Architectural Rendering</h3>
-                  <p className="text-gray-300 text-sm lg:text-base">
-                    Our photorealistic 3D visualizations bring unbuilt properties to life, enabling developers and agents to showcase projects before construction begins.
-                  </p>
-                </div>
-                
-                <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700/50">
-                  <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">Digital Marketing & Lead Generation</h3>
-                  <p className="text-gray-300 text-sm lg:text-base">
-                    We craft data-driven digital marketing strategies that generate qualified leads and drive sales for real estate projects.
-                  </p>
-                </div>
-                
-                <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700/50">
-                  <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">Corporate Branding & Identity</h3>
-                  <p className="text-gray-300 text-sm lg:text-base">
-                    From brand identity design to complete digital transformation, we help real estate companies establish strong market presence.
-                  </p>
-                </div>
-                
-                <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700/50">
-                  <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">Technology Integration</h3>
-                  <p className="text-gray-300 text-sm lg:text-base">
-                    We integrate cutting-edge technologies including virtual reality tours, interactive 3D models, and AI-powered marketing automation.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-16 lg:py-24 bg-black">
         <div className="container mx-auto px-4 text-center">
@@ -274,6 +236,8 @@ const Impact = () => {
           </Link>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 };

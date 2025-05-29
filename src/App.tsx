@@ -12,6 +12,7 @@ import ProjectDetails from "./pages/ProjectDetails";
 import ThreeDRenderingVisualization from "./pages/3DRenderingVisualization";
 import RealEstateDigitalCampaigns from "./pages/RealEstateDigitalCampaigns";
 import CorporateSolutions from "./pages/CorporateSolutions";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/3d-rendering-visualization" element={<ThreeDRenderingVisualization />} />
           <Route path="/real-estate-digital-campaigns" element={<RealEstateDigitalCampaigns />} />
           <Route path="/corporate-solutions" element={<CorporateSolutions />} />
+          <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
