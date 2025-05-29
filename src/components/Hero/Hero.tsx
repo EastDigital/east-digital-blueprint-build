@@ -16,7 +16,7 @@ export const Hero = () => {
       </div>
       
       {/* Carousel - Full width, touching bottom edge */}
-      <div className="relative z-10 flex-1 flex items-end">
+      <div className="relative z-10 flex-1 flex items-end mt-2 md:mt-10">
         <ProjectCarousel />
       </div>
     </section>;
