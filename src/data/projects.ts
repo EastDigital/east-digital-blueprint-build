@@ -1,23 +1,18 @@
-
 export interface Project {
   id: string;
-  name: string;
   title: string;
-  subtitle: string;
-  shortDescription: string;
-  description: string;
+  subtitle?: string;
   featuredImage: string;
   heroImage: string;
   category: string;
-  client: string;
-  location: string;
-  year: string;
-  duration: string;
-  team: string;
   status: 'completed' | 'in-progress' | 'upcoming';
+  duration: string;
+  location: string;
+  team: string;
+  client: string;
+  description: string;
   challenge: string;
   solution: string;
-  showInCarousel: boolean; // New field for carousel display
   results: {
     engagement: string;
     leads: string;
@@ -28,289 +23,313 @@ export interface Project {
   tags: string[];
 }
 
-export const projectsData: Project[] = [
+const projects = [
   {
-    id: 'ascon-group',
-    name: 'Ascon Group',
-    title: 'Ascon Group',
-    subtitle: 'Premium Residential Development',
-    shortDescription: 'Luxury residential project that redefined urban living standards with cutting-edge design.',
-    description: 'A luxury residential project that redefined urban living standards with cutting-edge design and sustainable architecture.',
-    featuredImage: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop',
-    heroImage: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1200&h=600&fit=crop',
+    id: '1',
+    title: 'Luxury Condo Complex - Downtown',
+    subtitle: 'Premium residential development with state-of-the-art amenities and stunning city views.',
+    featuredImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&h=800&fit=crop',
     category: '3D Rendering & Visualization',
-    client: 'Ascon Group',
-    location: 'Mumbai, Maharashtra',
-    year: '2024',
-    duration: '6 months',
-    team: '12 specialists',
-    status: 'completed',
-    showInCarousel: true,
-    challenge: 'Creating a premium residential experience that balances modern amenities with environmental sustainability while meeting the diverse needs of urban families.',
-    solution: 'We developed a comprehensive digital marketing strategy that showcased the project\'s unique value proposition through immersive 3D visualizations and targeted digital campaigns.',
+    status: 'completed' as const,
+    duration: '4 months',
+    location: 'New York, NY',
+    team: '8 members',
+    client: 'Metropolitan Development',
+    description: 'A comprehensive 3D visualization project for a luxury condominium complex featuring 200 units across 25 floors. Our team created photorealistic renderings and virtual tours that helped secure $150M in pre-sales.',
+    challenge: 'The client needed to showcase the luxury amenities and stunning views before construction began. Traditional 2D plans weren\'t compelling enough for high-end buyers.',
+    solution: 'We developed immersive 3D visualizations including aerial views, interior spaces, and amenity areas. Created virtual reality experiences for the sales center.',
     results: {
-      engagement: '150% increase in engagement',
-      leads: '200+ qualified leads',
-      conversion: '35% conversion rate',
-      timeline: '6 months'
+      engagement: '+285%',
+      leads: '1,200+',
+      conversion: '23%',
+      timeline: 'Completed 2 weeks early'
     },
     gallery: [
-      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop'
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&h=600&fit=crop'
     ],
-    tags: ['Residential', 'Luxury', 'Sustainable', '3D Visualization']
+    tags: ['3D Visualization', 'Luxury Real Estate', 'Virtual Reality', 'Pre-Sales Marketing']
   },
   {
-    id: 'reliance-energy',
-    name: 'Reliance Energy',
-    title: 'Reliance Energy Solar Park',
-    subtitle: 'Renewable Energy Infrastructure',
-    shortDescription: 'Large-scale solar energy project showcasing sustainable power generation capabilities.',
-    description: 'A groundbreaking renewable energy project that demonstrates the future of sustainable power generation through innovative solar technology and smart grid integration.',
-    featuredImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
-    heroImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=600&fit=crop',
-    category: 'Corporate Solutions',
-    client: 'Reliance Energy',
-    location: 'Rajasthan, India',
-    year: '2024',
-    duration: '8 months',
-    team: '15 specialists',
-    status: 'completed',
-    showInCarousel: true,
-    challenge: 'Visualizing complex renewable energy infrastructure and communicating the environmental benefits to stakeholders and the public.',
-    solution: 'Created comprehensive 3D visualizations and interactive presentations that demonstrated the project\'s impact on sustainable energy generation.',
-    results: {
-      engagement: '200% increase in stakeholder engagement',
-      leads: '150+ partnership inquiries',
-      conversion: '45% approval rate',
-      timeline: '8 months'
-    },
-    gallery: [
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1561042872-d4c1b0d8b1d8?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=600&h=400&fit=crop'
-    ],
-    tags: ['Energy', 'Solar', 'Sustainable', 'Infrastructure']
-  },
-  {
-    id: 'omaxe',
-    name: 'Omaxe',
-    title: 'Omaxe City Center',
-    subtitle: 'Mixed-Use Development',
-    shortDescription: 'Integrated commercial and residential complex redefining urban lifestyle.',
-    description: 'A revolutionary mixed-use development that seamlessly integrates commercial, residential, and recreational spaces to create a vibrant urban community.',
-    featuredImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
-    heroImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=600&fit=crop',
+    id: '2',
+    title: 'Coastal Villa - Immersive Experience',
+    subtitle: 'Stunning coastal villa with breathtaking ocean views and luxurious amenities.',
+    featuredImage: 'https://images.unsplash.com/photo-1570129477492-45c003dc7ddb?w=800&h=600&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1570129477492-45c003dc7ddb?w=1200&h=800&fit=crop',
     category: '3D Rendering & Visualization',
-    client: 'Omaxe Group',
-    location: 'Delhi NCR, India',
-    year: '2023',
-    duration: '10 months',
-    team: '18 specialists',
-    status: 'completed',
-    showInCarousel: true,
-    challenge: 'Visualizing a complex mixed-use development that balances commercial viability with residential comfort and community needs.',
-    solution: 'Developed detailed 3D architectural visualizations and virtual reality tours that allowed stakeholders to experience the integrated development concept.',
+    status: 'completed' as const,
+    duration: '6 weeks',
+    location: 'Malibu, CA',
+    team: '6 members',
+    client: 'Oceanfront Properties Inc.',
+    description: 'Created a suite of marketing materials for a high-end coastal villa, including 3D renderings, interactive floor plans, and a virtual tour. The materials were used to attract potential buyers and generate interest in the property.',
+    challenge: 'The property was still under construction, and the client needed a way to showcase its potential to prospective buyers.',
+    solution: 'We created a series of photorealistic renderings and a virtual tour that allowed buyers to explore the property from the comfort of their own homes.',
     results: {
-      engagement: '180% increase in pre-booking interest',
-      leads: '300+ qualified leads',
-      conversion: '40% pre-sales conversion',
-      timeline: '10 months'
+      engagement: '+320%',
+      leads: '950+',
+      conversion: '28%',
+      timeline: 'Delivered on time'
     },
     gallery: [
-      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&h=400&fit=crop'
+      'https://images.unsplash.com/photo-1570129477492-45c003dc7ddb?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1568605114967-8e62835cb7cc?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1582565958854-c5c989e14a24?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1560185062-94ca5c93ee36?w=800&h=600&fit=crop'
     ],
-    tags: ['Mixed-Use', 'Commercial', 'Residential', 'Urban Planning']
+    tags: ['3D Visualization', 'Coastal Real Estate', 'Virtual Tours', 'High-End Marketing']
   },
   {
-    id: 'industrial-complex',
-    name: 'Industrial Complex',
-    title: 'Smart Manufacturing Hub',
-    subtitle: 'Industrial Development',
-    shortDescription: 'Modern industrial facility designed for efficient manufacturing and logistics.',
-    description: 'A state-of-the-art industrial complex that incorporates smart manufacturing technologies and sustainable practices to create an efficient production environment.',
-    featuredImage: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop',
-    heroImage: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&h=600&fit=crop',
-    category: 'Corporate Solutions',
-    client: 'Industrial Development Corp',
-    location: 'Gujarat, India',
-    year: '2023',
-    duration: '12 months',
-    team: '20 specialists',
-    status: 'completed',
-    showInCarousel: false,
-    challenge: 'Designing and visualizing a complex industrial facility that meets modern manufacturing standards while maintaining environmental compliance.',
-    solution: 'Created comprehensive facility planning visualizations and workflow optimization models that demonstrated operational efficiency.',
-    results: {
-      engagement: '160% increase in investor interest',
-      leads: '100+ manufacturing partnerships',
-      conversion: '50% facility utilization',
-      timeline: '12 months'
-    },
-    gallery: [
-      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop'
-    ],
-    tags: ['Industrial', 'Manufacturing', 'Smart Technology', 'Logistics']
-  },
-  {
-    id: 'green-valley',
-    name: 'Green Valley',
-    title: 'Green Valley Township',
-    subtitle: 'Sustainable Community',
-    shortDescription: 'Eco-friendly residential township with integrated green spaces and amenities.',
-    description: 'An innovative sustainable township that prioritizes environmental conservation while providing modern amenities and community spaces for residents.',
-    featuredImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop',
-    heroImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&h=600&fit=crop',
-    category: '3D Rendering & Visualization',
-    client: 'Green Valley Developers',
-    location: 'Pune, Maharashtra',
-    year: '2024',
-    duration: '7 months',
-    team: '14 specialists',
-    status: 'in-progress',
-    showInCarousel: true,
-    challenge: 'Creating a sustainable township that balances modern living requirements with environmental conservation and community well-being.',
-    solution: 'Developed eco-friendly design visualizations and community planning models that showcase sustainable living practices.',
-    results: {
-      engagement: '220% increase in eco-conscious buyers',
-      leads: '250+ sustainability-focused leads',
-      conversion: '38% green living adoption',
-      timeline: '7 months'
-    },
-    gallery: [
-      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1574263867128-40dfb1a05ab6?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&h=400&fit=crop'
-    ],
-    tags: ['Sustainable', 'Township', 'Eco-Friendly', 'Community']
-  },
-  {
-    id: 'metro-heights',
-    name: 'Metro Heights',
-    title: 'Metro Heights Tower',
-    subtitle: 'High-Rise Residential',
-    shortDescription: 'Premium high-rise residential tower with panoramic city views and luxury amenities.',
-    description: 'A prestigious high-rise residential development that offers luxury living with panoramic city views and world-class amenities in the heart of the metropolitan area.',
-    featuredImage: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop',
-    heroImage: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1200&h=600&fit=crop',
+    id: '3',
+    title: 'Urban Loft - Digital Campaign',
+    subtitle: 'Dynamic digital campaign targeting young professionals seeking modern urban living.',
+    featuredImage: 'https://images.unsplash.com/photo-1522771790669-c66ea9c4e7c0?w=800&h=600&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1522771790669-c66ea9c4e7c0?w=1200&h=800&fit=crop',
     category: 'Digital Marketing Campaigns',
-    client: 'Metro Heights Development',
-    location: 'Bangalore, Karnataka',
-    year: '2024',
+    status: 'completed' as const,
+    duration: '3 months',
+    location: 'Chicago, IL',
+    team: '5 members',
+    client: 'CityLife Apartments',
+    description: 'Developed and executed a digital marketing campaign for an urban loft apartment complex. The campaign included social media ads, email marketing, and search engine optimization (SEO).',
+    challenge: 'The client needed to increase occupancy rates and attract a younger demographic to their urban loft apartments.',
+    solution: 'We created a targeted digital marketing campaign that focused on the unique features and benefits of the apartments, such as their modern design, convenient location, and proximity to local amenities.',
+    results: {
+      engagement: '+410%',
+      leads: '1,500+',
+      conversion: '31%',
+      timeline: 'Completed on schedule'
+    },
+    gallery: [
+      'https://images.unsplash.com/photo-1522771790669-c66ea9c4e7c0?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1564013797385-9349c7ad2944?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1513965134-39469628326c?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1541167760496-1623c2c09e8d?w=800&h=600&fit=crop'
+    ],
+    tags: ['Digital Marketing', 'Urban Apartments', 'Social Media Ads', 'SEO']
+  },
+  {
+    id: '4',
+    title: 'Suburban Homes - Lead Generation',
+    subtitle: 'Targeted lead generation campaign for a new development of suburban family homes.',
+    featuredImage: 'https://images.unsplash.com/photo-1568605114967-8e62835cb7cc?w=800&h=600&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1568605114967-8e62835cb7cc?w=1200&h=800&fit=crop',
+    category: 'Digital Marketing Campaigns',
+    status: 'completed' as const,
+    duration: '4 months',
+    location: 'Houston, TX',
+    team: '6 members',
+    client: 'Green Valley Homes',
+    description: 'Implemented a lead generation campaign for a new development of suburban family homes. The campaign included targeted ads on social media, search engine marketing (SEM), and email marketing.',
+    challenge: 'The client needed to generate leads and increase sales for their new development of suburban family homes.',
+    solution: 'We created a targeted lead generation campaign that focused on the unique features and benefits of the homes, such as their spacious layouts, family-friendly amenities, and convenient location.',
+    results: {
+      engagement: '+380%',
+      leads: '1,800+',
+      conversion: '26%',
+      timeline: 'Completed on time'
+    },
+    gallery: [
+      'https://images.unsplash.com/photo-1568605114967-8e62835cb7cc?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1598228615234-709d86a0efb4?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1572120360610-d971b9ed57fa?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=800&h=600&fit=crop'
+    ],
+    tags: ['Lead Generation', 'Suburban Homes', 'Social Media Ads', 'SEM']
+  },
+  {
+    id: '5',
+    title: 'Commercial Office Space - Branding',
+    subtitle: 'Comprehensive branding and marketing strategy for a new commercial office space.',
+    featuredImage: 'https://images.unsplash.com/photo-1503777119810-056ca8943631?w=800&h=600&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1503777119810-056ca8943631?w=1200&h=800&fit=crop',
+    category: 'Corporate Solutions',
+    status: 'completed' as const,
     duration: '5 months',
-    team: '10 specialists',
-    status: 'completed',
-    showInCarousel: true,
-    challenge: 'Marketing a premium high-rise property in a competitive urban market while highlighting unique value propositions.',
-    solution: 'Created immersive digital marketing campaigns with virtual tours and targeted advertising to reach high-net-worth individuals.',
+    location: 'San Francisco, CA',
+    team: '7 members',
+    client: 'Bay Area Business Center',
+    description: 'Developed a comprehensive branding and marketing strategy for a new commercial office space. The strategy included logo design, website development, and marketing materials.',
+    challenge: 'The client needed to create a strong brand identity and attract tenants to their new commercial office space.',
+    solution: 'We developed a comprehensive branding and marketing strategy that focused on the unique features and benefits of the office space, such as its modern design, convenient location, and state-of-the-art amenities.',
     results: {
-      engagement: '300% increase in luxury segment inquiries',
-      leads: '180+ premium leads',
-      conversion: '42% luxury sales conversion',
-      timeline: '5 months'
+      engagement: '+450%',
+      leads: '1,650+',
+      conversion: '34%',
+      timeline: 'Completed on time'
     },
     gallery: [
-      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop'
+      'https://images.unsplash.com/photo-1503777119810-056ca8943631?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1576766421291-3b778499749b?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1592595539828-5c1664169bd4?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1598515220547-09cc65c90319?w=800&h=600&fit=crop'
     ],
-    tags: ['High-Rise', 'Luxury', 'Urban', 'Premium']
+    tags: ['Branding', 'Commercial Office Space', 'Logo Design', 'Website Development']
   },
   {
-    id: 'solar-park',
-    name: 'Solar Park',
-    title: 'Mega Solar Installation',
-    subtitle: 'Renewable Energy Project',
-    shortDescription: 'Large-scale solar park contributing to clean energy generation and grid stability.',
-    description: 'A massive solar energy installation that contributes significantly to renewable energy generation while demonstrating advanced photovoltaic technology implementation.',
-    featuredImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
-    heroImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=600&fit=crop',
+    id: '6',
+    title: 'Retail Store - Customer Engagement',
+    subtitle: 'Innovative customer engagement strategies for a high-end retail store.',
+    featuredImage: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&h=800&fit=crop',
     category: 'Corporate Solutions',
-    client: 'Solar Energy Corporation',
-    location: 'Rajasthan, India',
-    year: '2023',
-    duration: '9 months',
-    team: '16 specialists',
-    status: 'completed',
-    showInCarousel: false,
-    challenge: 'Communicating the technical complexity and environmental benefits of large-scale solar infrastructure to diverse stakeholder groups.',
-    solution: 'Developed technical visualizations and impact assessments that clearly demonstrated the project\'s contribution to sustainable energy goals.',
+    status: 'completed' as const,
+    duration: '4 months',
+    location: 'Miami, FL',
+    team: '5 members',
+    client: 'Luxury Retail Group',
+    description: 'Developed and implemented customer engagement strategies for a high-end retail store. The strategies included in-store events, social media contests, and email marketing.',
+    challenge: 'The client needed to increase foot traffic and sales for their high-end retail store.',
+    solution: 'We developed and implemented customer engagement strategies that focused on creating a unique and memorable shopping experience for customers.',
     results: {
-      engagement: '250% increase in renewable energy advocacy',
-      leads: '120+ clean energy partnerships',
-      conversion: '55% policy support achievement',
-      timeline: '9 months'
+      engagement: '+510%',
+      leads: '1,900+',
+      conversion: '37%',
+      timeline: 'Completed on time'
     },
     gallery: [
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1561042872-d4c1b0d8b1d8?w=600&h=400&fit=crop'
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1585487000160-6405e6a44c42?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?w=800&h=600&fit=crop'
     ],
-    tags: ['Solar', 'Renewable', 'Large-Scale', 'Clean Energy']
+    tags: ['Customer Engagement', 'Retail Store', 'In-Store Events', 'Social Media Contests']
   },
   {
-    id: 'luxury-villas',
-    name: 'Luxury Villas',
-    title: 'Luxury Villa Collection',
-    subtitle: 'Premium Villa Development',
-    shortDescription: 'Exclusive collection of luxury villas with private amenities and bespoke design.',
-    description: 'An exclusive collection of luxury villas featuring bespoke architectural design, private amenities, and premium finishes for discerning homeowners.',
-    featuredImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
-    heroImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=600&fit=crop',
-    category: 'Digital Marketing Campaigns',
-    client: 'Luxury Villa Estates',
-    location: 'Goa, India',
-    year: '2024',
-    duration: '6 months',
-    team: '12 specialists',
-    status: 'in-progress',
-    showInCarousel: true,
-    challenge: 'Marketing ultra-luxury villas to an exclusive clientele while showcasing unique architectural and lifestyle features.',
-    solution: 'Created premium marketing materials with virtual reality experiences and personalized marketing approaches for high-net-worth individuals.',
+    id: '7',
+    title: 'Modern Villa - 3D Visualization',
+    subtitle: 'Exquisite 3D visualizations bringing a modern villa to life before construction.',
+    featuredImage: 'https://images.unsplash.com/photo-1613490495763-54ed946c5f97?w=800&h=600&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1613490495763-54ed946c5f97?w=1200&h=800&fit=crop',
+    category: '3D Rendering & Visualization',
+    status: 'in-progress' as const,
+    duration: '8 weeks',
+    location: 'Barcelona, Spain',
+    team: '7 members',
+    client: 'Luxury Living Estates',
+    description: 'Creating detailed 3D visualizations for a modern villa in Barcelona, showcasing its architectural design and luxurious amenities. The project aims to provide potential buyers with a realistic preview of the property before construction begins.',
+    challenge: 'The client needed to attract high-end buyers and secure pre-sales for the villa, which was still in the planning phase.',
+    solution: 'We are developing photorealistic 3D renderings and virtual tours that highlight the villa\'s unique features and stunning location. The visualizations will be used in marketing materials and a virtual reality experience for the sales center.',
     results: {
-      engagement: '400% increase in ultra-luxury inquiries',
-      leads: '80+ ultra-high-net-worth leads',
-      conversion: '48% exclusive sales conversion',
-      timeline: '6 months'
+      engagement: 'N/A',
+      leads: 'N/A',
+      conversion: 'N/A',
+      timeline: 'In progress'
     },
     gallery: [
-      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1574263867128-40dfb1a05ab6?w=600&h=400&fit=crop'
+      'https://images.unsplash.com/photo-1613490495763-54ed946c5f97?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1580587773372-5a1b8f6a1a41?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1616587845369-4c92e8aef749?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop'
     ],
-    tags: ['Luxury', 'Villas', 'Exclusive', 'Premium']
+    tags: ['3D Visualization', 'Modern Villa', 'Virtual Reality', 'Pre-Sales Marketing']
+  },
+  {
+    id: '8',
+    title: 'Eco-Friendly Homes - Digital Strategy',
+    subtitle: 'Comprehensive digital strategy promoting eco-friendly homes and sustainable living.',
+    featuredImage: 'https://images.unsplash.com/photo-1448630360428-65456855c9a2?w=800&h=600&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1448630360428-65456855c9a2?w=1200&h=800&fit=crop',
+    category: 'Digital Marketing Campaigns',
+    status: 'in-progress' as const,
+    duration: '6 months',
+    location: 'Portland, OR',
+    team: '6 members',
+    client: 'Sustainable Homes Inc.',
+    description: 'Developing a comprehensive digital strategy to promote eco-friendly homes and sustainable living. The strategy includes content marketing, social media campaigns, and search engine optimization (SEO).',
+    challenge: 'The client needed to increase awareness and generate leads for their eco-friendly homes, targeting environmentally conscious buyers.',
+    solution: 'We are creating a content-rich website and blog, running targeted social media campaigns, and optimizing the website for search engines. The goal is to attract potential buyers and establish the client as a leader in sustainable home building.',
+    results: {
+      engagement: 'N/A',
+      leads: 'N/A',
+      conversion: 'N/A',
+      timeline: 'In progress'
+    },
+    gallery: [
+      'https://images.unsplash.com/photo-1448630360428-65456855c9a2?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1560178580-389cb8a8194a?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1567095761054-7a02e69e5c4c?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1571623492572-91b5733f7053?w=800&h=600&fit=crop'
+    ],
+    tags: ['Digital Marketing', 'Eco-Friendly Homes', 'Content Marketing', 'SEO']
+  },
+  {
+    id: '9',
+    title: 'Co-working Space - Community Building',
+    subtitle: 'Strategies for building a vibrant community within a new co-working space.',
+    featuredImage: 'https://images.unsplash.com/photo-1542744166-e35939358f72?w=800&h=600&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1542744166-e35939358f72?w=1200&h=800&fit=crop',
+    category: 'Corporate Solutions',
+    status: 'upcoming' as const,
+    duration: 'Ongoing',
+    location: 'Berlin, Germany',
+    team: '5 members',
+    client: 'Creative Hub Co-working',
+    description: 'Developing strategies for building a vibrant community within a new co-working space in Berlin. The project includes organizing networking events, workshops, and social activities to foster collaboration and engagement among members.',
+    challenge: 'The client needed to create a strong sense of community and attract a diverse group of professionals to their new co-working space.',
+    solution: 'We are planning a series of events and activities that cater to the interests and needs of the co-working space members. The goal is to create a welcoming and collaborative environment that fosters creativity and innovation.',
+    results: {
+      engagement: 'N/A',
+      leads: 'N/A',
+      conversion: 'N/A',
+      timeline: 'Ongoing'
+    },
+    gallery: [
+      'https://images.unsplash.com/photo-1542744166-e35939358f72?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1576766529484-9764c3f94405?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1568515005484-8f9ea3a93c01?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1587370560941-1cc7f0aefbf4?w=800&h=600&fit=crop'
+    ],
+    tags: ['Community Building', 'Co-working Space', 'Networking Events', 'Social Activities']
+  },
+  {
+    id: '10',
+    title: 'Smart Home Technology - 3D Showcase',
+    subtitle: 'Interactive 3D showcase of smart home technology integrated into a luxury residence.',
+    featuredImage: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop',
+    heroImage: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=800&fit=crop',
+    category: '3D Rendering & Visualization',
+    status: 'upcoming' as const,
+    duration: '10 weeks',
+    location: 'Dubai, UAE',
+    team: '8 members',
+    client: 'Tech Homes Development',
+    description: 'Creating an interactive 3D showcase of smart home technology integrated into a luxury residence in Dubai. The project will allow potential buyers to explore the features and benefits of the smart home system in a virtual environment.',
+    challenge: 'The client needed to demonstrate the value and convenience of their smart home technology to potential buyers in a visually appealing and engaging way.',
+    solution: 'We are developing an interactive 3D showcase that allows users to explore the residence and control the smart home features. The showcase will be used in marketing materials and at sales events.',
+    results: {
+      engagement: 'N/A',
+      leads: 'N/A',
+      conversion: 'N/A',
+      timeline: 'Upcoming'
+    },
+    gallery: [
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1555952517-2e8e7294c290?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1551882547-6c649e22ca6a?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1541346764-09f71af93654?w=800&h=600&fit=crop'
+    ],
+    tags: ['3D Visualization', 'Smart Home Technology', 'Interactive Showcase', 'Luxury Residence']
   }
 ];
 
-// Helper functions
-export const getProjectById = (id: string): Project | undefined => {
-  return projectsData.find(project => project.id === id);
-};
+export const getProjects = () => projects;
 
-export const getProjectsByCategory = (category: string): Project[] => {
-  if (category === 'ALL' || category === 'All Projects') {
-    return projectsData;
+export const getProjectById = (id: string) => projects.find(project => project.id === id);
+
+export const getProjectsByCategory = (categoryLabel: string) => {
+  if (categoryLabel === 'All Projects') {
+    return projects;
   }
-  return projectsData.filter(project => project.category === category);
+  const categoryId = categories.find(cat => cat.label === categoryLabel)?.id;
+  return projects.filter(project => project.category === categoryId);
 };
 
-export const getCarouselProjects = (): Project[] => {
-  return projectsData.filter(project => project.showInCarousel);
-};
-
-export const getFeaturedProjects = (limit: number = 6): Project[] => {
-  return projectsData.slice(0, limit);
-};
+export const categories = [
+  { id: '3D Rendering & Visualization', label: '3D Rendering & Visualization' },
+  { id: 'Digital Marketing Campaigns', label: 'Digital Marketing Campaigns' },
+  { id: 'Corporate Solutions', label: 'Corporate Solutions' }
+];
