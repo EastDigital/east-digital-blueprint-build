@@ -13,13 +13,13 @@ export const Hero = () => {
       {/* Hero Content */}
       <div className="relative z-10 container mx-auto px-2 sm:px-4 flex flex-col justify-between min-h-[calc(80vh-180px)] sm:min-h-[calc(100vh-80px)]">
         {/* Main Content - Matching reference spacing */}
-        <div className="pt-[60px] pb-[40px] sm:pt-16 sm:pb-0">
+        <div className="pt-[60px] pb-[20px] sm:pt-16 sm:pb-[20px]">
           <HeroContent />
         </div>
       </div>
       
-      {/* Carousel - Full width, no container constraints */}
-      <div className="relative z-10 pb-8 sm:pb-12 -mb-[100px] sm:mb-0">
+      {/* Carousel - Full width, touching bottom edge */}
+      <div className="relative z-10 flex-1 flex items-end">
         <ProjectCarousel />
       </div>
     </section>
