@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Building2, HardHat, Ruler, Briefcase, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -155,7 +156,7 @@ export const IndustrySection = () => {
         </div>
 
         {/* Main Content Grid - Perfect Symmetry */}
-        <div className="grid lg:grid-cols-12 gap-12 items-start mb-20">
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
           {/* Left Side - Industry Navigation (6 columns) */}
           <div className="lg:col-span-6">
             <div className="space-y-4">
@@ -277,26 +278,6 @@ export const IndustrySection = () => {
                   </Button>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom CTA - Centered and Balanced */}
-        <div className="text-center">
-          <div className="bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-sm border border-gray-700/50 rounded-3xl p-12 max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold text-white mb-4">
-              Ready to Transform Your Industry?
-            </h3>
-            <p className="text-eastdigital-lightgray mb-8 max-w-2xl mx-auto text-lg">
-              Join industry leaders who trust East Digital™ to deliver exceptional results.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-3 text-lg rounded-full transition-all duration-300">
-                Explore Our Work
-              </Button>
-              <Button variant="outline" className="border-eastdigital-orange text-eastdigital-orange hover:bg-eastdigital-orange hover:text-white px-8 py-3 text-lg rounded-full transition-all duration-300">
-                Schedule Consultation
-              </Button>
             </div>
           </div>
         </div>
