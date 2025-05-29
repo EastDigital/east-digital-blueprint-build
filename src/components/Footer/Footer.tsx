@@ -1,11 +1,18 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { MapPin, Phone, ArrowUp } from 'lucide-react';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigation = (path) => {
+    console.log('Footer navigation to:', path);
+    navigate(path);
   };
 
   return (
@@ -22,11 +29,12 @@ const Footer = () => {
             Schedule a free consultation with our team<br />
             or generate costing by yourself.
           </p>
-          <Link to="/connect">
-            <button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105">
-              Get Started
-            </button>
-          </Link>
+          <button 
+            onClick={() => handleNavigation('/connect')}
+            className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 cursor-pointer"
+          >
+            Get Started
+          </button>
         </div>
 
         {/* Contact Info */}
@@ -105,19 +113,19 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-800">
           {/* Logo and Navigation */}
           <div className="flex items-center space-x-8 mb-6 md:mb-0">
-            <Link to="/" className="flex items-center">
+            <button onClick={() => handleNavigation('/')} className="flex items-center cursor-pointer">
               <div className="w-8 h-8 rounded-full border-2 border-eastdigital-orange mr-3">
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-eastdigital-orange to-orange-600"></div>
               </div>
               <span className="text-xl font-bold">EAST DIGITAL</span>
-            </Link>
+            </button>
             
             <nav className="hidden md:flex space-x-6">
-              <Link to="/" className="text-gray-400 hover:text-white transition-colors">Home</Link>
-              <Link to="/expertise" className="text-gray-400 hover:text-white transition-colors">Expertise</Link>
-              <Link to="/impact" className="text-gray-400 hover:text-white transition-colors">Impact</Link>
-              <Link to="/approach" className="text-gray-400 hover:text-white transition-colors">Approach</Link>
-              <Link to="/connect" className="text-gray-400 hover:text-white transition-colors">Connect</Link>
+              <button onClick={() => handleNavigation('/')} className="text-gray-400 hover:text-white transition-colors cursor-pointer">Home</button>
+              <button onClick={() => handleNavigation('/3d-rendering-visualization')} className="text-gray-400 hover:text-white transition-colors cursor-pointer">Expertise</button>
+              <button onClick={() => handleNavigation('/impact')} className="text-gray-400 hover:text-white transition-colors cursor-pointer">Impact</button>
+              <button onClick={() => handleNavigation('/approach')} className="text-gray-400 hover:text-white transition-colors cursor-pointer">Approach</button>
+              <button onClick={() => handleNavigation('/connect')} className="text-gray-400 hover:text-white transition-colors cursor-pointer">Connect</button>
             </nav>
           </div>
 
@@ -140,7 +148,7 @@ const Footer = () => {
             
             <button
               onClick={scrollToTop}
-              className="w-10 h-10 bg-eastdigital-orange rounded-full hover:bg-eastdigital-orange/80 transition-colors flex items-center justify-center ml-4"
+              className="w-10 h-10 bg-eastdigital-orange rounded-full hover:bg-eastdigital-orange/80 transition-colors flex items-center justify-center ml-4 cursor-pointer"
             >
               <ArrowUp className="h-5 w-5 text-white" />
             </button>
@@ -151,10 +159,10 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mt-8 pt-6 border-t border-gray-800 text-sm text-gray-400">
           <div>© 2025 East Digital.</div>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to="/terms" className="hover:text-white transition-colors">Terms Of Use</Link>
-            <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="/sitemap" className="hover:text-white transition-colors">Sitemap</Link>
-            <Link to="/admin" className="hover:text-eastdigital-orange transition-colors font-medium">Login/Admin</Link>
+            <button onClick={() => handleNavigation('/terms')} className="hover:text-white transition-colors cursor-pointer">Terms Of Use</button>
+            <button onClick={() => handleNavigation('/privacy')} className="hover:text-white transition-colors cursor-pointer">Privacy Policy</button>
+            <button onClick={() => handleNavigation('/sitemap')} className="hover:text-white transition-colors cursor-pointer">Sitemap</button>
+            <button onClick={() => handleNavigation('/admin')} className="hover:text-eastdigital-orange transition-colors font-medium cursor-pointer">Login/Admin</button>
           </div>
         </div>
       </div>

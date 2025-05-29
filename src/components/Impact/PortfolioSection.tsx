@@ -21,6 +21,7 @@ export const PortfolioSection = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const allProjects = useMemo(() => {
+    console.log('Getting projects for category:', activeCategory);
     return getProjectsByCategory(activeCategory);
   }, [activeCategory]);
 
@@ -30,20 +31,31 @@ export const PortfolioSection = () => {
 
   const hasMore = displayedProjects < allProjects.length;
 
-  const loadMoreProjects = useCallback(async () => {
-    if (isLoading || !hasMore) return;
+  const loadMoreProjects = useCallback(async (e) => {
+    e.preventDefault();
+    console.log('Load more clicked, current displayed:', displayedProjects, 'total:', allProjects.length);
+    
+    if (isLoading || !hasMore) {
+      console.log('Cannot load more - isLoading:', isLoading, 'hasMore:', hasMore);
+      return;
+    }
     
     setIsLoading(true);
     // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 500));
-    setDisplayedProjects(prev => Math.min(prev + PROJECTS_PER_LOAD, allProjects.length));
+    setDisplayedProjects(prev => {
+      const newCount = Math.min(prev + PROJECTS_PER_LOAD, allProjects.length);
+      console.log('New displayed count:', newCount);
+      return newCount;
+    });
     setIsLoading(false);
-  }, [isLoading, hasMore, allProjects.length]);
+  }, [isLoading, hasMore, allProjects.length, displayedProjects]);
 
-  const handleCategoryChange = (categoryLabel: string) => {
+  const handleCategoryChange = useCallback((categoryLabel) => {
+    console.log('Category changed to:', categoryLabel);
     setActiveCategory(categoryLabel);
     setDisplayedProjects(INITIAL_PROJECTS);
-  };
+  }, []);
 
   return (
     <section className="py-16 lg:py-24" style={{ backgroundColor: '#141414' }}>
@@ -52,25 +64,24 @@ export const PortfolioSection = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-6">
             Featured Projects
           </h2>
-          <p className="text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto mb-8 lg:mb-12 px-4">
+          <p className="text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8 lg:mb-12 px-4">
             Explore our portfolio of successful real estate marketing campaigns, 3D visualizations, and corporate solutions that have helped our clients achieve exceptional results.
           </p>
           
           {/* Filter Buttons */}
           <div className="flex flex-wrap justify-center gap-2 lg:gap-4 px-4">
             {categories.map((category) => (
-              <Button
+              <button
                 key={category.id}
                 onClick={() => handleCategoryChange(category.label)}
-                className={`px-4 lg:px-8 py-3 lg:py-4 rounded-full font-medium text-sm lg:text-lg transition-all duration-300 ${
+                className={`px-4 lg:px-8 py-3 lg:py-4 rounded-full font-medium text-sm lg:text-lg transition-all duration-300 cursor-pointer ${
                   activeCategory === category.label
                     ? 'bg-eastdigital-orange text-white shadow-lg hover:bg-eastdigital-orange/90'
                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700'
                 }`}
-                variant="ghost"
               >
                 {category.label}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
@@ -101,13 +112,12 @@ export const PortfolioSection = () => {
         {/* Show More Projects Button */}
         {hasMore && !isLoading && (
           <div className="text-center">
-            <Button 
+            <button 
               onClick={loadMoreProjects}
-              className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 text-lg rounded-full border border-gray-700 hover:border-eastdigital-orange/50 transition-all duration-300"
-              variant="ghost"
+              className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 text-lg rounded-full border border-gray-700 hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer"
             >
-              Show More Projects
-            </Button>
+              Show More Projects ({allProjects.length - displayedProjects} remaining)
+            </button>
           </div>
         )}
 
