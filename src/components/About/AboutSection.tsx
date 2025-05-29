@@ -27,7 +27,7 @@ export const AboutSection = () => {
     title: "Future-Proof Solutions",
     description: "We design with tomorrow in mind, creating scalable solutions that adapt to evolving market demands and technological advancements."
   }];
-  return <section className="relative lg:py-32 bg-eastdigital-dark overflow-hidden py-[15px]">
+  return <section className="relative lg:py-32 bg-eastdigital-dark overflow-hidden py-0">
       {/* Background Animation */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-eastdigital-orange/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
