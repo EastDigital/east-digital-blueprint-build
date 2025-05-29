@@ -18,13 +18,13 @@ export const HeroContent = () => {
         </span>
       </h1>
       
-      {/* Description - Updated color and broken into 2 lines */}
-      <p className="text-sm sm:text-base md:text-lg max-w-3xl sm:mx-auto mb-6 sm:mb-8 md:mb-10 font-poppins font-light leading-relaxed" style={{ color: '#FFE0CA' }}>
+      {/* Description - Updated color and broken into 2 lines, removed bottom margin */}
+      <p className="text-sm sm:text-base md:text-lg max-w-3xl sm:mx-auto mb-6 sm:mb-8 md:mb-8 font-poppins font-light leading-relaxed" style={{ color: '#FFE0CA' }}>
         With over 100 clients using East Digital™<br />
         to power their creative sales and marketing.
       </p>
       
-      {/* CTA Button - Matching reference styling */}
+      {/* CTA Button - Matching reference styling, removed bottom margin */}
       <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins w-[150px]">
         Connect
       </Button>
