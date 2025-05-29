@@ -1,22 +1,19 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Phone, ArrowUp } from 'lucide-react';
-
 const Footer = () => {
   const navigate = useNavigate();
-
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
-
-  const handleNavigation = (path) => {
+  const handleNavigation = path => {
     console.log('Footer navigation to:', path);
     navigate(path);
   };
-
-  return (
-    <footer className="bg-black text-white py-16 lg:py-20">
+  return <footer className="bg-black text-white py-16 lg:py-20">
       <div className="container mx-auto px-4">
         {/* Main CTA Section */}
         <div className="text-center mb-16">
@@ -29,10 +26,7 @@ const Footer = () => {
             Schedule a free consultation with our team<br />
             or generate costing by yourself.
           </p>
-          <button 
-            onClick={() => handleNavigation('/connect')}
-            className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 cursor-pointer"
-          >
+          <button onClick={() => handleNavigation('/connect')} className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 cursor-pointer">
             Get Started
           </button>
         </div>
@@ -56,7 +50,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-12">
           {/* 3D Rendering Section */}
           <div>
-            <h3 className="text-eastdigital-orange font-bold text-lg mb-4">3D RENDERING & VISUALIZATION</h3>
+            <h3 className="text-lg mb-4 font-normal text-orange-300">3D RENDERING & VISUALIZATION</h3>
             <p className="text-gray-400 text-sm mb-6">
               Bring Your Architectural Visions to Life<br />
               with Photo-Realistic Precision.
@@ -74,7 +68,7 @@ const Footer = () => {
 
           {/* Digital Campaigns Section */}
           <div>
-            <h3 className="text-eastdigital-orange font-bold text-lg mb-4">REAL ESTATE DIGITAL CAMPAIGNS</h3>
+            <h3 className="text-lg mb-4 font-normal text-orange-300">REAL ESTATE DIGITAL CAMPAIGNS</h3>
             <p className="text-gray-400 text-sm mb-6">
               Drive Leads & Sales with Strategic<br />
               Digital Campaigns.
@@ -92,7 +86,7 @@ const Footer = () => {
 
           {/* Corporate Solutions Section */}
           <div>
-            <h3 className="text-eastdigital-orange font-bold text-lg mb-4">CORPORATE SOLUTIONS</h3>
+            <h3 className="text-lg mb-4 font-normal text-orange-300">CORPORATE SOLUTIONS</h3>
             <p className="text-gray-400 text-sm mb-6">
               Elevate Your Brand and Connect<br />
               with Your Audience.
@@ -114,23 +108,20 @@ const Footer = () => {
           {/* Logo and Navigation */}
           <div className="flex items-center space-x-8 mb-6 md:mb-0">
             <button onClick={() => handleNavigation('/')} className="flex items-center cursor-pointer">
-              <img 
-                src="https://eastdigital.in/web-images/logo-east-digital-india" 
-                alt="East Digital Logo" 
-                className="h-8 w-auto mr-3"
-                onError={(e) => {
-                  // Fallback to original design if image fails to load
-                  e.currentTarget.style.display = 'none';
-                  const fallbackElement = e.currentTarget.nextElementSibling as HTMLElement;
-                  if (fallbackElement) {
-                    fallbackElement.style.display = 'flex';
-                  }
-                }}
-              />
-              <div className="w-8 h-8 rounded-full border-2 border-eastdigital-orange mr-3" style={{ display: 'none' }}>
+              <img src="https://eastdigital.in/web-images/logo-east-digital-india" alt="East Digital Logo" className="h-8 w-auto mr-3" onError={e => {
+              // Fallback to original design if image fails to load
+              e.currentTarget.style.display = 'none';
+              const fallbackElement = e.currentTarget.nextElementSibling as HTMLElement;
+              if (fallbackElement) {
+                fallbackElement.style.display = 'flex';
+              }
+            }} />
+              <div className="w-8 h-8 rounded-full border-2 border-eastdigital-orange mr-3" style={{
+              display: 'none'
+            }}>
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-eastdigital-orange to-orange-600"></div>
               </div>
-              <span className="text-xl font-bold">EAST DIGITAL</span>
+              
             </button>
             
             <nav className="hidden md:flex space-x-6">
@@ -159,10 +150,7 @@ const Footer = () => {
               </a>
             </div>
             
-            <button
-              onClick={scrollToTop}
-              className="w-10 h-10 bg-eastdigital-orange rounded-full hover:bg-eastdigital-orange/80 transition-colors flex items-center justify-center ml-4 cursor-pointer"
-            >
+            <button onClick={scrollToTop} className="w-10 h-10 bg-eastdigital-orange rounded-full hover:bg-eastdigital-orange/80 transition-colors flex items-center justify-center ml-4 cursor-pointer">
               <ArrowUp className="h-5 w-5 text-white" />
             </button>
           </div>
@@ -179,8 +167,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
