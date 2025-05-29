@@ -31,18 +31,21 @@ export const InteractiveBackground = () => {
       initParticles();
     };
 
-    // Initialize floating particles
+    // Initialize floating particles - responsive count
     const initParticles = () => {
       particlesRef.current = [];
-      const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
+      const isMobile = window.innerWidth < 768;
+      const particleCount = isMobile 
+        ? Math.floor((canvas.width * canvas.height) / 25000) // Fewer particles on mobile
+        : Math.floor((canvas.width * canvas.height) / 15000);
       
       for (let i = 0; i < particleCount; i++) {
         particlesRef.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          size: Math.random() * 2 + 1,
+          vx: (Math.random() - 0.5) * (isMobile ? 0.3 : 0.5), // Slower on mobile
+          vy: (Math.random() - 0.5) * (isMobile ? 0.3 : 0.5),
+          size: Math.random() * (isMobile ? 1.5 : 2) + 1, // Smaller on mobile
           opacity: Math.random() * 0.5 + 0.1
         });
       }
@@ -56,6 +59,7 @@ export const InteractiveBackground = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       timeRef.current += 0.008;
+      const isMobile = window.innerWidth < 768;
       
       // Create subtle gradient background
       const gradient = ctx.createRadialGradient(
@@ -69,17 +73,18 @@ export const InteractiveBackground = () => {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw animated wave layers
-      for (let i = 0; i < 2; i++) {
+      // Draw animated wave layers - responsive amplitude
+      const waveCount = isMobile ? 1 : 2; // Fewer waves on mobile
+      for (let i = 0; i < waveCount; i++) {
         ctx.beginPath();
         ctx.moveTo(0, canvas.height);
 
-        // Create wave path
-        for (let x = 0; x <= canvas.width; x += 8) {
-          const baseWave = Math.sin((x * 0.003) + (timeRef.current * (0.8 + i * 0.2))) * (20 + i * 10);
+        // Create wave path - smaller waves on mobile
+        for (let x = 0; x <= canvas.width; x += (isMobile ? 12 : 8)) {
+          const baseWave = Math.sin((x * 0.003) + (timeRef.current * (0.8 + i * 0.2))) * (isMobile ? 10 + i * 5 : 20 + i * 10);
           const mouseInfluence = Math.sin((x - mouseRef.current.x) * 0.008) * 
-                                Math.exp(-Math.abs(x - mouseRef.current.x) * 0.0008) * 15;
-          const y = canvas.height - 100 + baseWave + mouseInfluence + (i * 20);
+                                Math.exp(-Math.abs(x - mouseRef.current.x) * 0.0008) * (isMobile ? 8 : 15);
+          const y = canvas.height - (isMobile ? 50 : 100) + baseWave + mouseInfluence + (i * (isMobile ? 10 : 20));
           
           if (x === 0) {
             ctx.moveTo(x, y);
@@ -112,15 +117,16 @@ export const InteractiveBackground = () => {
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Mouse interaction
+        // Mouse interaction - reduced on mobile
         const distance = Math.sqrt(
           Math.pow(particle.x - mouseRef.current.x, 2) + 
           Math.pow(particle.y - mouseRef.current.y, 2)
         );
         
         let finalOpacity = particle.opacity;
-        if (distance < 100) {
-          finalOpacity *= (1 + (100 - distance) / 100);
+        const interactionRadius = isMobile ? 60 : 100;
+        if (distance < interactionRadius) {
+          finalOpacity *= (1 + (interactionRadius - distance) / interactionRadius);
         }
 
         // Draw particle
@@ -130,7 +136,8 @@ export const InteractiveBackground = () => {
         ctx.fill();
       });
 
-      // Draw connection lines between nearby particles
+      // Draw connection lines between nearby particles - fewer on mobile
+      const connectionRadius = isMobile ? 80 : 120;
       particlesRef.current.forEach((particle, i) => {
         particlesRef.current.slice(i + 1).forEach((otherParticle) => {
           const distance = Math.sqrt(
@@ -138,11 +145,11 @@ export const InteractiveBackground = () => {
             Math.pow(particle.y - otherParticle.y, 2)
           );
           
-          if (distance < 120) {
+          if (distance < connectionRadius) {
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `rgba(255, 105, 0, ${0.1 * (1 - distance / 120)})`;
+            ctx.strokeStyle = `rgba(255, 105, 0, ${0.1 * (1 - distance / connectionRadius)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
