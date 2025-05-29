@@ -1,144 +1,235 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 import { Button } from '@/components/ui/button';
-import { TrendingUp, Users, Award, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+// Mock project data organized by categories
+const projectData = {
+  '3d-rendering': [
+    {
+      id: 'luxury-tower-mumbai',
+      title: 'Luxury Tower Mumbai',
+      image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop',
+      category: '3D Rendering & Visualization',
+      client: 'Pinnacle Developers',
+      year: '2024'
+    },
+    {
+      id: 'modern-villa-goa',
+      title: 'Modern Villa Goa',
+      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop',
+      category: '3D Rendering & Visualization',
+      client: 'Coastal Homes',
+      year: '2024'
+    },
+    {
+      id: 'commercial-complex-delhi',
+      title: 'Commercial Complex Delhi',
+      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop',
+      category: '3D Rendering & Visualization',
+      client: 'Metro Builders',
+      year: '2023'
+    },
+    {
+      id: 'residential-township',
+      title: 'Residential Township',
+      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop',
+      category: '3D Rendering & Visualization',
+      client: 'Green Valley',
+      year: '2023'
+    }
+  ],
+  'digital-marketing': [
+    {
+      id: 'premium-launch-campaign',
+      title: 'Premium Launch Campaign',
+      image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=800&h=600&fit=crop',
+      category: 'Digital Marketing Campaigns',
+      client: 'Urban Homes',
+      year: '2024'
+    },
+    {
+      id: 'social-media-strategy',
+      title: 'Social Media Strategy',
+      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop',
+      category: 'Digital Marketing Campaigns',
+      client: 'Luxury Living',
+      year: '2024'
+    },
+    {
+      id: 'lead-generation-campaign',
+      title: 'Lead Generation Campaign',
+      image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop',
+      category: 'Digital Marketing Campaigns',
+      client: 'Prime Properties',
+      year: '2023'
+    }
+  ],
+  'corporate-solutions': [
+    {
+      id: 'brand-identity-redesign',
+      title: 'Brand Identity Redesign',
+      image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=600&fit=crop',
+      category: 'Corporate Solutions',
+      client: 'TechForward Solutions',
+      year: '2024'
+    },
+    {
+      id: 'website-development',
+      title: 'Website Development',
+      image: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=600&fit=crop',
+      category: 'Corporate Solutions',
+      client: 'Innovation Corp',
+      year: '2024'
+    },
+    {
+      id: 'digital-transformation',
+      title: 'Digital Transformation',
+      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop',
+      category: 'Corporate Solutions',
+      client: 'Future Enterprises',
+      year: '2023'
+    }
+  ]
+};
+
+const categories = [
+  { id: '3d-rendering', label: '3D Rendering & Visualization' },
+  { id: 'digital-marketing', label: 'Digital Marketing Campaigns' },
+  { id: 'corporate-solutions', label: 'Corporate Solutions' }
+];
 
 const Impact = () => {
+  const [activeCategory, setActiveCategory] = useState('3d-rendering');
+
+  const currentProjects = projectData[activeCategory as keyof typeof projectData];
+
   return (
     <div className="min-h-screen flex flex-col bg-eastdigital-dark">
       <Navbar />
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="container mx-auto px-4 py-16 lg:py-24">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-              Our Impact
-            </h1>
-            <p className="text-xl lg:text-2xl text-eastdigital-lightgray max-w-3xl mx-auto">
-              Discover how our solutions have transformed businesses and elevated brands across industries.
-            </p>
-          </div>
-        </section>
+      
+      {/* Hero Section */}
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: `url(https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1920&h=1080&fit=crop)` 
+          }}
+        />
+        
+        {/* Black Translucent Overlay */}
+        <div className="absolute inset-0 bg-black/60"></div>
+        
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-poppins">
+            Our Impact
+          </h1>
+          <p className="text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+            Transforming visions into reality through innovative design, strategic marketing, and cutting-edge technology solutions.
+          </p>
+        </div>
+      </section>
 
-        {/* Stats Section */}
-        <section className="container mx-auto px-4 py-16">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-8">
-              <TrendingUp className="h-12 w-12 text-eastdigital-orange mx-auto mb-4" />
-              <div className="text-4xl font-bold text-white mb-2">500+</div>
-              <div className="text-eastdigital-lightgray">Projects Delivered</div>
-            </div>
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-8">
-              <Users className="h-12 w-12 text-eastdigital-orange mx-auto mb-4" />
-              <div className="text-4xl font-bold text-white mb-2">200+</div>
-              <div className="text-eastdigital-lightgray">Happy Clients</div>
-            </div>
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-8">
-              <Award className="h-12 w-12 text-eastdigital-orange mx-auto mb-4" />
-              <div className="text-4xl font-bold text-white mb-2">50+</div>
-              <div className="text-eastdigital-lightgray">Awards Won</div>
-            </div>
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-8">
-              <Star className="h-12 w-12 text-eastdigital-orange mx-auto mb-4" />
-              <div className="text-4xl font-bold text-white mb-2">4.9/5</div>
-              <div className="text-eastdigital-lightgray">Client Rating</div>
+      {/* Floating Filter Bar */}
+      <section className="relative -mt-8 z-20">
+        <div className="container mx-auto px-4">
+          <div className="bg-gray-900/80 backdrop-blur-md border border-gray-700/50 rounded-2xl p-2 mx-auto max-w-4xl">
+            <div className="flex flex-wrap justify-center gap-2">
+              {categories.map((category) => (
+                <Button
+                  key={category.id}
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                    activeCategory === category.id
+                      ? 'bg-eastdigital-orange text-white shadow-lg'
+                      : 'bg-transparent text-gray-300 hover:text-white hover:bg-gray-800/50'
+                  }`}
+                  variant="ghost"
+                >
+                  {category.label}
+                </Button>
+              ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Case Studies */}
-        <section className="container mx-auto px-4 py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              Success Stories
-            </h2>
+      {/* Projects Grid */}
+      <section className="py-16 lg:py-24">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {currentProjects.map((project, index) => (
+              <Link
+                key={project.id}
+                to={`/project/${project.id}`}
+                className="group block"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animation: 'fade-in 0.6s ease-out forwards'
+                }}
+              >
+                <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl overflow-hidden hover:border-eastdigital-orange/50 transition-all duration-300 group-hover:transform group-hover:scale-[1.02]">
+                  {/* Project Image */}
+                  <div className="relative h-64 overflow-hidden">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    
+                    {/* Project Info Overlay */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="text-xs text-eastdigital-orange font-medium mb-1 uppercase tracking-wide">
+                        {project.category}
+                      </div>
+                      <h3 className="text-white font-semibold text-lg mb-1 group-hover:text-eastdigital-orange transition-colors duration-300">
+                        {project.title}
+                      </h3>
+                      <div className="flex justify-between items-center text-sm text-white/80">
+                        <span>{project.client}</span>
+                        <span>{project.year}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Project Details */}
+                  <div className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm text-eastdigital-lightgray">
+                        View Case Study
+                      </div>
+                      <div className="w-6 h-6 rounded-full border border-eastdigital-orange flex items-center justify-center group-hover:bg-eastdigital-orange transition-colors duration-300">
+                        <svg 
+                          className="w-3 h-3 text-eastdigital-orange group-hover:text-white transition-colors duration-300" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth={2} 
+                            d="M9 5l7 7-7 7" 
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-4">Luxury Residential Tower</h3>
-              <p className="text-eastdigital-lightgray mb-6 leading-relaxed">
-                Our 3D renderings and VR tours helped a premium developer achieve 80% pre-sales before construction began, generating ₹200 crores in bookings.
-              </p>
-              <div className="grid grid-cols-2 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-eastdigital-orange">80%</div>
-                  <div className="text-sm text-eastdigital-lightgray">Pre-sales Rate</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-eastdigital-orange">₹200Cr</div>
-                  <div className="text-sm text-eastdigital-lightgray">Revenue Generated</div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-4">Tech Startup Rebranding</h3>
-              <p className="text-eastdigital-lightgray mb-6 leading-relaxed">
-                Complete brand transformation and digital platform redesign resulted in 300% increase in user engagement and successful Series A funding.
-              </p>
-              <div className="grid grid-cols-2 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-eastdigital-orange">300%</div>
-                  <div className="text-sm text-eastdigital-lightgray">User Engagement</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-eastdigital-orange">$5M</div>
-                  <div className="text-sm text-eastdigital-lightgray">Series A Raised</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Testimonials */}
-        <section className="container mx-auto px-4 py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              What Our Clients Say
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
-              <div className="flex mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-eastdigital-orange fill-current" />
-                ))}
-              </div>
-              <p className="text-eastdigital-lightgray mb-4 italic">
-                "East Digital transformed our vision into reality. Their 3D renderings were so realistic that buyers could envision living in the space before we even broke ground."
-              </p>
-              <div className="text-white font-semibold">Rajesh Kumar</div>
-              <div className="text-eastdigital-lightgray text-sm">CEO, Pinnacle Developers</div>
-            </div>
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
-              <div className="flex mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-eastdigital-orange fill-current" />
-                ))}
-              </div>
-              <p className="text-eastdigital-lightgray mb-4 italic">
-                "The digital marketing campaigns increased our property inquiries by 400%. Their strategic approach to targeting the right audience was exceptional."
-              </p>
-              <div className="text-white font-semibold">Priya Sharma</div>
-              <div className="text-eastdigital-lightgray text-sm">Marketing Director, Urban Homes</div>
-            </div>
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
-              <div className="flex mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-eastdigital-orange fill-current" />
-                ))}
-              </div>
-              <p className="text-eastdigital-lightgray mb-4 italic">
-                "Our new brand identity and website have completely transformed how clients perceive our company. The results speak for themselves."
-              </p>
-              <div className="text-white font-semibold">Amit Patel</div>
-              <div className="text-eastdigital-lightgray text-sm">Founder, TechForward Solutions</div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="container mx-auto px-4 py-16">
+      {/* CTA Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
           <div className="bg-gradient-to-r from-eastdigital-orange/10 to-eastdigital-orange/5 border border-eastdigital-orange/20 rounded-2xl p-8 lg:p-12 text-center">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               Ready to Create Your Success Story?
@@ -146,12 +237,14 @@ const Impact = () => {
             <p className="text-xl text-eastdigital-lightgray mb-8 max-w-2xl mx-auto">
               Join hundreds of satisfied clients who have transformed their businesses with our expertise.
             </p>
-            <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-3 text-lg rounded-[60px]">
-              Get Your Blueprint
-            </Button>
+            <Link to="/connect">
+              <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-3 text-lg rounded-full">
+                Start Your Project
+              </Button>
+            </Link>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </div>
   );
 };
