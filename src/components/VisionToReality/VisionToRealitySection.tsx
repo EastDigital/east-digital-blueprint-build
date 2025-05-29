@@ -1,10 +1,14 @@
 
 import React from 'react';
+import { InteractiveVisionBackground } from './InteractiveVisionBackground';
 
 export const VisionToRealitySection = () => {
   return (
     <section className="relative py-16 lg:py-24 bg-gradient-to-b from-eastdigital-dark to-gray-900 overflow-hidden">
-      {/* Animated Background Pattern */}
+      {/* Interactive Background Animation */}
+      <InteractiveVisionBackground />
+      
+      {/* Static Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-eastdigital-orange/20 rounded-full blur-3xl animate-float"></div>
         <div className="absolute bottom-1/4 right-1/3 w-72 h-72 bg-blue-500/15 rounded-full blur-3xl animate-float-delayed"></div>
