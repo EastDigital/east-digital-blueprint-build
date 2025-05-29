@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ProjectCard } from './ProjectCard';
-import { projectsData } from '@/data/projects';
+import { getCarouselProjects } from '@/data/projects';
 
 export const ProjectCarousel = () => {
   const [isPaused, setIsPaused] = useState(false);
@@ -11,6 +11,8 @@ export const ProjectCarousel = () => {
   const scrollPositionRef = useRef(0);
   const startXRef = useRef(0);
   const startScrollRef = useRef(0);
+
+  const carouselProjects = getCarouselProjects();
 
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -131,8 +133,8 @@ export const ProjectCarousel = () => {
         onTouchEnd={handleTouchEnd}
         style={{ scrollBehavior: 'auto' }}
       >
-        {/* Duplicate the projects array for seamless infinite scroll */}
-        {[...projectsData, ...projectsData].map((project, index) => (
+        {/* Duplicate the carousel projects array for seamless infinite scroll */}
+        {[...carouselProjects, ...carouselProjects].map((project, index) => (
           <ProjectCard
             key={`${project.id}-${index}`}
             name={project.name}

@@ -17,6 +17,7 @@ export interface Project {
   status: 'completed' | 'in-progress' | 'upcoming';
   challenge: string;
   solution: string;
+  showInCarousel: boolean; // New field for carousel display
   results: {
     engagement: string;
     leads: string;
@@ -44,6 +45,7 @@ export const projectsData: Project[] = [
     duration: '6 months',
     team: '12 specialists',
     status: 'completed',
+    showInCarousel: true,
     challenge: 'Creating a premium residential experience that balances modern amenities with environmental sustainability while meeting the diverse needs of urban families.',
     solution: 'We developed a comprehensive digital marketing strategy that showcased the project\'s unique value proposition through immersive 3D visualizations and targeted digital campaigns.',
     results: {
@@ -76,6 +78,7 @@ export const projectsData: Project[] = [
     duration: '8 months',
     team: '15 specialists',
     status: 'completed',
+    showInCarousel: true,
     challenge: 'Visualizing complex renewable energy infrastructure and communicating the environmental benefits to stakeholders and the public.',
     solution: 'Created comprehensive 3D visualizations and interactive presentations that demonstrated the project\'s impact on sustainable energy generation.',
     results: {
@@ -108,6 +111,7 @@ export const projectsData: Project[] = [
     duration: '10 months',
     team: '18 specialists',
     status: 'completed',
+    showInCarousel: true,
     challenge: 'Visualizing a complex mixed-use development that balances commercial viability with residential comfort and community needs.',
     solution: 'Developed detailed 3D architectural visualizations and virtual reality tours that allowed stakeholders to experience the integrated development concept.',
     results: {
@@ -140,6 +144,7 @@ export const projectsData: Project[] = [
     duration: '12 months',
     team: '20 specialists',
     status: 'completed',
+    showInCarousel: false,
     challenge: 'Designing and visualizing a complex industrial facility that meets modern manufacturing standards while maintaining environmental compliance.',
     solution: 'Created comprehensive facility planning visualizations and workflow optimization models that demonstrated operational efficiency.',
     results: {
@@ -172,6 +177,7 @@ export const projectsData: Project[] = [
     duration: '7 months',
     team: '14 specialists',
     status: 'in-progress',
+    showInCarousel: true,
     challenge: 'Creating a sustainable township that balances modern living requirements with environmental conservation and community well-being.',
     solution: 'Developed eco-friendly design visualizations and community planning models that showcase sustainable living practices.',
     results: {
@@ -204,6 +210,7 @@ export const projectsData: Project[] = [
     duration: '5 months',
     team: '10 specialists',
     status: 'completed',
+    showInCarousel: true,
     challenge: 'Marketing a premium high-rise property in a competitive urban market while highlighting unique value propositions.',
     solution: 'Created immersive digital marketing campaigns with virtual tours and targeted advertising to reach high-net-worth individuals.',
     results: {
@@ -236,6 +243,7 @@ export const projectsData: Project[] = [
     duration: '9 months',
     team: '16 specialists',
     status: 'completed',
+    showInCarousel: false,
     challenge: 'Communicating the technical complexity and environmental benefits of large-scale solar infrastructure to diverse stakeholder groups.',
     solution: 'Developed technical visualizations and impact assessments that clearly demonstrated the project\'s contribution to sustainable energy goals.',
     results: {
@@ -268,6 +276,7 @@ export const projectsData: Project[] = [
     duration: '6 months',
     team: '12 specialists',
     status: 'in-progress',
+    showInCarousel: true,
     challenge: 'Marketing ultra-luxury villas to an exclusive clientele while showcasing unique architectural and lifestyle features.',
     solution: 'Created premium marketing materials with virtual reality experiences and personalized marketing approaches for high-net-worth individuals.',
     results: {
@@ -292,7 +301,14 @@ export const getProjectById = (id: string): Project | undefined => {
 };
 
 export const getProjectsByCategory = (category: string): Project[] => {
+  if (category === 'ALL') {
+    return projectsData;
+  }
   return projectsData.filter(project => project.category === category);
+};
+
+export const getCarouselProjects = (): Project[] => {
+  return projectsData.filter(project => project.showInCarousel);
 };
 
 export const getFeaturedProjects = (limit: number = 6): Project[] => {
