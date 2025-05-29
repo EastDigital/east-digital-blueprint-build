@@ -3,7 +3,7 @@ import { HeroContent } from './HeroContent';
 import { ProjectCarousel } from './ProjectCarousel';
 import { InteractiveBackground } from './InteractiveBackground';
 export const Hero = () => {
-  return <section className="relative min-h-screen bg-eastdigital-dark overflow-hidden flex flex-col mx-0 my-0 py-[75px]">
+  return <section className="relative min-h-screen bg-eastdigital-dark overflow-hidden flex flex-col mx-0 my-0 py-[70px] pb-0">
       {/* Enhanced Interactive Background Animation */}
       <InteractiveBackground />
       
