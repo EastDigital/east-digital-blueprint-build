@@ -19,7 +19,7 @@ export const HeroContent = () => {
       </h1>
       
       {/* Description - Updated color and broken into 2 lines, removed bottom margin */}
-      <p className="text-sm sm:text-base md:text-lg max-w-3xl sm:mx-auto mb-6 sm:mb-8 md:mb-8 font-poppins font-light leading-relaxed" style={{ color: '#FFE0CA' }}>
+      <p className="text-sm sm:text-base md:text-lg max-w-3xl sm:mx-auto mb-3 sm:mb-8 md:mb-8 font-poppins font-light leading-relaxed" style={{ color: '#FFE0CA' }}>
         With over 100 clients using East Digital™<br />
         to power their creative sales and marketing.
       </p>

@@ -1,3 +1,4 @@
+
 import React from 'react';
 interface ProjectCardProps {
   name: string;
@@ -7,7 +8,7 @@ export const ProjectCard = ({
   name,
   image
 }: ProjectCardProps) => {
-  return <div className="flex-shrink-0 w-[285px] h-[370px] bg-gradient-to-br from-eastdigital-gray/80 to-eastdigital-dark/90 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer group relative">
+  return <div className="flex-shrink-0 w-[175px] h-[225px] sm:w-[285px] sm:h-[370px] bg-gradient-to-br from-eastdigital-gray/80 to-eastdigital-dark/90 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer group relative">
       {/* Background Image */}
       <img src={image} alt={name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 " />
       

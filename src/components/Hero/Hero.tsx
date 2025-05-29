@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { HeroContent } from './HeroContent';
 import { ProjectCarousel } from './ProjectCarousel';
@@ -16,7 +17,7 @@ export const Hero = () => {
       </div>
       
       {/* Carousel - Full width, touching bottom edge, zero gap on mobile */}
-      <div className="relative z-10 flex-1 flex items-end mt-0 pt-2">
+      <div className="relative z-10 flex-1 flex items-end mt-0 pt-0 sm:pt-2">
         <ProjectCarousel />
       </div>
     </section>;
