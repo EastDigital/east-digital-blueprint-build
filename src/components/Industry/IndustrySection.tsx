@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Building2, HardHat, Ruler, Briefcase, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import type { CarouselApi } from '@/components/ui/carousel';
 
 const industries = [
   {
@@ -107,8 +108,29 @@ const colorVariants = {
 
 export const IndustrySection = () => {
   const [activeIndustry, setActiveIndustry] = useState(0);
+  const [api, setApi] = useState<CarouselApi>();
+  const [isPaused, setIsPaused] = useState(false);
   const activeData = industries[activeIndustry];
   const colorScheme = colorVariants[activeData.color];
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (!api || isPaused) return;
+
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 3000); // Auto-scroll every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [api, isPaused]);
+
+  // Handle carousel API and reset scroll position when industry changes
+  useEffect(() => {
+    if (!api) return;
+
+    // Reset to first slide when industry changes
+    api.scrollTo(0);
+  }, [api, activeIndustry]);
 
   return (
     <section className="relative py-24 lg:py-32 bg-gradient-to-b from-eastdigital-dark via-gray-900/50 to-eastdigital-dark">
@@ -192,9 +214,18 @@ export const IndustrySection = () => {
           {/* Right Side - Featured Content with Scrollable Images (6 columns) */}
           <div className="lg:col-span-6">
             <div className="relative">
-              {/* Scrollable Images Carousel */}
+              {/* Auto-scrollable Images Carousel */}
               <div className="relative mb-6">
-                <Carousel className="w-full">
+                <Carousel 
+                  className="w-full"
+                  setApi={setApi}
+                  opts={{
+                    align: "start",
+                    loop: true,
+                  }}
+                  onMouseEnter={() => setIsPaused(true)}
+                  onMouseLeave={() => setIsPaused(false)}
+                >
                   <CarouselContent>
                     {activeData.images.map((image, index) => (
                       <CarouselItem key={index}>
