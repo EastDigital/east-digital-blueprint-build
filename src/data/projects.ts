@@ -1,3 +1,4 @@
+
 export interface Project {
   id: string;
   title: string;
@@ -326,6 +327,14 @@ export const getProjectsByCategory = (categoryLabel: string) => {
   }
   const categoryId = categories.find(cat => cat.label === categoryLabel)?.id;
   return projects.filter(project => project.category === categoryId);
+};
+
+export const getCarouselProjects = () => {
+  return projects.map(project => ({
+    id: project.id,
+    name: project.title,
+    featuredImage: project.featuredImage
+  }));
 };
 
 export const categories = [
