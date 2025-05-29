@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
-import { Building2, HardHat, Ruler, Briefcase, ArrowRight } from 'lucide-react';
+import { Building2, HardHat, Ruler, Briefcase, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const industries = [
   {
@@ -13,19 +13,31 @@ const industries = [
     projects: '45+',
     metric: '285%',
     metricLabel: 'Engagement Increase',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1515263487990-61b07816b924?w=800&h=600&fit=crop'
+    ],
     color: 'blue'
   },
   {
     id: 'engineering',
-    title: 'Engineering',
+    title: 'Engineering & Product',
     subtitle: 'Infrastructure & Industrial Projects',
     icon: HardHat,
     description: 'Showcase complex engineering solutions with detailed technical visualizations and progress tracking systems.',
     projects: '32+',
     metric: '40%',
     metricLabel: 'Reduced Delays',
-    image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=600&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop'
+    ],
     color: 'orange'
   },
   {
@@ -37,7 +49,13 @@ const industries = [
     projects: '58+',
     metric: '96%',
     metricLabel: 'Client Approval Rate',
-    image: 'https://images.unsplash.com/photo-1496307653780-42ee777d4833?w=800&h=600&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1496307653780-42ee777d4833?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop'
+    ],
     color: 'purple'
   },
   {
@@ -49,7 +67,13 @@ const industries = [
     projects: '73+',
     metric: '320%',
     metricLabel: 'ROI Increase',
-    image: 'https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=800&h=600&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop'
+    ],
     color: 'emerald'
   }
 ];
@@ -165,52 +189,64 @@ export const IndustrySection = () => {
             </div>
           </div>
 
-          {/* Right Side - Featured Content (6 columns) */}
+          {/* Right Side - Featured Content with Scrollable Images (6 columns) */}
           <div className="lg:col-span-6">
             <div className="relative">
-              {/* Main Image */}
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6">
-                <img 
-                  src={activeData.image}
-                  alt={activeData.title}
-                  className="w-full h-full object-cover transition-all duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                
-                {/* Image Overlay Content */}
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className={`bg-gradient-to-r ${colorScheme.gradient} backdrop-blur-md rounded-xl p-6 border ${colorScheme.border}`}>
-                    <h4 className="text-white text-xl font-bold mb-2">
-                      {activeData.title} Excellence
-                    </h4>
-                    <p className="text-gray-200 text-sm mb-4">
-                      {activeData.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div>
-                          <div className={`text-2xl font-bold ${colorScheme.accent}`}>
-                            {activeData.projects}
+              {/* Scrollable Images Carousel */}
+              <div className="relative mb-6">
+                <Carousel className="w-full">
+                  <CarouselContent>
+                    {activeData.images.map((image, index) => (
+                      <CarouselItem key={index}>
+                        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                          <img 
+                            src={image}
+                            alt={`${activeData.title} project ${index + 1}`}
+                            className="w-full h-full object-cover transition-all duration-700"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                          
+                          {/* Image Overlay Content */}
+                          <div className="absolute bottom-6 left-6 right-6">
+                            <div className={`bg-gradient-to-r ${colorScheme.gradient} backdrop-blur-md rounded-xl p-6 border ${colorScheme.border}`}>
+                              <h4 className="text-white text-xl font-bold mb-2">
+                                {activeData.title} Excellence
+                              </h4>
+                              <p className="text-gray-200 text-sm mb-4">
+                                {activeData.description}
+                              </p>
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                  <div>
+                                    <div className={`text-2xl font-bold ${colorScheme.accent}`}>
+                                      {activeData.projects}
+                                    </div>
+                                    <div className="text-xs text-gray-300">Projects</div>
+                                  </div>
+                                  <div className="w-px h-8 bg-gray-600"></div>
+                                  <div>
+                                    <div className={`text-2xl font-bold ${colorScheme.accent}`}>
+                                      {activeData.metric}
+                                    </div>
+                                    <div className="text-xs text-gray-300">{activeData.metricLabel}</div>
+                                  </div>
+                                </div>
+                                <Button 
+                                  size="sm" 
+                                  className="bg-eastdigital-orange/20 hover:bg-eastdigital-orange/30 text-eastdigital-orange border border-eastdigital-orange/30 rounded-full px-4"
+                                >
+                                  View Projects
+                                </Button>
+                              </div>
+                            </div>
                           </div>
-                          <div className="text-xs text-gray-300">Projects</div>
                         </div>
-                        <div className="w-px h-8 bg-gray-600"></div>
-                        <div>
-                          <div className={`text-2xl font-bold ${colorScheme.accent}`}>
-                            {activeData.metric}
-                          </div>
-                          <div className="text-xs text-gray-300">{activeData.metricLabel}</div>
-                        </div>
-                      </div>
-                      <Button 
-                        size="sm" 
-                        className="bg-eastdigital-orange/20 hover:bg-eastdigital-orange/30 text-eastdigital-orange border border-eastdigital-orange/30 rounded-full px-4"
-                      >
-                        View Projects
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-4 bg-black/50 border-white/20 text-white hover:bg-black/70" />
+                  <CarouselNext className="right-4 bg-black/50 border-white/20 text-white hover:bg-black/70" />
+                </Carousel>
               </div>
             </div>
           </div>
