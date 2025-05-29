@@ -28,9 +28,19 @@ export const MinimalProjectCard = ({ project }: MinimalProjectCardProps) => {
     }
   };
 
+  // Debug log to check if the link is being created correctly
+  console.log('Project card link:', `/project/${project.id}`);
+
   return (
     <div className="group">
-      <Link to={`/project/${project.id}`} className="block">
+      <Link 
+        to={`/project/${project.id}`} 
+        className="block cursor-pointer"
+        onClick={(e) => {
+          console.log('Project card clicked:', project.id);
+          // Ensure the click event propagates
+        }}
+      >
         <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-xl overflow-hidden hover:border-eastdigital-orange/30 transition-all duration-300 hover:shadow-lg hover:shadow-eastdigital-orange/10 hover:-translate-y-1">
           {/* Image Section */}
           <div className="relative aspect-[4/3] overflow-hidden">

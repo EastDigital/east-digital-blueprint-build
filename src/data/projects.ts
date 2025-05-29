@@ -325,8 +325,8 @@ export const getProjectsByCategory = (categoryLabel: string) => {
   if (categoryLabel === 'All Projects') {
     return projects;
   }
-  const categoryId = categories.find(cat => cat.label === categoryLabel)?.id;
-  return projects.filter(project => project.category === categoryId);
+  // Fixed: Match the actual category values in the project data
+  return projects.filter(project => project.category === categoryLabel);
 };
 
 export const getCarouselProjects = () => {
