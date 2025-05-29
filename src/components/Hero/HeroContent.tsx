@@ -1,10 +1,7 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
-
 export const HeroContent = () => {
-  return (
-    <div className="text-center max-w-5xl mx-auto px-4">
+  return <div className="text-center max-w-5xl mx-auto px-[15px]">
       {/* Subheading - More generous spacing on mobile */}
       <p className="text-eastdigital-lightgray text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-4 md:mb-6 font-poppins tracking-wide">
         Real Estate Developers
@@ -24,12 +21,10 @@ export const HeroContent = () => {
       </p>
       
       {/* CTA Button - Fixed width of 150px */}
-      <Button 
-        className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins"
-        style={{ width: '150px' }}
-      >
+      <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins" style={{
+      width: '150px'
+    }}>
         Connect
       </Button>
-    </div>
-  );
+    </div>;
 };
