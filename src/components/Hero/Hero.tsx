@@ -1,9 +1,12 @@
+
 import React from 'react';
 import { HeroContent } from './HeroContent';
 import { ProjectCarousel } from './ProjectCarousel';
 import { InteractiveBackground } from './InteractiveBackground';
+
 export const Hero = () => {
-  return <section className="relative min-h-screen bg-eastdigital-dark overflow-hidden flex flex-col">
+  return (
+    <section className="relative min-h-screen bg-eastdigital-dark overflow-hidden flex flex-col">
       {/* Enhanced Interactive Background Animation */}
       <InteractiveBackground />
       
@@ -13,12 +16,14 @@ export const Hero = () => {
         <div className="pt-[60px] pb-[40px] sm:pt-16 sm:pb-0">
           <HeroContent />
         </div>
-        
-        {/* Carousel - Maintaining spacing from CTA */}
-        <div className="pb-8 sm:pb-12 -mb-[100px] sm:mb-0">
-          <ProjectCarousel />
-        </div>
       </div>
-    </section>;
+      
+      {/* Carousel - Full width, no container constraints */}
+      <div className="relative z-10 pb-8 sm:pb-12 -mb-[100px] sm:mb-0">
+        <ProjectCarousel />
+      </div>
+    </section>
+  );
 };
+
 export default Hero;
