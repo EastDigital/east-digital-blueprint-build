@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { getProjects, Project } from '@/data/projects';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
@@ -259,147 +260,183 @@ export const ProjectManagement = () => {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <FileText className="h-6 w-6 text-eastdigital-orange" />
-          <h2 className="text-2xl font-bold text-white">Project Management</h2>
+    <TooltipProvider>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <FileText className="h-6 w-6 text-eastdigital-orange" />
+            <h2 className="text-2xl font-bold text-white">Project Management</h2>
+          </div>
+          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90">
+                <Plus className="h-4 w-4 mr-2" />
+                Add Project
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-4xl w-[90vw] max-h-[85vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Add New Project</DialogTitle>
+              </DialogHeader>
+              <ProjectForm
+                project={newProject}
+                onProjectChange={setNewProject}
+                onSubmit={handleAddProject}
+                submitLabel="Add Project"
+              />
+            </DialogContent>
+          </Dialog>
         </div>
-        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Project
-            </Button>
-          </DialogTrigger>
+
+        {/* Edit Project Dialog */}
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
           <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-4xl w-[90vw] max-h-[85vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Add New Project</DialogTitle>
+              <DialogTitle>Edit Project</DialogTitle>
             </DialogHeader>
-            <ProjectForm
-              project={newProject}
-              onProjectChange={setNewProject}
-              onSubmit={handleAddProject}
-              submitLabel="Add Project"
-            />
+            {editingProject && (
+              <ProjectForm
+                project={editingProject}
+                onProjectChange={setEditingProject}
+                onSubmit={handleEditProject}
+                submitLabel="Update Project"
+              />
+            )}
           </DialogContent>
         </Dialog>
-      </div>
 
-      {/* Edit Project Dialog */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-4xl w-[90vw] max-h-[85vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Edit Project</DialogTitle>
-          </DialogHeader>
-          {editingProject && (
-            <ProjectForm
-              project={editingProject}
-              onProjectChange={setEditingProject}
-              onSubmit={handleEditProject}
-              submitLabel="Update Project"
-            />
-          )}
-        </DialogContent>
-      </Dialog>
+        <div className="flex items-center space-x-2">
+          <Search className="h-4 w-4 text-gray-400" />
+          <Input
+            placeholder="Search projects..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="bg-gray-800 border-gray-700 text-white"
+          />
+        </div>
 
-      <div className="flex items-center space-x-2">
-        <Search className="h-4 w-4 text-gray-400" />
-        <Input
-          placeholder="Search projects..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="bg-gray-800 border-gray-700 text-white"
-        />
-      </div>
-
-      <div className="bg-gray-900 rounded-lg border border-gray-800">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-gray-300">Title</TableHead>
-              <TableHead className="text-gray-300">Category</TableHead>
-              <TableHead className="text-gray-300">Status</TableHead>
-              <TableHead className="text-gray-300">Client</TableHead>
-              <TableHead className="text-gray-300">Location</TableHead>
-              <TableHead className="text-gray-300">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredProjects.map((project) => (
-              <TableRow key={project.id}>
-                <TableCell className="text-white font-medium">{project.title}</TableCell>
-                <TableCell className="text-gray-300">{project.category}</TableCell>
-                <TableCell>
-                  <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(project.status)}`}>
-                    {project.status.replace('-', ' ')}
-                  </span>
-                </TableCell>
-                <TableCell className="text-gray-300">{project.client}</TableCell>
-                <TableCell className="text-gray-300">{project.location}</TableCell>
-                <TableCell>
-                  <div className="flex space-x-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => handleViewProject(project.id)}
-                      className="border-gray-700 text-gray-300"
-                    >
-                      <Eye className="h-3 w-3" />
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => openEditDialog(project)}
-                      className="border-gray-700 text-gray-300"
-                    >
-                      <Edit className="h-3 w-3" />
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => handleDuplicateProject(project)}
-                      className="border-blue-700 text-blue-400 hover:bg-blue-900"
-                    >
-                      <Copy className="h-3 w-3" />
-                    </Button>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="border-red-700 text-red-400 hover:bg-red-900"
-                        >
-                          <Trash2 className="h-3 w-3" />
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent className="bg-gray-900 border-gray-800 text-white">
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                          <AlertDialogDescription className="text-gray-300">
-                            This action cannot be undone. This will permanently delete the project "{project.title}" from the system.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700">
-                            Cancel
-                          </AlertDialogCancel>
-                          <AlertDialogAction 
-                            onClick={() => handleDeleteProject(project.id)}
-                            className="bg-red-600 hover:bg-red-700"
-                          >
-                            Delete
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </div>
-                </TableCell>
+        <div className="bg-gray-900 rounded-lg border border-gray-800 overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow className="border-gray-700 hover:bg-gray-800/50">
+                <TableHead className="text-gray-300 font-medium py-4">Title</TableHead>
+                <TableHead className="text-gray-300 font-medium py-4">Category</TableHead>
+                <TableHead className="text-gray-300 font-medium py-4">Status</TableHead>
+                <TableHead className="text-gray-300 font-medium py-4">Client</TableHead>
+                <TableHead className="text-gray-300 font-medium py-4">Location</TableHead>
+                <TableHead className="text-gray-300 font-medium py-4 text-center">Actions</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {filteredProjects.map((project) => (
+                <TableRow 
+                  key={project.id} 
+                  className="border-gray-700 hover:bg-gray-800/30 transition-colors duration-200"
+                >
+                  <TableCell className="text-white font-medium py-6">{project.title}</TableCell>
+                  <TableCell className="text-gray-300 py-6">{project.category}</TableCell>
+                  <TableCell className="py-6">
+                    <span className={`px-3 py-1.5 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
+                      {project.status.replace('-', ' ')}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-gray-300 py-6">{project.client}</TableCell>
+                  <TableCell className="text-gray-300 py-6">{project.location}</TableCell>
+                  <TableCell className="py-6">
+                    <div className="flex justify-center space-x-2">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={() => handleViewProject(project.id)}
+                            className="h-9 w-9 p-0 border-gray-600 text-gray-300 hover:text-white hover:bg-gray-700 hover:border-gray-500 transition-all duration-200"
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>View Project</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={() => openEditDialog(project)}
+                            className="h-9 w-9 p-0 border-gray-600 text-gray-300 hover:text-white hover:bg-gray-700 hover:border-gray-500 transition-all duration-200"
+                          >
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Edit Project</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={() => handleDuplicateProject(project)}
+                            className="h-9 w-9 p-0 border-blue-600 text-blue-400 hover:text-blue-300 hover:bg-blue-900/50 hover:border-blue-500 transition-all duration-200"
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Duplicate Project</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      
+                      <AlertDialog>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <AlertDialogTrigger asChild>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="h-9 w-9 p-0 border-red-600 text-red-400 hover:text-red-300 hover:bg-red-900/50 hover:border-red-500 transition-all duration-200"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </AlertDialogTrigger>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Delete Project</p>
+                          </TooltipContent>
+                        </Tooltip>
+                        <AlertDialogContent className="bg-gray-900 border-gray-800 text-white">
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                            <AlertDialogDescription className="text-gray-300">
+                              This action cannot be undone. This will permanently delete the project "{project.title}" from the system.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700">
+                              Cancel
+                            </AlertDialogCancel>
+                            <AlertDialogAction 
+                              onClick={() => handleDeleteProject(project.id)}
+                              className="bg-red-600 hover:bg-red-700"
+                            >
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
-    </div>
+    </TooltipProvider>
   );
 };
