@@ -1,18 +1,22 @@
 
 import React, { useState } from 'react';
-import { FileText, Plus, Edit, Trash2, Search, Eye } from 'lucide-react';
+import { FileText, Plus, Edit, Trash2, Search, Eye, Copy } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Label } from '@/components/ui/label';
 import { getProjects, Project } from '@/data/projects';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 export const ProjectManagement = () => {
   const [projects, setProjects] = useState<Project[]>(getProjects());
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [newProject, setNewProject] = useState({
     title: '',
     category: '3D Rendering & Visualization',
@@ -21,6 +25,7 @@ export const ProjectManagement = () => {
     location: ''
   });
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const filteredProjects = projects.filter(project => 
     project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -58,14 +63,55 @@ export const ProjectManagement = () => {
       location: ''
     });
     setIsAddDialogOpen(false);
+    toast({
+      title: "Project Added",
+      description: "New project has been added successfully.",
+    });
+  };
+
+  const handleEditProject = () => {
+    if (!editingProject) return;
+    
+    setProjects(projects.map(project => 
+      project.id === editingProject.id ? editingProject : project
+    ));
+    setIsEditDialogOpen(false);
+    setEditingProject(null);
+    toast({
+      title: "Project Updated",
+      description: "Project has been updated successfully.",
+    });
+  };
+
+  const handleDuplicateProject = (project: Project) => {
+    const duplicatedProject: Project = {
+      ...project,
+      id: Date.now().toString(),
+      title: `${project.title} (Copy)`,
+      status: 'upcoming'
+    };
+    setProjects([...projects, duplicatedProject]);
+    toast({
+      title: "Project Duplicated",
+      description: "Project has been duplicated successfully.",
+    });
   };
 
   const handleDeleteProject = (id: string) => {
     setProjects(projects.filter(project => project.id !== id));
+    toast({
+      title: "Project Deleted",
+      description: "Project has been deleted successfully.",
+    });
   };
 
   const handleViewProject = (id: string) => {
     navigate(`/project/${id}`);
+  };
+
+  const openEditDialog = (project: Project) => {
+    setEditingProject({ ...project });
+    setIsEditDialogOpen(true);
   };
 
   const getStatusColor = (status: string) => {
@@ -161,6 +207,75 @@ export const ProjectManagement = () => {
         </Dialog>
       </div>
 
+      {/* Edit Project Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="bg-gray-900 border-gray-800 text-white">
+          <DialogHeader>
+            <DialogTitle>Edit Project</DialogTitle>
+          </DialogHeader>
+          {editingProject && (
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="editTitle">Project Title</Label>
+                <Input
+                  id="editTitle"
+                  value={editingProject.title}
+                  onChange={(e) => setEditingProject({ ...editingProject, title: e.target.value })}
+                  className="bg-gray-800 border-gray-700 text-white"
+                />
+              </div>
+              <div>
+                <Label htmlFor="editCategory">Category</Label>
+                <select
+                  id="editCategory"
+                  value={editingProject.category}
+                  onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value })}
+                  className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
+                >
+                  <option value="3D Rendering & Visualization">3D Rendering & Visualization</option>
+                  <option value="Digital Marketing Campaigns">Digital Marketing Campaigns</option>
+                  <option value="Corporate Solutions">Corporate Solutions</option>
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="editStatus">Status</Label>
+                <select
+                  id="editStatus"
+                  value={editingProject.status}
+                  onChange={(e) => setEditingProject({ ...editingProject, status: e.target.value as any })}
+                  className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
+                >
+                  <option value="upcoming">Upcoming</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="completed">Completed</option>
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="editClient">Client</Label>
+                <Input
+                  id="editClient"
+                  value={editingProject.client}
+                  onChange={(e) => setEditingProject({ ...editingProject, client: e.target.value })}
+                  className="bg-gray-800 border-gray-700 text-white"
+                />
+              </div>
+              <div>
+                <Label htmlFor="editLocation">Location</Label>
+                <Input
+                  id="editLocation"
+                  value={editingProject.location}
+                  onChange={(e) => setEditingProject({ ...editingProject, location: e.target.value })}
+                  className="bg-gray-800 border-gray-700 text-white"
+                />
+              </div>
+              <Button onClick={handleEditProject} className="w-full bg-eastdigital-orange hover:bg-eastdigital-orange/90">
+                Update Project
+              </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
       <div className="flex items-center space-x-2">
         <Search className="h-4 w-4 text-gray-400" />
         <Input
@@ -205,17 +320,52 @@ export const ProjectManagement = () => {
                     >
                       <Eye className="h-3 w-3" />
                     </Button>
-                    <Button variant="outline" size="sm" className="border-gray-700 text-gray-300">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => openEditDialog(project)}
+                      className="border-gray-700 text-gray-300"
+                    >
                       <Edit className="h-3 w-3" />
                     </Button>
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => handleDeleteProject(project.id)}
-                      className="border-red-700 text-red-400 hover:bg-red-900"
+                      onClick={() => handleDuplicateProject(project)}
+                      className="border-blue-700 text-blue-400 hover:bg-blue-900"
                     >
-                      <Trash2 className="h-3 w-3" />
+                      <Copy className="h-3 w-3" />
                     </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="border-red-700 text-red-400 hover:bg-red-900"
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent className="bg-gray-900 border-gray-800 text-white">
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                          <AlertDialogDescription className="text-gray-300">
+                            This action cannot be undone. This will permanently delete the project "{project.title}" from the system.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700">
+                            Cancel
+                          </AlertDialogCancel>
+                          <AlertDialogAction 
+                            onClick={() => handleDeleteProject(project.id)}
+                            className="bg-red-600 hover:bg-red-700"
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </TableCell>
               </TableRow>

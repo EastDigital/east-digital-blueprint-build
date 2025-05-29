@@ -5,6 +5,7 @@ import { ArrowLeft, Users, FileText, Settings } from 'lucide-react';
 import { UserManagement } from '@/components/Admin/UserManagement';
 import { ProjectManagement } from '@/components/Admin/ProjectManagement';
 import { SiteSettings } from '@/components/Admin/SiteSettings';
+import { Toaster } from '@/components/ui/toaster';
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -109,6 +110,7 @@ const Admin = () => {
           {renderContent()}
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
