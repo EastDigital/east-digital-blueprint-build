@@ -30,7 +30,7 @@ export const MinimalProjectCard = ({ project }: MinimalProjectCardProps) => {
     }
   };
 
-  const handleCardClick = (e) => {
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     console.log('Project card clicked - navigating to:', `/project/${project.id}`);
     navigate(`/project/${project.id}`);

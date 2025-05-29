@@ -31,7 +31,7 @@ export const PortfolioSection = () => {
 
   const hasMore = displayedProjects < allProjects.length;
 
-  const loadMoreProjects = useCallback(async (e) => {
+  const loadMoreProjects = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log('Load more clicked, current displayed:', displayedProjects, 'total:', allProjects.length);
     
@@ -51,7 +51,7 @@ export const PortfolioSection = () => {
     setIsLoading(false);
   }, [isLoading, hasMore, allProjects.length, displayedProjects]);
 
-  const handleCategoryChange = useCallback((categoryLabel) => {
+  const handleCategoryChange = useCallback((categoryLabel: string) => {
     console.log('Category changed to:', categoryLabel);
     setActiveCategory(categoryLabel);
     setDisplayedProjects(INITIAL_PROJECTS);
