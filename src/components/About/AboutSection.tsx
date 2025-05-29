@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Target, Lightbulb, Rocket, Users, Zap, Shield } from 'lucide-react';
-import { IndustrySection } from '../Industry/IndustrySection';
+
 export const AboutSection = () => {
   const approaches = [{
     icon: Target,
@@ -28,94 +29,93 @@ export const AboutSection = () => {
     title: "Future-Proof Solutions",
     description: "We design with tomorrow in mind, creating scalable solutions that adapt to evolving market demands and technological advancements."
   }];
-  return <>
-      <section className="relative bg-eastdigital-dark overflow-hidden py-0 lg:py-[100px]">
-        {/* Background Animation */}
-        <div className="absolute inset-0 opacity-5 pointer-events-none">
-          <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-eastdigital-orange/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 left-10 w-32 h-32 bg-gradient-to-tr from-eastdigital-orange/15 to-transparent rounded-full blur-2xl animate-pulse" style={{
-          animationDelay: '3s'
-        }}></div>
+
+  return (
+    <section className="relative bg-eastdigital-dark overflow-hidden py-0 lg:py-[100px]">
+      {/* Background Animation */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-eastdigital-orange/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-10 w-32 h-32 bg-gradient-to-tr from-eastdigital-orange/15 to-transparent rounded-full blur-2xl animate-pulse" style={{
+        animationDelay: '3s'
+      }}></div>
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16 lg:mb-20">
+          <div className="inline-flex items-center px-4 py-2 bg-eastdigital-orange/10 border border-eastdigital-orange/20 rounded-full mb-6">
+            <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">Our Methodology</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            Our Approach
+          </h2>
+          <p className="text-xl lg:text-2xl text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed">
+            We combine strategic thinking with cutting-edge execution to deliver digital solutions that don't just meet today's needs—they anticipate tomorrow's opportunities.
+          </p>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4">
-          {/* Header */}
-          <div className="text-center mb-16 lg:mb-20">
-            <div className="inline-flex items-center px-4 py-2 bg-eastdigital-orange/10 border border-eastdigital-orange/20 rounded-full mb-6">
-              <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">Our Methodology</span>
+        {/* Approach Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-16">
+          {approaches.map((approach, index) => <div key={index} className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-8 hover:border-eastdigital-orange/30 transition-all duration-300 hover:transform hover:scale-105">
+              {/* Icon */}
+              <div className="w-16 h-16 bg-gradient-to-br from-eastdigital-orange to-eastdigital-orange/80 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <approach.icon className="h-8 w-8 text-white" />
+              </div>
+              
+              {/* Content */}
+              <h3 className="text-xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300">
+                {approach.title}
+              </h3>
+              <p className="text-eastdigital-lightgray leading-relaxed">
+                {approach.description}
+              </p>
+
+              {/* Hover Effect Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-eastdigital-orange/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"></div>
+            </div>)}
+        </div>
+
+        {/* Stats Section */}
+        <div className="bg-gradient-to-r from-eastdigital-orange/10 to-eastdigital-orange/5 border border-eastdigital-orange/20 rounded-3xl p-8 lg:p-12 mb-16">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="text-4xl lg:text-5xl font-bold text-eastdigital-orange mb-2">150+</div>
+              <div className="text-white font-medium">Projects Delivered</div>
+              <div className="text-eastdigital-lightgray text-sm mt-1">Across multiple industries</div>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Our Approach
-            </h2>
-            <p className="text-xl lg:text-2xl text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed">
-              We combine strategic thinking with cutting-edge execution to deliver digital solutions that don't just meet today's needs—they anticipate tomorrow's opportunities.
-            </p>
-          </div>
-
-          {/* Approach Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-16">
-            {approaches.map((approach, index) => <div key={index} className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-8 hover:border-eastdigital-orange/30 transition-all duration-300 hover:transform hover:scale-105">
-                {/* Icon */}
-                <div className="w-16 h-16 bg-gradient-to-br from-eastdigital-orange to-eastdigital-orange/80 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <approach.icon className="h-8 w-8 text-white" />
-                </div>
-                
-                {/* Content */}
-                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300">
-                  {approach.title}
-                </h3>
-                <p className="text-eastdigital-lightgray leading-relaxed">
-                  {approach.description}
-                </p>
-
-                {/* Hover Effect Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-eastdigital-orange/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"></div>
-              </div>)}
-          </div>
-
-          {/* Stats Section */}
-          <div className="bg-gradient-to-r from-eastdigital-orange/10 to-eastdigital-orange/5 border border-eastdigital-orange/20 rounded-3xl p-8 lg:p-12 mb-16">
-            <div className="grid md:grid-cols-3 gap-8 text-center">
-              <div>
-                <div className="text-4xl lg:text-5xl font-bold text-eastdigital-orange mb-2">150+</div>
-                <div className="text-white font-medium">Projects Delivered</div>
-                <div className="text-eastdigital-lightgray text-sm mt-1">Across multiple industries</div>
-              </div>
-              <div>
-                <div className="text-4xl lg:text-5xl font-bold text-eastdigital-orange mb-2">98%</div>
-                <div className="text-white font-medium">Client Satisfaction</div>
-                <div className="text-eastdigital-lightgray text-sm mt-1">Long-term partnerships</div>
-              </div>
-              <div>
-                <div className="text-4xl lg:text-5xl font-bold text-eastdigital-orange mb-2">45%</div>
-                <div className="text-white font-medium">Faster Delivery</div>
-                <div className="text-eastdigital-lightgray text-sm mt-1">Than industry average</div>
-              </div>
+            <div>
+              <div className="text-4xl lg:text-5xl font-bold text-eastdigital-orange mb-2">98%</div>
+              <div className="text-white font-medium">Client Satisfaction</div>
+              <div className="text-eastdigital-lightgray text-sm mt-1">Long-term partnerships</div>
             </div>
-          </div>
-
-          {/* CTA */}
-          <div className="text-center">
-            <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
-              Ready to Experience Our Approach?
-            </h3>
-            <p className="text-eastdigital-lightgray mb-8 max-w-2xl mx-auto">
-              Let's discuss how our proven methodology can accelerate your digital transformation and deliver exceptional results.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-3 text-lg rounded-[60px] transition-all duration-300 hover:shadow-lg hover:shadow-eastdigital-orange/30">
-                Get Your Blueprint
-              </Button>
-              <Button variant="outline" className="border-eastdigital-orange text-eastdigital-orange hover:bg-eastdigital-orange hover:text-white px-8 py-3 text-lg rounded-[60px] transition-all duration-300">
-                View Our Process
-              </Button>
+            <div>
+              <div className="text-4xl lg:text-5xl font-bold text-eastdigital-orange mb-2">45%</div>
+              <div className="text-white font-medium">Faster Delivery</div>
+              <div className="text-eastdigital-lightgray text-sm mt-1">Than industry average</div>
             </div>
           </div>
         </div>
-      </section>
-      
-      {/* Industry Section */}
-      <IndustrySection />
-    </>;
+
+        {/* CTA */}
+        <div className="text-center">
+          <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+            Ready to Experience Our Approach?
+          </h3>
+          <p className="text-eastdigital-lightgray mb-8 max-w-2xl mx-auto">
+            Let's discuss how our proven methodology can accelerate your digital transformation and deliver exceptional results.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-3 text-lg rounded-[60px] transition-all duration-300 hover:shadow-lg hover:shadow-eastdigital-orange/30">
+              Get Your Blueprint
+            </Button>
+            <Button variant="outline" className="border-eastdigital-orange text-eastdigital-orange hover:bg-eastdigital-orange hover:text-white px-8 py-3 text-lg rounded-[60px] transition-all duration-300">
+              View Our Process
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
+
 export default AboutSection;
