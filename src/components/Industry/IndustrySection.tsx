@@ -113,7 +113,7 @@ export const IndustrySection = () => {
   const activeData = industries[activeIndustry];
   const colorScheme = colorVariants[activeData.color];
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality for images only
   useEffect(() => {
     if (!api || isPaused) return;
 
@@ -124,7 +124,7 @@ export const IndustrySection = () => {
     return () => clearInterval(interval);
   }, [api, isPaused]);
 
-  // Handle carousel API and reset scroll position when industry changes
+  // Reset carousel to first image when industry changes
   useEffect(() => {
     if (!api) return;
 
@@ -211,10 +211,10 @@ export const IndustrySection = () => {
             </div>
           </div>
 
-          {/* Right Side - Featured Content with Scrollable Images (6 columns) */}
+          {/* Right Side - Auto-rotating Images with Fixed Text (6 columns) */}
           <div className="lg:col-span-6">
             <div className="relative">
-              {/* Auto-scrollable Images Carousel */}
+              {/* Auto-rotating Images Carousel */}
               <div className="relative mb-6">
                 <Carousel 
                   className="w-full"
@@ -236,41 +236,6 @@ export const IndustrySection = () => {
                             className="w-full h-full object-cover transition-all duration-700"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                          
-                          {/* Image Overlay Content */}
-                          <div className="absolute bottom-6 left-6 right-6">
-                            <div className={`bg-gradient-to-r ${colorScheme.gradient} backdrop-blur-md rounded-xl p-6 border ${colorScheme.border}`}>
-                              <h4 className="text-white text-xl font-bold mb-2">
-                                {activeData.title} Excellence
-                              </h4>
-                              <p className="text-gray-200 text-sm mb-4">
-                                {activeData.description}
-                              </p>
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
-                                  <div>
-                                    <div className={`text-2xl font-bold ${colorScheme.accent}`}>
-                                      {activeData.projects}
-                                    </div>
-                                    <div className="text-xs text-gray-300">Projects</div>
-                                  </div>
-                                  <div className="w-px h-8 bg-gray-600"></div>
-                                  <div>
-                                    <div className={`text-2xl font-bold ${colorScheme.accent}`}>
-                                      {activeData.metric}
-                                    </div>
-                                    <div className="text-xs text-gray-300">{activeData.metricLabel}</div>
-                                  </div>
-                                </div>
-                                <Button 
-                                  size="sm" 
-                                  className="bg-eastdigital-orange/20 hover:bg-eastdigital-orange/30 text-eastdigital-orange border border-eastdigital-orange/30 rounded-full px-4"
-                                >
-                                  View Projects
-                                </Button>
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </CarouselItem>
                     ))}
@@ -278,6 +243,39 @@ export const IndustrySection = () => {
                   <CarouselPrevious className="left-4 bg-black/50 border-white/20 text-white hover:bg-black/70" />
                   <CarouselNext className="right-4 bg-black/50 border-white/20 text-white hover:bg-black/70" />
                 </Carousel>
+              </div>
+
+              {/* Fixed Text Content Below Carousel */}
+              <div className={`bg-gradient-to-r ${colorScheme.gradient} backdrop-blur-md rounded-xl p-6 border ${colorScheme.border}`}>
+                <h4 className="text-white text-xl font-bold mb-2">
+                  {activeData.title} Excellence
+                </h4>
+                <p className="text-gray-200 text-sm mb-4">
+                  {activeData.description}
+                </p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div>
+                      <div className={`text-2xl font-bold ${colorScheme.accent}`}>
+                        {activeData.projects}
+                      </div>
+                      <div className="text-xs text-gray-300">Projects</div>
+                    </div>
+                    <div className="w-px h-8 bg-gray-600"></div>
+                    <div>
+                      <div className={`text-2xl font-bold ${colorScheme.accent}`}>
+                        {activeData.metric}
+                      </div>
+                      <div className="text-xs text-gray-300">{activeData.metricLabel}</div>
+                    </div>
+                  </div>
+                  <Button 
+                    size="sm" 
+                    className="bg-eastdigital-orange/20 hover:bg-eastdigital-orange/30 text-eastdigital-orange border border-eastdigital-orange/30 rounded-full px-4"
+                  >
+                    View Projects
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
