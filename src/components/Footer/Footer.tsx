@@ -121,7 +121,10 @@ const Footer = () => {
                 onError={(e) => {
                   // Fallback to original design if image fails to load
                   e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling.style.display = 'flex';
+                  const fallbackElement = e.currentTarget.nextElementSibling as HTMLElement;
+                  if (fallbackElement) {
+                    fallbackElement.style.display = 'flex';
+                  }
                 }}
               />
               <div className="w-8 h-8 rounded-full border-2 border-eastdigital-orange mr-3" style={{ display: 'none' }}>
