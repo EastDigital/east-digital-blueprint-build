@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
@@ -146,7 +145,7 @@ export const Navbar = () => {
                 >
                   {/* Glassmorphism background that covers both button and creates seamless connection */}
                   {isDropdownOpen && (
-                    <div className="absolute -top-5 -left-6 -right-6 h-[calc(100%+25px)] bg-[#1A1A1A]/80 backdrop-blur-md rounded-t-[15px] z-40"></div>
+                    <div className="absolute -top-5 -left-6 -right-6 h-[calc(100%+25px)] bg-[#000000]/90 backdrop-blur-md rounded-t-[15px] z-40"></div>
                   )}
                   
                   <button 
