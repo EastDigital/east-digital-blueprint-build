@@ -1,12 +1,9 @@
-
 import React from 'react';
 import { HeroContent } from './HeroContent';
 import { ProjectCarousel } from './ProjectCarousel';
 import { InteractiveBackground } from './InteractiveBackground';
-
 export const Hero = () => {
-  return (
-    <section className="relative min-h-screen bg-eastdigital-dark overflow-hidden flex flex-col">
+  return <section className="relative min-h-screen bg-eastdigital-dark overflow-hidden flex flex-col py-[39px] my-[5px]">
       {/* Enhanced Interactive Background Animation */}
       <InteractiveBackground />
       
@@ -22,8 +19,6 @@ export const Hero = () => {
       <div className="relative z-10 mt-4 sm:flex-1 sm:flex sm:items-end sm:mt-0 sm:pt-2">
         <ProjectCarousel />
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
