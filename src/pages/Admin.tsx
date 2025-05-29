@@ -1,14 +1,28 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Users, FileText, Settings } from 'lucide-react';
+import { ArrowLeft, Users, FileText, Settings, LogOut } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { UserManagement } from '@/components/Admin/UserManagement';
 import { ProjectManagement } from '@/components/Admin/ProjectManagement';
 import { SiteSettings } from '@/components/Admin/SiteSettings';
+import { ProtectedAdmin } from '@/components/Admin/ProtectedAdmin';
 import { Toaster } from '@/components/ui/toaster';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const { logout } = useAuth();
+  const { toast } = useToast();
+
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
+    });
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -88,30 +102,42 @@ const Admin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <Link to="/" className="inline-flex items-center text-eastdigital-orange hover:text-white transition-colors">
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            Back to Site
-          </Link>
+    <ProtectedAdmin>
+      <div className="min-h-screen bg-black text-white">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex items-center justify-between mb-8">
+            <Link to="/" className="inline-flex items-center text-eastdigital-orange hover:text-white transition-colors">
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              Back to Site
+            </Link>
+            
+            <div className="flex items-center space-x-4">
+              {activeTab !== 'overview' && (
+                <button
+                  onClick={() => setActiveTab('overview')}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  ← Back to Dashboard
+                </button>
+              )}
+              <Button
+                variant="outline"
+                onClick={handleLogout}
+                className="border-red-700 text-red-400 hover:bg-red-900"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            </div>
+          </div>
           
-          {activeTab !== 'overview' && (
-            <button
-              onClick={() => setActiveTab('overview')}
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              ← Back to Dashboard
-            </button>
-          )}
+          <div className="max-w-6xl mx-auto">
+            {renderContent()}
+          </div>
         </div>
-        
-        <div className="max-w-6xl mx-auto">
-          {renderContent()}
-        </div>
+        <Toaster />
       </div>
-      <Toaster />
-    </div>
+    </ProtectedAdmin>
   );
 };
 
