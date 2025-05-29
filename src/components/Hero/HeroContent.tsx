@@ -5,26 +5,29 @@ import { Button } from '@/components/ui/button';
 export const HeroContent = () => {
   return (
     <div className="text-center max-w-5xl mx-auto px-4">
-      {/* Subheading - Balanced margin on mobile */}
-      <p className="text-eastdigital-lightgray text-sm sm:text-base md:text-lg lg:text-xl mb-2 sm:mb-2 md:mb-4 font-poppins tracking-wide">
+      {/* Subheading - More generous spacing on mobile */}
+      <p className="text-eastdigital-lightgray text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-4 md:mb-6 font-poppins tracking-wide">
         Real Estate Developers
       </p>
       
-      {/* Main Heading - Balanced spacing on mobile */}
-      <h1 className="text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-3 md:mb-5 text-white font-poppins leading-tight">
+      {/* Main Heading - Better spacing for impact */}
+      <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-6 md:mb-8 text-white font-poppins leading-tight">
         Drive Sales<br />
         <span className="bg-gradient-to-r from-white to-eastdigital-hover bg-clip-text text-transparent">
           Elevate Marketing
         </span>
       </h1>
       
-      {/* Description - Balanced spacing on mobile */}
-      <p className="text-xs sm:text-sm md:text-lg max-w-3xl mx-auto mb-4 sm:mb-4 md:mb-6 font-poppins font-light text-orange-200">
+      {/* Description - Generous spacing for readability */}
+      <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto mb-8 sm:mb-8 md:mb-10 font-poppins font-light text-orange-200 leading-relaxed">
         With over 100 clients using East Digital™ to power their creative sales and marketing.
       </p>
       
-      {/* CTA Button - Smaller on mobile */}
-      <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-1.5 px-4 sm:py-2 sm:px-6 md:py-3 md:px-8 text-xs sm:text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins">
+      {/* CTA Button - Fixed width of 150px */}
+      <Button 
+        className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins"
+        style={{ width: '150px' }}
+      >
         Connect
       </Button>
     </div>

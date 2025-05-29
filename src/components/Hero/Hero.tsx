@@ -11,14 +11,14 @@ export const Hero = () => {
       <InteractiveBackground />
       
       {/* Hero Content */}
-      <div className="relative z-10 container mx-auto px-2 sm:px-4 flex flex-col min-h-[85vh] sm:min-h-screen">
-        {/* Top Row - Content with balanced spacing */}
-        <div className="pt-12 pb-6 sm:flex-1 sm:flex sm:items-center sm:justify-center sm:py-8 md:py-16">
+      <div className="relative z-10 container mx-auto px-2 sm:px-4 flex flex-col justify-between min-h-[calc(100vh-80px)]">
+        {/* Main Content - Centered with generous spacing */}
+        <div className="flex-1 flex items-center justify-center pt-8 pb-4 sm:pt-16 sm:pb-8">
           <HeroContent />
         </div>
         
-        {/* Bottom Row - Carousel */}
-        <div className="pb-6 sm:pb-4 md:pb-8">
+        {/* Carousel - Fixed at bottom with proper spacing */}
+        <div className="pb-8 sm:pb-12">
           <ProjectCarousel />
         </div>
       </div>

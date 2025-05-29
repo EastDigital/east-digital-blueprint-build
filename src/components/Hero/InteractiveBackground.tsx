@@ -6,6 +6,14 @@ export const InteractiveBackground = () => {
   const animationRef = useRef<number>();
   const mouseRef = useRef({ x: 0, y: 0 });
   const timeRef = useRef(0);
+  const particlesRef = useRef<Array<{
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+    opacity: number;
+  }>>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -18,62 +26,128 @@ export const InteractiveBackground = () => {
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      
+      // Reinitialize particles on resize
+      initParticles();
+    };
+
+    // Initialize floating particles
+    const initParticles = () => {
+      particlesRef.current = [];
+      const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
+      
+      for (let i = 0; i < particleCount; i++) {
+        particlesRef.current.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 2 + 1,
+          opacity: Math.random() * 0.5 + 0.1
+        });
+      }
     };
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Wave animation
+    // Animation loop
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      timeRef.current += 0.01;
+      timeRef.current += 0.008;
       
-      // Create gradient
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, 'rgba(255, 105, 0, 0.05)');
-      gradient.addColorStop(0.5, 'rgba(255, 105, 0, 0.02)');
-      gradient.addColorStop(1, 'rgba(255, 105, 0, 0.05)');
+      // Create subtle gradient background
+      const gradient = ctx.createRadialGradient(
+        canvas.width / 2, canvas.height / 2, 0,
+        canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height)
+      );
+      gradient.addColorStop(0, 'rgba(255, 105, 0, 0.02)');
+      gradient.addColorStop(0.5, 'rgba(255, 105, 0, 0.01)');
+      gradient.addColorStop(1, 'rgba(255, 105, 0, 0.03)');
+      
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw multiple wave layers
-      for (let i = 0; i < 3; i++) {
+      // Draw animated wave layers
+      for (let i = 0; i < 2; i++) {
         ctx.beginPath();
-        ctx.moveTo(0, canvas.height / 2);
+        ctx.moveTo(0, canvas.height);
 
         // Create wave path
-        for (let x = 0; x <= canvas.width; x += 5) {
-          const baseWave = Math.sin((x * 0.005) + (timeRef.current * (1 + i * 0.3))) * 30;
-          const mouseInfluence = Math.sin((x - mouseRef.current.x) * 0.01) * 
-                                Math.exp(-Math.abs(x - mouseRef.current.x) * 0.001) * 20;
-          const y = canvas.height / 2 + baseWave + mouseInfluence + (i * 40);
+        for (let x = 0; x <= canvas.width; x += 8) {
+          const baseWave = Math.sin((x * 0.003) + (timeRef.current * (0.8 + i * 0.2))) * (20 + i * 10);
+          const mouseInfluence = Math.sin((x - mouseRef.current.x) * 0.008) * 
+                                Math.exp(-Math.abs(x - mouseRef.current.x) * 0.0008) * 15;
+          const y = canvas.height - 100 + baseWave + mouseInfluence + (i * 20);
           
-          ctx.lineTo(x, y);
+          if (x === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
         }
 
         ctx.lineTo(canvas.width, canvas.height);
         ctx.lineTo(0, canvas.height);
         ctx.closePath();
 
-        ctx.fillStyle = gradient;
-        ctx.globalAlpha = 0.3 - (i * 0.1);
+        const waveGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        waveGradient.addColorStop(0, `rgba(255, 105, 0, ${0.05 - i * 0.02})`);
+        waveGradient.addColorStop(1, `rgba(255, 105, 0, ${0.02 - i * 0.01})`);
+        
+        ctx.fillStyle = waveGradient;
         ctx.fill();
       }
 
-      // Add floating dots
-      for (let i = 0; i < 8; i++) {
-        const x = (canvas.width / 8) * i + Math.sin(timeRef.current + i) * 50;
-        const y = canvas.height / 2 + Math.cos(timeRef.current * 0.8 + i) * 100;
-        
+      // Update and draw particles
+      particlesRef.current.forEach((particle) => {
+        // Update position
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        // Wrap around screen
+        if (particle.x < 0) particle.x = canvas.width;
+        if (particle.x > canvas.width) particle.x = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        if (particle.y > canvas.height) particle.y = 0;
+
+        // Mouse interaction
         const distance = Math.sqrt(
-          Math.pow(x - mouseRef.current.x, 2) + Math.pow(y - mouseRef.current.y, 2)
+          Math.pow(particle.x - mouseRef.current.x, 2) + 
+          Math.pow(particle.y - mouseRef.current.y, 2)
         );
-        const opacity = Math.max(0.1, 0.4 - distance * 0.0008);
         
+        let finalOpacity = particle.opacity;
+        if (distance < 100) {
+          finalOpacity *= (1 + (100 - distance) / 100);
+        }
+
+        // Draw particle
         ctx.beginPath();
-        ctx.arc(x, y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 105, 0, ${opacity})`;
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 105, 0, ${Math.min(finalOpacity, 0.6)})`;
         ctx.fill();
-      }
+      });
+
+      // Draw connection lines between nearby particles
+      particlesRef.current.forEach((particle, i) => {
+        particlesRef.current.slice(i + 1).forEach((otherParticle) => {
+          const distance = Math.sqrt(
+            Math.pow(particle.x - otherParticle.x, 2) + 
+            Math.pow(particle.y - otherParticle.y, 2)
+          );
+          
+          if (distance < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particle.x, particle.y);
+            ctx.lineTo(otherParticle.x, otherParticle.y);
+            ctx.strokeStyle = `rgba(255, 105, 0, ${0.1 * (1 - distance / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        });
+      });
 
       animationRef.current = requestAnimationFrame(animate);
     };
@@ -103,7 +177,7 @@ export const InteractiveBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
+      className="absolute inset-0 w-full h-full pointer-events-none"
       style={{ background: 'transparent' }}
     />
   );
