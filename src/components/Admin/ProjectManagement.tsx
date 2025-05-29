@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FileText, Plus, Edit, Trash2, Search, Eye, Copy } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -7,9 +6,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getProjects, Project } from '@/data/projects';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
+import { ImageManager } from '@/components/Admin/ImageManager';
+import { SeoFields } from '@/components/Admin/SeoFields';
 
 export const ProjectManagement = () => {
   const [projects, setProjects] = useState<Project[]>(getProjects());
@@ -22,7 +24,17 @@ export const ProjectManagement = () => {
     category: '3D Rendering & Visualization',
     status: 'upcoming' as const,
     client: '',
-    location: ''
+    location: '',
+    featuredImage: '',
+    heroImage: '',
+    gallery: [] as string[],
+    seo: {
+      pageTitle: '',
+      metaDescription: '',
+      featuredImageAlt: '',
+      heroImageAlt: '',
+      galleryImageAlts: [] as string[]
+    }
   });
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -36,10 +48,14 @@ export const ProjectManagement = () => {
   const handleAddProject = () => {
     const project: Project = {
       id: Date.now().toString(),
-      ...newProject,
+      title: newProject.title,
       subtitle: '',
-      featuredImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop',
-      heroImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&h=800&fit=crop',
+      featuredImage: newProject.featuredImage || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop',
+      heroImage: newProject.heroImage || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&h=800&fit=crop',
+      category: newProject.category,
+      status: newProject.status,
+      client: newProject.client,
+      location: newProject.location,
       duration: 'TBD',
       team: 'TBD',
       description: 'Project description to be added.',
@@ -51,8 +67,9 @@ export const ProjectManagement = () => {
         conversion: 'N/A',
         timeline: 'N/A'
       },
-      gallery: [],
-      tags: []
+      gallery: newProject.gallery,
+      tags: [],
+      seo: newProject.seo
     };
     setProjects([...projects, project]);
     setNewProject({
@@ -60,7 +77,17 @@ export const ProjectManagement = () => {
       category: '3D Rendering & Visualization',
       status: 'upcoming',
       client: '',
-      location: ''
+      location: '',
+      featuredImage: '',
+      heroImage: '',
+      gallery: [],
+      seo: {
+        pageTitle: '',
+        metaDescription: '',
+        featuredImageAlt: '',
+        heroImageAlt: '',
+        galleryImageAlts: []
+      }
     });
     setIsAddDialogOpen(false);
     toast({
@@ -127,6 +154,110 @@ export const ProjectManagement = () => {
     }
   };
 
+  const ProjectForm = ({ project, onProjectChange, onSubmit, submitLabel }: {
+    project: any;
+    onProjectChange: (project: any) => void;
+    onSubmit: () => void;
+    submitLabel: string;
+  }) => (
+    <Tabs defaultValue="basic" className="w-full">
+      <TabsList className="grid w-full grid-cols-3">
+        <TabsTrigger value="basic">Basic Info</TabsTrigger>
+        <TabsTrigger value="images">Images</TabsTrigger>
+        <TabsTrigger value="seo">SEO</TabsTrigger>
+      </TabsList>
+      
+      <TabsContent value="basic" className="space-y-4">
+        <div>
+          <Label htmlFor="title">Project Title</Label>
+          <Input
+            id="title"
+            value={project.title}
+            onChange={(e) => onProjectChange({ ...project, title: e.target.value })}
+            className="bg-gray-800 border-gray-700 text-white"
+          />
+        </div>
+        <div>
+          <Label htmlFor="category">Category</Label>
+          <select
+            id="category"
+            value={project.category}
+            onChange={(e) => onProjectChange({ ...project, category: e.target.value })}
+            className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
+          >
+            <option value="3D Rendering & Visualization">3D Rendering & Visualization</option>
+            <option value="Digital Marketing Campaigns">Digital Marketing Campaigns</option>
+            <option value="Corporate Solutions">Corporate Solutions</option>
+          </select>
+        </div>
+        <div>
+          <Label htmlFor="status">Status</Label>
+          <select
+            id="status"
+            value={project.status}
+            onChange={(e) => onProjectChange({ ...project, status: e.target.value as any })}
+            className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
+          >
+            <option value="upcoming">Upcoming</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+        <div>
+          <Label htmlFor="client">Client</Label>
+          <Input
+            id="client"
+            value={project.client}
+            onChange={(e) => onProjectChange({ ...project, client: e.target.value })}
+            className="bg-gray-800 border-gray-700 text-white"
+          />
+        </div>
+        <div>
+          <Label htmlFor="location">Location</Label>
+          <Input
+            id="location"
+            value={project.location}
+            onChange={(e) => onProjectChange({ ...project, location: e.target.value })}
+            className="bg-gray-800 border-gray-700 text-white"
+          />
+        </div>
+      </TabsContent>
+      
+      <TabsContent value="images" className="space-y-4">
+        <ImageManager
+          images={project.featuredImage ? [project.featuredImage] : []}
+          onImagesChange={(images) => onProjectChange({ ...project, featuredImage: images[0] || '' })}
+          label="Featured Image"
+          allowMultiple={false}
+        />
+        <ImageManager
+          images={project.heroImage ? [project.heroImage] : []}
+          onImagesChange={(images) => onProjectChange({ ...project, heroImage: images[0] || '' })}
+          label="Hero Image"
+          allowMultiple={false}
+        />
+        <ImageManager
+          images={project.gallery || []}
+          onImagesChange={(images) => onProjectChange({ ...project, gallery: images })}
+          label="Gallery Images"
+          allowMultiple={true}
+        />
+      </TabsContent>
+      
+      <TabsContent value="seo" className="space-y-4">
+        <SeoFields
+          seo={project.seo || {}}
+          onSeoChange={(seo) => onProjectChange({ ...project, seo })}
+          galleryCount={project.gallery?.length || 0}
+        />
+      </TabsContent>
+      
+      <Button onClick={onSubmit} className="w-full bg-eastdigital-orange hover:bg-eastdigital-orange/90 mt-4">
+        {submitLabel}
+      </Button>
+    </Tabs>
+  );
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -141,137 +272,33 @@ export const ProjectManagement = () => {
               Add Project
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-gray-900 border-gray-800 text-white">
+          <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Add New Project</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="title">Project Title</Label>
-                <Input
-                  id="title"
-                  value={newProject.title}
-                  onChange={(e) => setNewProject({ ...newProject, title: e.target.value })}
-                  className="bg-gray-800 border-gray-700 text-white"
-                />
-              </div>
-              <div>
-                <Label htmlFor="category">Category</Label>
-                <select
-                  id="category"
-                  value={newProject.category}
-                  onChange={(e) => setNewProject({ ...newProject, category: e.target.value })}
-                  className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-                >
-                  <option value="3D Rendering & Visualization">3D Rendering & Visualization</option>
-                  <option value="Digital Marketing Campaigns">Digital Marketing Campaigns</option>
-                  <option value="Corporate Solutions">Corporate Solutions</option>
-                </select>
-              </div>
-              <div>
-                <Label htmlFor="status">Status</Label>
-                <select
-                  id="status"
-                  value={newProject.status}
-                  onChange={(e) => setNewProject({ ...newProject, status: e.target.value as any })}
-                  className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-                >
-                  <option value="upcoming">Upcoming</option>
-                  <option value="in-progress">In Progress</option>
-                  <option value="completed">Completed</option>
-                </select>
-              </div>
-              <div>
-                <Label htmlFor="client">Client</Label>
-                <Input
-                  id="client"
-                  value={newProject.client}
-                  onChange={(e) => setNewProject({ ...newProject, client: e.target.value })}
-                  className="bg-gray-800 border-gray-700 text-white"
-                />
-              </div>
-              <div>
-                <Label htmlFor="location">Location</Label>
-                <Input
-                  id="location"
-                  value={newProject.location}
-                  onChange={(e) => setNewProject({ ...newProject, location: e.target.value })}
-                  className="bg-gray-800 border-gray-700 text-white"
-                />
-              </div>
-              <Button onClick={handleAddProject} className="w-full bg-eastdigital-orange hover:bg-eastdigital-orange/90">
-                Add Project
-              </Button>
-            </div>
+            <ProjectForm
+              project={newProject}
+              onProjectChange={setNewProject}
+              onSubmit={handleAddProject}
+              submitLabel="Add Project"
+            />
           </DialogContent>
         </Dialog>
       </div>
 
       {/* Edit Project Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="bg-gray-900 border-gray-800 text-white">
+        <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Edit Project</DialogTitle>
           </DialogHeader>
           {editingProject && (
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="editTitle">Project Title</Label>
-                <Input
-                  id="editTitle"
-                  value={editingProject.title}
-                  onChange={(e) => setEditingProject({ ...editingProject, title: e.target.value })}
-                  className="bg-gray-800 border-gray-700 text-white"
-                />
-              </div>
-              <div>
-                <Label htmlFor="editCategory">Category</Label>
-                <select
-                  id="editCategory"
-                  value={editingProject.category}
-                  onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value })}
-                  className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-                >
-                  <option value="3D Rendering & Visualization">3D Rendering & Visualization</option>
-                  <option value="Digital Marketing Campaigns">Digital Marketing Campaigns</option>
-                  <option value="Corporate Solutions">Corporate Solutions</option>
-                </select>
-              </div>
-              <div>
-                <Label htmlFor="editStatus">Status</Label>
-                <select
-                  id="editStatus"
-                  value={editingProject.status}
-                  onChange={(e) => setEditingProject({ ...editingProject, status: e.target.value as any })}
-                  className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-                >
-                  <option value="upcoming">Upcoming</option>
-                  <option value="in-progress">In Progress</option>
-                  <option value="completed">Completed</option>
-                </select>
-              </div>
-              <div>
-                <Label htmlFor="editClient">Client</Label>
-                <Input
-                  id="editClient"
-                  value={editingProject.client}
-                  onChange={(e) => setEditingProject({ ...editingProject, client: e.target.value })}
-                  className="bg-gray-800 border-gray-700 text-white"
-                />
-              </div>
-              <div>
-                <Label htmlFor="editLocation">Location</Label>
-                <Input
-                  id="editLocation"
-                  value={editingProject.location}
-                  onChange={(e) => setEditingProject({ ...editingProject, location: e.target.value })}
-                  className="bg-gray-800 border-gray-700 text-white"
-                />
-              </div>
-              <Button onClick={handleEditProject} className="w-full bg-eastdigital-orange hover:bg-eastdigital-orange/90">
-                Update Project
-              </Button>
-            </div>
+            <ProjectForm
+              project={editingProject}
+              onProjectChange={setEditingProject}
+              onSubmit={handleEditProject}
+              submitLabel="Update Project"
+            />
           )}
         </DialogContent>
       </Dialog>

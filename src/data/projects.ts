@@ -22,6 +22,14 @@ export interface Project {
   };
   gallery: string[];
   tags: string[];
+  // New SEO fields
+  seo?: {
+    pageTitle?: string;
+    metaDescription?: string;
+    featuredImageAlt?: string;
+    heroImageAlt?: string;
+    galleryImageAlts?: string[];
+  };
 }
 
 const projects = [
