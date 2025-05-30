@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  isAdminAuthenticated: boolean;
   adminEmail: string | null;
   login: (email: string) => void;
   logout: () => void;
@@ -81,6 +82,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   return (
     <AuthContext.Provider value={{ 
       isAuthenticated, 
+      isAdminAuthenticated: isAuthenticated, // Use the same value as isAuthenticated
       adminEmail, 
       login, 
       logout, 
