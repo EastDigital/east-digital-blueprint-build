@@ -62,7 +62,7 @@ serve(async (req) => {
     const resendApiKey = Deno.env.get('RESEND_API_KEY');
     
     if (resendApiKey) {
-      // Send email using Resend with the default domain
+      // Send email using Resend with your verified domain
       try {
         const emailResponse = await fetch('https://api.resend.com/emails', {
           method: 'POST',
@@ -71,7 +71,7 @@ serve(async (req) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'Admin Panel <onboarding@resend.dev>',
+            from: 'Admin Panel <admin@eastdigital.in>',
             to: [email],
             subject: 'Your Admin Panel OTP Code',
             html: `
