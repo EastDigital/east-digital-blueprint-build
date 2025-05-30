@@ -83,8 +83,10 @@ export type Database = {
           engagement_result: string | null
           featured_image: string | null
           featured_image_alt: string | null
+          featured_video: string | null
           gallery_image_alts: string[] | null
           gallery_images: string[] | null
+          gallery_videos: string[] | null
           hero_image: string | null
           hero_image_alt: string | null
           id: string
@@ -105,6 +107,7 @@ export type Database = {
           team_size: string | null
           timeline_result: string | null
           updated_at: string
+          video_thumbnail: string | null
         }
         Insert: {
           category?: string | null
@@ -117,8 +120,10 @@ export type Database = {
           engagement_result?: string | null
           featured_image?: string | null
           featured_image_alt?: string | null
+          featured_video?: string | null
           gallery_image_alts?: string[] | null
           gallery_images?: string[] | null
+          gallery_videos?: string[] | null
           hero_image?: string | null
           hero_image_alt?: string | null
           id?: string
@@ -139,6 +144,7 @@ export type Database = {
           team_size?: string | null
           timeline_result?: string | null
           updated_at?: string
+          video_thumbnail?: string | null
         }
         Update: {
           category?: string | null
@@ -151,8 +157,10 @@ export type Database = {
           engagement_result?: string | null
           featured_image?: string | null
           featured_image_alt?: string | null
+          featured_video?: string | null
           gallery_image_alts?: string[] | null
           gallery_images?: string[] | null
+          gallery_videos?: string[] | null
           hero_image?: string | null
           hero_image_alt?: string | null
           id?: string
@@ -173,6 +181,7 @@ export type Database = {
           team_size?: string | null
           timeline_result?: string | null
           updated_at?: string
+          video_thumbnail?: string | null
         }
         Relationships: []
       }

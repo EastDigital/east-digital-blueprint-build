@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '@/components/Navbar/Navbar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calendar, MapPin, Users, Target, Award, Loader2 } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, Users, Target, Award, Loader2, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getProjectById, getProjectBySlug, ProjectDetailsType } from '@/data/supabaseProjects';
 
@@ -159,6 +159,23 @@ const ProjectDetails = () => {
             )}
           </div>
 
+          {/* Featured Video Section */}
+          {project.featuredVideo && (
+            <div className="mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Featured Video</h2>
+              <div className="relative max-w-4xl mx-auto rounded-2xl overflow-hidden">
+                <video
+                  className="w-full h-auto"
+                  controls
+                  poster={project.videoThumbnail || project.featuredImage}
+                >
+                  <source src={project.featuredVideo} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          )}
+
           {/* Case Study Content */}
           <div className="grid lg:grid-cols-2 gap-12 mb-16">
             <div>
@@ -225,18 +242,37 @@ const ProjectDetails = () => {
           </div>
 
           {/* Project Gallery */}
-          {project.gallery && project.gallery.length > 0 && (
+          {((project.gallery && project.gallery.length > 0) || (project.galleryVideos && project.galleryVideos.length > 0)) && (
             <div className="mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Project Gallery</h2>
               <div className="grid md:grid-cols-2 gap-6">
+                {/* Images */}
                 {project.gallery.map((image, index) => (
-                  <div key={index} className="relative group overflow-hidden rounded-2xl">
+                  <div key={`image-${index}`} className="relative group overflow-hidden rounded-2xl">
                     <img 
                       src={image} 
                       alt={`${project.title} gallery ${index + 1}`}
                       className="w-full h-64 md:h-80 object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
+                  </div>
+                ))}
+                
+                {/* Videos */}
+                {project.galleryVideos.map((video, index) => (
+                  <div key={`video-${index}`} className="relative group overflow-hidden rounded-2xl">
+                    <video
+                      className="w-full h-64 md:h-80 object-cover"
+                      controls
+                      poster={project.videoThumbnail || project.featuredImage}
+                    >
+                      <source src={video} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                    <div className="absolute top-4 left-4 bg-black/70 text-white px-2 py-1 rounded text-sm">
+                      <Play className="h-3 w-3 inline mr-1" />
+                      Video
+                    </div>
                   </div>
                 ))}
               </div>

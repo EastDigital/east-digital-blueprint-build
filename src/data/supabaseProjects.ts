@@ -10,8 +10,11 @@ export interface SupabaseProject {
   category: string | null;
   is_featured: boolean;
   featured_image: string | null;
+  featured_video: string | null;
   hero_image: string | null;
   gallery_images: string[] | null;
+  gallery_videos: string[] | null;
+  video_thumbnail: string | null;
   seo_title: string | null;
   seo_description: string | null;
   seo_keywords: string | null;
@@ -40,6 +43,8 @@ export interface ProjectDetailsType {
   description: string;
   heroImage: string;
   featuredImage: string;
+  featuredVideo: string | null;
+  videoThumbnail: string | null;
   category: string;
   duration: string;
   location: string;
@@ -54,6 +59,7 @@ export interface ProjectDetailsType {
     timeline: string;
   };
   gallery: string[];
+  galleryVideos: string[];
   tags: string[];
 }
 
@@ -76,7 +82,7 @@ export const getSupabaseProjects = async (): Promise<SupabaseProject[]> => {
 export const getCarouselProjects = async () => {
   const { data, error } = await supabase
     .from('projects')
-    .select('id, name, featured_image')
+    .select('id, name, featured_image, featured_video, video_thumbnail')
     .eq('show_in_carousel', true)
     .order('created_at', { ascending: false });
 
@@ -85,11 +91,13 @@ export const getCarouselProjects = async () => {
     return [];
   }
 
-  // Return projects with fallback images and ensure unique IDs
+  // Return projects with fallback images and video support
   return data?.map(project => ({
     id: project.id,
     name: project.name,
-    featuredImage: project.featured_image || '/placeholder.svg'
+    featuredImage: project.featured_image || '/placeholder.svg',
+    featuredVideo: project.featured_video,
+    videoThumbnail: project.video_thumbnail
   })) || [];
 };
 
@@ -124,6 +132,8 @@ export const getProjectsByCategory = async (category: string) => {
     name: project.name,
     description: project.description || '',
     featuredImage: project.featured_image || '/placeholder.svg',
+    featuredVideo: project.featured_video,
+    videoThumbnail: project.video_thumbnail,
     category: project.category || '',
     tags: project.tags || [],
     isCurrentlyActive: project.status === 'active'
@@ -152,6 +162,8 @@ export const getProjectById = async (id: string): Promise<ProjectDetailsType | n
     description: data.description || '',
     heroImage: data.hero_image || data.featured_image || '/placeholder.svg',
     featuredImage: data.featured_image || '/placeholder.svg',
+    featuredVideo: data.featured_video,
+    videoThumbnail: data.video_thumbnail,
     category: data.category || '',
     duration: data.duration || '',
     location: data.location || '',
@@ -166,6 +178,7 @@ export const getProjectById = async (id: string): Promise<ProjectDetailsType | n
       timeline: data.timeline_result || ''
     },
     gallery: data.gallery_images || [],
+    galleryVideos: data.gallery_videos || [],
     tags: data.tags || []
   };
 };
@@ -192,6 +205,8 @@ export const getProjectBySlug = async (slug: string): Promise<ProjectDetailsType
     description: data.description || '',
     heroImage: data.hero_image || data.featured_image || '/placeholder.svg',
     featuredImage: data.featured_image || '/placeholder.svg',
+    featuredVideo: data.featured_video,
+    videoThumbnail: data.video_thumbnail,
     category: data.category || '',
     duration: data.duration || '',
     location: data.location || '',
@@ -206,6 +221,7 @@ export const getProjectBySlug = async (slug: string): Promise<ProjectDetailsType
       timeline: data.timeline_result || ''
     },
     gallery: data.gallery_images || [],
+    galleryVideos: data.gallery_videos || [],
     tags: data.tags || []
   };
 };

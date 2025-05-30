@@ -7,6 +7,8 @@ interface CarouselProject {
   id: string;
   name: string;
   featuredImage: string;
+  featuredVideo?: string | null;
+  videoThumbnail?: string | null;
 }
 
 export const ProjectCarousel = () => {
@@ -144,7 +146,7 @@ export const ProjectCarousel = () => {
   }
 
   // Create duplicated array for seamless infinite scroll
-  // Use unique keys to prevent React warnings and potential rendering issues
+  // Use more specific unique keys to prevent React warnings
   const duplicatedProjects = [...carouselProjects, ...carouselProjects];
 
   return (
@@ -162,14 +164,21 @@ export const ProjectCarousel = () => {
         onTouchEnd={handleTouchEnd}
         style={{ scrollBehavior: 'auto' }}
       >
-        {duplicatedProjects.map((project, index) => (
-          <ProjectCard
-            key={`carousel-${project.id}-${index < carouselProjects.length ? 'first' : 'second'}`}
-            name={project.name}
-            image={project.featuredImage}
-            projectId={project.id}
-          />
-        ))}
+        {duplicatedProjects.map((project, index) => {
+          const isSecondSet = index >= carouselProjects.length;
+          const uniqueKey = `${project.id}-${isSecondSet ? 'duplicate' : 'original'}-${index}`;
+          
+          return (
+            <ProjectCard
+              key={uniqueKey}
+              name={project.name}
+              image={project.featuredImage}
+              video={project.featuredVideo}
+              videoThumbnail={project.videoThumbnail}
+              projectId={project.id}
+            />
+          );
+        })}
       </div>
     </div>
   );
