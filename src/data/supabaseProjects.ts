@@ -202,7 +202,7 @@ export const getProjectBySlug = async (slug: string): Promise<ProjectDetailsType
     results: {
       engagement: data.engagement_result || '',
       leads: data.leads_result || '',
-      conversion: data.conversion_result || ''
+      conversion: data.conversion_result || '',
       timeline: data.timeline_result || ''
     },
     gallery: data.gallery_images || [],
