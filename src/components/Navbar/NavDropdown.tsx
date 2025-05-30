@@ -20,9 +20,9 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
       link: "/3d-rendering-visualization",
       shortText: "Bring Your Architectural Visions to Life with Photo-Realistic Precision.",
       subItems: [
-        { title: "Architectural 3D Rendering", anchor: "#architectural-3d-rendering" },
-        { title: "Architectural Walkthrough Videos", anchor: "#architectural-walkthrough-videos" },
-        { title: "VR-Ready Property Tours", anchor: "#vr-ready-property-tours" }
+        { title: "Architectural 3D Rendering", anchor: "/architectural-rendering" },
+        { title: "Architectural Walkthrough Videos", anchor: "/architectural-walkthrough" },
+        { title: "VR-Ready Property Tours", anchor: "/vr-property-tours" }
       ],
       bottomText: "Ideal for: Developers, Architects, & Engineers to visualize and present projects."
     },
@@ -31,9 +31,9 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
       link: "/real-estate-digital-campaigns",
       shortText: "Drive Leads & Sales with Strategic Digital Campaigns.",
       subItems: [
-        { title: "Targeted Facebook & Google Ads", anchor: "#targeted-ads" },
-        { title: "Drone Videography", anchor: "#drone-videography" },
-        { title: "Broker & Investor Outreach", anchor: "#broker-investor-outreach" }
+        { title: "Targeted Facebook & Google Ads", anchor: "/targeted-ads" },
+        { title: "Drone Videography", anchor: "/drone-videography" },
+        { title: "Broker & Investor Outreach", anchor: "/broker-outreach" }
       ],
       bottomText: "Ideal for: Developers & Brokers to generate leads and drive property sales."
     },
@@ -42,9 +42,9 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
       link: "/corporate-solutions",
       shortText: "Elevate Your Brand and Connect with Your Audience.",
       subItems: [
-        { title: "Brand Identity Design", anchor: "#brand-identity-design" },
-        { title: "UI/UX Design", anchor: "#ui-ux-design" },
-        { title: "Web & Apps", anchor: "#web-apps" }
+        { title: "Brand Identity Design", anchor: "/brand-identity-design" },
+        { title: "UI/UX Design", anchor: "/ui-ux-design" },
+        { title: "Web & Apps", anchor: "/web-apps" }
       ],
       bottomText: "Ideal for: Companies building strong brands & digital platforms."
     }
