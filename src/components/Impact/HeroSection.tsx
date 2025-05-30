@@ -11,8 +11,17 @@ const stats = [
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-[60vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-      <div className="absolute inset-0 bg-black/40"></div>
+    <section className="relative min-h-[60vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1920&h=1080&fit=crop&crop=center')"
+        }}
+      ></div>
+      
+      {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-black/70"></div>
       
       <div className="relative z-10 container mx-auto px-4 text-center">
         <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-6 lg:mb-8 font-poppins tracking-tight">

@@ -31,16 +31,6 @@ export const ShowreelSection = () => {
                 <Play className="h-8 w-8 lg:h-12 lg:w-12 text-white ml-1 group-hover:scale-110 transition-transform duration-300" fill="white" />
               </button>
             </div>
-            
-            {/* Video Overlay Text */}
-            <div className="absolute bottom-4 lg:bottom-8 left-4 lg:left-8 right-4 lg:right-8">
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2">
-                Real Estate Marketing Showreel 2024
-              </h3>
-              <p className="text-white/80 text-sm lg:text-base">
-                A glimpse into our award-winning projects and innovative solutions
-              </p>
-            </div>
           </div>
         </div>
       </div>
