@@ -4,15 +4,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { AlertCircle, Mail, Shield, Smartphone } from 'lucide-react';
+import { AlertCircle, Mail, Shield, Smartphone, Fingerprint } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { OTPInput } from './OTPInput';
 import { useDeviceFingerprint } from './DeviceFingerprint';
 import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 export const EnhancedOTPLogin = () => {
   const [step, setStep] = useState<'email' | 'otp'>('email');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('info@eastdigital.in');
   const [otp, setOtp] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -20,11 +21,14 @@ export const EnhancedOTPLogin = () => {
   const [rememberDevice, setRememberDevice] = useState(true);
   const { login } = useAuth();
   const deviceFingerprint = useDeviceFingerprint();
+  const { toast } = useToast();
 
   const checkTrustedDevice = async () => {
     if (!deviceFingerprint) return false;
     
     try {
+      console.log('Checking trusted device with fingerprint:', deviceFingerprint);
+      
       const { data, error } = await supabase
         .from('admin_users')
         .select(`
@@ -36,17 +40,27 @@ export const EnhancedOTPLogin = () => {
         .eq('trusted_devices.is_active', true)
         .single();
 
-      if (error || !data) return false;
+      if (error) {
+        console.error('Error checking trusted device:', error);
+        return false;
+      }
 
-      // Update last used timestamp for the device
-      await supabase
-        .from('trusted_devices')
-        .update({ last_used_at: new Date().toISOString() })
-        .eq('admin_user_id', data.id)
-        .eq('device_fingerprint', deviceFingerprint);
+      if (data) {
+        console.log('Trusted device found, auto-logging in');
+        
+        // Update last used timestamp for the device
+        await supabase
+          .from('trusted_devices')
+          .update({ last_used_at: new Date().toISOString() })
+          .eq('admin_user_id', data.id)
+          .eq('device_fingerprint', deviceFingerprint);
 
-      return true;
-    } catch {
+        return true;
+      }
+
+      return false;
+    } catch (err) {
+      console.error('Error in checkTrustedDevice:', err);
       return false;
     }
   };
@@ -55,15 +69,27 @@ export const EnhancedOTPLogin = () => {
     if (!deviceFingerprint || !rememberDevice) return;
     
     try {
-      const deviceName = `${navigator.platform} - ${navigator.userAgent.split(' ')[0]}`;
+      const deviceName = `${navigator.platform} - MacBook Air M4`;
       
-      await supabase
+      console.log('Adding trusted device:', { adminUserId, deviceFingerprint, deviceName });
+      
+      const { error } = await supabase
         .from('trusted_devices')
         .insert({
           admin_user_id: adminUserId,
           device_fingerprint: deviceFingerprint,
           device_name: deviceName
         });
+
+      if (error) {
+        console.error('Failed to add trusted device:', error);
+      } else {
+        console.log('Trusted device added successfully');
+        toast({
+          title: "Device Remembered",
+          description: "This device has been marked as trusted for future logins.",
+        });
+      }
     } catch (error) {
       console.error('Failed to add trusted device:', error);
     }
@@ -75,26 +101,47 @@ export const EnhancedOTPLogin = () => {
     setError('');
 
     try {
+      console.log('Starting login process for:', email);
+      
+      // First verify the admin user exists
+      const { data: adminCheck, error: adminError } = await supabase
+        .from('admin_users')
+        .select('id, email')
+        .eq('email', email)
+        .eq('is_active', true)
+        .single();
+
+      if (adminError || !adminCheck) {
+        throw new Error('This email is not authorized for admin access.');
+      }
+
+      console.log('Admin user verified:', adminCheck);
+
       // Check if this is a trusted device
       const isTrusted = await checkTrustedDevice();
       
       if (isTrusted) {
         // Auto-login for trusted devices
         login(email);
+        toast({
+          title: "Welcome Back!",
+          description: "Logged in using trusted device recognition.",
+        });
         return;
       }
 
-      // Send OTP for non-trusted devices
-      const response = await fetch('/supabase/functions/v1/send-admin-otp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify({ email }),
+      console.log('Device not trusted, sending OTP');
+
+      // Send OTP using Supabase edge function
+      const { data, error } = await supabase.functions.invoke('send-admin-otp', {
+        body: { email }
       });
 
-      const data = await response.json();
+      console.log('OTP function response:', { data, error });
+
+      if (error) {
+        throw error;
+      }
 
       if (!data.success) {
         throw new Error(data.error || 'Failed to send OTP');
@@ -102,8 +149,30 @@ export const EnhancedOTPLogin = () => {
 
       setVerificationId(data.verificationId);
       setStep('otp');
+      setOtp('');
+      
+      toast({
+        title: "OTP Sent",
+        description: "Please check your email for the verification code.",
+      });
+      
+      // Show OTP in console for demo purposes
+      if (data.otp) {
+        console.log('Demo OTP:', data.otp);
+        toast({
+          title: "Demo Mode",
+          description: `OTP: ${data.otp} (check console for development)`,
+          variant: "default",
+        });
+      }
     } catch (err: any) {
+      console.error('Error in handleEmailSubmit:', err);
       setError(err.message || 'An error occurred');
+      toast({
+        title: "Error",
+        description: err.message || 'An error occurred',
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -117,32 +186,52 @@ export const EnhancedOTPLogin = () => {
     setError('');
 
     try {
-      const response = await fetch('/supabase/functions/v1/verify-admin-otp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify({
-          verificationId,
+      console.log('Verifying OTP:', { verificationId, otp: otp.substring(0, 2) + 'xxxx' });
+
+      const { data, error } = await supabase.functions.invoke('verify-admin-otp', {
+        body: {
+          email,
           otp,
-        }),
+          verificationId,
+        }
       });
 
-      const data = await response.json();
+      console.log('OTP verification response:', { data, error });
+
+      if (error) {
+        throw error;
+      }
 
       if (!data.success) {
         throw new Error(data.error || 'Invalid OTP');
       }
 
+      // Get admin user ID for trusted device
+      const { data: adminUser } = await supabase
+        .from('admin_users')
+        .select('id')
+        .eq('email', email)
+        .single();
+
       // Add this device as trusted if requested
-      if (data.adminUserId) {
-        await addTrustedDevice(data.adminUserId);
+      if (adminUser && rememberDevice) {
+        await addTrustedDevice(adminUser.id);
       }
 
       login(email);
+      toast({
+        title: "Login Successful",
+        description: "Welcome to the admin panel.",
+      });
     } catch (err: any) {
+      console.error('Error in handleOTPSubmit:', err);
       setError(err.message || 'An error occurred');
+      setOtp(''); // Clear OTP on error
+      toast({
+        title: "Verification Failed",
+        description: err.message || 'Invalid OTP. Please try again.',
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -195,10 +284,16 @@ export const EnhancedOTPLogin = () => {
                   className="rounded"
                 />
                 <Label htmlFor="remember-device" className="text-gray-300 text-sm flex items-center gap-2">
-                  <Smartphone className="h-4 w-4" />
-                  Remember this device
+                  <Fingerprint className="h-4 w-4" />
+                  Remember this device (MacBook Air M4)
                 </Label>
               </div>
+
+              {deviceFingerprint && (
+                <div className="text-xs text-gray-500 bg-gray-800 p-2 rounded">
+                  Device ID: {deviceFingerprint}
+                </div>
+              )}
 
               {error && (
                 <div className="flex items-center space-x-2 text-red-400 text-sm">
