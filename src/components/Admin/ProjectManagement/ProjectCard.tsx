@@ -16,8 +16,11 @@ interface Project {
   category: string;
   is_featured: boolean;
   featured_image: string;
+  featured_video: string;
+  video_thumbnail: string;
   hero_image: string;
   gallery_images: string[];
+  gallery_videos: string[];
   seo_title: string;
   seo_description: string;
   seo_keywords: string;

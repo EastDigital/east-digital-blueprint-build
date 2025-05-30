@@ -12,8 +12,11 @@ interface Project {
   category: string;
   is_featured: boolean;
   featured_image: string;
+  featured_video: string;
+  video_thumbnail: string;
   hero_image: string;
   gallery_images: string[];
+  gallery_videos: string[];
   seo_title: string;
   seo_description: string;
   seo_keywords: string;
@@ -46,8 +49,11 @@ interface ProjectFormData {
   category: string;
   is_featured: boolean;
   featured_image: string;
+  featured_video: string;
+  video_thumbnail: string;
   hero_image: string;
   gallery_images: string[];
+  gallery_videos: string[];
   seo_title: string;
   seo_description: string;
   seo_keywords: string;
@@ -78,8 +84,11 @@ const initialFormData: ProjectFormData = {
   category: '',
   is_featured: false,
   featured_image: '',
+  featured_video: '',
+  video_thumbnail: '',
   hero_image: '',
   gallery_images: [],
+  gallery_videos: [],
   seo_title: '',
   seo_description: '',
   seo_keywords: '',
@@ -221,8 +230,11 @@ export const useProjectManagement = () => {
         category: project.category || '',
         is_featured: false, // Reset featured status for duplicates
         featured_image: project.featured_image || '',
+        featured_video: project.featured_video || '',
+        video_thumbnail: project.video_thumbnail || '',
         hero_image: project.hero_image || '',
         gallery_images: project.gallery_images || [],
+        gallery_videos: project.gallery_videos || [],
         seo_title: project.seo_title || '',
         seo_description: project.seo_description || '',
         seo_keywords: project.seo_keywords || '',
@@ -306,8 +318,11 @@ export const useProjectManagement = () => {
       category: project.category || '',
       is_featured: project.is_featured,
       featured_image: project.featured_image || '',
+      featured_video: project.featured_video || '',
+      video_thumbnail: project.video_thumbnail || '',
       hero_image: project.hero_image || '',
       gallery_images: project.gallery_images || [],
+      gallery_videos: project.gallery_videos || [],
       seo_title: project.seo_title || '',
       seo_description: project.seo_description || '',
       seo_keywords: project.seo_keywords || '',

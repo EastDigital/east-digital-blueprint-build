@@ -20,10 +20,13 @@ interface ProjectFormData {
   is_featured: boolean;
   featured_image: string;
   featured_image_alt: string;
+  featured_video: string;
+  video_thumbnail: string;
   hero_image: string;
   hero_image_alt: string;
   gallery_images: string[];
   gallery_image_alts: string[];
+  gallery_videos: string[];
   seo_title: string;
   seo_description: string;
   seo_keywords: string;
@@ -68,6 +71,7 @@ export const EnhancedProjectForm = ({
     handleTagsChange,
     handleGalleryImagesChange,
     handleGalleryImageAltsChange,
+    handleGalleryVideosChange,
     generateNewSlug
   } = useProjectFormLogic(data, onChange, mode);
 
@@ -105,7 +109,7 @@ export const EnhancedProjectForm = ({
         <TabsList className="grid w-full grid-cols-4 bg-gray-800">
           <TabsTrigger value="basic" className="text-white data-[state=active]:bg-eastdigital-orange">Basic Info</TabsTrigger>
           <TabsTrigger value="details" className="text-white data-[state=active]:bg-eastdigital-orange">Project Details</TabsTrigger>
-          <TabsTrigger value="media" className="text-white data-[state=active]:bg-eastdigital-orange">Media & Images</TabsTrigger>
+          <TabsTrigger value="media" className="text-white data-[state=active]:bg-eastdigital-orange">Media & Videos</TabsTrigger>
           <TabsTrigger value="seo" className="text-white data-[state=active]:bg-eastdigital-orange">SEO & Settings</TabsTrigger>
         </TabsList>
 
@@ -134,6 +138,7 @@ export const EnhancedProjectForm = ({
             onInputChange={handleInputChange}
             onGalleryImagesChange={handleGalleryImagesChange}
             onGalleryImageAltsChange={handleGalleryImageAltsChange}
+            onGalleryVideosChange={handleGalleryVideosChange}
           />
         </TabsContent>
 
