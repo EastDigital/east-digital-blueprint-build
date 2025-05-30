@@ -14,15 +14,8 @@ export const ShowreelSection = () => {
     stopColorAnalysis
   } = useVideoColorAnalyzer();
 
-  // Subtle cinema-like ambient lighting - much more subdued
-  const ambientLightingStyle = {
-    background: `radial-gradient(ellipse 150% 120% at center 50%, ${dominantColor}08 0%, ${dominantColor}04 30%, ${dominantColor}02 50%, transparent 70%)`,
-    opacity: Math.max(0.15, glowIntensity * 0.3),
-    transition: 'all 1.2s ease-out'
-  };
-
   return (
-    <section className="py-16 lg:py-24 relative overflow-hidden" style={{ backgroundColor: '#1a1a1a' }}>
+    <section className="py-16 lg:py-24 relative overflow-hidden min-h-screen" style={{ backgroundColor: '#0a0a0a' }}>
       {/* Hidden canvas for color analysis */}
       <canvas 
         ref={canvasRef} 
@@ -30,29 +23,56 @@ export const ShowreelSection = () => {
         aria-hidden="true"
       />
 
-      {/* Subtle ambient lighting overlay - cinema effect */}
+      {/* Cinema Hall Atmosphere - Light from screen illuminating the entire theater */}
       <div 
-        className="absolute inset-0 transition-all duration-1200 ease-out pointer-events-none"
-        style={ambientLightingStyle}
-      ></div>
+        className="absolute inset-0 transition-all duration-2000 ease-out"
+        style={{
+          background: `
+            radial-gradient(ellipse 200% 150% at center 40%, 
+              ${dominantColor}12 0%, 
+              ${dominantColor}08 25%, 
+              ${dominantColor}04 45%, 
+              ${dominantColor}02 65%, 
+              transparent 85%
+            )
+          `,
+          opacity: Math.max(0.3, glowIntensity * 0.7),
+        }}
+      />
 
-      {/* Very subtle accent lighting elements */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
-        <div 
-          className="absolute top-20 left-1/4 w-32 h-32 rounded-full blur-3xl transition-all duration-1000"
-          style={{
-            background: `radial-gradient(circle, ${dominantColor}15 0%, transparent 70%)`,
-            opacity: glowIntensity * 0.2
-          }}
-        ></div>
-        <div 
-          className="absolute bottom-32 right-1/3 w-40 h-40 rounded-full blur-3xl transition-all duration-1000"
-          style={{
-            background: `radial-gradient(circle, ${dominantColor}12 0%, transparent 70%)`,
-            opacity: glowIntensity * 0.15
-          }}
-        ></div>
-      </div>
+      {/* Top wall illumination - like ceiling reflection */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-32 transition-all duration-2000 ease-out"
+        style={{
+          background: `linear-gradient(to bottom, ${dominantColor}08, transparent)`,
+          opacity: glowIntensity * 0.4,
+        }}
+      />
+
+      {/* Side wall illumination */}
+      <div 
+        className="absolute left-0 top-0 bottom-0 w-32 transition-all duration-2000 ease-out"
+        style={{
+          background: `linear-gradient(to right, transparent, ${dominantColor}06)`,
+          opacity: glowIntensity * 0.3,
+        }}
+      />
+      <div 
+        className="absolute right-0 top-0 bottom-0 w-32 transition-all duration-2000 ease-out"
+        style={{
+          background: `linear-gradient(to left, transparent, ${dominantColor}06)`,
+          opacity: glowIntensity * 0.3,
+        }}
+      />
+
+      {/* Floor/bottom reflection */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-40 transition-all duration-2000 ease-out"
+        style={{
+          background: `linear-gradient(to top, ${dominantColor}05, transparent)`,
+          opacity: glowIntensity * 0.2,
+        }}
+      />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12 lg:mb-16">
