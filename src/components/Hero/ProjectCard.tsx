@@ -64,8 +64,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         )}
       </div>
 
-      {/* Top Dark Overlay */}
-      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/80 to-transparent"></div>
+      {/* Top Dark Overlay - Increased by 10% */}
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/80 to-transparent"></div>
 
       {/* Video Play Button */}
       {hasVideo && (
@@ -82,8 +82,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         </button>
       )}
 
-      {/* Content - Now at the top */}
-      <div className="absolute top-0 left-0 right-0 p-4 sm:p-6 z-10">
+      {/* Content - Moved higher */}
+      <div className="absolute top-0 left-0 right-0 p-3 sm:p-4 z-10">
         <h3 
           className="text-lg sm:text-xl md:text-2xl font-normal leading-tight"
           style={{ 
