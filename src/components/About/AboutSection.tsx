@@ -17,15 +17,15 @@ export const AboutSection = () => {
   }, {
     icon: Users,
     title: "Collaborative Partnership",
-    description: "We believe in transparent communication and collaborative decision-making, ensuring you're involved in every critical milestone of your project journey."
+    description: "Close teamwork ensures your vision guides every 3D, marketing, or branding project we undertake together."
   }, {
     icon: Zap,
     title: "Performance Optimization",
-    description: "Every solution is built for scale and performance, utilizing modern architectures and best practices to ensure your digital assets perform flawlessly."
+    description: "Your 3D visuals, marketing, and branding are all optimized for maximum engagement and impactful results."
   }, {
     icon: Shield,
     title: "Future-Proof Solutions",
-    description: "We design with tomorrow in mind, creating scalable solutions that adapt to evolving market demands and technological advancements."
+    description: "We create adaptable 3D, marketing, and branding solutions, designed to scale for future industry demands."
   }];
   return <section className="relative bg-eastdigital-dark overflow-hidden py-0 lg:py-[100px]">
       {/* Background Animation */}
