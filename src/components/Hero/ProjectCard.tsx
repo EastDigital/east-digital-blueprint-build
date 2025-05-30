@@ -64,8 +64,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         )}
       </div>
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+      {/* Top Dark Overlay */}
+      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/80 to-transparent"></div>
 
       {/* Video Play Button */}
       {hasVideo && (
@@ -82,9 +82,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         </button>
       )}
 
-      {/* Content */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-        <h3 className="text-white text-lg sm:text-xl md:text-2xl font-bold leading-tight">
+      {/* Content - Now at the top */}
+      <div className="absolute top-0 left-0 right-0 p-4 sm:p-6 z-10">
+        <h3 
+          className="text-lg sm:text-xl md:text-2xl font-normal leading-tight"
+          style={{ 
+            color: '#FFE0CA',
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: '16px'
+          }}
+        >
           {name}
         </h3>
         {hasVideo && (

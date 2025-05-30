@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,8 +18,11 @@ interface ProjectFormData {
   category: string;
   is_featured: boolean;
   featured_image: string;
+  featured_image_alt: string;
   hero_image: string;
+  hero_image_alt: string;
   gallery_images: string[];
+  gallery_image_alts: string[];
   seo_title: string;
   seo_description: string;
   seo_keywords: string;
@@ -147,6 +149,11 @@ export const EnhancedProjectForm = ({
     handleInputChange('gallery_images', images);
   };
 
+  const handleGalleryImageAltsChange = (altsString: string) => {
+    const alts = altsString.split('\n').map(alt => alt.trim()).filter(alt => alt.length > 0);
+    handleInputChange('gallery_image_alts', alts);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -189,6 +196,55 @@ export const EnhancedProjectForm = ({
       default:
         return null;
     }
+  };
+
+  const CustomToggle = ({ 
+    checked, 
+    onCheckedChange, 
+    label, 
+    icon: Icon, 
+    description 
+  }: { 
+    checked: boolean; 
+    onCheckedChange: (checked: boolean) => void; 
+    label: string; 
+    icon: any; 
+    description: string;
+  }) => {
+    return (
+      <div 
+        className={`relative p-4 rounded-lg border-2 cursor-pointer transition-all duration-300 ${
+          checked 
+            ? 'border-eastdigital-orange bg-eastdigital-orange/10' 
+            : 'border-gray-700 bg-gray-800/50 hover:border-gray-600'
+        }`}
+        onClick={() => onCheckedChange(!checked)}
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className={`p-2 rounded-full ${checked ? 'bg-eastdigital-orange text-white' : 'bg-gray-700 text-gray-400'}`}>
+              <Icon className="h-4 w-4" />
+            </div>
+            <div>
+              <h4 className="text-white font-medium">{label}</h4>
+              <p className="text-gray-400 text-sm">{description}</p>
+            </div>
+          </div>
+          <div className={`w-12 h-6 rounded-full transition-all duration-300 ${
+            checked ? 'bg-eastdigital-orange' : 'bg-gray-600'
+          }`}>
+            <div className={`w-5 h-5 rounded-full bg-white transition-transform duration-300 mt-0.5 ${
+              checked ? 'translate-x-6 ml-1' : 'translate-x-0 ml-0.5'
+            }`} />
+          </div>
+        </div>
+        {checked && (
+          <div className="absolute top-2 right-2">
+            <Check className="h-4 w-4 text-eastdigital-orange" />
+          </div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -444,32 +500,56 @@ export const EnhancedProjectForm = ({
         </TabsContent>
 
         <TabsContent value="media" className="space-y-4">
-          <div>
-            <Label htmlFor="featured_image" className="text-white">Featured Image URL</Label>
-            <Input
-              id="featured_image"
-              value={data.featured_image}
-              onChange={(e) => handleInputChange('featured_image', e.target.value)}
-              className="bg-gray-800 border-gray-700 text-white"
-              placeholder="https://example.com/featured-image.jpg"
-            />
-            {data.featured_image && (
-              <img src={data.featured_image} alt="Featured preview" className="mt-2 w-32 h-24 object-cover rounded border border-gray-700" />
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="featured_image" className="text-white">Featured Image URL</Label>
+              <Input
+                id="featured_image"
+                value={data.featured_image}
+                onChange={(e) => handleInputChange('featured_image', e.target.value)}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="https://example.com/featured-image.jpg"
+              />
+              {data.featured_image && (
+                <img src={data.featured_image} alt="Featured preview" className="mt-2 w-32 h-24 object-cover rounded border border-gray-700" />
+              )}
+            </div>
+            <div>
+              <Label htmlFor="featured_image_alt" className="text-white">Featured Image Alt Text</Label>
+              <Input
+                id="featured_image_alt"
+                value={data.featured_image_alt || ''}
+                onChange={(e) => handleInputChange('featured_image_alt', e.target.value)}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="Descriptive alt text for featured image"
+              />
+            </div>
           </div>
 
-          <div>
-            <Label htmlFor="hero_image" className="text-white">Hero Image URL</Label>
-            <Input
-              id="hero_image"
-              value={data.hero_image}
-              onChange={(e) => handleInputChange('hero_image', e.target.value)}
-              className="bg-gray-800 border-gray-700 text-white"
-              placeholder="https://example.com/hero-image.jpg"
-            />
-            {data.hero_image && (
-              <img src={data.hero_image} alt="Hero preview" className="mt-2 w-32 h-24 object-cover rounded border border-gray-700" />
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="hero_image" className="text-white">Hero Image URL</Label>
+              <Input
+                id="hero_image"
+                value={data.hero_image}
+                onChange={(e) => handleInputChange('hero_image', e.target.value)}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="https://example.com/hero-image.jpg"
+              />
+              {data.hero_image && (
+                <img src={data.hero_image} alt="Hero preview" className="mt-2 w-32 h-24 object-cover rounded border border-gray-700" />
+              )}
+            </div>
+            <div>
+              <Label htmlFor="hero_image_alt" className="text-white">Hero Image Alt Text</Label>
+              <Input
+                id="hero_image_alt"
+                value={data.hero_image_alt || ''}
+                onChange={(e) => handleInputChange('hero_image_alt', e.target.value)}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="Descriptive alt text for hero image"
+              />
+            </div>
           </div>
 
           <div>
@@ -483,28 +563,44 @@ export const EnhancedProjectForm = ({
             />
           </div>
 
-          <div>
-            <Label htmlFor="gallery_images" className="text-white">Gallery Images (one URL per line)</Label>
-            <Textarea
-              id="gallery_images"
-              value={data.gallery_images?.join('\n') || ''}
-              onChange={(e) => handleGalleryImagesChange(e.target.value)}
-              className="bg-gray-800 border-gray-700 text-white"
-              placeholder="https://example.com/gallery1.jpg&#10;https://example.com/gallery2.jpg"
-              rows={5}
-            />
-            {data.gallery_images && data.gallery_images.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-2">
-                {data.gallery_images.slice(0, 6).map((img, idx) => (
-                  <img key={idx} src={img} alt={`Gallery ${idx + 1}`} className="w-16 h-12 object-cover rounded border border-gray-700" />
-                ))}
-                {data.gallery_images.length > 6 && (
-                  <div className="w-16 h-12 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-300">
-                    +{data.gallery_images.length - 6}
-                  </div>
-                )}
-              </div>
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="gallery_images" className="text-white">Gallery Images (one URL per line)</Label>
+              <Textarea
+                id="gallery_images"
+                value={data.gallery_images?.join('\n') || ''}
+                onChange={(e) => handleGalleryImagesChange(e.target.value)}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="https://example.com/gallery1.jpg&#10;https://example.com/gallery2.jpg"
+                rows={5}
+              />
+              {data.gallery_images && data.gallery_images.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {data.gallery_images.slice(0, 6).map((img, idx) => (
+                    <img key={idx} src={img} alt={`Gallery ${idx + 1}`} className="w-16 h-12 object-cover rounded border border-gray-700" />
+                  ))}
+                  {data.gallery_images.length > 6 && (
+                    <div className="w-16 h-12 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-300">
+                      +{data.gallery_images.length - 6}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            <div>
+              <Label htmlFor="gallery_image_alts" className="text-white">Gallery Image Alt Texts (one per line)</Label>
+              <Textarea
+                id="gallery_image_alts"
+                value={data.gallery_image_alts?.join('\n') || ''}
+                onChange={(e) => handleGalleryImageAltsChange(e.target.value)}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="Alt text for gallery image 1&#10;Alt text for gallery image 2"
+                rows={5}
+              />
+              <p className="text-xs text-gray-400 mt-1">
+                Each line corresponds to the same-numbered gallery image above
+              </p>
+            </div>
           </div>
         </TabsContent>
 
@@ -544,29 +640,23 @@ export const EnhancedProjectForm = ({
           </div>
 
           <div className="space-y-4">
-            <div className="flex items-center space-x-3">
-              <Switch
-                id="is_featured"
-                checked={data.is_featured}
-                onCheckedChange={(checked) => handleInputChange('is_featured', checked)}
-              />
-              <Label htmlFor="is_featured" className="text-white flex items-center gap-2">
-                <Star className="h-4 w-4" />
-                Featured Project
-              </Label>
-            </div>
+            <Label className="text-white text-lg">Project Settings</Label>
+            
+            <CustomToggle
+              checked={data.is_featured}
+              onCheckedChange={(checked) => handleInputChange('is_featured', checked)}
+              label="Featured Project"
+              icon={Star}
+              description="Display this project prominently on the homepage"
+            />
 
-            <div className="flex items-center space-x-3">
-              <Switch
-                id="show_in_carousel"
-                checked={data.show_in_carousel}
-                onCheckedChange={(checked) => handleInputChange('show_in_carousel', checked)}
-              />
-              <Label htmlFor="show_in_carousel" className="text-white flex items-center gap-2">
-                <Globe className="h-4 w-4" />
-                Show in Homepage Carousel
-              </Label>
-            </div>
+            <CustomToggle
+              checked={data.show_in_carousel}
+              onCheckedChange={(checked) => handleInputChange('show_in_carousel', checked)}
+              label="Homepage Carousel"
+              icon={Globe}
+              description="Include this project in the main homepage carousel"
+            />
           </div>
         </TabsContent>
       </Tabs>

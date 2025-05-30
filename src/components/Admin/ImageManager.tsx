@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { X, Plus, Upload } from 'lucide-react';
 
 interface ImageManagerProps {
@@ -19,6 +20,7 @@ export const ImageManager: React.FC<ImageManagerProps> = ({
   allowMultiple = false
 }) => {
   const [newImageUrl, setNewImageUrl] = useState('');
+  const [imageUrls, setImageUrls] = useState('');
 
   const handleAddImage = () => {
     if (newImageUrl.trim()) {
@@ -28,6 +30,18 @@ export const ImageManager: React.FC<ImageManagerProps> = ({
         onImagesChange([newImageUrl.trim()]);
       }
       setNewImageUrl('');
+    }
+  };
+
+  const handleBulkAdd = () => {
+    if (imageUrls.trim()) {
+      const urls = imageUrls.split('\n').map(url => url.trim()).filter(url => url.length > 0);
+      if (allowMultiple) {
+        onImagesChange([...images, ...urls]);
+      } else {
+        onImagesChange(urls.slice(0, 1));
+      }
+      setImageUrls('');
     }
   };
 
@@ -61,11 +75,11 @@ export const ImageManager: React.FC<ImageManagerProps> = ({
         </div>
       )}
 
-      {/* Add new image */}
+      {/* Add new image - single URL */}
       {(allowMultiple || images.length === 0) && (
         <div className="flex space-x-2">
           <Input
-            placeholder="Enter image URL"
+            placeholder="Enter single image URL"
             value={newImageUrl}
             onChange={(e) => setNewImageUrl(e.target.value)}
             className="bg-gray-800 border-gray-700 text-white"
@@ -78,6 +92,29 @@ export const ImageManager: React.FC<ImageManagerProps> = ({
           >
             <Plus className="h-4 w-4" />
           </Button>
+        </div>
+      )}
+
+      {/* Bulk add - multiple URLs */}
+      {allowMultiple && (
+        <div className="space-y-2">
+          <Label className="text-gray-300 text-sm">Or add multiple URLs (one per line):</Label>
+          <div className="flex space-x-2">
+            <Textarea
+              placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg&#10;https://example.com/image3.jpg"
+              value={imageUrls}
+              onChange={(e) => setImageUrls(e.target.value)}
+              className="bg-gray-800 border-gray-700 text-white"
+              rows={3}
+            />
+            <Button
+              type="button"
+              onClick={handleBulkAdd}
+              className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 self-start"
+            >
+              <Upload className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       )}
     </div>
