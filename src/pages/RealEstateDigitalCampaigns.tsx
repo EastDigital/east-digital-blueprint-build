@@ -10,22 +10,34 @@ const RealEstateDigitalCampaigns = () => {
       <Navbar />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-16 lg:py-24">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+        <section className="relative min-h-[70vh] sm:min-h-[60vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&h=1080&fit=crop&crop=center')",
+              backgroundPosition: 'center 40%'
+            }}
+          ></div>
+          
+          {/* Overlay for readability */}
+          <div className="absolute inset-0 bg-black/70"></div>
+          
+          <div className="relative z-10 container mx-auto px-4 text-center py-8 sm:py-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white font-poppins tracking-tight">
               REAL ESTATE DIGITAL CAMPAIGNS
             </h1>
-            <p className="text-xl lg:text-2xl text-eastdigital-lightgray max-w-4xl mx-auto mb-8">
+            <p className="text-base sm:text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto mb-6 sm:mb-8 px-2 sm:px-4 leading-relaxed">
               Drive Leads & Sales with Strategic Digital Campaigns
             </p>
-            <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-3 text-lg rounded-[60px]">
+            <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg rounded-[60px]">
               Launch Your Campaign
             </Button>
           </div>
         </section>
 
         {/* Services Grid */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-16" style={{ backgroundColor: '#141414' }}>
           <div className="grid md:grid-cols-3 gap-8">
             {/* Targeted Facebook & Google Ads */}
             <div id="targeted-ads" className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8">
@@ -81,7 +93,7 @@ const RealEstateDigitalCampaigns = () => {
         </section>
 
         {/* Results Section */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-16" style={{ backgroundColor: '#222222' }}>
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               Proven Results
@@ -108,7 +120,7 @@ const RealEstateDigitalCampaigns = () => {
         </section>
 
         {/* Target Audience */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-16" style={{ backgroundColor: '#141414' }}>
           <div className="bg-gradient-to-r from-eastdigital-orange/10 to-eastdigital-orange/5 border border-eastdigital-orange/20 rounded-2xl p-8 lg:p-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 text-center">
               Perfect For
@@ -127,7 +139,7 @@ const RealEstateDigitalCampaigns = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-16" style={{ backgroundColor: '#222222' }}>
           <div className="text-center">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               Ready to Scale Your Sales?
