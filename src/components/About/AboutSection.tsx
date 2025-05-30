@@ -4,16 +4,16 @@ import { Target, Lightbulb, Rocket, Users, Zap, Shield } from 'lucide-react';
 export const AboutSection = () => {
   const approaches = [{
     icon: Target,
-    title: "Strategic Precision in Every Detail",
-    description: "We don’t just design or render; we strategize. Whether it's a 3D visualization for a new development, a digital campaign for property sales, or a corporate branding initiative, we begin with in-depth research. This ensures your architectural concepts, product showcases, or brand messages are perfectly aligned with your target audience and market opportunities."
+    title: "Strategic Precision",
+    description: "Research aligns your 3D visuals, marketing, or branding with market opportunities and audience needs."
   }, {
     icon: Lightbulb,
-    title: "Innovation-First for Lasting Impact",
-    description: "We harness leading-edge technologies and creative thinking specific to your needs. For architects and developers, this means immersive 3D walkthroughs and VR experiences. For marketing, it's data-driven campaign strategies. For corporates and product designers, it’s fresh branding and compelling visuals that transform complex ideas into clear, engaging presentations that distinguish you from the competition."
+    title: "Innovation-First Mindset",
+    description: "Cutting-edge tech and creative ideas deliver standout 3D, marketing, and branding solutions for you."
   }, {
     icon: Rocket,
     title: "Accelerated Delivery",
-    description: "Our streamlined processes and agile methodology ensure rapid deployment without compromising quality, getting you to market faster than traditional approaches."
+    description: "Efficient processes mean timely delivery of quality 3D renderings, campaigns, or branding, meeting deadlines."
   }, {
     icon: Users,
     title: "Collaborative Partnership",
