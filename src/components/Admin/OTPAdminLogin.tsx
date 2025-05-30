@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Mail, Shield } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { OTPInput } from './OTPInput';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface OTPAdminLoginProps {
@@ -22,6 +22,13 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
   const [verificationId, setVerificationId] = useState<string | null>(null);
   const { toast } = useToast();
   const { login } = useAuth();
+
+  // Auto-verify when OTP is complete
+  useEffect(() => {
+    if (otp.length === 6 && verificationId && step === 'otp') {
+      handleVerifyOTP();
+    }
+  }, [otp, verificationId, step]);
 
   const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,6 +65,7 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
       if (data.success) {
         setVerificationId(data.verificationId);
         setStep('otp');
+        setOtp(''); // Clear any previous OTP
         toast({
           title: "OTP Sent",
           description: "Please check your email for the verification code.",
@@ -77,8 +85,7 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
     }
   };
 
-  const handleVerifyOTP = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleVerifyOTP = async () => {
     if (!verificationId || otp.length !== 6) return;
 
     setIsLoading(true);
@@ -113,6 +120,7 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
         description: error.message || "Invalid OTP. Please try again.",
         variant: "destructive",
       });
+      setOtp(''); // Clear OTP on error
     } finally {
       setIsLoading(false);
     }
@@ -169,26 +177,22 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
               </Button>
             </form>
           ) : (
-            <form onSubmit={handleVerifyOTP} className="space-y-4">
+            <div className="space-y-4">
               <div>
                 <Label htmlFor="otp" className="text-white">Verification Code</Label>
-                <div className="flex justify-center mt-2">
-                  <InputOTP
+                <div className="mt-2">
+                  <OTPInput
                     value={otp}
                     onChange={setOtp}
-                    maxLength={6}
-                  >
-                    <InputOTPGroup>
-                      <InputOTPSlot index={0} />
-                      <InputOTPSlot index={1} />
-                      <InputOTPSlot index={2} />
-                      <InputOTPSlot index={3} />
-                      <InputOTPSlot index={4} />
-                      <InputOTPSlot index={5} />
-                    </InputOTPGroup>
-                  </InputOTP>
+                    length={6}
+                  />
                 </div>
               </div>
+              {isLoading && (
+                <div className="text-center text-gray-400">
+                  Verifying...
+                </div>
+              )}
               <div className="flex gap-2">
                 <Button
                   type="button"
@@ -200,14 +204,15 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
                   Back
                 </Button>
                 <Button
-                  type="submit"
+                  type="button"
+                  onClick={handleVerifyOTP}
                   className="flex-1 bg-eastdigital-orange hover:bg-eastdigital-orange/90"
                   disabled={isLoading || otp.length !== 6}
                 >
                   {isLoading ? 'Verifying...' : 'Verify'}
                 </Button>
               </div>
-            </form>
+            </div>
           )}
         </CardContent>
       </Card>

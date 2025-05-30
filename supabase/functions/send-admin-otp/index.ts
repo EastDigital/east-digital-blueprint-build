@@ -58,12 +58,47 @@ serve(async (req) => {
       throw verificationError;
     }
 
-    // Here you would normally send the OTP via email
-    // For now, we'll just log it (in production, integrate with your email service)
-    console.log(`OTP for ${email}: ${otp}`);
+    // Check if RESEND_API_KEY is available
+    const resendApiKey = Deno.env.get('RESEND_API_KEY');
     
-    // For demo purposes, we'll return the OTP in the response
-    // Remove this in production!
+    if (resendApiKey) {
+      // Send email using Resend
+      try {
+        const emailResponse = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${resendApiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'Admin Panel <noreply@yourdomain.com>',
+            to: [email],
+            subject: 'Your Admin Panel OTP Code',
+            html: `
+              <h2>Admin Panel Login</h2>
+              <p>Your OTP code is: <strong style="font-size: 20px; color: #ff6b35;">${otp}</strong></p>
+              <p>This code will expire in 10 minutes.</p>
+              <p>If you didn't request this code, please ignore this email.</p>
+            `,
+          }),
+        });
+
+        if (!emailResponse.ok) {
+          const errorData = await emailResponse.text();
+          console.error('Email sending failed:', errorData);
+          throw new Error('Failed to send email');
+        }
+
+        console.log(`OTP email sent successfully to ${email}`);
+      } catch (emailError) {
+        console.error('Error sending email:', emailError);
+        // Continue without failing - for development purposes
+      }
+    } else {
+      console.log('RESEND_API_KEY not configured - OTP will only be logged');
+    }
+    
+    // For demo purposes, log the OTP (remove in production)
     console.log(`Admin OTP for ${email}: ${otp}`);
 
     return new Response(

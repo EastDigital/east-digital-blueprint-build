@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Plus, Edit, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { ProjectForm } from './ProjectForm';
 
 interface Project {
   id: string;
@@ -19,17 +17,29 @@ interface Project {
   updated_at: string;
 }
 
+interface ProjectFormData {
+  name: string;
+  description: string;
+  image_url: string;
+  category: string;
+  is_featured: boolean;
+}
+
+const initialFormData: ProjectFormData = {
+  name: '',
+  description: '',
+  image_url: '',
+  category: '',
+  is_featured: false
+};
+
 export const DatabaseProjectManagement = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
-  const [newProject, setNewProject] = useState({
-    name: '',
-    description: '',
-    image_url: '',
-    category: '',
-    is_featured: false
-  });
+  const [newProjectData, setNewProjectData] = useState<ProjectFormData>(initialFormData);
+  const [editingProjectData, setEditingProjectData] = useState<ProjectFormData>(initialFormData);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -57,7 +67,7 @@ export const DatabaseProjectManagement = () => {
   };
 
   const handleCreateProject = async () => {
-    if (!newProject.name.trim()) {
+    if (!newProjectData.name.trim()) {
       toast({
         title: "Error",
         description: "Project name is required",
@@ -66,23 +76,18 @@ export const DatabaseProjectManagement = () => {
       return;
     }
 
+    setIsSubmitting(true);
     try {
       const { data, error } = await supabase
         .from('projects')
-        .insert([newProject])
+        .insert([newProjectData])
         .select()
         .single();
 
       if (error) throw error;
 
       setProjects([data, ...projects]);
-      setNewProject({
-        name: '',
-        description: '',
-        image_url: '',
-        category: '',
-        is_featured: false
-      });
+      setNewProjectData(initialFormData);
 
       toast({
         title: "Success",
@@ -94,21 +99,20 @@ export const DatabaseProjectManagement = () => {
         description: "Failed to create project: " + error.message,
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleUpdateProject = async () => {
     if (!editingProject) return;
 
+    setIsSubmitting(true);
     try {
       const { data, error } = await supabase
         .from('projects')
         .update({
-          name: editingProject.name,
-          description: editingProject.description,
-          image_url: editingProject.image_url,
-          category: editingProject.category,
-          is_featured: editingProject.is_featured,
+          ...editingProjectData,
           updated_at: new Date().toISOString()
         })
         .eq('id', editingProject.id)
@@ -130,6 +134,8 @@ export const DatabaseProjectManagement = () => {
         description: "Failed to update project: " + error.message,
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -159,6 +165,22 @@ export const DatabaseProjectManagement = () => {
     }
   };
 
+  const handleEditProject = (project: Project) => {
+    setEditingProject(project);
+    setEditingProjectData({
+      name: project.name,
+      description: project.description,
+      image_url: project.image_url,
+      category: project.category,
+      is_featured: project.is_featured
+    });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingProject(null);
+    setEditingProjectData(initialFormData);
+  };
+
   if (isLoading) {
     return <div className="text-white">Loading projects...</div>;
   }
@@ -177,66 +199,15 @@ export const DatabaseProjectManagement = () => {
             Add New Project
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="name" className="text-white">Project Name</Label>
-              <Input
-                id="name"
-                value={newProject.name}
-                onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
-                className="bg-gray-800 border-gray-700 text-white"
-                placeholder="Enter project name"
-              />
-            </div>
-            <div>
-              <Label htmlFor="category" className="text-white">Category</Label>
-              <Input
-                id="category"
-                value={newProject.category}
-                onChange={(e) => setNewProject({ ...newProject, category: e.target.value })}
-                className="bg-gray-800 border-gray-700 text-white"
-                placeholder="Enter category"
-              />
-            </div>
-          </div>
-          <div>
-            <Label htmlFor="description" className="text-white">Description</Label>
-            <Textarea
-              id="description"
-              value={newProject.description}
-              onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
-              className="bg-gray-800 border-gray-700 text-white"
-              placeholder="Enter project description"
-              rows={3}
-            />
-          </div>
-          <div>
-            <Label htmlFor="image_url" className="text-white">Image URL</Label>
-            <Input
-              id="image_url"
-              value={newProject.image_url}
-              onChange={(e) => setNewProject({ ...newProject, image_url: e.target.value })}
-              className="bg-gray-800 border-gray-700 text-white"
-              placeholder="Enter image URL"
-            />
-          </div>
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="is_featured"
-              checked={newProject.is_featured}
-              onChange={(e) => setNewProject({ ...newProject, is_featured: e.target.checked })}
-              className="rounded"
-            />
-            <Label htmlFor="is_featured" className="text-white">Featured Project</Label>
-          </div>
-          <Button 
-            onClick={handleCreateProject}
-            className="bg-eastdigital-orange hover:bg-eastdigital-orange/90"
-          >
-            Create Project
-          </Button>
+        <CardContent>
+          <ProjectForm
+            data={newProjectData}
+            onChange={setNewProjectData}
+            onSave={handleCreateProject}
+            onCancel={() => setNewProjectData(initialFormData)}
+            isLoading={isSubmitting}
+            mode="create"
+          />
         </CardContent>
       </Card>
 
@@ -246,69 +217,14 @@ export const DatabaseProjectManagement = () => {
           <Card key={project.id} className="bg-gray-900 border-gray-800">
             <CardContent className="p-6">
               {editingProject?.id === project.id ? (
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label className="text-white">Project Name</Label>
-                      <Input
-                        value={editingProject.name}
-                        onChange={(e) => setEditingProject({ ...editingProject, name: e.target.value })}
-                        className="bg-gray-800 border-gray-700 text-white"
-                      />
-                    </div>
-                    <div>
-                      <Label className="text-white">Category</Label>
-                      <Input
-                        value={editingProject.category}
-                        onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value })}
-                        className="bg-gray-800 border-gray-700 text-white"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label className="text-white">Description</Label>
-                    <Textarea
-                      value={editingProject.description}
-                      onChange={(e) => setEditingProject({ ...editingProject, description: e.target.value })}
-                      className="bg-gray-800 border-gray-700 text-white"
-                      rows={3}
-                    />
-                  </div>
-                  <div>
-                    <Label className="text-white">Image URL</Label>
-                    <Input
-                      value={editingProject.image_url}
-                      onChange={(e) => setEditingProject({ ...editingProject, image_url: e.target.value })}
-                      className="bg-gray-800 border-gray-700 text-white"
-                    />
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      checked={editingProject.is_featured}
-                      onChange={(e) => setEditingProject({ ...editingProject, is_featured: e.target.checked })}
-                      className="rounded"
-                    />
-                    <Label className="text-white">Featured Project</Label>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button 
-                      onClick={handleUpdateProject}
-                      className="bg-green-600 hover:bg-green-700"
-                    >
-                      <Save className="h-4 w-4 mr-2" />
-                      Save
-                    </Button>
-                    <Button 
-                      onClick={() => setEditingProject(null)}
-                      variant="outline"
-                      className="border-gray-700 text-gray-300 hover:bg-gray-800"
-                    >
-                      <X className="h-4 w-4 mr-2" />
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
+                <ProjectForm
+                  data={editingProjectData}
+                  onChange={setEditingProjectData}
+                  onSave={handleUpdateProject}
+                  onCancel={handleCancelEdit}
+                  isLoading={isSubmitting}
+                  mode="edit"
+                />
               ) : (
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
@@ -335,7 +251,7 @@ export const DatabaseProjectManagement = () => {
                   </div>
                   <div className="flex gap-2">
                     <Button
-                      onClick={() => setEditingProject(project)}
+                      onClick={() => handleEditProject(project)}
                       variant="outline"
                       size="sm"
                       className="border-gray-700 text-gray-300 hover:bg-gray-800"
