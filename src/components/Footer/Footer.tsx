@@ -1,25 +1,22 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Phone, ArrowUp } from 'lucide-react';
-
 const Footer = () => {
   const navigate = useNavigate();
-  
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
-  
   const handleNavigation = (path: string) => {
     navigate(path);
   };
-
-  return (
-    <footer className="bg-black text-white py-16 lg:py-20">
+  return <footer className="bg-black text-white py-16 lg:py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <p className="text-gray-400 text-lg mb-4">Let's Talk</p>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6 max-w-4xl mx-auto leading-tight text-gray-100">
+          <p className="text-lg mb-4 text-orange-200">Let's Talk</p>
+          <h2 className="text-2xl md:text-3xl font-semibold mb-6 max-w-4xl mx-auto leading-tight text-gray-100 lg:text-4xl">
             Your Digital Presence<br />
             Is About To Take Off
           </h2>
@@ -27,10 +24,7 @@ const Footer = () => {
             Schedule a free consultation with our team<br />
             or generate costing by yourself.
           </p>
-          <button 
-            onClick={() => handleNavigation('/connect')} 
-            className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 cursor-pointer"
-          >
+          <button onClick={() => handleNavigation('/connect')} className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 cursor-pointer">
             Get Started
           </button>
         </div>
@@ -105,19 +99,16 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-800">
           <div className="flex items-center space-x-8 mb-6 md:mb-0">
             <button onClick={() => handleNavigation('/')} className="flex items-center cursor-pointer">
-              <img 
-                src="https://eastdigital.in/web-images/logo-east-digital-india" 
-                alt="East Digital Logo" 
-                className="h-8 w-auto mr-3" 
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const fallbackElement = e.currentTarget.nextElementSibling as HTMLElement;
-                  if (fallbackElement) {
-                    fallbackElement.style.display = 'flex';
-                  }
-                }} 
-              />
-              <div className="w-8 h-8 rounded-full border-2 border-eastdigital-orange mr-3" style={{ display: 'none' }}>
+              <img src="https://eastdigital.in/web-images/logo-east-digital-india" alt="East Digital Logo" className="h-8 w-auto mr-3" onError={e => {
+              e.currentTarget.style.display = 'none';
+              const fallbackElement = e.currentTarget.nextElementSibling as HTMLElement;
+              if (fallbackElement) {
+                fallbackElement.style.display = 'flex';
+              }
+            }} />
+              <div className="w-8 h-8 rounded-full border-2 border-eastdigital-orange mr-3" style={{
+              display: 'none'
+            }}>
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-eastdigital-orange to-orange-600"></div>
               </div>
             </button>
@@ -147,10 +138,7 @@ const Footer = () => {
               </a>
             </div>
             
-            <button 
-              onClick={scrollToTop} 
-              className="w-10 h-10 bg-eastdigital-orange rounded-full hover:bg-eastdigital-orange/80 transition-colors flex items-center justify-center ml-4 cursor-pointer"
-            >
+            <button onClick={scrollToTop} className="w-10 h-10 bg-eastdigital-orange rounded-full hover:bg-eastdigital-orange/80 transition-colors flex items-center justify-center ml-4 cursor-pointer">
               <ArrowUp className="h-5 w-5 text-white" />
             </button>
           </div>
@@ -166,8 +154,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;

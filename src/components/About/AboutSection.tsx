@@ -1,8 +1,6 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Target, Lightbulb, Rocket, Users, Zap, Shield } from 'lucide-react';
-
 export const AboutSection = () => {
   const approaches = [{
     icon: Target,
@@ -29,9 +27,7 @@ export const AboutSection = () => {
     title: "Future-Proof Solutions",
     description: "We design with tomorrow in mind, creating scalable solutions that adapt to evolving market demands and technological advancements."
   }];
-
-  return (
-    <section className="relative bg-eastdigital-dark overflow-hidden py-0 lg:py-[100px]">
+  return <section className="relative bg-eastdigital-dark overflow-hidden py-0 lg:py-[100px]">
       {/* Background Animation */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-eastdigital-orange/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
@@ -46,12 +42,10 @@ export const AboutSection = () => {
           <div className="inline-flex items-center px-4 py-2 bg-eastdigital-orange/10 border border-eastdigital-orange/20 rounded-full mb-6">
             <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">Our Methodology</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl">
             Our Approach
           </h2>
-          <p className="text-xl lg:text-2xl text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed">
-            We combine strategic thinking with cutting-edge execution to deliver digital solutions that don't just meet today's needs—they anticipate tomorrow's opportunities.
-          </p>
+          <p className="text-xl text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed lg:text-lg font-light">We combine industry-specific insights with creative expertise to deliver specialized 3D visualizations, targeted digital marketing, and impactful branding solutions. Our approach ensures your projects not only meet today's goals but are also primed for tomorrow's opportunities.</p>
         </div>
 
         {/* Approach Grid */}
@@ -114,8 +108,6 @@ export const AboutSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default AboutSection;

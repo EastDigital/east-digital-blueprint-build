@@ -1,10 +1,7 @@
-
 import React from 'react';
 import { InteractiveVisionBackground } from './InteractiveVisionBackground';
-
 export const VisionToRealitySection = () => {
-  return (
-    <section className="relative py-16 lg:py-24 bg-gradient-to-b from-eastdigital-dark to-gray-900 overflow-hidden">
+  return <section className="relative py-16 lg:py-24 bg-gradient-to-b from-eastdigital-dark to-gray-900 overflow-hidden">
       <InteractiveVisionBackground />
       
       <div className="absolute inset-0 opacity-5">
@@ -19,24 +16,17 @@ export const VisionToRealitySection = () => {
             <span className="text-eastdigital-orange text-sm font-medium tracking-widest uppercase">Our Mission</span>
           </div>
 
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-8 leading-tight animate-fade-in">
+          <h2 className="text-4xl font-bold text-white mb-8 leading-tight animate-fade-in lg:text-4xl">
             Turning Real Estate Vision into{' '}
             <span className="bg-gradient-to-r from-eastdigital-orange to-orange-400 bg-clip-text text-transparent">
               Digital Reality
             </span>
           </h2>
 
-          <p className="text-lg lg:text-xl text-eastdigital-lightgray leading-relaxed max-w-3xl mx-auto animate-fade-in">
-            At East Digital, we bring real estate concepts to life through immersive visuals, 
-            performance-driven marketing, and smart digital solutions. Our services—ranging from 
-            3D architectural rendering and VR walkthroughs to targeted ad campaigns and corporate 
-            branding—are tailored to help developers, architects, brokers, and brands stand out 
-            in a competitive market.
-          </p>
+          <p className="text-lg lg:text-xl text-eastdigital-lightgray leading-relaxed max-w-3xl mx-auto animate-fade-in font-light">At East Digital, we bring real estate concepts to life through immersive visuals, performance-driven marketing, and smart digital solutions. Our services—ranging from 3D architectural rendering and VR walkthroughs to targeted ad campaigns and corporate branding—are tailored to help developers, architects, brokers, and brands stand out in a competitive market.
+        </p>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default VisionToRealitySection;

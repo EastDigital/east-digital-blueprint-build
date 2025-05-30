@@ -1,85 +1,53 @@
-
 import React, { useState, useEffect } from 'react';
 import { Building2, HardHat, Ruler, Briefcase, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import type { CarouselApi } from '@/components/ui/carousel';
-
-const industries = [
-  {
-    id: 'real-estate',
-    title: 'Real Estate',
-    subtitle: 'Luxury Developments & Commercial Properties',
-    icon: Building2,
-    description: 'Transform property marketing with immersive 3D visualizations, virtual tours, and targeted digital campaigns.',
-    projects: '45+',
-    metric: '285%',
-    metricLabel: 'Engagement Increase',
-    images: [
-      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1515263487990-61b07816b924?w=800&h=600&fit=crop'
-    ],
-    color: 'blue'
-  },
-  {
-    id: 'engineering',
-    title: 'Engineering & Product',
-    subtitle: 'Infrastructure & Industrial Projects',
-    icon: HardHat,
-    description: 'Showcase complex engineering solutions with detailed technical visualizations and progress tracking systems.',
-    projects: '32+',
-    metric: '40%',
-    metricLabel: 'Reduced Delays',
-    images: [
-      'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop'
-    ],
-    color: 'orange'
-  },
-  {
-    id: 'architecture',
-    title: 'Architecture',
-    subtitle: 'Residential & Commercial Design',
-    icon: Ruler,
-    description: 'Bring architectural visions to life with photorealistic renderings and interactive design presentations.',
-    projects: '58+',
-    metric: '96%',
-    metricLabel: 'Client Approval Rate',
-    images: [
-      'https://images.unsplash.com/photo-1496307653780-42ee777d4833?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop'
-    ],
-    color: 'purple'
-  },
-  {
-    id: 'corporates',
-    title: 'Corporate',
-    subtitle: 'Enterprise Solutions & Brand Development',
-    icon: Briefcase,
-    description: 'Elevate corporate presence with comprehensive digital strategies and enterprise-level solutions.',
-    projects: '73+',
-    metric: '320%',
-    metricLabel: 'ROI Increase',
-    images: [
-      'https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop'
-    ],
-    color: 'emerald'
-  }
-];
-
+const industries = [{
+  id: 'real-estate',
+  title: 'Real Estate',
+  subtitle: 'Luxury Developments & Commercial Properties',
+  icon: Building2,
+  description: 'Transform property marketing with immersive 3D visualizations, virtual tours, and targeted digital campaigns.',
+  projects: '45+',
+  metric: '285%',
+  metricLabel: 'Engagement Increase',
+  images: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1515263487990-61b07816b924?w=800&h=600&fit=crop'],
+  color: 'blue'
+}, {
+  id: 'engineering',
+  title: 'Engineering & Product',
+  subtitle: 'Infrastructure & Industrial Projects',
+  icon: HardHat,
+  description: 'Showcase complex engineering solutions with detailed technical visualizations and progress tracking systems.',
+  projects: '32+',
+  metric: '40%',
+  metricLabel: 'Reduced Delays',
+  images: ['https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop'],
+  color: 'orange'
+}, {
+  id: 'architecture',
+  title: 'Architecture',
+  subtitle: 'Residential & Commercial Design',
+  icon: Ruler,
+  description: 'Bring architectural visions to life with photorealistic renderings and interactive design presentations.',
+  projects: '58+',
+  metric: '96%',
+  metricLabel: 'Client Approval Rate',
+  images: ['https://images.unsplash.com/photo-1496307653780-42ee777d4833?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop'],
+  color: 'purple'
+}, {
+  id: 'corporates',
+  title: 'Corporate',
+  subtitle: 'Enterprise Solutions & Brand Development',
+  icon: Briefcase,
+  description: 'Elevate corporate presence with comprehensive digital strategies and enterprise-level solutions.',
+  projects: '73+',
+  metric: '320%',
+  metricLabel: 'ROI Increase',
+  images: ['https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop'],
+  color: 'emerald'
+}];
 const colorVariants = {
   blue: {
     gradient: 'from-blue-500/10 via-blue-500/5 to-transparent',
@@ -106,7 +74,6 @@ const colorVariants = {
     accent: 'text-emerald-400'
   }
 };
-
 export const IndustrySection = () => {
   const [activeIndustry, setActiveIndustry] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
@@ -117,7 +84,6 @@ export const IndustrySection = () => {
   // Auto-scroll functionality for images only
   useEffect(() => {
     if (!api || isPaused) return;
-
     const interval = setInterval(() => {
       api.scrollNext();
     }, 3000); // Auto-scroll every 3 seconds
@@ -132,9 +98,7 @@ export const IndustrySection = () => {
     // Reset to first slide when industry changes
     api.scrollTo(0);
   }, [api, activeIndustry]);
-
-  return (
-    <section className="relative py-24 lg:py-32 bg-gradient-to-b from-eastdigital-dark via-gray-900/50 to-eastdigital-dark">
+  return <section className="relative py-24 lg:py-32 bg-gradient-to-b from-eastdigital-dark via-gray-900/50 to-eastdigital-dark">
       {/* Subtle Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-1/3 left-1/4 w-72 h-72 bg-eastdigital-orange/20 rounded-full blur-3xl"></div>
@@ -147,10 +111,10 @@ export const IndustrySection = () => {
           <div className="inline-flex items-center px-6 py-2 bg-eastdigital-orange/10 border border-eastdigital-orange/20 rounded-full mb-8">
             <span className="text-eastdigital-orange text-sm font-medium tracking-widest uppercase">Industry Expertise</span>
           </div>
-          <h2 className="text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl">
             Transforming Industries
           </h2>
-          <p className="text-xl text-eastdigital-lightgray max-w-3xl mx-auto leading-relaxed">
+          <p className="text-eastdigital-lightgray max-w-3xl mx-auto leading-relaxed text-lg">
             Delivering exceptional results across diverse sectors with tailored solutions that drive innovation and growth.
           </p>
         </div>
@@ -161,36 +125,20 @@ export const IndustrySection = () => {
           <div className="lg:col-span-6">
             <div className="space-y-4">
               {industries.map((industry, index) => {
-                const Icon = industry.icon;
-                const isActive = activeIndustry === index;
-                const colors = colorVariants[industry.color];
-                
-                return (
-                  <div
-                    key={industry.id}
-                    className={`group cursor-pointer transition-all duration-500 ${
-                      isActive ? 'scale-[1.02]' : 'hover:scale-[1.01]'
-                    }`}
-                    onClick={() => setActiveIndustry(index)}
-                  >
-                    <div className={`relative bg-gradient-to-r ${colors.gradient} backdrop-blur-sm border ${colors.border} rounded-2xl p-6 transition-all duration-500 ${
-                      isActive 
-                        ? 'shadow-xl shadow-eastdigital-orange/10 border-eastdigital-orange/30' 
-                        : 'hover:shadow-lg hover:shadow-eastdigital-orange/5'
-                    }`}>
+              const Icon = industry.icon;
+              const isActive = activeIndustry === index;
+              const colors = colorVariants[industry.color];
+              return <div key={industry.id} className={`group cursor-pointer transition-all duration-500 ${isActive ? 'scale-[1.02]' : 'hover:scale-[1.01]'}`} onClick={() => setActiveIndustry(index)}>
+                    <div className={`relative bg-gradient-to-r ${colors.gradient} backdrop-blur-sm border ${colors.border} rounded-2xl p-6 transition-all duration-500 ${isActive ? 'shadow-xl shadow-eastdigital-orange/10 border-eastdigital-orange/30' : 'hover:shadow-lg hover:shadow-eastdigital-orange/5'}`}>
                       <div className="flex items-center gap-4">
                         {/* Icon */}
-                        <div className={`w-14 h-14 bg-gray-800/50 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                          isActive ? 'scale-110 bg-eastdigital-orange/10' : 'group-hover:scale-105'
-                        }`}>
+                        <div className={`w-14 h-14 bg-gray-800/50 rounded-xl flex items-center justify-center transition-all duration-300 ${isActive ? 'scale-110 bg-eastdigital-orange/10' : 'group-hover:scale-105'}`}>
                           <Icon className={`h-7 w-7 ${isActive ? 'text-eastdigital-orange' : colors.icon}`} />
                         </div>
                         
                         {/* Content */}
                         <div className="flex-1">
-                          <h3 className={`text-lg font-bold transition-colors duration-300 ${
-                            isActive ? 'text-eastdigital-orange' : 'text-white group-hover:text-eastdigital-orange'
-                          }`}>
+                          <h3 className={`text-lg font-bold transition-colors duration-300 ${isActive ? 'text-eastdigital-orange' : 'text-white group-hover:text-eastdigital-orange'}`}>
                             {industry.title}
                           </h3>
                           <p className="text-eastdigital-lightgray text-sm">
@@ -199,16 +147,11 @@ export const IndustrySection = () => {
                         </div>
                         
                         {/* Arrow Indicator */}
-                        <ArrowRight className={`h-5 w-5 transition-all duration-300 ${
-                          isActive 
-                            ? 'text-eastdigital-orange translate-x-1' 
-                            : 'text-gray-500 group-hover:text-eastdigital-orange group-hover:translate-x-1'
-                        }`} />
+                        <ArrowRight className={`h-5 w-5 transition-all duration-300 ${isActive ? 'text-eastdigital-orange translate-x-1' : 'text-gray-500 group-hover:text-eastdigital-orange group-hover:translate-x-1'}`} />
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  </div>;
+            })}
             </div>
           </div>
 
@@ -217,29 +160,17 @@ export const IndustrySection = () => {
             <div className="relative">
               {/* Auto-rotating Images Carousel */}
               <div className="relative mb-6">
-                <Carousel 
-                  className="w-full"
-                  setApi={setApi}
-                  opts={{
-                    align: "start",
-                    loop: true,
-                  }}
-                  onMouseEnter={() => setIsPaused(true)}
-                  onMouseLeave={() => setIsPaused(false)}
-                >
+                <Carousel className="w-full" setApi={setApi} opts={{
+                align: "start",
+                loop: true
+              }} onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
                   <CarouselContent>
-                    {activeData.images.map((image, index) => (
-                      <CarouselItem key={index}>
+                    {activeData.images.map((image, index) => <CarouselItem key={index}>
                         <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                          <img 
-                            src={image}
-                            alt={`${activeData.title} project ${index + 1}`}
-                            className="w-full h-full object-cover transition-all duration-700"
-                          />
+                          <img src={image} alt={`${activeData.title} project ${index + 1}`} className="w-full h-full object-cover transition-all duration-700" />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                         </div>
-                      </CarouselItem>
-                    ))}
+                      </CarouselItem>)}
                   </CarouselContent>
                   <CarouselPrevious className="left-4 bg-black/50 border-white/20 text-white hover:bg-black/70" />
                   <CarouselNext className="right-4 bg-black/50 border-white/20 text-white hover:bg-black/70" />
@@ -270,10 +201,7 @@ export const IndustrySection = () => {
                       <div className="text-xs text-gray-300">{activeData.metricLabel}</div>
                     </div>
                   </div>
-                  <Button 
-                    size="sm" 
-                    className="bg-eastdigital-orange/20 hover:bg-eastdigital-orange/30 text-eastdigital-orange border border-eastdigital-orange/30 rounded-full px-4"
-                  >
+                  <Button size="sm" className="bg-eastdigital-orange/20 hover:bg-eastdigital-orange/30 text-eastdigital-orange border border-eastdigital-orange/30 rounded-full px-4">
                     View Projects
                   </Button>
                 </div>
@@ -282,8 +210,6 @@ export const IndustrySection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default IndustrySection;
