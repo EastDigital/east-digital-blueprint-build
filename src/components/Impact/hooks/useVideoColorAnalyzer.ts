@@ -2,8 +2,8 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 
 export const useVideoColorAnalyzer = () => {
-  const [dominantColor, setDominantColor] = useState('#FF6900');
-  const [glowIntensity, setGlowIntensity] = useState(0.7); // Increased default intensity
+  const [dominantColor, setDominantColor] = useState('#4A9EFF'); // Changed default to blue
+  const [glowIntensity, setGlowIntensity] = useState(0.4); // Lower default intensity
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
 
@@ -17,7 +17,7 @@ export const useVideoColorAnalyzer = () => {
     if (!ctx || videoElement.videoWidth === 0 || videoElement.videoHeight === 0) return;
     
     // Set canvas size to match video (scaled down for performance)
-    const scale = 0.15; // Slightly higher resolution for better color detection
+    const scale = 0.1;
     canvas.width = videoElement.videoWidth * scale;
     canvas.height = videoElement.videoHeight * scale;
     
@@ -34,7 +34,7 @@ export const useVideoColorAnalyzer = () => {
       let totalBrightness = 0;
       let pixelCount = 0;
       
-      for (let i = 0; i < data.length; i += 12) { // More frequent sampling for better detection
+      for (let i = 0; i < data.length; i += 16) { // Less frequent sampling for performance
         const r = data[i];
         const g = data[i + 1];
         const b = data[i + 2];
@@ -50,10 +50,10 @@ export const useVideoColorAnalyzer = () => {
           totalBrightness += brightness;
           pixelCount++;
           
-          // Group similar colors together but with finer precision for better color detection
-          const rBucket = Math.floor(r / 24) * 24;
-          const gBucket = Math.floor(g / 24) * 24;
-          const bBucket = Math.floor(b / 24) * 24;
+          // Group colors with wider buckets to find true dominant colors
+          const rBucket = Math.floor(r / 32) * 32;
+          const gBucket = Math.floor(g / 32) * 32;
+          const bBucket = Math.floor(b / 32) * 32;
           
           const colorKey = `${rBucket},${gBucket},${bBucket}`;
           if (!colorCounts[colorKey]) {
@@ -65,7 +65,7 @@ export const useVideoColorAnalyzer = () => {
         }
       }
       
-      // Find the most suitable color for glowing effect (bright and saturated)
+      // Find the most suitable color for ambient lighting
       let dominantColorKey = '';
       let maxScore = 0;
       
@@ -74,11 +74,10 @@ export const useVideoColorAnalyzer = () => {
         const avgBrightness = data.brightness / data.count;
         const avgSaturation = data.saturation / data.count;
         
-        // Score based on brightness, saturation, and frequency
-        // Prefer colors that are bright, saturated, and frequent
-        const score = (avgBrightness * 0.4 + avgSaturation * 0.4 + (data.count / pixelCount) * 0.2) * data.count;
+        // Prefer colors that are visible but not too dark or too bright
+        const score = (avgBrightness * 0.3 + avgSaturation * 0.3 + (data.count / pixelCount) * 0.4) * data.count;
         
-        if (avgBrightness > 0.15 && score > maxScore) { // Lower brightness threshold for more variety
+        if (avgBrightness > 0.1 && avgBrightness < 0.9 && score > maxScore) {
           dominantColorKey = colorKey;
           maxScore = score;
         }
@@ -91,10 +90,10 @@ export const useVideoColorAnalyzer = () => {
         console.log('Detected dominant color:', hexColor);
       }
       
-      // Enhanced glow intensity calculation
-      const avgBrightness = pixelCount > 0 ? totalBrightness / pixelCount : 0.7;
-      const enhancedIntensity = Math.max(0.4, Math.min(1.2, avgBrightness * 2.2)); // Higher intensity range
-      setGlowIntensity(enhancedIntensity);
+      // More conservative glow intensity calculation
+      const avgBrightness = pixelCount > 0 ? totalBrightness / pixelCount : 0.4;
+      const conservativeIntensity = Math.max(0.2, Math.min(0.8, avgBrightness * 1.2));
+      setGlowIntensity(conservativeIntensity);
       
     } catch (error) {
       console.log('Color extraction error (normal during video loading):', error);

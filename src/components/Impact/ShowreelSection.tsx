@@ -14,15 +14,15 @@ export const ShowreelSection = () => {
     stopColorAnalysis
   } = useVideoColorAnalyzer();
 
-  // Enhanced glow for section background
-  const sectionGlowStyle = {
-    background: `radial-gradient(ellipse 120% 100% at center 60%, ${dominantColor}15 0%, ${dominantColor}08 40%, transparent 70%)`,
-    opacity: Math.max(0.3, glowIntensity * 0.8),
-    transition: 'all 0.8s ease-out'
+  // Subtle cinema-like ambient lighting - much more subdued
+  const ambientLightingStyle = {
+    background: `radial-gradient(ellipse 150% 120% at center 50%, ${dominantColor}08 0%, ${dominantColor}04 30%, ${dominantColor}02 50%, transparent 70%)`,
+    opacity: Math.max(0.15, glowIntensity * 0.3),
+    transition: 'all 1.2s ease-out'
   };
 
   return (
-    <section className="py-16 lg:py-24 relative overflow-hidden" style={{ backgroundColor: '#222222' }}>
+    <section className="py-16 lg:py-24 relative overflow-hidden" style={{ backgroundColor: '#1a1a1a' }}>
       {/* Hidden canvas for color analysis */}
       <canvas 
         ref={canvasRef} 
@@ -30,35 +30,26 @@ export const ShowreelSection = () => {
         aria-hidden="true"
       />
 
-      {/* Dynamic Section Background Glow - Cinema ambient lighting effect */}
+      {/* Subtle ambient lighting overlay - cinema effect */}
       <div 
-        className="absolute inset-0 transition-all duration-800 ease-out pointer-events-none"
-        style={sectionGlowStyle}
+        className="absolute inset-0 transition-all duration-1200 ease-out pointer-events-none"
+        style={ambientLightingStyle}
       ></div>
 
-      {/* Enhanced Dynamic Background Elements with video-synced colors */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Very subtle accent lighting elements */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
         <div 
-          className="absolute top-10 left-10 w-96 h-96 rounded-full blur-3xl animate-pulse transition-all duration-700"
-          style={{
-            background: `radial-gradient(circle, ${dominantColor}20 0%, transparent 70%)`,
-            opacity: glowIntensity * 0.6
-          }}
-        ></div>
-        <div 
-          className="absolute bottom-20 right-20 w-[500px] h-[500px] rounded-full blur-3xl animate-pulse transition-all duration-700"
+          className="absolute top-20 left-1/4 w-32 h-32 rounded-full blur-3xl transition-all duration-1000"
           style={{
             background: `radial-gradient(circle, ${dominantColor}15 0%, transparent 70%)`,
-            opacity: glowIntensity * 0.5,
-            animationDelay: '1s'
+            opacity: glowIntensity * 0.2
           }}
         ></div>
         <div 
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-3xl animate-pulse transition-all duration-700"
+          className="absolute bottom-32 right-1/3 w-40 h-40 rounded-full blur-3xl transition-all duration-1000"
           style={{
-            background: `radial-gradient(circle, ${dominantColor}10 0%, transparent 70%)`,
-            opacity: glowIntensity * 0.4,
-            animationDelay: '2s'
+            background: `radial-gradient(circle, ${dominantColor}12 0%, transparent 70%)`,
+            opacity: glowIntensity * 0.15
           }}
         ></div>
       </div>
