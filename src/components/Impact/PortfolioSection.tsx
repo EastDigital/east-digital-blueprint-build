@@ -83,6 +83,11 @@ export const PortfolioSection = () => {
     setDisplayedProjects(INITIAL_PROJECTS);
   }, []);
 
+  // Helper function to map project status
+  const getProjectStatus = (isCurrentlyActive: boolean): "completed" | "in-progress" | "upcoming" => {
+    return isCurrentlyActive ? "in-progress" : "completed";
+  };
+
   if (isInitialLoading) {
     return (
       <section className="py-16 lg:py-24" style={{ backgroundColor: '#141414' }}>
@@ -137,7 +142,16 @@ export const PortfolioSection = () => {
                     animation: 'fade-in 0.6s ease-out forwards'
                   }}
                 >
-                  <MinimalProjectCard project={project} />
+                  <MinimalProjectCard 
+                    project={{
+                      id: project.id,
+                      title: project.name,
+                      featuredImage: project.featuredImage,
+                      category: project.category,
+                      status: getProjectStatus(project.isCurrentlyActive),
+                      subtitle: project.description
+                    }} 
+                  />
                 </div>
               ))}
             </div>
