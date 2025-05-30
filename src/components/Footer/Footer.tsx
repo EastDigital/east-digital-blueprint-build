@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Phone, ArrowUp } from 'lucide-react';
+
 const Footer = () => {
   const navigate = useNavigate();
   const scrollToTop = () => {
@@ -29,17 +30,41 @@ const Footer = () => {
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 pb-8 border-b border-gray-800">
-          <div className="flex items-center mb-4 md:mb-0">
-            <MapPin className="h-5 w-5 text-eastdigital-orange mr-2" />
-            <span className="text-gray-400 text-sm">
-              2nd Floor, JSV Hyundai Building, Near Engineering College, Lucknow, Uttar Pradesh, INDIA - 226021
-            </span>
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 pb-8 border-b border-gradient-to-r from-transparent via-gray-700 to-transparent relative">
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-eastdigital-orange/30 to-transparent"></div>
+          
+          <div className="flex items-start mb-6 lg:mb-0 group">
+            <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-eastdigital-orange/20 to-eastdigital-orange/10 rounded-xl flex items-center justify-center mr-4 group-hover:from-eastdigital-orange/30 group-hover:to-eastdigital-orange/20 transition-all duration-300">
+              <MapPin className="h-6 w-6 text-eastdigital-orange group-hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="flex-1">
+              <p className="text-gray-300 text-sm font-medium mb-1 tracking-wide">Our Location</p>
+              <p className="text-gray-400 text-sm leading-relaxed max-w-md">
+                2nd Floor, JSV Hyundai Building, Near Engineering College,<br />
+                <span className="text-gray-300">Lucknow, Uttar Pradesh, INDIA - 226021</span>
+              </p>
+            </div>
           </div>
-          <div className="flex items-center">
-            <Phone className="h-5 w-5 text-eastdigital-orange mr-2" />
-            <span className="text-eastdigital-orange font-semibold">+91-99105 68689</span>
-            <span className="text-gray-400 text-sm ml-4">GST No. 07ABCDE1234F2Z5</span>
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
+            <div className="flex items-center group cursor-pointer">
+              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500/20 to-green-600/10 rounded-xl flex items-center justify-center mr-3 group-hover:from-green-500/30 group-hover:to-green-600/20 transition-all duration-300">
+                <Phone className="h-6 w-6 text-green-400 group-hover:scale-110 transition-transform duration-300" />
+              </div>
+              <div>
+                <p className="text-gray-300 text-xs font-medium mb-1 tracking-wide">Contact Us</p>
+                <a href="tel:+919910568689" className="text-green-400 font-semibold text-lg hover:text-green-300 transition-colors duration-300">
+                  +91-99105 68689
+                </a>
+              </div>
+            </div>
+            
+            <div className="hidden sm:block w-px h-12 bg-gradient-to-b from-transparent via-gray-600 to-transparent"></div>
+            
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg px-4 py-2 border border-gray-700/50">
+              <p className="text-gray-400 text-xs font-medium mb-1">GST Number</p>
+              <p className="text-gray-300 text-sm font-mono tracking-wider">07ABCDE1234F2Z5</p>
+            </div>
           </div>
         </div>
 
@@ -156,4 +181,5 @@ const Footer = () => {
       </div>
     </footer>;
 };
+
 export default Footer;
