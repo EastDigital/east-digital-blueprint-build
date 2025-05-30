@@ -62,7 +62,7 @@ serve(async (req) => {
     const resendApiKey = Deno.env.get('RESEND_API_KEY');
     
     if (resendApiKey) {
-      // Send email using Resend
+      // Send email using Resend with the default domain
       try {
         const emailResponse = await fetch('https://api.resend.com/emails', {
           method: 'POST',
@@ -71,7 +71,7 @@ serve(async (req) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'Admin Panel <noreply@yourdomain.com>',
+            from: 'Admin Panel <onboarding@resend.dev>',
             to: [email],
             subject: 'Your Admin Panel OTP Code',
             html: `
@@ -89,7 +89,8 @@ serve(async (req) => {
           throw new Error('Failed to send email');
         }
 
-        console.log(`OTP email sent successfully to ${email}`);
+        const emailResult = await emailResponse.json();
+        console.log(`OTP email sent successfully to ${email}:`, emailResult);
       } catch (emailError) {
         console.error('Error sending email:', emailError);
         // Continue without failing - for development purposes
