@@ -21,6 +21,7 @@ export const DatabaseProjectManagement = () => {
     setEditingProjectData,
     handleCreateProject,
     handleUpdateProject,
+    handleDuplicateProject,
     handleDeleteProject,
     handleEditProject,
     handleCancelEdit,
@@ -73,6 +74,7 @@ export const DatabaseProjectManagement = () => {
           isSubmitting={isSubmitting}
           onEditProject={handleEditProject}
           onDeleteProject={handleDeleteProject}
+          onDuplicateProject={handleDuplicateProject}
           onUpdateProject={handleUpdateProject}
           onCancelEdit={handleCancelEdit}
           onEditingProjectDataChange={setEditingProjectData}

@@ -210,6 +210,66 @@ export const useProjectManagement = () => {
     }
   };
 
+  const handleDuplicateProject = async (project: Project) => {
+    setIsSubmitting(true);
+    try {
+      const duplicateData = {
+        name: `${project.name} (Copy)`,
+        subtitle: project.subtitle || '',
+        description: project.description || '',
+        image_url: project.image_url || '',
+        category: project.category || '',
+        is_featured: false, // Reset featured status for duplicates
+        featured_image: project.featured_image || '',
+        hero_image: project.hero_image || '',
+        gallery_images: project.gallery_images || [],
+        seo_title: project.seo_title || '',
+        seo_description: project.seo_description || '',
+        seo_keywords: project.seo_keywords || '',
+        show_in_carousel: false, // Reset carousel status for duplicates
+        duration: project.duration || '',
+        location: project.location || '',
+        team_size: project.team_size || '',
+        client: project.client || '',
+        status: 'upcoming', // Reset status for duplicates
+        challenge: project.challenge || '',
+        solution: project.solution || '',
+        engagement_result: project.engagement_result || '',
+        leads_result: project.leads_result || '',
+        conversion_result: project.conversion_result || '',
+        timeline_result: project.timeline_result || '',
+        tags: project.tags || [],
+        slug: '', // Let the trigger generate a new slug
+        featured_image_alt: project.featured_image_alt || '',
+        hero_image_alt: project.hero_image_alt || '',
+        gallery_image_alts: project.gallery_image_alts || []
+      };
+
+      const { data, error } = await supabase
+        .from('projects')
+        .insert([duplicateData])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setProjects([data, ...projects]);
+
+      toast({
+        title: "Success",
+        description: "Project duplicated successfully",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to duplicate project: " + error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleDeleteProject = async (id: string) => {
     if (!confirm('Are you sure you want to delete this project?')) return;
 
@@ -294,6 +354,7 @@ export const useProjectManagement = () => {
     setEditingProjectData,
     handleCreateProject,
     handleUpdateProject,
+    handleDuplicateProject,
     handleDeleteProject,
     handleEditProject,
     handleCancelEdit,

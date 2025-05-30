@@ -78,6 +78,7 @@ interface ProjectListProps {
   isSubmitting: boolean;
   onEditProject: (project: Project) => void;
   onDeleteProject: (id: string) => void;
+  onDuplicateProject: (project: Project) => void;
   onUpdateProject: () => void;
   onCancelEdit: () => void;
   onEditingProjectDataChange: (data: ProjectFormData) => void;
@@ -90,6 +91,7 @@ export const ProjectList = ({
   isSubmitting,
   onEditProject,
   onDeleteProject,
+  onDuplicateProject,
   onUpdateProject,
   onCancelEdit,
   onEditingProjectDataChange
@@ -127,6 +129,7 @@ export const ProjectList = ({
               project={project}
               onEdit={onEditProject}
               onDelete={onDeleteProject}
+              onDuplicate={onDuplicateProject}
             />
           )}
         </div>

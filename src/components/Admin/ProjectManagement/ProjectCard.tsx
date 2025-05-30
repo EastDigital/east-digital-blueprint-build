@@ -1,9 +1,11 @@
 
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Edit, Trash2, Globe, Star } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Edit, Trash2, Copy } from 'lucide-react';
 
 interface Project {
   id: string;
@@ -44,194 +46,168 @@ interface ProjectCardProps {
   project: Project;
   onEdit: (project: Project) => void;
   onDelete: (id: string) => void;
+  onDuplicate: (project: Project) => void;
 }
 
-export const ProjectCard = ({ project, onEdit, onDelete }: ProjectCardProps) => {
+export const ProjectCard = ({ project, onEdit, onDelete, onDuplicate }: ProjectCardProps) => {
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'in-progress':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'upcoming':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
+  };
+
   return (
-    <Card className="bg-gray-900 border-gray-800">
-      <CardContent className="p-6">
+    <Card className="bg-gray-900 border-gray-800 hover:border-gray-700 transition-colors">
+      <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <div className="flex items-center gap-3 mb-3">
-              <h3 className="text-xl font-semibold text-white">{project.name}</h3>
-              <div className="flex gap-1">
-                {project.is_featured && (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span className="bg-yellow-600 text-white px-2 py-1 rounded text-xs flex items-center gap-1">
-                        <Star className="h-3 w-3" />
-                        Featured
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>This project is featured</p>
-                    </TooltipContent>
-                  </Tooltip>
-                )}
-                {project.show_in_carousel && (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span className="bg-eastdigital-orange text-white px-2 py-1 rounded text-xs flex items-center gap-1">
-                        <Globe className="h-3 w-3" />
-                        Carousel
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Shown in homepage carousel</p>
-                    </TooltipContent>
-                  </Tooltip>
-                )}
-                {project.status && (
-                  <span className={`px-2 py-1 rounded text-xs ${
-                    project.status === 'completed' ? 'bg-green-600' :
-                    project.status === 'active' ? 'bg-blue-600' :
-                    project.status === 'on-hold' ? 'bg-red-600' :
-                    'bg-gray-600'
-                  } text-white`}>
-                    {project.status}
-                  </span>
-                )}
-              </div>
-            </div>
-            
+            <h3 className="text-lg font-semibold text-white mb-1">{project.name}</h3>
             {project.subtitle && (
-              <p className="text-gray-300 mb-2 font-medium">{project.subtitle}</p>
+              <p className="text-sm text-gray-400 mb-2">{project.subtitle}</p>
             )}
-            
-            {project.category && (
-              <p className="text-gray-400 mb-2">{project.category}</p>
-            )}
-            
-            {project.description && (
-              <p className="text-gray-300 mb-3">{project.description}</p>
-            )}
-
-            {/* Project Details Summary */}
-            {(project.duration || project.location || project.client) && (
-              <div className="bg-gray-800 rounded p-3 mb-3">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
-                  {project.duration && (
-                    <div>
-                      <span className="text-gray-400">Duration:</span>
-                      <span className="text-white ml-1">{project.duration}</span>
-                    </div>
-                  )}
-                  {project.location && (
-                    <div>
-                      <span className="text-gray-400">Location:</span>
-                      <span className="text-white ml-1">{project.location}</span>
-                    </div>
-                  )}
-                  {project.client && (
-                    <div>
-                      <span className="text-gray-400">Client:</span>
-                      <span className="text-white ml-1">{project.client}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Tags */}
-            {project.tags && project.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1 mb-3">
-                {project.tags.slice(0, 5).map((tag, idx) => (
-                  tag && (
-                    <span key={idx} className="bg-eastdigital-orange/20 text-eastdigital-orange px-2 py-1 rounded text-xs">
-                      {tag}
-                    </span>
-                  )
-                ))}
-                {project.tags.length > 5 && (
-                  <span className="text-gray-400 text-xs">+{project.tags.length - 5} more</span>
-                )}
-              </div>
-            )}
-
-            {/* Image Preview */}
-            <div className="flex gap-2 mb-3">
-              {project.featured_image && (
-                <img 
-                  src={project.featured_image} 
-                  alt="Featured"
-                  className="w-16 h-16 object-cover rounded border border-gray-700"
-                  title="Featured Image"
-                />
+            <div className="flex flex-wrap gap-2 mb-3">
+              {project.category && (
+                <Badge variant="outline" className="text-xs border-gray-600 text-gray-300">
+                  {project.category}
+                </Badge>
               )}
-              {project.hero_image && (
-                <img 
-                  src={project.hero_image} 
-                  alt="Hero"
-                  className="w-16 h-16 object-cover rounded border border-gray-700"
-                  title="Hero Image"
-                />
+              <Badge className={`text-xs ${getStatusColor(project.status)}`}>
+                {project.status.replace('-', ' ')}
+              </Badge>
+              {project.is_featured && (
+                <Badge className="text-xs bg-yellow-600 text-yellow-100">
+                  Featured
+                </Badge>
               )}
-              {project.gallery_images && project.gallery_images.length > 0 && (
-                <div className="flex gap-1">
-                  {project.gallery_images.slice(0, 3).map((img, idx) => (
-                    img && (
-                      <img 
-                        key={idx}
-                        src={img} 
-                        alt={`Gallery ${idx + 1}`}
-                        className="w-12 h-12 object-cover rounded border border-gray-700"
-                        title={`Gallery Image ${idx + 1}`}
-                      />
-                    )
-                  ))}
-                  {project.gallery_images.length > 3 && (
-                    <div className="w-12 h-12 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-300">
-                      +{project.gallery_images.length - 3}
-                    </div>
-                  )}
-                </div>
+              {project.show_in_carousel && (
+                <Badge className="text-xs bg-purple-600 text-purple-100">
+                  Carousel
+                </Badge>
               )}
             </div>
-
-            <p className="text-gray-500 text-sm">
-              Created: {new Date(project.created_at).toLocaleDateString()}
-              {project.slug && (
-                <span className="ml-4">
-                  Slug: <span className="text-eastdigital-orange">{project.slug}</span>
-                </span>
-              )}
-            </p>
           </div>
-          
-          <div className="flex gap-2">
+          <div className="flex space-x-2 ml-4">
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  onClick={() => onEdit(project)}
                   variant="outline"
                   size="sm"
-                  className="border-gray-700 text-gray-300 hover:bg-gray-800"
+                  onClick={() => onEdit(project)}
+                  className="h-8 w-8 p-0 border-gray-600 text-gray-300 hover:text-white hover:bg-gray-700 hover:border-gray-500"
                 >
                   <Edit className="h-4 w-4" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Edit project</p>
+                <p>Edit Project</p>
               </TooltipContent>
             </Tooltip>
-            
+
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  onClick={() => onDelete(project.id)}
                   variant="outline"
                   size="sm"
-                  className="border-red-700 text-red-400 hover:bg-red-900"
+                  onClick={() => onDuplicate(project)}
+                  className="h-8 w-8 p-0 border-blue-600 text-blue-400 hover:text-blue-300 hover:bg-blue-900/50 hover:border-blue-500"
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Copy className="h-4 w-4" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Delete project</p>
+                <p>Duplicate Project</p>
               </TooltipContent>
             </Tooltip>
+
+            <AlertDialog>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 w-8 p-0 border-red-600 text-red-400 hover:text-red-300 hover:bg-red-900/50 hover:border-red-500"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </AlertDialogTrigger>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Delete Project</p>
+                </TooltipContent>
+              </Tooltip>
+              <AlertDialogContent className="bg-gray-900 border-gray-800 text-white">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogDescription className="text-gray-300">
+                    This action cannot be undone. This will permanently delete the project "{project.name}".
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700">
+                    Cancel
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={() => onDelete(project.id)}
+                    className="bg-red-600 hover:bg-red-700"
+                  >
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
+      </CardHeader>
+      <CardContent className="pt-0">
+        <div className="space-y-2 text-sm text-gray-400">
+          {project.client && (
+            <div>
+              <span className="text-gray-300">Client:</span> {project.client}
+            </div>
+          )}
+          {project.location && (
+            <div>
+              <span className="text-gray-300">Location:</span> {project.location}
+            </div>
+          )}
+          {project.duration && (
+            <div>
+              <span className="text-gray-300">Duration:</span> {project.duration}
+            </div>
+          )}
+          {project.slug && (
+            <div>
+              <span className="text-gray-300">Slug:</span> {project.slug}
+            </div>
+          )}
+        </div>
+        {project.description && (
+          <p className="text-gray-400 text-sm mt-3 line-clamp-2">
+            {project.description}
+          </p>
+        )}
+        {project.tags && project.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-3">
+            {project.tags.slice(0, 3).map((tag, index) => (
+              <Badge key={index} variant="secondary" className="text-xs bg-gray-800 text-gray-300">
+                {tag}
+              </Badge>
+            ))}
+            {project.tags.length > 3 && (
+              <Badge variant="secondary" className="text-xs bg-gray-800 text-gray-300">
+                +{project.tags.length - 3}
+              </Badge>
+            )}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
