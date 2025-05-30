@@ -74,9 +74,8 @@ export const VideoPlayer = ({ onPlay, onPause, dominantColor }: VideoPlayerProps
             }}
             onPause={onPause}
           >
-            {/* Try multiple video sources */}
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+            {/* Use the correct video URL */}
+            <source src="https://www.eastdigital.in/web-images/3d-arch-demo.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </>
