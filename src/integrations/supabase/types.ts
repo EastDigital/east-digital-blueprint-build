@@ -74,104 +74,53 @@ export type Database = {
       projects: {
         Row: {
           category: string | null
-          challenge: string | null
-          client: string | null
-          conversion_result: string | null
           created_at: string
           description: string | null
-          duration: string | null
-          engagement_result: string | null
           featured_image: string | null
-          featured_image_alt: string | null
-          gallery_image_alts: string[] | null
           gallery_images: string[] | null
           hero_image: string | null
-          hero_image_alt: string | null
           id: string
           image_url: string | null
           is_featured: boolean
-          leads_result: string | null
-          location: string | null
           name: string
           seo_description: string | null
           seo_keywords: string | null
           seo_title: string | null
           show_in_carousel: boolean
-          slug: string | null
-          solution: string | null
-          status: string | null
-          subtitle: string | null
-          tags: string[] | null
-          team_size: string | null
-          timeline_result: string | null
           updated_at: string
         }
         Insert: {
           category?: string | null
-          challenge?: string | null
-          client?: string | null
-          conversion_result?: string | null
           created_at?: string
           description?: string | null
-          duration?: string | null
-          engagement_result?: string | null
           featured_image?: string | null
-          featured_image_alt?: string | null
-          gallery_image_alts?: string[] | null
           gallery_images?: string[] | null
           hero_image?: string | null
-          hero_image_alt?: string | null
           id?: string
           image_url?: string | null
           is_featured?: boolean
-          leads_result?: string | null
-          location?: string | null
           name: string
           seo_description?: string | null
           seo_keywords?: string | null
           seo_title?: string | null
           show_in_carousel?: boolean
-          slug?: string | null
-          solution?: string | null
-          status?: string | null
-          subtitle?: string | null
-          tags?: string[] | null
-          team_size?: string | null
-          timeline_result?: string | null
           updated_at?: string
         }
         Update: {
           category?: string | null
-          challenge?: string | null
-          client?: string | null
-          conversion_result?: string | null
           created_at?: string
           description?: string | null
-          duration?: string | null
-          engagement_result?: string | null
           featured_image?: string | null
-          featured_image_alt?: string | null
-          gallery_image_alts?: string[] | null
           gallery_images?: string[] | null
           hero_image?: string | null
-          hero_image_alt?: string | null
           id?: string
           image_url?: string | null
           is_featured?: boolean
-          leads_result?: string | null
-          location?: string | null
           name?: string
           seo_description?: string | null
           seo_keywords?: string | null
           seo_title?: string | null
           show_in_carousel?: boolean
-          slug?: string | null
-          solution?: string | null
-          status?: string | null
-          subtitle?: string | null
-          tags?: string[] | null
-          team_size?: string | null
-          timeline_result?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -246,10 +195,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      generate_project_slug: {
-        Args: { title: string }
-        Returns: string
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
