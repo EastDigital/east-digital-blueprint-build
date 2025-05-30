@@ -5,7 +5,7 @@ export const AboutSection = () => {
   const approaches = [{
     icon: Target,
     title: "Strategic Precision",
-    description: "We don't just create—we strategize. Every project begins with deep market research and competitive analysis to ensure your vision aligns with market opportunities."
+    description: "We don’t just design or render; we strategize. Whether it's a 3D visualization for a new development, a digital campaign for property sales, or a corporate branding initiative, we begin with in-depth research. This ensures your architectural concepts, product showcases, or brand messages are perfectly aligned with your target audience and market opportunities."
   }, {
     icon: Lightbulb,
     title: "Innovation-First Mindset",
