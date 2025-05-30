@@ -3,7 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 
 export const useVideoColorAnalyzer = () => {
   const [dominantColor, setDominantColor] = useState('#FF6900');
-  const [glowIntensity, setGlowIntensity] = useState(0.5);
+  const [glowIntensity, setGlowIntensity] = useState(0.7); // Increased default intensity
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
 
@@ -17,7 +17,7 @@ export const useVideoColorAnalyzer = () => {
     if (!ctx || videoElement.videoWidth === 0 || videoElement.videoHeight === 0) return;
     
     // Set canvas size to match video (scaled down for performance)
-    const scale = 0.1;
+    const scale = 0.15; // Slightly higher resolution for better color detection
     canvas.width = videoElement.videoWidth * scale;
     canvas.height = videoElement.videoHeight * scale;
     
@@ -29,45 +29,58 @@ export const useVideoColorAnalyzer = () => {
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData.data;
       
-      // Sample pixels for color analysis (every 4th pixel for performance)
-      const colorCounts: Record<string, number> = {};
+      // Sample pixels for color analysis
+      const colorCounts: Record<string, { count: number; brightness: number; saturation: number }> = {};
       let totalBrightness = 0;
       let pixelCount = 0;
       
-      for (let i = 0; i < data.length; i += 16) { // Skip pixels for performance
+      for (let i = 0; i < data.length; i += 12) { // More frequent sampling for better detection
         const r = data[i];
         const g = data[i + 1];
         const b = data[i + 2];
         const alpha = data[i + 3];
         
         if (alpha > 128) { // Only consider non-transparent pixels
-          // Calculate brightness
+          // Calculate brightness and saturation
           const brightness = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
+          const max = Math.max(r, g, b) / 255;
+          const min = Math.min(r, g, b) / 255;
+          const saturation = max === 0 ? 0 : (max - min) / max;
+          
           totalBrightness += brightness;
           pixelCount++;
           
-          // Group similar colors together (reduce precision)
-          const rBucket = Math.floor(r / 32) * 32;
-          const gBucket = Math.floor(g / 32) * 32;
-          const bBucket = Math.floor(b / 32) * 32;
+          // Group similar colors together but with finer precision for better color detection
+          const rBucket = Math.floor(r / 24) * 24;
+          const gBucket = Math.floor(g / 24) * 24;
+          const bBucket = Math.floor(b / 24) * 24;
           
           const colorKey = `${rBucket},${gBucket},${bBucket}`;
-          colorCounts[colorKey] = (colorCounts[colorKey] || 0) + 1;
+          if (!colorCounts[colorKey]) {
+            colorCounts[colorKey] = { count: 0, brightness: 0, saturation: 0 };
+          }
+          colorCounts[colorKey].count += 1;
+          colorCounts[colorKey].brightness += brightness;
+          colorCounts[colorKey].saturation += saturation;
         }
       }
       
-      // Find the most common color (excluding very dark colors)
+      // Find the most suitable color for glowing effect (bright and saturated)
       let dominantColorKey = '';
-      let maxCount = 0;
+      let maxScore = 0;
       
-      Object.entries(colorCounts).forEach(([colorKey, count]) => {
+      Object.entries(colorCounts).forEach(([colorKey, data]) => {
         const [r, g, b] = colorKey.split(',').map(Number);
-        const brightness = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
+        const avgBrightness = data.brightness / data.count;
+        const avgSaturation = data.saturation / data.count;
         
-        // Prefer brighter, more saturated colors for the glow
-        if (brightness > 0.2 && count > maxCount) {
+        // Score based on brightness, saturation, and frequency
+        // Prefer colors that are bright, saturated, and frequent
+        const score = (avgBrightness * 0.4 + avgSaturation * 0.4 + (data.count / pixelCount) * 0.2) * data.count;
+        
+        if (avgBrightness > 0.15 && score > maxScore) { // Lower brightness threshold for more variety
           dominantColorKey = colorKey;
-          maxCount = count;
+          maxScore = score;
         }
       });
       
@@ -75,11 +88,13 @@ export const useVideoColorAnalyzer = () => {
         const [r, g, b] = dominantColorKey.split(',').map(Number);
         const hexColor = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
         setDominantColor(hexColor);
+        console.log('Detected dominant color:', hexColor);
       }
       
-      // Set glow intensity based on average brightness
-      const avgBrightness = pixelCount > 0 ? totalBrightness / pixelCount : 0.5;
-      setGlowIntensity(Math.max(0.3, Math.min(1, avgBrightness * 1.5)));
+      // Enhanced glow intensity calculation
+      const avgBrightness = pixelCount > 0 ? totalBrightness / pixelCount : 0.7;
+      const enhancedIntensity = Math.max(0.4, Math.min(1.2, avgBrightness * 2.2)); // Higher intensity range
+      setGlowIntensity(enhancedIntensity);
       
     } catch (error) {
       console.log('Color extraction error (normal during video loading):', error);
