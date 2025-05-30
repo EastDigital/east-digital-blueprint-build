@@ -1,8 +1,8 @@
 
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
-import { getProjectsByCategory } from '@/data/projects';
+import { getProjectsByCategory } from '@/data/supabaseProjects';
 import { MinimalProjectCard } from './MinimalProjectCard';
 
 const categories = [
@@ -15,14 +15,40 @@ const categories = [
 const INITIAL_PROJECTS = 9;
 const PROJECTS_PER_LOAD = 6;
 
+interface Project {
+  id: string;
+  name: string;
+  description: string;
+  featuredImage: string;
+  category: string;
+  tags: string[];
+  isCurrentlyActive: boolean;
+}
+
 export const PortfolioSection = () => {
   const [activeCategory, setActiveCategory] = useState('All Projects');
   const [displayedProjects, setDisplayedProjects] = useState(INITIAL_PROJECTS);
   const [isLoading, setIsLoading] = useState(false);
+  const [allProjects, setAllProjects] = useState<Project[]>([]);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
 
-  const allProjects = useMemo(() => {
-    console.log('Getting projects for category:', activeCategory);
-    return getProjectsByCategory(activeCategory);
+  // Fetch projects when category changes
+  useEffect(() => {
+    const fetchProjects = async () => {
+      setIsInitialLoading(true);
+      console.log('Getting projects for category:', activeCategory);
+      try {
+        const projects = await getProjectsByCategory(activeCategory);
+        setAllProjects(projects);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+        setAllProjects([]);
+      } finally {
+        setIsInitialLoading(false);
+      }
+    };
+
+    fetchProjects();
   }, [activeCategory]);
 
   const currentProjects = useMemo(() => {
@@ -57,6 +83,19 @@ export const PortfolioSection = () => {
     setDisplayedProjects(INITIAL_PROJECTS);
   }, []);
 
+  if (isInitialLoading) {
+    return (
+      <section className="py-16 lg:py-24" style={{ backgroundColor: '#141414' }}>
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center py-16">
+            <Loader2 className="h-8 w-8 text-eastdigital-orange animate-spin" />
+            <span className="ml-3 text-white">Loading projects...</span>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 lg:py-24" style={{ backgroundColor: '#141414' }}>
       <div className="container mx-auto px-4">
@@ -87,44 +126,53 @@ export const PortfolioSection = () => {
         </div>
 
         {/* Projects Grid - 3 columns on desktop, 2 on tablet, 1 on mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
-          {currentProjects.map((project, index) => (
-            <div
-              key={project.id}
-              style={{
-                animationDelay: `${(index % INITIAL_PROJECTS) * 100}ms`,
-                animation: 'fade-in 0.6s ease-out forwards'
-              }}
-            >
-              <MinimalProjectCard project={project} />
+        {allProjects.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+              {currentProjects.map((project, index) => (
+                <div
+                  key={project.id}
+                  style={{
+                    animationDelay: `${(index % INITIAL_PROJECTS) * 100}ms`,
+                    animation: 'fade-in 0.6s ease-out forwards'
+                  }}
+                >
+                  <MinimalProjectCard project={project} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* Loading Indicator */}
-        {isLoading && (
-          <div className="flex items-center justify-center py-8">
-            <Loader2 className="h-8 w-8 text-eastdigital-orange animate-spin" />
-            <span className="ml-3 text-white">Loading more projects...</span>
-          </div>
-        )}
+            {/* Loading Indicator */}
+            {isLoading && (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 className="h-8 w-8 text-eastdigital-orange animate-spin" />
+                <span className="ml-3 text-white">Loading more projects...</span>
+              </div>
+            )}
 
-        {/* Show More Projects Button */}
-        {hasMore && !isLoading && (
-          <div className="text-center">
-            <button 
-              onClick={loadMoreProjects}
-              className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 text-lg rounded-full border border-gray-700 hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer"
-            >
-              Show More Projects ({allProjects.length - displayedProjects} remaining)
-            </button>
-          </div>
-        )}
+            {/* Show More Projects Button */}
+            {hasMore && !isLoading && (
+              <div className="text-center">
+                <button 
+                  onClick={loadMoreProjects}
+                  className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 text-lg rounded-full border border-gray-700 hover:border-eastdigital-orange/50 transition-all duration-300 cursor-pointer"
+                >
+                  Show More Projects ({allProjects.length - displayedProjects} remaining)
+                </button>
+              </div>
+            )}
 
-        {/* End of Projects Message */}
-        {!hasMore && allProjects.length > INITIAL_PROJECTS && (
-          <div className="text-center py-8">
-            <p className="text-gray-400">You've seen all {allProjects.length} projects in this category.</p>
+            {/* End of Projects Message */}
+            {!hasMore && allProjects.length > INITIAL_PROJECTS && (
+              <div className="text-center py-8">
+                <p className="text-gray-400">You've seen all {allProjects.length} projects in this category.</p>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="text-center py-16">
+            <p className="text-gray-400 text-lg">No projects found in this category.</p>
+            <p className="text-gray-500 mt-2">Add projects through the admin panel to see them here.</p>
           </div>
         )}
       </div>

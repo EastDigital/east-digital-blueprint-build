@@ -1,22 +1,36 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ProjectCard } from './ProjectCard';
-import { getCarouselProjects } from '@/data/projects';
+import { getCarouselProjects } from '@/data/supabaseProjects';
+
+interface CarouselProject {
+  id: string;
+  name: string;
+  featuredImage: string;
+}
 
 export const ProjectCarousel = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [carouselProjects, setCarouselProjects] = useState<CarouselProject[]>([]);
   const carouselRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
   const scrollPositionRef = useRef(0);
   const startXRef = useRef(0);
   const startScrollRef = useRef(0);
 
-  const carouselProjects = getCarouselProjects();
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const projects = await getCarouselProjects();
+      setCarouselProjects(projects);
+    };
+
+    fetchProjects();
+  }, []);
 
   useEffect(() => {
     const carousel = carouselRef.current;
-    if (!carousel) return;
+    if (!carousel || carouselProjects.length === 0) return;
 
     const scrollSpeed = 0.5; // pixels per frame
 
@@ -41,7 +55,7 @@ export const ProjectCarousel = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isPaused, isDragging]);
+  }, [isPaused, isDragging, carouselProjects]);
 
   const handleMouseEnter = () => {
     const carousel = carouselRef.current;
@@ -117,6 +131,16 @@ export const ProjectCarousel = () => {
     setIsDragging(false);
     setIsPaused(false);
   };
+
+  if (carouselProjects.length === 0) {
+    return (
+      <div className="w-full">
+        <div className="flex items-center justify-center h-[225px] sm:h-[370px] text-gray-400">
+          <p>No carousel projects found. Add projects in the admin panel.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full">

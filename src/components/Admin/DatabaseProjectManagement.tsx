@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, Edit, Trash2, Eye, Globe, Star } from 'lucide-react';
+import { Plus, Edit, Trash2, Globe, Star } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -11,6 +11,7 @@ import { EnhancedProjectForm } from './EnhancedProjectForm';
 interface Project {
   id: string;
   name: string;
+  subtitle: string;
   description: string;
   image_url: string;
   category: string;
@@ -22,12 +23,26 @@ interface Project {
   seo_description: string;
   seo_keywords: string;
   show_in_carousel: boolean;
+  duration: string;
+  location: string;
+  team_size: string;
+  client: string;
+  status: string;
+  challenge: string;
+  solution: string;
+  engagement_result: string;
+  leads_result: string;
+  conversion_result: string;
+  timeline_result: string;
+  tags: string[];
+  slug: string;
   created_at: string;
   updated_at: string;
 }
 
 interface ProjectFormData {
   name: string;
+  subtitle: string;
   description: string;
   image_url: string;
   category: string;
@@ -39,10 +54,23 @@ interface ProjectFormData {
   seo_description: string;
   seo_keywords: string;
   show_in_carousel: boolean;
+  duration: string;
+  location: string;
+  team_size: string;
+  client: string;
+  status: string;
+  challenge: string;
+  solution: string;
+  engagement_result: string;
+  leads_result: string;
+  conversion_result: string;
+  timeline_result: string;
+  tags: string[];
 }
 
 const initialFormData: ProjectFormData = {
   name: '',
+  subtitle: '',
   description: '',
   image_url: '',
   category: '',
@@ -53,7 +81,19 @@ const initialFormData: ProjectFormData = {
   seo_title: '',
   seo_description: '',
   seo_keywords: '',
-  show_in_carousel: false
+  show_in_carousel: false,
+  duration: '',
+  location: '',
+  team_size: '',
+  client: '',
+  status: 'upcoming',
+  challenge: '',
+  solution: '',
+  engagement_result: '',
+  leads_result: '',
+  conversion_result: '',
+  timeline_result: '',
+  tags: []
 };
 
 export const DatabaseProjectManagement = () => {
@@ -194,6 +234,7 @@ export const DatabaseProjectManagement = () => {
     setEditingProject(project);
     setEditingProjectData({
       name: project.name,
+      subtitle: project.subtitle || '',
       description: project.description || '',
       image_url: project.image_url || '',
       category: project.category || '',
@@ -204,7 +245,19 @@ export const DatabaseProjectManagement = () => {
       seo_title: project.seo_title || '',
       seo_description: project.seo_description || '',
       seo_keywords: project.seo_keywords || '',
-      show_in_carousel: project.show_in_carousel
+      show_in_carousel: project.show_in_carousel,
+      duration: project.duration || '',
+      location: project.location || '',
+      team_size: project.team_size || '',
+      client: project.client || '',
+      status: project.status || 'upcoming',
+      challenge: project.challenge || '',
+      solution: project.solution || '',
+      engagement_result: project.engagement_result || '',
+      leads_result: project.leads_result || '',
+      conversion_result: project.conversion_result || '',
+      timeline_result: project.timeline_result || '',
+      tags: project.tags || []
     });
   };
 
@@ -313,8 +366,22 @@ export const DatabaseProjectManagement = () => {
                               </TooltipContent>
                             </Tooltip>
                           )}
+                          {project.status && (
+                            <span className={`px-2 py-1 rounded text-xs ${
+                              project.status === 'completed' ? 'bg-green-600' :
+                              project.status === 'active' ? 'bg-blue-600' :
+                              project.status === 'on-hold' ? 'bg-red-600' :
+                              'bg-gray-600'
+                            } text-white`}>
+                              {project.status}
+                            </span>
+                          )}
                         </div>
                       </div>
+                      
+                      {project.subtitle && (
+                        <p className="text-gray-300 mb-2 font-medium">{project.subtitle}</p>
+                      )}
                       
                       {project.category && (
                         <p className="text-gray-400 mb-2">{project.category}</p>
@@ -322,6 +389,48 @@ export const DatabaseProjectManagement = () => {
                       
                       {project.description && (
                         <p className="text-gray-300 mb-3">{project.description}</p>
+                      )}
+
+                      {/* Project Details Summary */}
+                      {(project.duration || project.location || project.client) && (
+                        <div className="bg-gray-800 rounded p-3 mb-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
+                            {project.duration && (
+                              <div>
+                                <span className="text-gray-400">Duration:</span>
+                                <span className="text-white ml-1">{project.duration}</span>
+                              </div>
+                            )}
+                            {project.location && (
+                              <div>
+                                <span className="text-gray-400">Location:</span>
+                                <span className="text-white ml-1">{project.location}</span>
+                              </div>
+                            )}
+                            {project.client && (
+                              <div>
+                                <span className="text-gray-400">Client:</span>
+                                <span className="text-white ml-1">{project.client}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Tags */}
+                      {project.tags && project.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-3">
+                          {project.tags.slice(0, 5).map((tag, idx) => (
+                            tag && (
+                              <span key={idx} className="bg-eastdigital-orange/20 text-eastdigital-orange px-2 py-1 rounded text-xs">
+                                {tag}
+                              </span>
+                            )
+                          ))}
+                          {project.tags.length > 5 && (
+                            <span className="text-gray-400 text-xs">+{project.tags.length - 5} more</span>
+                          )}
+                        </div>
                       )}
 
                       {/* Image Preview */}
@@ -345,13 +454,15 @@ export const DatabaseProjectManagement = () => {
                         {project.gallery_images && project.gallery_images.length > 0 && (
                           <div className="flex gap-1">
                             {project.gallery_images.slice(0, 3).map((img, idx) => (
-                              <img 
-                                key={idx}
-                                src={img} 
-                                alt={`Gallery ${idx + 1}`}
-                                className="w-12 h-12 object-cover rounded border border-gray-700"
-                                title={`Gallery Image ${idx + 1}`}
-                              />
+                              img && (
+                                <img 
+                                  key={idx}
+                                  src={img} 
+                                  alt={`Gallery ${idx + 1}`}
+                                  className="w-12 h-12 object-cover rounded border border-gray-700"
+                                  title={`Gallery Image ${idx + 1}`}
+                                />
+                              )
                             ))}
                             {project.gallery_images.length > 3 && (
                               <div className="w-12 h-12 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-300">
@@ -362,21 +473,13 @@ export const DatabaseProjectManagement = () => {
                         )}
                       </div>
 
-                      {/* SEO Info */}
-                      {(project.seo_title || project.seo_description) && (
-                        <div className="bg-gray-800 rounded p-2 mb-3">
-                          <p className="text-xs text-gray-400 mb-1">SEO:</p>
-                          {project.seo_title && (
-                            <p className="text-sm text-white font-medium">{project.seo_title}</p>
-                          )}
-                          {project.seo_description && (
-                            <p className="text-xs text-gray-300">{project.seo_description}</p>
-                          )}
-                        </div>
-                      )}
-                      
                       <p className="text-gray-500 text-sm">
                         Created: {new Date(project.created_at).toLocaleDateString()}
+                        {project.slug && (
+                          <span className="ml-4">
+                            Slug: <span className="text-eastdigital-orange">{project.slug}</span>
+                          </span>
+                        )}
                       </p>
                     </div>
                     
