@@ -1,6 +1,6 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer';
 import { Button } from '@/components/ui/button';
 import { Search, Lightbulb, Palette, Rocket, CheckCircle, Clock } from 'lucide-react';
 
@@ -10,19 +10,34 @@ const Approach = () => {
       <Navbar />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-16 lg:py-24">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+        <section className="relative min-h-[70vh] sm:min-h-[60vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&h=1080&fit=crop&crop=center')",
+              backgroundPosition: 'center 40%'
+            }}
+          ></div>
+          
+          {/* Overlay for readability */}
+          <div className="absolute inset-0 bg-black/70"></div>
+          
+          <div className="relative z-10 container mx-auto px-4 text-center py-8 sm:py-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white font-poppins tracking-tight">
               Our Approach
             </h1>
-            <p className="text-xl lg:text-2xl text-eastdigital-lightgray max-w-3xl mx-auto">
+            <p className="text-base sm:text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto mb-6 sm:mb-8 px-2 sm:px-4 leading-relaxed">
               Learn about our proven process and how we deliver exceptional results for our clients.
             </p>
+            <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg rounded-[60px]">
+              Get Your Blueprint
+            </Button>
           </div>
         </section>
 
         {/* Process Steps */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-16" style={{ backgroundColor: '#141414' }}>
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               Our 5-Step Process
@@ -171,7 +186,7 @@ const Approach = () => {
         </section>
 
         {/* Why Choose Us */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-16" style={{ backgroundColor: '#222222' }}>
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               Why Our Approach Works
@@ -203,7 +218,7 @@ const Approach = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-16" style={{ backgroundColor: '#141414' }}>
           <div className="bg-gradient-to-r from-eastdigital-orange/10 to-eastdigital-orange/5 border border-eastdigital-orange/20 rounded-2xl p-8 lg:p-12 text-center">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               Ready to Experience Our Approach?
@@ -217,6 +232,7 @@ const Approach = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 };

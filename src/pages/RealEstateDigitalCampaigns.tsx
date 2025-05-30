@@ -1,6 +1,6 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer';
 import { Button } from '@/components/ui/button';
 import { Target, Camera, Users } from 'lucide-react';
 
@@ -153,6 +153,7 @@ const RealEstateDigitalCampaigns = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 };

@@ -1,6 +1,6 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer';
 import { Button } from '@/components/ui/button';
 import { Play, Eye, Headphones } from 'lucide-react';
 
@@ -130,6 +130,7 @@ const ThreeDRenderingVisualization = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 };

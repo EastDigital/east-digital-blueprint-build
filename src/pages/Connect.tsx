@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer';
 import { Button } from '@/components/ui/button';
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 
@@ -32,18 +32,33 @@ const Connect = () => {
       <Navbar />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-16 lg:py-24">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+        <section className="relative min-h-[70vh] sm:min-h-[60vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&h=1080&fit=crop&crop=center')",
+              backgroundPosition: 'center 40%'
+            }}
+          ></div>
+          
+          {/* Overlay for readability */}
+          <div className="absolute inset-0 bg-black/70"></div>
+          
+          <div className="relative z-10 container mx-auto px-4 text-center py-8 sm:py-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white font-poppins tracking-tight">
               Connect With Us
             </h1>
-            <p className="text-xl lg:text-2xl text-eastdigital-lightgray max-w-3xl mx-auto">
+            <p className="text-base sm:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto mb-6 sm:mb-8 px-2 sm:px-4 leading-relaxed">
               Get in touch to discuss how we can help bring your vision to life.
             </p>
+            <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg rounded-[60px]">
+              Start Conversation
+            </Button>
           </div>
         </section>
 
-        <div className="container mx-auto px-4 pb-16">
+        <div className="container mx-auto px-4 pb-16" style={{ backgroundColor: '#141414' }}>
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8">
@@ -220,6 +235,7 @@ const Connect = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };
