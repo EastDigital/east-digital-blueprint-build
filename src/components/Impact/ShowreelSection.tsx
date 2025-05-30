@@ -35,7 +35,7 @@ export const ShowreelSection = () => {
       const data = imageData.data;
       
       // Sample pixels for color analysis (every 4th pixel for performance)
-      const colorCounts = {};
+      const colorCounts: Record<string, number> = {};
       let totalBrightness = 0;
       let pixelCount = 0;
       
