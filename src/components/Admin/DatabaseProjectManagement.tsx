@@ -38,6 +38,9 @@ interface Project {
   slug: string;
   created_at: string;
   updated_at: string;
+  featured_image_alt?: string;
+  hero_image_alt?: string;
+  gallery_image_alts?: string[];
 }
 
 interface ProjectFormData {
@@ -67,6 +70,9 @@ interface ProjectFormData {
   timeline_result: string;
   tags: string[];
   slug?: string;
+  featured_image_alt: string;  // Added missing property
+  hero_image_alt: string;      // Added missing property
+  gallery_image_alts: string[]; // Added missing property
 }
 
 const initialFormData: ProjectFormData = {
@@ -95,7 +101,10 @@ const initialFormData: ProjectFormData = {
   conversion_result: '',
   timeline_result: '',
   tags: [],
-  slug: ''
+  slug: '',
+  featured_image_alt: '',  // Added missing property initialization
+  hero_image_alt: '',      // Added missing property initialization
+  gallery_image_alts: []   // Added missing property initialization
 };
 
 export const DatabaseProjectManagement = () => {
@@ -260,7 +269,10 @@ export const DatabaseProjectManagement = () => {
       conversion_result: project.conversion_result || '',
       timeline_result: project.timeline_result || '',
       tags: project.tags || [],
-      slug: project.slug || ''
+      slug: project.slug || '',
+      featured_image_alt: project.featured_image_alt || '',  // Added missing property
+      hero_image_alt: project.hero_image_alt || '',         // Added missing property
+      gallery_image_alts: project.gallery_image_alts || []   // Added missing property
     });
   };
 
