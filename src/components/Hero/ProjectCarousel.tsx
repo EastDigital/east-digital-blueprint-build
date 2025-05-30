@@ -35,6 +35,9 @@ export const ProjectCarousel = () => {
     const carousel = carouselRef.current;
     if (!carousel || carouselProjects.length === 0) return;
 
+    // Only enable animation if we have multiple projects
+    if (carouselProjects.length <= 1) return;
+
     const scrollSpeed = 0.5; // pixels per frame
 
     const animate = () => {
@@ -145,9 +148,10 @@ export const ProjectCarousel = () => {
     );
   }
 
-  // Create duplicated array for seamless infinite scroll
-  // Use more specific unique keys to prevent React warnings
-  const duplicatedProjects = [...carouselProjects, ...carouselProjects];
+  // Only duplicate if we have more than one project for infinite scroll
+  const displayProjects = carouselProjects.length > 1 
+    ? [...carouselProjects, ...carouselProjects] 
+    : carouselProjects;
 
   return (
     <div className="w-full">
@@ -164,9 +168,11 @@ export const ProjectCarousel = () => {
         onTouchEnd={handleTouchEnd}
         style={{ scrollBehavior: 'auto' }}
       >
-        {duplicatedProjects.map((project, index) => {
-          const isSecondSet = index >= carouselProjects.length;
-          const uniqueKey = `${project.id}-${isSecondSet ? 'duplicate' : 'original'}-${index}`;
+        {displayProjects.map((project, index) => {
+          const isSecondSet = carouselProjects.length > 1 && index >= carouselProjects.length;
+          const uniqueKey = carouselProjects.length > 1 
+            ? `${project.id}-${isSecondSet ? 'duplicate' : 'original'}-${index}`
+            : `${project.id}-single`;
           
           return (
             <ProjectCard

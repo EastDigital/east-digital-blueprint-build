@@ -86,7 +86,7 @@ export const ProjectTableRow = ({ project, onView, onEdit, onDuplicate, onDelete
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Duplicate Project</p>
+              <p>Copy Project</p>
             </TooltipContent>
           </Tooltip>
           
