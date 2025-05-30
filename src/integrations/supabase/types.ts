@@ -76,30 +76,51 @@ export type Database = {
           category: string | null
           created_at: string
           description: string | null
+          featured_image: string | null
+          gallery_images: string[] | null
+          hero_image: string | null
           id: string
           image_url: string | null
           is_featured: boolean
           name: string
+          seo_description: string | null
+          seo_keywords: string | null
+          seo_title: string | null
+          show_in_carousel: boolean
           updated_at: string
         }
         Insert: {
           category?: string | null
           created_at?: string
           description?: string | null
+          featured_image?: string | null
+          gallery_images?: string[] | null
+          hero_image?: string | null
           id?: string
           image_url?: string | null
           is_featured?: boolean
           name: string
+          seo_description?: string | null
+          seo_keywords?: string | null
+          seo_title?: string | null
+          show_in_carousel?: boolean
           updated_at?: string
         }
         Update: {
           category?: string | null
           created_at?: string
           description?: string | null
+          featured_image?: string | null
+          gallery_images?: string[] | null
+          hero_image?: string | null
           id?: string
           image_url?: string | null
           is_featured?: boolean
           name?: string
+          seo_description?: string | null
+          seo_keywords?: string | null
+          seo_title?: string | null
+          show_in_carousel?: boolean
           updated_at?: string
         }
         Relationships: []
@@ -130,6 +151,44 @@ export type Database = {
           value?: string | null
         }
         Relationships: []
+      }
+      trusted_devices: {
+        Row: {
+          admin_user_id: string
+          created_at: string
+          device_fingerprint: string
+          device_name: string | null
+          id: string
+          is_active: boolean
+          last_used_at: string
+        }
+        Insert: {
+          admin_user_id: string
+          created_at?: string
+          device_fingerprint: string
+          device_name?: string | null
+          id?: string
+          is_active?: boolean
+          last_used_at?: string
+        }
+        Update: {
+          admin_user_id?: string
+          created_at?: string
+          device_fingerprint?: string
+          device_name?: string | null
+          id?: string
+          is_active?: boolean
+          last_used_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trusted_devices_admin_user_id_fkey"
+            columns: ["admin_user_id"]
+            isOneToOne: false
+            referencedRelation: "admin_users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

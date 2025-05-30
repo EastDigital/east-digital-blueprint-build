@@ -1,10 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, Edit, Trash2 } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye, Globe, Star } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { ProjectForm } from './ProjectForm';
+import { EnhancedProjectForm } from './EnhancedProjectForm';
 
 interface Project {
   id: string;
@@ -13,6 +15,13 @@ interface Project {
   image_url: string;
   category: string;
   is_featured: boolean;
+  featured_image: string;
+  hero_image: string;
+  gallery_images: string[];
+  seo_title: string;
+  seo_description: string;
+  seo_keywords: string;
+  show_in_carousel: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -23,6 +32,13 @@ interface ProjectFormData {
   image_url: string;
   category: string;
   is_featured: boolean;
+  featured_image: string;
+  hero_image: string;
+  gallery_images: string[];
+  seo_title: string;
+  seo_description: string;
+  seo_keywords: string;
+  show_in_carousel: boolean;
 }
 
 const initialFormData: ProjectFormData = {
@@ -30,7 +46,14 @@ const initialFormData: ProjectFormData = {
   description: '',
   image_url: '',
   category: '',
-  is_featured: false
+  is_featured: false,
+  featured_image: '',
+  hero_image: '',
+  gallery_images: [],
+  seo_title: '',
+  seo_description: '',
+  seo_keywords: '',
+  show_in_carousel: false
 };
 
 export const DatabaseProjectManagement = () => {
@@ -40,6 +63,7 @@ export const DatabaseProjectManagement = () => {
   const [editingProjectData, setEditingProjectData] = useState<ProjectFormData>(initialFormData);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showCreateForm, setShowCreateForm] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -88,6 +112,7 @@ export const DatabaseProjectManagement = () => {
 
       setProjects([data, ...projects]);
       setNewProjectData(initialFormData);
+      setShowCreateForm(false);
 
       toast({
         title: "Success",
@@ -169,10 +194,17 @@ export const DatabaseProjectManagement = () => {
     setEditingProject(project);
     setEditingProjectData({
       name: project.name,
-      description: project.description,
-      image_url: project.image_url,
-      category: project.category,
-      is_featured: project.is_featured
+      description: project.description || '',
+      image_url: project.image_url || '',
+      category: project.category || '',
+      is_featured: project.is_featured,
+      featured_image: project.featured_image || '',
+      hero_image: project.hero_image || '',
+      gallery_images: project.gallery_images || [],
+      seo_title: project.seo_title || '',
+      seo_description: project.seo_description || '',
+      seo_keywords: project.seo_keywords || '',
+      show_in_carousel: project.show_in_carousel
     });
   };
 
@@ -181,106 +213,221 @@ export const DatabaseProjectManagement = () => {
     setEditingProjectData(initialFormData);
   };
 
+  const handleCancelCreate = () => {
+    setShowCreateForm(false);
+    setNewProjectData(initialFormData);
+  };
+
   if (isLoading) {
     return <div className="text-white">Loading projects...</div>;
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Project Management</h1>
-      </div>
+    <TooltipProvider>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold">Enhanced Project Management</h1>
+          {!showCreateForm && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={() => setShowCreateForm(true)}
+                  className="bg-eastdigital-orange hover:bg-eastdigital-orange/90"
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add New Project
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Create a new project with enhanced features</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
+        </div>
 
-      {/* Add New Project */}
-      <Card className="bg-gray-900 border-gray-800">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
-            <Plus className="h-5 w-5" />
-            Add New Project
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ProjectForm
-            data={newProjectData}
-            onChange={setNewProjectData}
-            onSave={handleCreateProject}
-            onCancel={() => setNewProjectData(initialFormData)}
-            isLoading={isSubmitting}
-            mode="create"
-          />
-        </CardContent>
-      </Card>
-
-      {/* Existing Projects */}
-      <div className="grid gap-4">
-        {projects.map((project) => (
-          <Card key={project.id} className="bg-gray-900 border-gray-800">
-            <CardContent className="p-6">
-              {editingProject?.id === project.id ? (
-                <ProjectForm
-                  data={editingProjectData}
-                  onChange={setEditingProjectData}
-                  onSave={handleUpdateProject}
-                  onCancel={handleCancelEdit}
-                  isLoading={isSubmitting}
-                  mode="edit"
-                />
-              ) : (
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="text-xl font-semibold text-white">{project.name}</h3>
-                      {project.is_featured && (
-                        <span className="bg-eastdigital-orange text-white px-2 py-1 rounded text-xs">
-                          Featured
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-gray-400 mb-2">{project.category}</p>
-                    <p className="text-gray-300 mb-2">{project.description}</p>
-                    {project.image_url && (
-                      <img 
-                        src={project.image_url} 
-                        alt={project.name}
-                        className="w-24 h-24 object-cover rounded mt-2"
-                      />
-                    )}
-                    <p className="text-gray-500 text-sm mt-2">
-                      Created: {new Date(project.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={() => handleEditProject(project)}
-                      variant="outline"
-                      size="sm"
-                      className="border-gray-700 text-gray-300 hover:bg-gray-800"
-                    >
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      onClick={() => handleDeleteProject(project.id)}
-                      variant="outline"
-                      size="sm"
-                      className="border-red-700 text-red-400 hover:bg-red-900"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              )}
+        {/* Create Project Form */}
+        {showCreateForm && (
+          <Card className="bg-gray-900 border-gray-800">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center gap-2">
+                <Plus className="h-5 w-5" />
+                Create New Project
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <EnhancedProjectForm
+                data={newProjectData}
+                onChange={setNewProjectData}
+                onSave={handleCreateProject}
+                onCancel={handleCancelCreate}
+                isLoading={isSubmitting}
+                mode="create"
+              />
             </CardContent>
           </Card>
-        ))}
-      </div>
+        )}
 
-      {projects.length === 0 && (
-        <Card className="bg-gray-900 border-gray-800">
-          <CardContent className="p-6 text-center">
-            <p className="text-gray-400">No projects found. Create your first project above.</p>
-          </CardContent>
-        </Card>
-      )}
-    </div>
+        {/* Project List */}
+        <div className="grid gap-6">
+          {projects.map((project) => (
+            <Card key={project.id} className="bg-gray-900 border-gray-800">
+              <CardContent className="p-6">
+                {editingProject?.id === project.id ? (
+                  <EnhancedProjectForm
+                    data={editingProjectData}
+                    onChange={setEditingProjectData}
+                    onSave={handleUpdateProject}
+                    onCancel={handleCancelEdit}
+                    isLoading={isSubmitting}
+                    mode="edit"
+                  />
+                ) : (
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h3 className="text-xl font-semibold text-white">{project.name}</h3>
+                        <div className="flex gap-1">
+                          {project.is_featured && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span className="bg-yellow-600 text-white px-2 py-1 rounded text-xs flex items-center gap-1">
+                                  <Star className="h-3 w-3" />
+                                  Featured
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>This project is featured</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          )}
+                          {project.show_in_carousel && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span className="bg-eastdigital-orange text-white px-2 py-1 rounded text-xs flex items-center gap-1">
+                                  <Globe className="h-3 w-3" />
+                                  Carousel
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Shown in homepage carousel</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {project.category && (
+                        <p className="text-gray-400 mb-2">{project.category}</p>
+                      )}
+                      
+                      {project.description && (
+                        <p className="text-gray-300 mb-3">{project.description}</p>
+                      )}
+
+                      {/* Image Preview */}
+                      <div className="flex gap-2 mb-3">
+                        {project.featured_image && (
+                          <img 
+                            src={project.featured_image} 
+                            alt="Featured"
+                            className="w-16 h-16 object-cover rounded border border-gray-700"
+                            title="Featured Image"
+                          />
+                        )}
+                        {project.hero_image && (
+                          <img 
+                            src={project.hero_image} 
+                            alt="Hero"
+                            className="w-16 h-16 object-cover rounded border border-gray-700"
+                            title="Hero Image"
+                          />
+                        )}
+                        {project.gallery_images && project.gallery_images.length > 0 && (
+                          <div className="flex gap-1">
+                            {project.gallery_images.slice(0, 3).map((img, idx) => (
+                              <img 
+                                key={idx}
+                                src={img} 
+                                alt={`Gallery ${idx + 1}`}
+                                className="w-12 h-12 object-cover rounded border border-gray-700"
+                                title={`Gallery Image ${idx + 1}`}
+                              />
+                            ))}
+                            {project.gallery_images.length > 3 && (
+                              <div className="w-12 h-12 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-300">
+                                +{project.gallery_images.length - 3}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* SEO Info */}
+                      {(project.seo_title || project.seo_description) && (
+                        <div className="bg-gray-800 rounded p-2 mb-3">
+                          <p className="text-xs text-gray-400 mb-1">SEO:</p>
+                          {project.seo_title && (
+                            <p className="text-sm text-white font-medium">{project.seo_title}</p>
+                          )}
+                          {project.seo_description && (
+                            <p className="text-xs text-gray-300">{project.seo_description}</p>
+                          )}
+                        </div>
+                      )}
+                      
+                      <p className="text-gray-500 text-sm">
+                        Created: {new Date(project.created_at).toLocaleDateString()}
+                      </p>
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            onClick={() => handleEditProject(project)}
+                            variant="outline"
+                            size="sm"
+                            className="border-gray-700 text-gray-300 hover:bg-gray-800"
+                          >
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Edit project</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            onClick={() => handleDeleteProject(project.id)}
+                            variant="outline"
+                            size="sm"
+                            className="border-red-700 text-red-400 hover:bg-red-900"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Delete project</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {projects.length === 0 && !showCreateForm && (
+          <Card className="bg-gray-900 border-gray-800">
+            <CardContent className="p-6 text-center">
+              <p className="text-gray-400">No projects found. Create your first project above.</p>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    </TooltipProvider>
   );
 };
