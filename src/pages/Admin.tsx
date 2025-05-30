@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Users, FileText, Settings, LogOut, Database } from 'lucide-react';
@@ -41,7 +42,7 @@ const Admin = () => {
                   <p className="text-sm text-gray-400">Logged in as</p>
                   <p className="text-eastdigital-orange font-semibold">{adminEmail}</p>
                 </div>
-                <Database className="h-6 w-6 text-green-500" title="Database Connected" />
+                <Database className="h-6 w-6 text-green-500" />
               </div>
             </div>
             

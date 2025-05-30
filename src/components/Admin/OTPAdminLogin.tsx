@@ -8,6 +8,7 @@ import { Mail, Shield } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface OTPAdminLoginProps {
   onLoginSuccess: () => void;
@@ -20,6 +21,7 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [verificationId, setVerificationId] = useState<string | null>(null);
   const { toast } = useToast();
+  const { login } = useAuth();
 
   const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,11 +97,7 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
       }
 
       if (data.success) {
-        // Store admin session
-        localStorage.setItem('admin_authenticated', 'true');
-        localStorage.setItem('admin_email', email);
-        localStorage.setItem('admin_session_expires', (Date.now() + 24 * 60 * 60 * 1000).toString());
-        
+        login(email);
         toast({
           title: "Login Successful",
           description: "Welcome to the admin panel.",
