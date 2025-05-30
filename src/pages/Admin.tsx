@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Users, FileText, Settings, LogOut } from 'lucide-react';
+import { ArrowLeft, Users, FileText, Settings, LogOut, Database } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { UserManagement } from '@/components/Admin/UserManagement';
-import { ProjectManagement } from '@/components/Admin/ProjectManagement';
-import { SiteSettings } from '@/components/Admin/SiteSettings';
+import { DatabaseProjectManagement } from '@/components/Admin/DatabaseProjectManagement';
+import { DatabaseSiteSettings } from '@/components/Admin/DatabaseSiteSettings';
 import { ProtectedAdmin } from '@/components/Admin/ProtectedAdmin';
 import { Toaster } from '@/components/ui/toaster';
 import { useAuth } from '@/contexts/AuthContext';
@@ -13,7 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('overview');
-  const { logout } = useAuth();
+  const { logout, adminEmail } = useAuth();
   const { toast } = useToast();
 
   const handleLogout = () => {
@@ -29,13 +28,22 @@ const Admin = () => {
       case 'users':
         return <UserManagement />;
       case 'projects':
-        return <ProjectManagement />;
+        return <DatabaseProjectManagement />;
       case 'settings':
-        return <SiteSettings />;
+        return <DatabaseSiteSettings />;
       default:
         return (
           <div className="space-y-8">
-            <h1 className="text-4xl font-bold">Admin Dashboard</h1>
+            <div className="flex items-center justify-between">
+              <h1 className="text-4xl font-bold">Admin Dashboard</h1>
+              <div className="flex items-center gap-4">
+                <div className="text-right">
+                  <p className="text-sm text-gray-400">Logged in as</p>
+                  <p className="text-eastdigital-orange font-semibold">{adminEmail}</p>
+                </div>
+                <Database className="h-6 w-6 text-green-500" title="Database Connected" />
+              </div>
+            </div>
             
             <div className="grid md:grid-cols-3 gap-6">
               <button
@@ -56,7 +64,7 @@ const Admin = () => {
               >
                 <FileText className="h-8 w-8 text-eastdigital-orange mb-4" />
                 <h2 className="text-xl font-semibold mb-2">Project Management</h2>
-                <p className="text-gray-400 mb-4">Add, edit, and manage projects</p>
+                <p className="text-gray-400 mb-4">Add, edit, and manage projects in database</p>
                 <span className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-4 py-2 rounded inline-block">
                   Manage Projects
                 </span>
@@ -76,23 +84,23 @@ const Admin = () => {
             </div>
             
             <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
-              <h2 className="text-2xl font-semibold mb-4">Quick Stats</h2>
+              <h2 className="text-2xl font-semibold mb-4">System Status</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-eastdigital-orange">150+</div>
-                  <div className="text-gray-400">Total Projects</div>
+                  <div className="text-3xl font-bold text-green-500">✓</div>
+                  <div className="text-gray-400">Database Connected</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-eastdigital-orange">80+</div>
-                  <div className="text-gray-400">Active Clients</div>
+                  <div className="text-3xl font-bold text-green-500">✓</div>
+                  <div className="text-gray-400">OTP Authentication</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-eastdigital-orange">95%</div>
-                  <div className="text-gray-400">Success Rate</div>
+                  <div className="text-3xl font-bold text-eastdigital-orange">1</div>
+                  <div className="text-gray-400">Active Admin</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-eastdigital-orange">5+</div>
-                  <div className="text-gray-400">Years Experience</div>
+                  <div className="text-3xl font-bold text-eastdigital-orange">Live</div>
+                  <div className="text-gray-400">System Status</div>
                 </div>
               </div>
             </div>
