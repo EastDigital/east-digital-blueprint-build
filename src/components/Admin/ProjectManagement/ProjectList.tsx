@@ -13,10 +13,13 @@ interface Project {
   category: string;
   is_featured: boolean;
   featured_image: string;
+  featured_image_alt?: string;
   featured_video: string;
   video_thumbnail: string;
   hero_image: string;
+  hero_image_alt?: string;
   gallery_images: string[];
+  gallery_image_alts?: string[];
   gallery_videos: string[];
   seo_title: string;
   seo_description: string;
@@ -37,9 +40,6 @@ interface Project {
   slug: string;
   created_at: string;
   updated_at: string;
-  featured_image_alt?: string;
-  hero_image_alt?: string;
-  gallery_image_alts?: string[];
 }
 
 interface ProjectFormData {
@@ -50,10 +50,13 @@ interface ProjectFormData {
   category: string;
   is_featured: boolean;
   featured_image: string;
+  featured_image_alt: string;
   featured_video: string;
   video_thumbnail: string;
   hero_image: string;
+  hero_image_alt: string;
   gallery_images: string[];
+  gallery_image_alts: string[];
   gallery_videos: string[];
   seo_title: string;
   seo_description: string;
@@ -72,9 +75,6 @@ interface ProjectFormData {
   timeline_result: string;
   tags: string[];
   slug?: string;
-  featured_image_alt: string;
-  hero_image_alt: string;
-  gallery_image_alts: string[];
 }
 
 interface ProjectListProps {
