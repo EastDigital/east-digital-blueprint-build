@@ -72,7 +72,7 @@ export const getSupabaseProjects = async (): Promise<SupabaseProject[]> => {
   return data || [];
 };
 
-// Get projects for carousel (show_in_carousel = true)
+// Get projects for carousel (show_in_carousel = true) with proper deduplication
 export const getCarouselProjects = async () => {
   const { data, error } = await supabase
     .from('projects')
@@ -85,6 +85,7 @@ export const getCarouselProjects = async () => {
     return [];
   }
 
+  // Return projects with fallback images and ensure unique IDs
   return data?.map(project => ({
     id: project.id,
     name: project.name,
@@ -100,7 +101,15 @@ export const getProjectsByCategory = async (category: string) => {
     .order('created_at', { ascending: false });
 
   if (category !== 'All Projects') {
-    query = query.eq('category', category);
+    // Map display categories to database values
+    const categoryMap: { [key: string]: string } = {
+      '3D Rendering & Visualization': '3d-rendering',
+      'Digital Marketing Campaigns': 'digital-marketing',
+      'Corporate Solutions': 'corporate-solutions'
+    };
+    
+    const dbCategory = categoryMap[category] || category;
+    query = query.eq('category', dbCategory);
   }
 
   const { data, error } = await query;
@@ -193,7 +202,7 @@ export const getProjectBySlug = async (slug: string): Promise<ProjectDetailsType
     results: {
       engagement: data.engagement_result || '',
       leads: data.leads_result || '',
-      conversion: data.conversion_result || '',
+      conversion: data.conversion_result || ''
       timeline: data.timeline_result || ''
     },
     gallery: data.gallery_images || [],

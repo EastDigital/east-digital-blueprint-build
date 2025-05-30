@@ -66,6 +66,7 @@ interface ProjectFormData {
   conversion_result: string;
   timeline_result: string;
   tags: string[];
+  slug?: string;
 }
 
 const initialFormData: ProjectFormData = {
@@ -93,7 +94,8 @@ const initialFormData: ProjectFormData = {
   leads_result: '',
   conversion_result: '',
   timeline_result: '',
-  tags: []
+  tags: [],
+  slug: ''
 };
 
 export const DatabaseProjectManagement = () => {
@@ -257,7 +259,8 @@ export const DatabaseProjectManagement = () => {
       leads_result: project.leads_result || '',
       conversion_result: project.conversion_result || '',
       timeline_result: project.timeline_result || '',
-      tags: project.tags || []
+      tags: project.tags || [],
+      slug: project.slug || ''
     });
   };
 
@@ -333,6 +336,7 @@ export const DatabaseProjectManagement = () => {
                     onCancel={handleCancelEdit}
                     isLoading={isSubmitting}
                     mode="edit"
+                    projectId={project.id}
                   />
                 ) : (
                   <div className="flex justify-between items-start">

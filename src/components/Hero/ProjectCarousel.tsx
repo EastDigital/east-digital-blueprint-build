@@ -22,6 +22,7 @@ export const ProjectCarousel = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       const projects = await getCarouselProjects();
+      console.log('Fetched carousel projects:', projects);
       setCarouselProjects(projects);
     };
 
@@ -142,6 +143,10 @@ export const ProjectCarousel = () => {
     );
   }
 
+  // Create duplicated array for seamless infinite scroll
+  // Use unique keys to prevent React warnings and potential rendering issues
+  const duplicatedProjects = [...carouselProjects, ...carouselProjects];
+
   return (
     <div className="w-full">
       <div 
@@ -157,10 +162,9 @@ export const ProjectCarousel = () => {
         onTouchEnd={handleTouchEnd}
         style={{ scrollBehavior: 'auto' }}
       >
-        {/* Duplicate the carousel projects array for seamless infinite scroll */}
-        {[...carouselProjects, ...carouselProjects].map((project, index) => (
+        {duplicatedProjects.map((project, index) => (
           <ProjectCard
-            key={`${project.id}-${index}`}
+            key={`carousel-${project.id}-${index < carouselProjects.length ? 'first' : 'second'}`}
             name={project.name}
             image={project.featuredImage}
             projectId={project.id}
