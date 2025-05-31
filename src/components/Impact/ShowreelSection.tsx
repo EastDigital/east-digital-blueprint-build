@@ -15,7 +15,7 @@ export const ShowreelSection = () => {
   } = useVideoColorAnalyzer();
 
   return (
-    <section className="py-16 lg:py-24 relative overflow-hidden min-h-screen" style={{ backgroundColor: '#0a0a0a' }}>
+    <section className="py-16 lg:py-24 relative overflow-hidden min-h-screen bg-black">
       {/* Hidden canvas for color analysis */}
       <canvas 
         ref={canvasRef} 

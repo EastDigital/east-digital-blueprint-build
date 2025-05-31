@@ -187,17 +187,6 @@ export const VideoPlayer = ({ onPlay, onPause, dominantColor }: VideoPlayerProps
           </div>
         </div>
       )}
-
-      {/* Floating Elements for Visual Interest */}
-      <div className="absolute top-4 right-4 opacity-20" style={{ zIndex: 3 }}>
-        <div 
-          className="w-3 h-3 rounded-full animate-ping transition-all duration-300"
-          style={{ backgroundColor: dominantColor }}
-        ></div>
-      </div>
-      <div className="absolute bottom-4 left-4 opacity-20" style={{ zIndex: 3 }}>
-        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-      </div>
     </div>
   );
 };
