@@ -124,7 +124,7 @@ export const Navbar = () => {
           <div className="flex-shrink-0">
             <a href="/">
               <img 
-                src="https://eastdigital.in/web-images/logo-east-digital-india" 
+                src="https://eastdigital.in/img/logo-east-digital.png" 
                 alt="East Digital" 
                 className="h-[54px] w-[162px]"
               />
