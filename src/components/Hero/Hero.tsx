@@ -3,7 +3,7 @@ import { HeroContent } from './HeroContent';
 import { ProjectCarousel } from './ProjectCarousel';
 import { InteractiveBackground } from './InteractiveBackground';
 export const Hero = () => {
-  return <section className="relative min-h-screen bg-eastdigital-dark overflow-hidden flex flex-col mx-0 my-0 pb-0 py-[100px]">
+  return <section className="relative min-h-screen bg-eastdigital-dark overflow-hidden flex flex-col mx-0 pb-0 py-[100px] my-0">
       <InteractiveBackground />
       
       <div className="relative z-10 container mx-auto px-2 sm:px-4 flex flex-col justify-between min-h-[calc(40vh-30px)] sm:min-h-[calc(40vh-30px)]">

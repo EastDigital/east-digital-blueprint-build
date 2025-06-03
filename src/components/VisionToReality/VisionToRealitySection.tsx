@@ -11,7 +11,7 @@ export const VisionToRealitySection = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center py-0">
           <div className="inline-flex items-center px-6 py-2 bg-eastdigital-orange/10 border border-eastdigital-orange/20 rounded-full mb-8 animate-fade-in">
             <span className="text-eastdigital-orange text-sm font-medium tracking-widest uppercase">Our Mission</span>
           </div>
