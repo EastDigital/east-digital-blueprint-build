@@ -70,25 +70,7 @@ export const AboutSection = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="bg-gradient-to-r from-eastdigital-orange/10 to-eastdigital-orange/5 border border-eastdigital-orange/20 rounded-3xl p-8 lg:p-12 mb-16">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold text-eastdigital-orange mb-2">150+</div>
-              <div className="text-white font-medium">Projects Delivered</div>
-              <div className="text-eastdigital-lightgray text-sm mt-1">Across multiple industries</div>
-            </div>
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold text-eastdigital-orange mb-2">98%</div>
-              <div className="text-white font-medium">Client Satisfaction</div>
-              <div className="text-eastdigital-lightgray text-sm mt-1">Long-term partnerships</div>
-            </div>
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold text-eastdigital-orange mb-2">45%</div>
-              <div className="text-white font-medium">Faster Delivery</div>
-              <div className="text-eastdigital-lightgray text-sm mt-1">Than industry average</div>
-            </div>
-          </div>
-        </div>
+        
 
         {/* CTA */}
         <div className="text-center">
