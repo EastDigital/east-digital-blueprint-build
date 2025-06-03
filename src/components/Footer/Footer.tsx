@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Phone, ArrowUp } from 'lucide-react';
-
 const Footer = () => {
   const navigate = useNavigate();
   const scrollToTop = () => {
@@ -123,20 +122,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-800">
           <div className="flex items-center space-x-8 mb-6 md:mb-0">
-            <button onClick={() => handleNavigation('/')} className="flex items-center cursor-pointer">
-              <img src="https://eastdigital.in/web-images/logo-east-digital-india" alt="East Digital Logo" className="h-8 w-auto mr-3" onError={e => {
-              e.currentTarget.style.display = 'none';
-              const fallbackElement = e.currentTarget.nextElementSibling as HTMLElement;
-              if (fallbackElement) {
-                fallbackElement.style.display = 'flex';
-              }
-            }} />
-              <div className="w-8 h-8 rounded-full border-2 border-eastdigital-orange mr-3" style={{
-              display: 'none'
-            }}>
-                <div className="w-full h-full rounded-full bg-gradient-to-br from-eastdigital-orange to-orange-600"></div>
-              </div>
-            </button>
+            
             
             <nav className="hidden md:flex space-x-6">
               <button onClick={() => handleNavigation('/')} className="text-gray-400 hover:text-white transition-colors cursor-pointer">Home</button>
@@ -181,5 +167,4 @@ const Footer = () => {
       </div>
     </footer>;
 };
-
 export default Footer;
