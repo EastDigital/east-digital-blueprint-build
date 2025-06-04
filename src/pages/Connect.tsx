@@ -131,9 +131,9 @@ const Connect = () => {
                     <div>
                       <h4 className="text-white font-semibold mb-1">Office</h4>
                       <p className="text-eastdigital-lightgray">
-                        East Digital India Pvt. Ltd.<br />
-                        123 Business Hub, Tech Park<br />
-                        Bangalore, Karnataka 560001
+                        2nd Floor, JSV Hyundai Building, <br />
+                        Near Engineering College,<br />
+                        Lucknow, Uttar Pradesh, INDIA - 226021
                       </p>
                     </div>
                   </div>
@@ -143,7 +143,7 @@ const Connect = () => {
                     <div>
                       <h4 className="text-white font-semibold mb-1">Business Hours</h4>
                       <p className="text-eastdigital-lightgray">
-                        Monday - Friday: 9:00 AM - 6:00 PM<br />
+                        Monday - Saturday: 9:00 AM - 6:00 PM<br />
                         Saturday: 10:00 AM - 4:00 PM<br />
                         Sunday: Closed
                       </p>
