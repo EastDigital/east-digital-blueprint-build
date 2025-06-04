@@ -144,7 +144,6 @@ const Connect = () => {
                       <h4 className="text-white font-semibold mb-1">Business Hours</h4>
                       <p className="text-eastdigital-lightgray">
                         Monday - Saturday: 9:00 AM - 6:00 PM<br />
-                        Saturday: 10:00 AM - 4:00 PM<br />
                         Sunday: Closed
                       </p>
                     </div>
