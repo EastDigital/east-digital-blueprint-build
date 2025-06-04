@@ -52,7 +52,7 @@ const Connect = () => {
 
         <div style={{
         backgroundColor: '#141414'
-      }} className="container mx-auto px-4 pb-16 bg-slate-950">
+      }} className="container mx-auto px-4 pb-16 bg-black">
           <div className="grid lg:grid-cols-2 gap-12 py-[44px]">
             {/* Contact Form */}
             <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8">
