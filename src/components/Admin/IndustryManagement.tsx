@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Building2, Plus, Edit, Trash2, Search, Copy, GripVertical, Eye, EyeOff } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -11,57 +10,67 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useIndustryManagement, Industry } from '@/hooks/useIndustryManagement';
-
 const ICON_OPTIONS = ['Building2', 'HardHat', 'Ruler', 'Briefcase', 'Factory', 'Home', 'Wrench', 'Laptop'];
-const COLOR_OPTIONS = [
-  { value: 'blue', label: 'Blue', class: 'bg-blue-500' },
-  { value: 'orange', label: 'Orange', class: 'bg-orange-500' },
-  { value: 'purple', label: 'Purple', class: 'bg-purple-500' },
-  { value: 'emerald', label: 'Emerald', class: 'bg-emerald-500' },
-  { value: 'red', label: 'Red', class: 'bg-red-500' },
-  { value: 'yellow', label: 'Yellow', class: 'bg-yellow-500' },
-  { value: 'green', label: 'Green', class: 'bg-green-500' },
-  { value: 'pink', label: 'Pink', class: 'bg-pink-500' },
-];
+const COLOR_OPTIONS = [{
+  value: 'blue',
+  label: 'Blue',
+  class: 'bg-blue-500'
+}, {
+  value: 'orange',
+  label: 'Orange',
+  class: 'bg-orange-500'
+}, {
+  value: 'purple',
+  label: 'Purple',
+  class: 'bg-purple-500'
+}, {
+  value: 'emerald',
+  label: 'Emerald',
+  class: 'bg-emerald-500'
+}, {
+  value: 'red',
+  label: 'Red',
+  class: 'bg-red-500'
+}, {
+  value: 'yellow',
+  label: 'Yellow',
+  class: 'bg-yellow-500'
+}, {
+  value: 'green',
+  label: 'Green',
+  class: 'bg-green-500'
+}, {
+  value: 'pink',
+  label: 'Pink',
+  class: 'bg-pink-500'
+}];
 
 // Custom Toggle Switch Component with better styling
-const CustomToggle = ({ 
-  checked, 
-  onCheckedChange, 
-  id, 
-  label 
-}: { 
-  checked: boolean; 
-  onCheckedChange: (checked: boolean) => void; 
-  id: string; 
-  label: string; 
-}) => (
-  <div className="flex items-center space-x-3" onClick={(e) => e.stopPropagation()}>
-    <button
-      type="button"
-      onClick={() => onCheckedChange(!checked)}
-      className={`
+const CustomToggle = ({
+  checked,
+  onCheckedChange,
+  id,
+  label
+}: {
+  checked: boolean;
+  onCheckedChange: (checked: boolean) => void;
+  id: string;
+  label: string;
+}) => <div className="flex items-center space-x-3" onClick={e => e.stopPropagation()}>
+    <button type="button" onClick={() => onCheckedChange(!checked)} className={`
         relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 ease-in-out
-        ${checked 
-          ? 'bg-gradient-to-r from-eastdigital-orange to-orange-500 shadow-lg shadow-orange-500/30' 
-          : 'bg-gray-600 shadow-inner'
-        }
+        ${checked ? 'bg-gradient-to-r from-eastdigital-orange to-orange-500 shadow-lg shadow-orange-500/30' : 'bg-gray-600 shadow-inner'}
         hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-eastdigital-orange focus:ring-offset-2 focus:ring-offset-gray-900
-      `}
-    >
-      <span
-        className={`
+      `}>
+      <span className={`
           inline-block h-4 w-4 transform rounded-full bg-white transition-all duration-300 ease-in-out shadow-md
           ${checked ? 'translate-x-6 shadow-lg' : 'translate-x-1'}
-        `}
-      />
+        `} />
     </button>
     <Label htmlFor={id} className="text-white cursor-pointer select-none">
       {label}
     </Label>
-  </div>
-);
-
+  </div>;
 export const IndustryManagement = () => {
   const {
     industries,
@@ -71,9 +80,8 @@ export const IndustryManagement = () => {
     addIndustry,
     updateIndustry,
     deleteIndustry,
-    duplicateIndustry,
+    duplicateIndustry
   } = useIndustryManagement();
-
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingIndustry, setEditingIndustry] = useState<Industry | null>(null);
@@ -96,15 +104,14 @@ export const IndustryManagement = () => {
     show_metric_label: true,
     projects_count_label: 'Projects',
     metric_display_label: 'Metric',
-    metric_label_display_label: 'Label',
+    metric_label_display_label: 'Label'
   });
-
   const handleAddIndustry = async () => {
     try {
       const maxOrder = Math.max(...industries.map(i => i.display_order), 0);
       await addIndustry({
         ...newIndustry,
-        display_order: maxOrder + 1,
+        display_order: maxOrder + 1
       });
       setNewIndustry({
         title: '',
@@ -125,17 +132,15 @@ export const IndustryManagement = () => {
         show_metric_label: true,
         projects_count_label: 'Projects',
         metric_display_label: 'Metric',
-        metric_label_display_label: 'Label',
+        metric_label_display_label: 'Label'
       });
       setIsAddDialogOpen(false);
     } catch (error) {
       // Error is handled in the hook
     }
   };
-
   const handleEditIndustry = async () => {
     if (!editingIndustry) return;
-    
     try {
       await updateIndustry(editingIndustry.id, editingIndustry);
       setIsEditDialogOpen(false);
@@ -144,7 +149,6 @@ export const IndustryManagement = () => {
       // Error is handled in the hook
     }
   };
-
   const handleDuplicateIndustry = async (industry: Industry) => {
     try {
       await duplicateIndustry(industry);
@@ -152,7 +156,6 @@ export const IndustryManagement = () => {
       // Error is handled in the hook
     }
   };
-
   const handleDeleteIndustry = async (id: string) => {
     try {
       await deleteIndustry(id);
@@ -160,299 +163,221 @@ export const IndustryManagement = () => {
       // Error is handled in the hook
     }
   };
-
   const openEditDialog = (industry: Industry) => {
-    setEditingIndustry({ ...industry });
+    setEditingIndustry({
+      ...industry
+    });
     setIsEditDialogOpen(true);
   };
-
-  const IndustryForm = ({ 
-    industry, 
-    onIndustryChange, 
-    onSubmit, 
-    submitLabel 
+  const IndustryForm = ({
+    industry,
+    onIndustryChange,
+    onSubmit,
+    submitLabel
   }: {
     industry: any;
     onIndustryChange: (updates: any) => void;
     onSubmit: () => void;
     submitLabel: string;
-  }) => (
-    <Tabs defaultValue="basic" className="w-full">
+  }) => <Tabs defaultValue="basic" className="w-full">
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="basic">Basic Info</TabsTrigger>
-        <TabsTrigger value="visual">Visual & Metrics</TabsTrigger>
+        <TabsTrigger value="visual" className="text-gray-400">Visual & Metrics</TabsTrigger>
         <TabsTrigger value="advanced">Advanced</TabsTrigger>
       </TabsList>
       
       <div className="max-h-[60vh] overflow-y-auto mt-4">
         <TabsContent value="basic" className="space-y-4">
-          <div className="grid grid-cols-2 gap-4" onClick={(e) => e.stopPropagation()}>
+          <div className="grid grid-cols-2 gap-4" onClick={e => e.stopPropagation()}>
             <div>
               <Label htmlFor="title">Title *</Label>
-              <Input
-                id="title"
-                value={industry.title}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  onIndustryChange({ ...industry, title: e.target.value });
-                }}
-                onClick={(e) => e.stopPropagation()}
-                className="bg-gray-800 border-gray-700 text-white"
-                placeholder="Industry Title"
-              />
+              <Input id="title" value={industry.title} onChange={e => {
+              e.stopPropagation();
+              onIndustryChange({
+                ...industry,
+                title: e.target.value
+              });
+            }} onClick={e => e.stopPropagation()} className="bg-gray-800 border-gray-700 text-white" placeholder="Industry Title" />
             </div>
             <div>
               <Label htmlFor="subtitle">Subtitle</Label>
-              <Input
-                id="subtitle"
-                value={industry.subtitle || ''}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  onIndustryChange({ ...industry, subtitle: e.target.value });
-                }}
-                onClick={(e) => e.stopPropagation()}
-                className="bg-gray-800 border-gray-700 text-white"
-                placeholder="Industry Subtitle"
-              />
+              <Input id="subtitle" value={industry.subtitle || ''} onChange={e => {
+              e.stopPropagation();
+              onIndustryChange({
+                ...industry,
+                subtitle: e.target.value
+              });
+            }} onClick={e => e.stopPropagation()} className="bg-gray-800 border-gray-700 text-white" placeholder="Industry Subtitle" />
             </div>
           </div>
 
-          <div onClick={(e) => e.stopPropagation()}>
+          <div onClick={e => e.stopPropagation()}>
             <Label htmlFor="description">Description</Label>
-            <textarea
-              id="description"
-              value={industry.description || ''}
-              onChange={(e) => {
-                e.stopPropagation();
-                onIndustryChange({ ...industry, description: e.target.value });
-              }}
-              onClick={(e) => e.stopPropagation()}
-              className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-              rows={3}
-              placeholder="Industry Description"
-            />
+            <textarea id="description" value={industry.description || ''} onChange={e => {
+            e.stopPropagation();
+            onIndustryChange({
+              ...industry,
+              description: e.target.value
+            });
+          }} onClick={e => e.stopPropagation()} className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white" rows={3} placeholder="Industry Description" />
           </div>
 
-          <div onClick={(e) => e.stopPropagation()}>
-            <CustomToggle
-              checked={industry.is_active}
-              onCheckedChange={(checked) => onIndustryChange({ ...industry, is_active: checked })}
-              id="is_active"
-              label="Active"
-            />
+          <div onClick={e => e.stopPropagation()}>
+            <CustomToggle checked={industry.is_active} onCheckedChange={checked => onIndustryChange({
+            ...industry,
+            is_active: checked
+          })} id="is_active" label="Active" />
           </div>
         </TabsContent>
 
         <TabsContent value="visual" className="space-y-4">
-          <div className="grid grid-cols-2 gap-4" onClick={(e) => e.stopPropagation()}>
+          <div className="grid grid-cols-2 gap-4" onClick={e => e.stopPropagation()}>
             <div>
               <Label htmlFor="icon">Icon</Label>
-              <select
-                id="icon"
-                value={industry.icon_name}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  onIndustryChange({ ...industry, icon_name: e.target.value });
-                }}
-                onClick={(e) => e.stopPropagation()}
-                className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-              >
-                {ICON_OPTIONS.map(icon => (
-                  <option key={icon} value={icon}>{icon}</option>
-                ))}
+              <select id="icon" value={industry.icon_name} onChange={e => {
+              e.stopPropagation();
+              onIndustryChange({
+                ...industry,
+                icon_name: e.target.value
+              });
+            }} onClick={e => e.stopPropagation()} className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white">
+                {ICON_OPTIONS.map(icon => <option key={icon} value={icon}>{icon}</option>)}
               </select>
             </div>
             <div>
               <Label htmlFor="custom_icon_url">Custom Icon URL</Label>
-              <Input
-                id="custom_icon_url"
-                value={industry.custom_icon_url || ''}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  onIndustryChange({ ...industry, custom_icon_url: e.target.value });
-                }}
-                onClick={(e) => e.stopPropagation()}
-                className="bg-gray-800 border-gray-700 text-white"
-                placeholder="https://example.com/icon.svg"
-              />
+              <Input id="custom_icon_url" value={industry.custom_icon_url || ''} onChange={e => {
+              e.stopPropagation();
+              onIndustryChange({
+                ...industry,
+                custom_icon_url: e.target.value
+              });
+            }} onClick={e => e.stopPropagation()} className="bg-gray-800 border-gray-700 text-white" placeholder="https://example.com/icon.svg" />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4" onClick={(e) => e.stopPropagation()}>
+          <div className="grid grid-cols-2 gap-4" onClick={e => e.stopPropagation()}>
             <div>
               <Label htmlFor="color">Color</Label>
-              <select
-                id="color"
-                value={industry.color}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  onIndustryChange({ ...industry, color: e.target.value });
-                }}
-                onClick={(e) => e.stopPropagation()}
-                className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-              >
-                {COLOR_OPTIONS.map(color => (
-                  <option key={color.value} value={color.value}>{color.label}</option>
-                ))}
+              <select id="color" value={industry.color} onChange={e => {
+              e.stopPropagation();
+              onIndustryChange({
+                ...industry,
+                color: e.target.value
+              });
+            }} onClick={e => e.stopPropagation()} className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white">
+                {COLOR_OPTIONS.map(color => <option key={color.value} value={color.value}>{color.label}</option>)}
               </select>
             </div>
             <div>
               <Label htmlFor="custom_color">Custom Color (Hex)</Label>
-              <Input
-                id="custom_color"
-                value={industry.custom_color || ''}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  onIndustryChange({ ...industry, custom_color: e.target.value });
-                }}
-                onClick={(e) => e.stopPropagation()}
-                className="bg-gray-800 border-gray-700 text-white"
-                placeholder="#ff6b35"
-              />
+              <Input id="custom_color" value={industry.custom_color || ''} onChange={e => {
+              e.stopPropagation();
+              onIndustryChange({
+                ...industry,
+                custom_color: e.target.value
+              });
+            }} onClick={e => e.stopPropagation()} className="bg-gray-800 border-gray-700 text-white" placeholder="#ff6b35" />
             </div>
           </div>
 
-          <div className="space-y-6" onClick={(e) => e.stopPropagation()}>
-            <CustomToggle
-              checked={industry.show_projects_count}
-              onCheckedChange={(checked) => onIndustryChange({ ...industry, show_projects_count: checked })}
-              id="show_projects_count"
-              label="Show Projects Count"
-            />
+          <div className="space-y-6" onClick={e => e.stopPropagation()}>
+            <CustomToggle checked={industry.show_projects_count} onCheckedChange={checked => onIndustryChange({
+            ...industry,
+            show_projects_count: checked
+          })} id="show_projects_count" label="Show Projects Count" />
 
-            {industry.show_projects_count && (
-              <div className="grid grid-cols-2 gap-4 ml-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+            {industry.show_projects_count && <div className="grid grid-cols-2 gap-4 ml-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
                 <div>
                   <Label htmlFor="projects_count">Projects Count</Label>
-                  <Input
-                    id="projects_count"
-                    value={industry.projects_count || ''}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      onIndustryChange({ ...industry, projects_count: e.target.value });
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                    className="bg-gray-800 border-gray-700 text-white"
-                    placeholder="45+"
-                  />
+                  <Input id="projects_count" value={industry.projects_count || ''} onChange={e => {
+                e.stopPropagation();
+                onIndustryChange({
+                  ...industry,
+                  projects_count: e.target.value
+                });
+              }} onClick={e => e.stopPropagation()} className="bg-gray-800 border-gray-700 text-white" placeholder="45+" />
                 </div>
                 <div>
                   <Label htmlFor="projects_count_label">Label</Label>
-                  <Input
-                    id="projects_count_label"
-                    value={industry.projects_count_label || ''}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      onIndustryChange({ ...industry, projects_count_label: e.target.value });
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                    className="bg-gray-800 border-gray-700 text-white"
-                    placeholder="Projects"
-                  />
+                  <Input id="projects_count_label" value={industry.projects_count_label || ''} onChange={e => {
+                e.stopPropagation();
+                onIndustryChange({
+                  ...industry,
+                  projects_count_label: e.target.value
+                });
+              }} onClick={e => e.stopPropagation()} className="bg-gray-800 border-gray-700 text-white" placeholder="Projects" />
                 </div>
-              </div>
-            )}
+              </div>}
 
-            <CustomToggle
-              checked={industry.show_metric}
-              onCheckedChange={(checked) => onIndustryChange({ ...industry, show_metric: checked })}
-              id="show_metric"
-              label="Show Metric"
-            />
+            <CustomToggle checked={industry.show_metric} onCheckedChange={checked => onIndustryChange({
+            ...industry,
+            show_metric: checked
+          })} id="show_metric" label="Show Metric" />
 
-            {industry.show_metric && (
-              <div className="grid grid-cols-2 gap-4 ml-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+            {industry.show_metric && <div className="grid grid-cols-2 gap-4 ml-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
                 <div>
                   <Label htmlFor="metric">Metric</Label>
-                  <Input
-                    id="metric"
-                    value={industry.metric || ''}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      onIndustryChange({ ...industry, metric: e.target.value });
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                    className="bg-gray-800 border-gray-700 text-white"
-                    placeholder="285%"
-                  />
+                  <Input id="metric" value={industry.metric || ''} onChange={e => {
+                e.stopPropagation();
+                onIndustryChange({
+                  ...industry,
+                  metric: e.target.value
+                });
+              }} onClick={e => e.stopPropagation()} className="bg-gray-800 border-gray-700 text-white" placeholder="285%" />
                 </div>
                 <div>
                   <Label htmlFor="metric_display_label">Display Label</Label>
-                  <Input
-                    id="metric_display_label"
-                    value={industry.metric_display_label || ''}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      onIndustryChange({ ...industry, metric_display_label: e.target.value });
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                    className="bg-gray-800 border-gray-700 text-white"
-                    placeholder="Metric"
-                  />
+                  <Input id="metric_display_label" value={industry.metric_display_label || ''} onChange={e => {
+                e.stopPropagation();
+                onIndustryChange({
+                  ...industry,
+                  metric_display_label: e.target.value
+                });
+              }} onClick={e => e.stopPropagation()} className="bg-gray-800 border-gray-700 text-white" placeholder="Metric" />
                 </div>
-              </div>
-            )}
+              </div>}
 
-            <CustomToggle
-              checked={industry.show_metric_label}
-              onCheckedChange={(checked) => onIndustryChange({ ...industry, show_metric_label: checked })}
-              id="show_metric_label"
-              label="Show Metric Label"
-            />
+            <CustomToggle checked={industry.show_metric_label} onCheckedChange={checked => onIndustryChange({
+            ...industry,
+            show_metric_label: checked
+          })} id="show_metric_label" label="Show Metric Label" />
 
-            {industry.show_metric_label && (
-              <div className="grid grid-cols-2 gap-4 ml-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+            {industry.show_metric_label && <div className="grid grid-cols-2 gap-4 ml-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
                 <div>
                   <Label htmlFor="metric_label">Metric Label</Label>
-                  <Input
-                    id="metric_label"
-                    value={industry.metric_label || ''}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      onIndustryChange({ ...industry, metric_label: e.target.value });
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                    className="bg-gray-800 border-gray-700 text-white"
-                    placeholder="Engagement Increase"
-                  />
+                  <Input id="metric_label" value={industry.metric_label || ''} onChange={e => {
+                e.stopPropagation();
+                onIndustryChange({
+                  ...industry,
+                  metric_label: e.target.value
+                });
+              }} onClick={e => e.stopPropagation()} className="bg-gray-800 border-gray-700 text-white" placeholder="Engagement Increase" />
                 </div>
                 <div>
                   <Label htmlFor="metric_label_display_label">Display Label</Label>
-                  <Input
-                    id="metric_label_display_label"
-                    value={industry.metric_label_display_label || ''}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      onIndustryChange({ ...industry, metric_label_display_label: e.target.value });
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                    className="bg-gray-800 border-gray-700 text-white"
-                    placeholder="Label"
-                  />
+                  <Input id="metric_label_display_label" value={industry.metric_label_display_label || ''} onChange={e => {
+                e.stopPropagation();
+                onIndustryChange({
+                  ...industry,
+                  metric_label_display_label: e.target.value
+                });
+              }} onClick={e => e.stopPropagation()} className="bg-gray-800 border-gray-700 text-white" placeholder="Label" />
                 </div>
-              </div>
-            )}
+              </div>}
           </div>
         </TabsContent>
 
         <TabsContent value="advanced" className="space-y-4">
-          <div onClick={(e) => e.stopPropagation()}>
+          <div onClick={e => e.stopPropagation()}>
             <Label htmlFor="images">Images (URLs, one per line)</Label>
-            <textarea
-              id="images"
-              value={industry.images?.join('\n') || ''}
-              onChange={(e) => {
-                e.stopPropagation();
-                onIndustryChange({ 
-                  ...industry, 
-                  images: e.target.value.split('\n').filter(url => url.trim() !== '') 
-                });
-              }}
-              onClick={(e) => e.stopPropagation()}
-              className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-              rows={5}
-              placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
-            />
+            <textarea id="images" value={industry.images?.join('\n') || ''} onChange={e => {
+            e.stopPropagation();
+            onIndustryChange({
+              ...industry,
+              images: e.target.value.split('\n').filter(url => url.trim() !== '')
+            });
+          }} onClick={e => e.stopPropagation()} className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white" rows={5} placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg" />
           </div>
         </TabsContent>
       </div>
@@ -460,15 +385,11 @@ export const IndustryManagement = () => {
       <Button onClick={onSubmit} className="w-full bg-eastdigital-orange hover:bg-eastdigital-orange/90 mt-4">
         {submitLabel}
       </Button>
-    </Tabs>
-  );
-
+    </Tabs>;
   if (loading) {
     return <div className="text-white">Loading industries...</div>;
   }
-
-  return (
-    <div className="space-y-6">
+  return <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Building2 className="h-6 w-6 text-eastdigital-orange" />
@@ -485,12 +406,7 @@ export const IndustryManagement = () => {
             <DialogHeader>
               <DialogTitle>Add New Industry</DialogTitle>
             </DialogHeader>
-            <IndustryForm
-              industry={newIndustry}
-              onIndustryChange={setNewIndustry}
-              onSubmit={handleAddIndustry}
-              submitLabel="Add Industry"
-            />
+            <IndustryForm industry={newIndustry} onIndustryChange={setNewIndustry} onSubmit={handleAddIndustry} submitLabel="Add Industry" />
           </DialogContent>
         </Dialog>
       </div>
@@ -501,25 +417,13 @@ export const IndustryManagement = () => {
           <DialogHeader>
             <DialogTitle>Edit Industry</DialogTitle>
           </DialogHeader>
-          {editingIndustry && (
-            <IndustryForm
-              industry={editingIndustry}
-              onIndustryChange={setEditingIndustry}
-              onSubmit={handleEditIndustry}
-              submitLabel="Update Industry"
-            />
-          )}
+          {editingIndustry && <IndustryForm industry={editingIndustry} onIndustryChange={setEditingIndustry} onSubmit={handleEditIndustry} submitLabel="Update Industry" />}
         </DialogContent>
       </Dialog>
 
       <div className="flex items-center space-x-2">
         <Search className="h-4 w-4 text-gray-400" />
-        <Input
-          placeholder="Search industries..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="bg-gray-800 border-gray-700 text-white"
-        />
+        <Input placeholder="Search industries..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="bg-gray-800 border-gray-700 text-white" />
       </div>
 
       <div className="bg-gray-900 rounded-lg border border-gray-800">
@@ -536,8 +440,7 @@ export const IndustryManagement = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {industries.map((industry) => (
-              <TableRow key={industry.id}>
+            {industries.map(industry => <TableRow key={industry.id}>
                 <TableCell className="text-white">
                   <div className="flex items-center">
                     <GripVertical className="h-4 w-4 text-gray-400 mr-2" />
@@ -547,48 +450,35 @@ export const IndustryManagement = () => {
                 <TableCell>
                   <div>
                     <div className="text-white font-medium">{industry.title}</div>
-                    {industry.subtitle && (
-                      <div className="text-gray-400 text-sm">{industry.subtitle}</div>
-                    )}
+                    {industry.subtitle && <div className="text-gray-400 text-sm">{industry.subtitle}</div>}
                   </div>
                 </TableCell>
                 <TableCell className="text-gray-300">
-                  {industry.custom_icon_url ? (
-                    <div className="flex items-center space-x-2">
+                  {industry.custom_icon_url ? <div className="flex items-center space-x-2">
                       <span className="text-xs text-blue-400">Custom</span>
-                    </div>
-                  ) : (
-                    industry.icon_name
-                  )}
+                    </div> : industry.icon_name}
                 </TableCell>
                 <TableCell>
-                  <Badge className={`${industry.custom_color ? 'text-white' : COLOR_OPTIONS.find(c => c.value === industry.color)?.class} text-white`} 
-                         style={industry.custom_color ? { backgroundColor: industry.custom_color } : {}}>
+                  <Badge className={`${industry.custom_color ? 'text-white' : COLOR_OPTIONS.find(c => c.value === industry.color)?.class} text-white`} style={industry.custom_color ? {
+                backgroundColor: industry.custom_color
+              } : {}}>
                     {industry.custom_color || industry.color}
                   </Badge>
                 </TableCell>
                 <TableCell>
                   <div className="flex space-x-1">
-                    {industry.show_projects_count && (
-                      <span title="Projects Count Visible">
+                    {industry.show_projects_count && <span title="Projects Count Visible">
                         <Eye className="h-3 w-3 text-green-400" />
-                      </span>
-                    )}
-                    {industry.show_metric && (
-                      <span title="Metric Visible">
+                      </span>}
+                    {industry.show_metric && <span title="Metric Visible">
                         <Eye className="h-3 w-3 text-blue-400" />
-                      </span>
-                    )}
-                    {industry.show_metric_label && (
-                      <span title="Metric Label Visible">
+                      </span>}
+                    {industry.show_metric_label && <span title="Metric Label Visible">
                         <Eye className="h-3 w-3 text-purple-400" />
-                      </span>
-                    )}
-                    {!industry.show_projects_count && !industry.show_metric && !industry.show_metric_label && (
-                      <span title="All Hidden">
+                      </span>}
+                    {!industry.show_projects_count && !industry.show_metric && !industry.show_metric_label && <span title="All Hidden">
                         <EyeOff className="h-3 w-3 text-gray-400" />
-                      </span>
-                    )}
+                      </span>}
                   </div>
                 </TableCell>
                 <TableCell>
@@ -598,29 +488,15 @@ export const IndustryManagement = () => {
                 </TableCell>
                 <TableCell>
                   <div className="flex space-x-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => openEditDialog(industry)}
-                      className="border-gray-700 text-gray-300"
-                    >
+                    <Button variant="outline" size="sm" onClick={() => openEditDialog(industry)} className="border-gray-700 text-gray-300">
                       <Edit className="h-3 w-3" />
                     </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => handleDuplicateIndustry(industry)}
-                      className="border-blue-700 text-blue-400 hover:bg-blue-900"
-                    >
+                    <Button variant="outline" size="sm" onClick={() => handleDuplicateIndustry(industry)} className="border-blue-700 text-blue-400 hover:bg-blue-900">
                       <Copy className="h-3 w-3" />
                     </Button>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="border-red-700 text-red-400 hover:bg-red-900"
-                        >
+                        <Button variant="outline" size="sm" className="border-red-700 text-red-400 hover:bg-red-900">
                           <Trash2 className="h-3 w-3" />
                         </Button>
                       </AlertDialogTrigger>
@@ -635,10 +511,7 @@ export const IndustryManagement = () => {
                           <AlertDialogCancel className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700">
                             Cancel
                           </AlertDialogCancel>
-                          <AlertDialogAction 
-                            onClick={() => handleDeleteIndustry(industry.id)}
-                            className="bg-red-600 hover:bg-red-700"
-                          >
+                          <AlertDialogAction onClick={() => handleDeleteIndustry(industry.id)} className="bg-red-600 hover:bg-red-700">
                             Delete
                           </AlertDialogAction>
                         </AlertDialogFooter>
@@ -646,11 +519,9 @@ export const IndustryManagement = () => {
                     </AlertDialog>
                   </div>
                 </TableCell>
-              </TableRow>
-            ))}
+              </TableRow>)}
           </TableBody>
         </Table>
       </div>
-    </div>
-  );
+    </div>;
 };
