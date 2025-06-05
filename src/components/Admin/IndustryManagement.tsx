@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Building2, Plus, Edit, Trash2, Search, Copy, GripVertical, Eye, EyeOff } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -480,11 +481,25 @@ export const IndustryManagement = () => {
                 </TableCell>
                 <TableCell>
                   <div className="flex space-x-1">
-                    {industry.show_projects_count && <Eye className="h-3 w-3 text-green-400" title="Projects Count Visible" />}
-                    {industry.show_metric && <Eye className="h-3 w-3 text-blue-400" title="Metric Visible" />}
-                    {industry.show_metric_label && <Eye className="h-3 w-3 text-purple-400" title="Metric Label Visible" />}
+                    {industry.show_projects_count && (
+                      <span title="Projects Count Visible">
+                        <Eye className="h-3 w-3 text-green-400" />
+                      </span>
+                    )}
+                    {industry.show_metric && (
+                      <span title="Metric Visible">
+                        <Eye className="h-3 w-3 text-blue-400" />
+                      </span>
+                    )}
+                    {industry.show_metric_label && (
+                      <span title="Metric Label Visible">
+                        <Eye className="h-3 w-3 text-purple-400" />
+                      </span>
+                    )}
                     {!industry.show_projects_count && !industry.show_metric && !industry.show_metric_label && (
-                      <EyeOff className="h-3 w-3 text-gray-400" title="All Hidden" />
+                      <span title="All Hidden">
+                        <EyeOff className="h-3 w-3 text-gray-400" />
+                      </span>
                     )}
                   </div>
                 </TableCell>
