@@ -24,6 +24,44 @@ const COLOR_OPTIONS = [
   { value: 'pink', label: 'Pink', class: 'bg-pink-500' },
 ];
 
+// Custom Toggle Switch Component with better styling
+const CustomToggle = ({ 
+  checked, 
+  onCheckedChange, 
+  id, 
+  label 
+}: { 
+  checked: boolean; 
+  onCheckedChange: (checked: boolean) => void; 
+  id: string; 
+  label: string; 
+}) => (
+  <div className="flex items-center space-x-3" onClick={(e) => e.stopPropagation()}>
+    <button
+      type="button"
+      onClick={() => onCheckedChange(!checked)}
+      className={`
+        relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 ease-in-out
+        ${checked 
+          ? 'bg-gradient-to-r from-eastdigital-orange to-orange-500 shadow-lg shadow-orange-500/30' 
+          : 'bg-gray-600 shadow-inner'
+        }
+        hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-eastdigital-orange focus:ring-offset-2 focus:ring-offset-gray-900
+      `}
+    >
+      <span
+        className={`
+          inline-block h-4 w-4 transform rounded-full bg-white transition-all duration-300 ease-in-out shadow-md
+          ${checked ? 'translate-x-6 shadow-lg' : 'translate-x-1'}
+        `}
+      />
+    </button>
+    <Label htmlFor={id} className="text-white cursor-pointer select-none">
+      {label}
+    </Label>
+  </div>
+);
+
 export const IndustryManagement = () => {
   const {
     industries,
@@ -148,13 +186,17 @@ export const IndustryManagement = () => {
       
       <div className="max-h-[60vh] overflow-y-auto mt-4">
         <TabsContent value="basic" className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4" onClick={(e) => e.stopPropagation()}>
             <div>
               <Label htmlFor="title">Title *</Label>
               <Input
                 id="title"
                 value={industry.title}
-                onChange={(e) => onIndustryChange({ ...industry, title: e.target.value })}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  onIndustryChange({ ...industry, title: e.target.value });
+                }}
+                onClick={(e) => e.stopPropagation()}
                 className="bg-gray-800 border-gray-700 text-white"
                 placeholder="Industry Title"
               />
@@ -164,43 +206,55 @@ export const IndustryManagement = () => {
               <Input
                 id="subtitle"
                 value={industry.subtitle || ''}
-                onChange={(e) => onIndustryChange({ ...industry, subtitle: e.target.value })}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  onIndustryChange({ ...industry, subtitle: e.target.value });
+                }}
+                onClick={(e) => e.stopPropagation()}
                 className="bg-gray-800 border-gray-700 text-white"
                 placeholder="Industry Subtitle"
               />
             </div>
           </div>
 
-          <div>
+          <div onClick={(e) => e.stopPropagation()}>
             <Label htmlFor="description">Description</Label>
             <textarea
               id="description"
               value={industry.description || ''}
-              onChange={(e) => onIndustryChange({ ...industry, description: e.target.value })}
+              onChange={(e) => {
+                e.stopPropagation();
+                onIndustryChange({ ...industry, description: e.target.value });
+              }}
+              onClick={(e) => e.stopPropagation()}
               className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
               rows={3}
               placeholder="Industry Description"
             />
           </div>
 
-          <div className="flex items-center space-x-2">
-            <Switch
-              id="is_active"
+          <div onClick={(e) => e.stopPropagation()}>
+            <CustomToggle
               checked={industry.is_active}
               onCheckedChange={(checked) => onIndustryChange({ ...industry, is_active: checked })}
+              id="is_active"
+              label="Active"
             />
-            <Label htmlFor="is_active">Active</Label>
           </div>
         </TabsContent>
 
         <TabsContent value="visual" className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4" onClick={(e) => e.stopPropagation()}>
             <div>
               <Label htmlFor="icon">Icon</Label>
               <select
                 id="icon"
                 value={industry.icon_name}
-                onChange={(e) => onIndustryChange({ ...industry, icon_name: e.target.value })}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  onIndustryChange({ ...industry, icon_name: e.target.value });
+                }}
+                onClick={(e) => e.stopPropagation()}
                 className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
               >
                 {ICON_OPTIONS.map(icon => (
@@ -213,20 +267,28 @@ export const IndustryManagement = () => {
               <Input
                 id="custom_icon_url"
                 value={industry.custom_icon_url || ''}
-                onChange={(e) => onIndustryChange({ ...industry, custom_icon_url: e.target.value })}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  onIndustryChange({ ...industry, custom_icon_url: e.target.value });
+                }}
+                onClick={(e) => e.stopPropagation()}
                 className="bg-gray-800 border-gray-700 text-white"
                 placeholder="https://example.com/icon.svg"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4" onClick={(e) => e.stopPropagation()}>
             <div>
               <Label htmlFor="color">Color</Label>
               <select
                 id="color"
                 value={industry.color}
-                onChange={(e) => onIndustryChange({ ...industry, color: e.target.value })}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  onIndustryChange({ ...industry, color: e.target.value });
+                }}
+                onClick={(e) => e.stopPropagation()}
                 className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
               >
                 {COLOR_OPTIONS.map(color => (
@@ -239,31 +301,37 @@ export const IndustryManagement = () => {
               <Input
                 id="custom_color"
                 value={industry.custom_color || ''}
-                onChange={(e) => onIndustryChange({ ...industry, custom_color: e.target.value })}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  onIndustryChange({ ...industry, custom_color: e.target.value });
+                }}
+                onClick={(e) => e.stopPropagation()}
                 className="bg-gray-800 border-gray-700 text-white"
                 placeholder="#ff6b35"
               />
             </div>
           </div>
 
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="show_projects_count"
-                checked={industry.show_projects_count}
-                onCheckedChange={(checked) => onIndustryChange({ ...industry, show_projects_count: checked })}
-              />
-              <Label htmlFor="show_projects_count">Show Projects Count</Label>
-            </div>
+          <div className="space-y-6" onClick={(e) => e.stopPropagation()}>
+            <CustomToggle
+              checked={industry.show_projects_count}
+              onCheckedChange={(checked) => onIndustryChange({ ...industry, show_projects_count: checked })}
+              id="show_projects_count"
+              label="Show Projects Count"
+            />
 
             {industry.show_projects_count && (
-              <div className="grid grid-cols-2 gap-4 ml-6">
+              <div className="grid grid-cols-2 gap-4 ml-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
                 <div>
                   <Label htmlFor="projects_count">Projects Count</Label>
                   <Input
                     id="projects_count"
                     value={industry.projects_count || ''}
-                    onChange={(e) => onIndustryChange({ ...industry, projects_count: e.target.value })}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      onIndustryChange({ ...industry, projects_count: e.target.value });
+                    }}
+                    onClick={(e) => e.stopPropagation()}
                     className="bg-gray-800 border-gray-700 text-white"
                     placeholder="45+"
                   />
@@ -273,7 +341,11 @@ export const IndustryManagement = () => {
                   <Input
                     id="projects_count_label"
                     value={industry.projects_count_label || ''}
-                    onChange={(e) => onIndustryChange({ ...industry, projects_count_label: e.target.value })}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      onIndustryChange({ ...industry, projects_count_label: e.target.value });
+                    }}
+                    onClick={(e) => e.stopPropagation()}
                     className="bg-gray-800 border-gray-700 text-white"
                     placeholder="Projects"
                   />
@@ -281,23 +353,25 @@ export const IndustryManagement = () => {
               </div>
             )}
 
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="show_metric"
-                checked={industry.show_metric}
-                onCheckedChange={(checked) => onIndustryChange({ ...industry, show_metric: checked })}
-              />
-              <Label htmlFor="show_metric">Show Metric</Label>
-            </div>
+            <CustomToggle
+              checked={industry.show_metric}
+              onCheckedChange={(checked) => onIndustryChange({ ...industry, show_metric: checked })}
+              id="show_metric"
+              label="Show Metric"
+            />
 
             {industry.show_metric && (
-              <div className="grid grid-cols-2 gap-4 ml-6">
+              <div className="grid grid-cols-2 gap-4 ml-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
                 <div>
                   <Label htmlFor="metric">Metric</Label>
                   <Input
                     id="metric"
                     value={industry.metric || ''}
-                    onChange={(e) => onIndustryChange({ ...industry, metric: e.target.value })}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      onIndustryChange({ ...industry, metric: e.target.value });
+                    }}
+                    onClick={(e) => e.stopPropagation()}
                     className="bg-gray-800 border-gray-700 text-white"
                     placeholder="285%"
                   />
@@ -307,7 +381,11 @@ export const IndustryManagement = () => {
                   <Input
                     id="metric_display_label"
                     value={industry.metric_display_label || ''}
-                    onChange={(e) => onIndustryChange({ ...industry, metric_display_label: e.target.value })}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      onIndustryChange({ ...industry, metric_display_label: e.target.value });
+                    }}
+                    onClick={(e) => e.stopPropagation()}
                     className="bg-gray-800 border-gray-700 text-white"
                     placeholder="Metric"
                   />
@@ -315,23 +393,25 @@ export const IndustryManagement = () => {
               </div>
             )}
 
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="show_metric_label"
-                checked={industry.show_metric_label}
-                onCheckedChange={(checked) => onIndustryChange({ ...industry, show_metric_label: checked })}
-              />
-              <Label htmlFor="show_metric_label">Show Metric Label</Label>
-            </div>
+            <CustomToggle
+              checked={industry.show_metric_label}
+              onCheckedChange={(checked) => onIndustryChange({ ...industry, show_metric_label: checked })}
+              id="show_metric_label"
+              label="Show Metric Label"
+            />
 
             {industry.show_metric_label && (
-              <div className="grid grid-cols-2 gap-4 ml-6">
+              <div className="grid grid-cols-2 gap-4 ml-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
                 <div>
                   <Label htmlFor="metric_label">Metric Label</Label>
                   <Input
                     id="metric_label"
                     value={industry.metric_label || ''}
-                    onChange={(e) => onIndustryChange({ ...industry, metric_label: e.target.value })}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      onIndustryChange({ ...industry, metric_label: e.target.value });
+                    }}
+                    onClick={(e) => e.stopPropagation()}
                     className="bg-gray-800 border-gray-700 text-white"
                     placeholder="Engagement Increase"
                   />
@@ -341,7 +421,11 @@ export const IndustryManagement = () => {
                   <Input
                     id="metric_label_display_label"
                     value={industry.metric_label_display_label || ''}
-                    onChange={(e) => onIndustryChange({ ...industry, metric_label_display_label: e.target.value })}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      onIndustryChange({ ...industry, metric_label_display_label: e.target.value });
+                    }}
+                    onClick={(e) => e.stopPropagation()}
                     className="bg-gray-800 border-gray-700 text-white"
                     placeholder="Label"
                   />
@@ -352,15 +436,19 @@ export const IndustryManagement = () => {
         </TabsContent>
 
         <TabsContent value="advanced" className="space-y-4">
-          <div>
+          <div onClick={(e) => e.stopPropagation()}>
             <Label htmlFor="images">Images (URLs, one per line)</Label>
             <textarea
               id="images"
               value={industry.images?.join('\n') || ''}
-              onChange={(e) => onIndustryChange({ 
-                ...industry, 
-                images: e.target.value.split('\n').filter(url => url.trim() !== '') 
-              })}
+              onChange={(e) => {
+                e.stopPropagation();
+                onIndustryChange({ 
+                  ...industry, 
+                  images: e.target.value.split('\n').filter(url => url.trim() !== '') 
+                });
+              }}
+              onClick={(e) => e.stopPropagation()}
               className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
               rows={5}
               placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
