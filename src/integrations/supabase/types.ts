@@ -40,6 +40,8 @@ export type Database = {
         Row: {
           color: string
           created_at: string
+          custom_color: string | null
+          custom_icon_url: string | null
           description: string | null
           display_order: number
           icon_name: string
@@ -47,8 +49,14 @@ export type Database = {
           images: string[] | null
           is_active: boolean
           metric: string | null
+          metric_display_label: string | null
           metric_label: string | null
+          metric_label_display_label: string | null
           projects_count: string | null
+          projects_count_label: string | null
+          show_metric: boolean | null
+          show_metric_label: boolean | null
+          show_projects_count: boolean | null
           subtitle: string | null
           title: string
           updated_at: string
@@ -56,6 +64,8 @@ export type Database = {
         Insert: {
           color?: string
           created_at?: string
+          custom_color?: string | null
+          custom_icon_url?: string | null
           description?: string | null
           display_order?: number
           icon_name: string
@@ -63,8 +73,14 @@ export type Database = {
           images?: string[] | null
           is_active?: boolean
           metric?: string | null
+          metric_display_label?: string | null
           metric_label?: string | null
+          metric_label_display_label?: string | null
           projects_count?: string | null
+          projects_count_label?: string | null
+          show_metric?: boolean | null
+          show_metric_label?: boolean | null
+          show_projects_count?: boolean | null
           subtitle?: string | null
           title: string
           updated_at?: string
@@ -72,6 +88,8 @@ export type Database = {
         Update: {
           color?: string
           created_at?: string
+          custom_color?: string | null
+          custom_icon_url?: string | null
           description?: string | null
           display_order?: number
           icon_name?: string
@@ -79,8 +97,14 @@ export type Database = {
           images?: string[] | null
           is_active?: boolean
           metric?: string | null
+          metric_display_label?: string | null
           metric_label?: string | null
+          metric_label_display_label?: string | null
           projects_count?: string | null
+          projects_count_label?: string | null
+          show_metric?: boolean | null
+          show_metric_label?: boolean | null
+          show_projects_count?: boolean | null
           subtitle?: string | null
           title?: string
           updated_at?: string

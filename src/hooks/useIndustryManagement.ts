@@ -16,6 +16,14 @@ export interface Industry {
   color: string;
   display_order: number;
   is_active: boolean;
+  custom_icon_url: string | null;
+  custom_color: string | null;
+  show_projects_count: boolean;
+  show_metric: boolean;
+  show_metric_label: boolean;
+  projects_count_label: string | null;
+  metric_display_label: string | null;
+  metric_label_display_label: string | null;
 }
 
 export const useIndustryManagement = () => {

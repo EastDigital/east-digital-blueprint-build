@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Building2, Plus, Edit, Trash2, Search, Copy, GripVertical } from 'lucide-react';
+import { Building2, Plus, Edit, Trash2, Search, Copy, GripVertical, Eye, EyeOff } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -9,6 +8,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useIndustryManagement, Industry } from '@/hooks/useIndustryManagement';
 
 const ICON_OPTIONS = ['Building2', 'HardHat', 'Ruler', 'Briefcase', 'Factory', 'Home', 'Wrench', 'Laptop'];
@@ -50,6 +50,14 @@ export const IndustryManagement = () => {
     color: 'blue',
     display_order: 0,
     is_active: true,
+    custom_icon_url: '',
+    custom_color: '',
+    show_projects_count: true,
+    show_metric: true,
+    show_metric_label: true,
+    projects_count_label: 'Projects',
+    metric_display_label: 'Metric',
+    metric_label_display_label: 'Label',
   });
 
   const handleAddIndustry = async () => {
@@ -71,6 +79,14 @@ export const IndustryManagement = () => {
         color: 'blue',
         display_order: 0,
         is_active: true,
+        custom_icon_url: '',
+        custom_color: '',
+        show_projects_count: true,
+        show_metric: true,
+        show_metric_label: true,
+        projects_count_label: 'Projects',
+        metric_display_label: 'Metric',
+        metric_label_display_label: 'Label',
       });
       setIsAddDialogOpen(false);
     } catch (error) {
@@ -122,132 +138,240 @@ export const IndustryManagement = () => {
     onSubmit: () => void;
     submitLabel: string;
   }) => (
-    <div className="space-y-4 max-h-[60vh] overflow-y-auto">
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <Label htmlFor="title">Title *</Label>
-          <Input
-            id="title"
-            value={industry.title}
-            onChange={(e) => onIndustryChange({ ...industry, title: e.target.value })}
-            className="bg-gray-800 border-gray-700 text-white"
-            placeholder="Industry Title"
-          />
-        </div>
-        <div>
-          <Label htmlFor="subtitle">Subtitle</Label>
-          <Input
-            id="subtitle"
-            value={industry.subtitle || ''}
-            onChange={(e) => onIndustryChange({ ...industry, subtitle: e.target.value })}
-            className="bg-gray-800 border-gray-700 text-white"
-            placeholder="Industry Subtitle"
-          />
-        </div>
+    <Tabs defaultValue="basic" className="w-full">
+      <TabsList className="grid w-full grid-cols-3">
+        <TabsTrigger value="basic">Basic Info</TabsTrigger>
+        <TabsTrigger value="visual">Visual & Metrics</TabsTrigger>
+        <TabsTrigger value="advanced">Advanced</TabsTrigger>
+      </TabsList>
+      
+      <div className="max-h-[60vh] overflow-y-auto mt-4">
+        <TabsContent value="basic" className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="title">Title *</Label>
+              <Input
+                id="title"
+                value={industry.title}
+                onChange={(e) => onIndustryChange({ ...industry, title: e.target.value })}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="Industry Title"
+              />
+            </div>
+            <div>
+              <Label htmlFor="subtitle">Subtitle</Label>
+              <Input
+                id="subtitle"
+                value={industry.subtitle || ''}
+                onChange={(e) => onIndustryChange({ ...industry, subtitle: e.target.value })}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="Industry Subtitle"
+              />
+            </div>
+          </div>
+
+          <div>
+            <Label htmlFor="description">Description</Label>
+            <textarea
+              id="description"
+              value={industry.description || ''}
+              onChange={(e) => onIndustryChange({ ...industry, description: e.target.value })}
+              className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
+              rows={3}
+              placeholder="Industry Description"
+            />
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="is_active"
+              checked={industry.is_active}
+              onCheckedChange={(checked) => onIndustryChange({ ...industry, is_active: checked })}
+            />
+            <Label htmlFor="is_active">Active</Label>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="visual" className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="icon">Icon</Label>
+              <select
+                id="icon"
+                value={industry.icon_name}
+                onChange={(e) => onIndustryChange({ ...industry, icon_name: e.target.value })}
+                className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
+              >
+                {ICON_OPTIONS.map(icon => (
+                  <option key={icon} value={icon}>{icon}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <Label htmlFor="custom_icon_url">Custom Icon URL</Label>
+              <Input
+                id="custom_icon_url"
+                value={industry.custom_icon_url || ''}
+                onChange={(e) => onIndustryChange({ ...industry, custom_icon_url: e.target.value })}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="https://example.com/icon.svg"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="color">Color</Label>
+              <select
+                id="color"
+                value={industry.color}
+                onChange={(e) => onIndustryChange({ ...industry, color: e.target.value })}
+                className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
+              >
+                {COLOR_OPTIONS.map(color => (
+                  <option key={color.value} value={color.value}>{color.label}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <Label htmlFor="custom_color">Custom Color (Hex)</Label>
+              <Input
+                id="custom_color"
+                value={industry.custom_color || ''}
+                onChange={(e) => onIndustryChange({ ...industry, custom_color: e.target.value })}
+                className="bg-gray-800 border-gray-700 text-white"
+                placeholder="#ff6b35"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="show_projects_count"
+                checked={industry.show_projects_count}
+                onCheckedChange={(checked) => onIndustryChange({ ...industry, show_projects_count: checked })}
+              />
+              <Label htmlFor="show_projects_count">Show Projects Count</Label>
+            </div>
+
+            {industry.show_projects_count && (
+              <div className="grid grid-cols-2 gap-4 ml-6">
+                <div>
+                  <Label htmlFor="projects_count">Projects Count</Label>
+                  <Input
+                    id="projects_count"
+                    value={industry.projects_count || ''}
+                    onChange={(e) => onIndustryChange({ ...industry, projects_count: e.target.value })}
+                    className="bg-gray-800 border-gray-700 text-white"
+                    placeholder="45+"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="projects_count_label">Label</Label>
+                  <Input
+                    id="projects_count_label"
+                    value={industry.projects_count_label || ''}
+                    onChange={(e) => onIndustryChange({ ...industry, projects_count_label: e.target.value })}
+                    className="bg-gray-800 border-gray-700 text-white"
+                    placeholder="Projects"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="show_metric"
+                checked={industry.show_metric}
+                onCheckedChange={(checked) => onIndustryChange({ ...industry, show_metric: checked })}
+              />
+              <Label htmlFor="show_metric">Show Metric</Label>
+            </div>
+
+            {industry.show_metric && (
+              <div className="grid grid-cols-2 gap-4 ml-6">
+                <div>
+                  <Label htmlFor="metric">Metric</Label>
+                  <Input
+                    id="metric"
+                    value={industry.metric || ''}
+                    onChange={(e) => onIndustryChange({ ...industry, metric: e.target.value })}
+                    className="bg-gray-800 border-gray-700 text-white"
+                    placeholder="285%"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="metric_display_label">Display Label</Label>
+                  <Input
+                    id="metric_display_label"
+                    value={industry.metric_display_label || ''}
+                    onChange={(e) => onIndustryChange({ ...industry, metric_display_label: e.target.value })}
+                    className="bg-gray-800 border-gray-700 text-white"
+                    placeholder="Metric"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="show_metric_label"
+                checked={industry.show_metric_label}
+                onCheckedChange={(checked) => onIndustryChange({ ...industry, show_metric_label: checked })}
+              />
+              <Label htmlFor="show_metric_label">Show Metric Label</Label>
+            </div>
+
+            {industry.show_metric_label && (
+              <div className="grid grid-cols-2 gap-4 ml-6">
+                <div>
+                  <Label htmlFor="metric_label">Metric Label</Label>
+                  <Input
+                    id="metric_label"
+                    value={industry.metric_label || ''}
+                    onChange={(e) => onIndustryChange({ ...industry, metric_label: e.target.value })}
+                    className="bg-gray-800 border-gray-700 text-white"
+                    placeholder="Engagement Increase"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="metric_label_display_label">Display Label</Label>
+                  <Input
+                    id="metric_label_display_label"
+                    value={industry.metric_label_display_label || ''}
+                    onChange={(e) => onIndustryChange({ ...industry, metric_label_display_label: e.target.value })}
+                    className="bg-gray-800 border-gray-700 text-white"
+                    placeholder="Label"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="advanced" className="space-y-4">
+          <div>
+            <Label htmlFor="images">Images (URLs, one per line)</Label>
+            <textarea
+              id="images"
+              value={industry.images?.join('\n') || ''}
+              onChange={(e) => onIndustryChange({ 
+                ...industry, 
+                images: e.target.value.split('\n').filter(url => url.trim() !== '') 
+              })}
+              className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
+              rows={5}
+              placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
+            />
+          </div>
+        </TabsContent>
       </div>
 
-      <div>
-        <Label htmlFor="description">Description</Label>
-        <textarea
-          id="description"
-          value={industry.description || ''}
-          onChange={(e) => onIndustryChange({ ...industry, description: e.target.value })}
-          className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-          rows={3}
-          placeholder="Industry Description"
-        />
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <Label htmlFor="icon">Icon</Label>
-          <select
-            id="icon"
-            value={industry.icon_name}
-            onChange={(e) => onIndustryChange({ ...industry, icon_name: e.target.value })}
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-          >
-            {ICON_OPTIONS.map(icon => (
-              <option key={icon} value={icon}>{icon}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <Label htmlFor="color">Color</Label>
-          <select
-            id="color"
-            value={industry.color}
-            onChange={(e) => onIndustryChange({ ...industry, color: e.target.value })}
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-          >
-            {COLOR_OPTIONS.map(color => (
-              <option key={color.value} value={color.value}>{color.label}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-3 gap-4">
-        <div>
-          <Label htmlFor="projects_count">Projects Count</Label>
-          <Input
-            id="projects_count"
-            value={industry.projects_count || ''}
-            onChange={(e) => onIndustryChange({ ...industry, projects_count: e.target.value })}
-            className="bg-gray-800 border-gray-700 text-white"
-            placeholder="45+"
-          />
-        </div>
-        <div>
-          <Label htmlFor="metric">Metric</Label>
-          <Input
-            id="metric"
-            value={industry.metric || ''}
-            onChange={(e) => onIndustryChange({ ...industry, metric: e.target.value })}
-            className="bg-gray-800 border-gray-700 text-white"
-            placeholder="285%"
-          />
-        </div>
-        <div>
-          <Label htmlFor="metric_label">Metric Label</Label>
-          <Input
-            id="metric_label"
-            value={industry.metric_label || ''}
-            onChange={(e) => onIndustryChange({ ...industry, metric_label: e.target.value })}
-            className="bg-gray-800 border-gray-700 text-white"
-            placeholder="Engagement Increase"
-          />
-        </div>
-      </div>
-
-      <div>
-        <Label htmlFor="images">Images (URLs, one per line)</Label>
-        <textarea
-          id="images"
-          value={industry.images?.join('\n') || ''}
-          onChange={(e) => onIndustryChange({ 
-            ...industry, 
-            images: e.target.value.split('\n').filter(url => url.trim() !== '') 
-          })}
-          className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white"
-          rows={5}
-          placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
-        />
-      </div>
-
-      <div className="flex items-center space-x-2">
-        <Switch
-          id="is_active"
-          checked={industry.is_active}
-          onCheckedChange={(checked) => onIndustryChange({ ...industry, is_active: checked })}
-        />
-        <Label htmlFor="is_active">Active</Label>
-      </div>
-
-      <Button onClick={onSubmit} className="w-full bg-eastdigital-orange hover:bg-eastdigital-orange/90">
+      <Button onClick={onSubmit} className="w-full bg-eastdigital-orange hover:bg-eastdigital-orange/90 mt-4">
         {submitLabel}
       </Button>
-    </div>
+    </Tabs>
   );
 
   if (loading) {
@@ -268,7 +392,7 @@ export const IndustryManagement = () => {
               Add Industry
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-2xl">
+          <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-4xl">
             <DialogHeader>
               <DialogTitle>Add New Industry</DialogTitle>
             </DialogHeader>
@@ -284,7 +408,7 @@ export const IndustryManagement = () => {
 
       {/* Edit Industry Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-2xl">
+        <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-4xl">
           <DialogHeader>
             <DialogTitle>Edit Industry</DialogTitle>
           </DialogHeader>
@@ -317,7 +441,7 @@ export const IndustryManagement = () => {
               <TableHead className="text-gray-300">Title</TableHead>
               <TableHead className="text-gray-300">Icon</TableHead>
               <TableHead className="text-gray-300">Color</TableHead>
-              <TableHead className="text-gray-300">Projects</TableHead>
+              <TableHead className="text-gray-300">Display Options</TableHead>
               <TableHead className="text-gray-300">Status</TableHead>
               <TableHead className="text-gray-300">Actions</TableHead>
             </TableRow>
@@ -339,13 +463,31 @@ export const IndustryManagement = () => {
                     )}
                   </div>
                 </TableCell>
-                <TableCell className="text-gray-300">{industry.icon_name}</TableCell>
+                <TableCell className="text-gray-300">
+                  {industry.custom_icon_url ? (
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs text-blue-400">Custom</span>
+                    </div>
+                  ) : (
+                    industry.icon_name
+                  )}
+                </TableCell>
                 <TableCell>
-                  <Badge className={`${COLOR_OPTIONS.find(c => c.value === industry.color)?.class} text-white`}>
-                    {industry.color}
+                  <Badge className={`${industry.custom_color ? 'text-white' : COLOR_OPTIONS.find(c => c.value === industry.color)?.class} text-white`} 
+                         style={industry.custom_color ? { backgroundColor: industry.custom_color } : {}}>
+                    {industry.custom_color || industry.color}
                   </Badge>
                 </TableCell>
-                <TableCell className="text-gray-300">{industry.projects_count}</TableCell>
+                <TableCell>
+                  <div className="flex space-x-1">
+                    {industry.show_projects_count && <Eye className="h-3 w-3 text-green-400" title="Projects Count Visible" />}
+                    {industry.show_metric && <Eye className="h-3 w-3 text-blue-400" title="Metric Visible" />}
+                    {industry.show_metric_label && <Eye className="h-3 w-3 text-purple-400" title="Metric Label Visible" />}
+                    {!industry.show_projects_count && !industry.show_metric && !industry.show_metric_label && (
+                      <EyeOff className="h-3 w-3 text-gray-400" title="All Hidden" />
+                    )}
+                  </div>
+                </TableCell>
                 <TableCell>
                   <Badge variant={industry.is_active ? 'default' : 'secondary'}>
                     {industry.is_active ? 'Active' : 'Inactive'}
