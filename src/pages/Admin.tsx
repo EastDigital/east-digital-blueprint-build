@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Users, FileText, Settings, LogOut, Database } from 'lucide-react';
+import { ArrowLeft, Users, FileText, Settings, LogOut, Database, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { UserManagement } from '@/components/Admin/UserManagement';
+import { IndustryManagement } from '@/components/Admin/IndustryManagement';
 import { DatabaseProjectManagement } from '@/components/Admin/DatabaseProjectManagement';
 import { DatabaseSiteSettings } from '@/components/Admin/DatabaseSiteSettings';
 import { ProtectedAdmin } from '@/components/Admin/ProtectedAdmin';
@@ -28,6 +29,8 @@ const Admin = () => {
     switch (activeTab) {
       case 'users':
         return <UserManagement />;
+      case 'industries':
+        return <IndustryManagement />;
       case 'projects':
         return <DatabaseProjectManagement />;
       case 'settings':
@@ -46,7 +49,7 @@ const Admin = () => {
               </div>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <button
                 onClick={() => setActiveTab('users')}
                 className="bg-gray-900 rounded-lg p-6 border border-gray-800 hover:border-eastdigital-orange/50 transition-colors text-left"
@@ -56,6 +59,18 @@ const Admin = () => {
                 <p className="text-gray-400 mb-4">Manage user accounts and permissions</p>
                 <span className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-4 py-2 rounded inline-block">
                   Manage Users
+                </span>
+              </button>
+              
+              <button
+                onClick={() => setActiveTab('industries')}
+                className="bg-gray-900 rounded-lg p-6 border border-gray-800 hover:border-eastdigital-orange/50 transition-colors text-left"
+              >
+                <Building2 className="h-8 w-8 text-eastdigital-orange mb-4" />
+                <h2 className="text-xl font-semibold mb-2">Industry Management</h2>
+                <p className="text-gray-400 mb-4">Manage industry categories and content</p>
+                <span className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-4 py-2 rounded inline-block">
+                  Manage Industries
                 </span>
               </button>
               

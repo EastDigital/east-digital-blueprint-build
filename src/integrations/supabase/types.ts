@@ -36,6 +36,57 @@ export type Database = {
         }
         Relationships: []
       }
+      industries: {
+        Row: {
+          color: string
+          created_at: string
+          description: string | null
+          display_order: number
+          icon_name: string
+          id: string
+          images: string[] | null
+          is_active: boolean
+          metric: string | null
+          metric_label: string | null
+          projects_count: string | null
+          subtitle: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          color?: string
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          icon_name: string
+          id?: string
+          images?: string[] | null
+          is_active?: boolean
+          metric?: string | null
+          metric_label?: string | null
+          projects_count?: string | null
+          subtitle?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          icon_name?: string
+          id?: string
+          images?: string[] | null
+          is_active?: boolean
+          metric?: string | null
+          metric_label?: string | null
+          projects_count?: string | null
+          subtitle?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       otp_verifications: {
         Row: {
           admin_user_id: string
