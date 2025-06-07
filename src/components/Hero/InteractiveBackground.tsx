@@ -1,3 +1,18 @@
+// In InteractiveBackground.tsx
+
+const resizeCanvas = () => {
+  const dpr = window.devicePixelRatio || 1; // Get the device pixel ratio
+
+  canvas.width = window.innerWidth * dpr; // Scale canvas width
+  canvas.height = window.innerHeight * dpr; // Scale canvas height
+
+  canvas.style.width = `${window.innerWidth}px`; // Set the display size
+  canvas.style.height = `${window.innerHeight}px`; // Set the display size
+
+  ctx.scale(dpr, dpr); // Scale the drawing context
+
+  initParticles();
+};
 
 import React, { useEffect, useRef } from 'react';
 
