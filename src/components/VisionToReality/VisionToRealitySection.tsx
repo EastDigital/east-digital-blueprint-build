@@ -2,14 +2,16 @@ import React from 'react';
 import { InteractiveVisionBackground } from './InteractiveVisionBackground';
 
 export const VisionToRealitySection = () => {
-  // This style creates the magic gradient.
-  // - The top 70% is the section's original color (#0c1a2e).
-  // - It then fades to the next section's darker color (#07101c) at the bottom.
   const seamlessGradientStyle: React.CSSProperties = {
-    backgroundImage: 'linear-gradient(top to bottom, ##8a5115 70%, #8a5115 100%)',
+    backgroundImage: 'linear-gradient(to bottom, #0c1a2e 70%, #07101c 100%)',
   };
 
-  
+  return (
+    <section 
+      className="relative py-16 lg:py-24"
+      style={seamlessGradientStyle}
+    >
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-eastdigital-dark via-eastdigital-dark/80 to-transparent z-10"></div>
       
       <InteractiveVisionBackground />
       
