@@ -2,8 +2,10 @@ import React from 'react';
 import { InteractiveVisionBackground } from './InteractiveVisionBackground';
 
 export const VisionToRealitySection = () => {
+  // MODIFIED: The gradient now blends smoothly from top to bottom
+  // across the entire section, removing the visible seam.
   const seamlessGradientStyle: React.CSSProperties = {
-    backgroundImage: 'linear-gradient(to bottom, #0c1a2e 70%, #07101c 100%)',
+    backgroundImage: 'linear-gradient(to bottom, #0c1a2e, #07101c)',
   };
 
   return (
