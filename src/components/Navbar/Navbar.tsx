@@ -1,3 +1,7 @@
+{/* Gradient Animation Background - Only on Home Page */}
+{isHomePage && (
+  <div className="fixed top-0 left-0 right-0 h-[400px] pointer-events-none z-40 bg-continuous-gradient" />
+)}
 
 import React from 'react';
 import { NavDropdown } from './NavDropdown';
