@@ -7,7 +7,7 @@ export const VisionToRealitySection = () => {
     <section className="relative py-16 lg:py-24 overflow-hidden">
       
       {/* CORRECTED LINE: Fixed non-standard 'to-100%transparent' to 'to-transparent' for consistency. */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-eastdigital-dark via-eastdigital-dark/80 to-transparent z-10"></div>
+      <div className="absolute inset-0 bg-continuous-gradient"></div>
       
       <InteractiveVisionBackground />
       
