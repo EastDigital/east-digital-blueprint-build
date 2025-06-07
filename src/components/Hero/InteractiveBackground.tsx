@@ -13,6 +13,18 @@ const resizeCanvas = () => {
 
   initParticles();
 };
+// Idea for your animate() function, inside the particlesRef.current.forEach loop
+
+const dx = particle.x - mouseRef.current.x;
+const dy = particle.y - mouseRef.current.y;
+const distance = Math.sqrt(dx * dx + dy * dy);
+const repelRadius = 100; // How close the mouse needs to be
+
+if (distance < repelRadius) {
+  const force = (repelRadius - distance) / repelRadius;
+  particle.x += (dx / distance) * force * 0.5; // Push particle away
+  particle.y += (dy / distance) * force * 0.5;
+}
 
 import React, { useEffect, useRef } from 'react';
 
