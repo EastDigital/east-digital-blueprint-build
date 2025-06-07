@@ -54,7 +54,7 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
     return (
       <div 
         ref={dropdownRef}
-        className="bg-[#000000]/85 backdrop-blur-md rounded-[15px] border border-gray-800/30 shadow-2xl overflow-hidden animate-fade-in"
+        className="bg-eastdigital-dark/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden animate-fade-in"
       >
         <div className="flex flex-col md:flex-row">
           {expertiseData.map((item, index) => (
@@ -69,7 +69,7 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
                 onItemClick={onItemClick}
               />
               {index < expertiseData.length - 1 && (
-                <div className="md:w-px md:bg-gray-700/50 h-px md:h-auto bg-gray-700/50 mx-6 md:mx-0"></div>
+                <div className="md:w-px md:bg-white/10 h-px md:h-auto bg-white/10 mx-6 md:mx-0"></div>
               )}
             </React.Fragment>
           ))}
@@ -80,10 +80,10 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
 
   return (
     <div ref={dropdownRef} className="w-full">
-      <div className="h-0"></div>
+      <div className="h-2"></div>
       
       <div className="mx-[10%]">
-        <div className="bg-[#000000]/85 backdrop-blur-md rounded-b-[15px] border border-gray-800/30 shadow-2xl overflow-hidden">
+        <div className="bg-eastdigital-dark/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
           <div className="flex">
             {expertiseData.map((item, index) => (
               <React.Fragment key={index}>
@@ -95,7 +95,7 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
                   bottomText={item.bottomText}
                 />
                 {index < expertiseData.length - 1 && (
-                  <div className="w-px bg-gray-700/50"></div>
+                  <div className="w-px bg-white/10"></div>
                 )}
               </React.Fragment>
             ))}

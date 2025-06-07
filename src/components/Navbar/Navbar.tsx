@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
@@ -172,13 +171,13 @@ export const Navbar = () => {
                     onMouseEnter={handleExpertiseEnter}
                     onMouseLeave={handleExpertiseLeave}
                   >
-                    {/* Enhanced Glassmorphism background with rounded corners like ai.google.com */}
+                    {/* Compact rounded glass effect like Google's design */}
                     {isDropdownOpen && (
-                      <div className="absolute -top-3 -left-4 -right-4 h-[calc(100%+20px)] bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-lg z-40"></div>
+                      <div className="absolute -top-1 -left-2 -right-2 h-[calc(100%+8px)] bg-white/8 backdrop-blur-sm rounded-xl border border-white/10 z-40"></div>
                     )}
                     
                     <button 
-                      className={`relative z-50 flex items-center text-base font-normal tracking-wider transition-colors duration-200 px-3 py-2 rounded-xl ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
+                      className={`relative z-50 flex items-center text-base font-normal tracking-wider transition-colors duration-200 px-2 py-1 rounded-lg ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
                       onClick={toggleDropdown}
                     >
                       Expertise
