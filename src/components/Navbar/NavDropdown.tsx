@@ -49,7 +49,6 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
     }
   ];
 
-  // These classes match the scrolled navbar's style for a consistent glassmorphism effect.
   const glassmorphismClasses = "bg-black/70 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl overflow-hidden";
 
   if (isMobile) {
@@ -82,24 +81,23 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
 
   return (
     <div ref={dropdownRef} className="w-full">
-      <div className="mx-[10%]">
-        <div className={glassmorphismClasses}>
-          <div className="flex">
-            {expertiseData.map((item, index) => (
-              <React.Fragment key={index}>
-                <NavDropdownItem
-                  title={item.title}
-                  link={item.link}
-                  shortText={item.shortText}
-                  subItems={item.subItems}
-                  bottomText={item.bottomText}
-                />
-                {index < expertiseData.length - 1 && (
-                  <div className="w-px bg-white/10"></div>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
+      {/* MODIFIED: The glassmorphism classes are now applied to the outer container that defines the margin */}
+      <div className={`mx-[10%] ${glassmorphismClasses}`}>
+        <div className="flex">
+          {expertiseData.map((item, index) => (
+            <React.Fragment key={index}>
+              <NavDropdownItem
+                title={item.title}
+                link={item.link}
+                shortText={item.shortText}
+                subItems={item.subItems}
+                bottomText={item.bottomText}
+              />
+              {index < expertiseData.length - 1 && (
+                <div className="w-px bg-white/10"></div>
+              )}
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </div>
