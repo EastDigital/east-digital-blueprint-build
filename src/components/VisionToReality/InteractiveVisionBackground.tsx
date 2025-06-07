@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 
 export const InteractiveVisionBackground = () => {
@@ -22,14 +21,17 @@ export const InteractiveVisionBackground = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      // Make canvas height match its parent section, not the whole window
+      if (canvas.parentElement) {
+        canvas.height = canvas.parentElement.offsetHeight;
+      } else {
+        canvas.height = window.innerHeight;
+      }
       initParticles();
     };
 
-    // Initialize particles for vision-themed animation
     const initParticles = () => {
       particlesRef.current = [];
       const isMobile = window.innerWidth < 768;
@@ -50,29 +52,25 @@ export const InteractiveVisionBackground = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Animation loop with vision-themed elements
     const animate = () => {
+      // MODIFICATION #1: REMOVE THE CANVAS BACKGROUND FILL.
+      // We will rely on the CSS gradient from the parent component.
+      // First, clear the canvas to ensure it's transparent.
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       timeRef.current += 0.008;
-      
-      // Vision-themed gradient background
-      const gradient = ctx.createRadialGradient(
-        canvas.width / 2, 
-        canvas.height / 2, 
-        0,
-        canvas.width / 2, 
-        canvas.height / 2, 
-        Math.max(canvas.width, canvas.height) * 0.8
-      );
-      gradient.addColorStop(0, 'rgba(255, 105, 0, 0.0)');
-      gradient.addColorStop(0.5, 'rgba(107, 114, 128, 0.0)');
-      gradient.addColorStop(1, 'rgba(255, 105, 0, 0.0)');
-      
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      /* // THIS ENTIRE BLOCK HAS BEEN REMOVED.
+        // It was drawing a radial gradient over the whole canvas, creating a background
+        // that caused the seam at the bottom.
+        const gradient = ctx.createRadialGradient(...);
+        gradient.addColorStop(...);
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      */
+      
       // Floating geometric elements representing "vision" concepts
+      // ... (rest of this block remains unchanged)
       for (let i = 0; i < 4; i++) {
         const x = canvas.width * (0.15 + i * 0.25) + Math.sin(timeRef.current + i * 1.5) * 25;
         const y = canvas.height * (0.2 + Math.sin(timeRef.current * 0.4 + i) * 0.15) + Math.cos(timeRef.current * 0.6 + i * 2) * 35;
@@ -82,16 +80,12 @@ export const InteractiveVisionBackground = () => {
         ctx.translate(x, y);
         ctx.rotate(timeRef.current * 0.4 + i * 0.8);
         
-        // Different shapes for visual interest
         ctx.beginPath();
         if (i % 3 === 0) {
-          // Rectangle
           ctx.rect(-size/2, -size/2, size, size);
         } else if (i % 3 === 1) {
-          // Circle
           ctx.arc(0, 0, size/2, 0, Math.PI * 2);
         } else {
-          // Triangle
           ctx.moveTo(0, -size/2);
           ctx.lineTo(-size/2, size/2);
           ctx.lineTo(size/2, size/2);
@@ -107,14 +101,14 @@ export const InteractiveVisionBackground = () => {
       }
 
       // Interactive wave pattern - responds to mouse
+      // ... (wave logic remains mostly unchanged)
       ctx.beginPath();
       ctx.moveTo(0, canvas.height * 0.7);
 
       for (let x = 0; x <= canvas.width; x += 6) {
         const wave1 = Math.sin((x * 0.004) + (timeRef.current * 0.7)) * 20;
         const wave2 = Math.sin((x * 0.002) + (timeRef.current * 0.5)) * 10;
-        const mouseInfluence = Math.sin((x - mouseRef.current.x) * 0.005) * 
-                              Math.exp(-Math.abs(x - mouseRef.current.x) * 0.001) * 12;
+        const mouseInfluence = Math.sin((x - mouseRef.current.x) * 0.005) * Math.exp(-Math.abs(x - mouseRef.current.x) * 0.001) * 12;
         const y = canvas.height * 0.7 + wave1 + wave2 + mouseInfluence;
         
         if (x === 0) {
@@ -130,23 +124,23 @@ export const InteractiveVisionBackground = () => {
 
       const waveGradient = ctx.createLinearGradient(0, canvas.height * 0.6, 0, canvas.height);
       waveGradient.addColorStop(0, 'rgba(255, 105, 0, 0.06)');
-      waveGradient.addColorStop(1, 'rgba(255, 105, 0, 0.02)');
+      // MODIFICATION #2: MAKE THE WAVE FADE TO FULLY TRANSPARENT.
+      waveGradient.addColorStop(1, 'rgba(255, 105, 0, 0)'); // End color is now transparent
       
       ctx.fillStyle = waveGradient;
       ctx.fill();
 
+      // ... (particle drawing and other logic remains unchanged)
       // Update and draw particles
       particlesRef.current.forEach((particle) => {
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        // Wrap around screen
         if (particle.x < 0) particle.x = canvas.width;
         if (particle.x > canvas.width) particle.x = 0;
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Draw particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 105, 0, ${particle.opacity})`;
@@ -189,7 +183,6 @@ export const InteractiveVisionBackground = () => {
 
     animate();
 
-    // Mouse interaction
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouseRef.current = {
