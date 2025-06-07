@@ -1,24 +1,25 @@
 import React from 'react';
 import { InteractiveVisionBackground } from './InteractiveVisionBackground';
 
-// Define the mask style as a reusable object
-const maskStyle: React.CSSProperties = {
-  WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-  maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-};
-
 export const VisionToRealitySection = () => {
+  // This style creates the magic gradient.
+  // - The top 70% is the section's original color (#0c1a2e).
+  // - It then fades to the next section's darker color (#07101c) at the bottom.
+  const seamlessGradientStyle: React.CSSProperties = {
+    backgroundImage: 'linear-gradient(to bottom, #0c1a2e 70%, #07101c 100%)',
+  };
+
   return (
-    // MODIFIED LINE:
-    // 1. Removed the bg-gradient-* classes.
-    // 2. Added a solid background color (bg-eastdigital-dark).
-    // 3. Applied the mask using an inline style.
+    // 1. We apply the gradient with an inline style.
+    // 2. We remove any Tailwind background classes (like bg-eastdigital-dark or bg-gradient-*) to avoid conflicts.
     <section 
-      className="relative py-16 lg:py-24 bg-eastdigital-dark overflow-hidden"
-      style={maskStyle}
+      className="relative py-16 lg:py-24"
+      style={seamlessGradientStyle}
     >
       
-      {/* No changes needed for the rest of the component */}
+      {/* No other changes are needed below this line. */}
+      {/* The canvas inside InteractiveVisionBackground should have a transparent background to let this gradient show through. */}
+
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-eastdigital-dark via-eastdigital-dark/80 to-transparent z-10"></div>
       
       <InteractiveVisionBackground />
