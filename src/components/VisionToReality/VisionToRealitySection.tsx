@@ -9,7 +9,18 @@ export const VisionToRealitySection = () => {
     backgroundImage: 'linear-gradient(top to bottom, ##8a5115 70%, #8a5115 100%)',
   };
 
-  
+  return (
+    // 1. We apply the gradient with an inline style.
+    // 2. We remove any Tailwind background classes (like bg-eastdigital-dark or bg-gradient-*) to avoid conflicts.
+    <section 
+      className="relative py-16 lg:py-24"
+      style={seamlessGradientStyle}
+    >
+      
+      {/* No other changes are needed below this line. */}
+      {/* The canvas inside InteractiveVisionBackground should have a transparent background to let this gradient show through. */}
+
+      
       
       <InteractiveVisionBackground />
       
