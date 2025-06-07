@@ -32,7 +32,7 @@ export const DesktopNav = ({
           >
             {/* Compact rounded glass effect like Google's design */}
             {isDropdownOpen && (
-              <div className="absolute -top-1 -left-2 -right-2 h-[calc(100%+8px)] bg-white/8 backdrop-blur-sm rounded-xl border border-white/10 z-40"></div>
+              <div className="absolute -top-0 -left-2 -right-2 h-[calc(100%+8px)] bg-white/8 backdrop-blur-sm rounded-xl border border-white/10 z-40"></div>
             )}
             
             <button 
