@@ -6,7 +6,7 @@ export const VisionToRealitySection = () => {
   // - The top 70% is the section's original color (#0c1a2e).
   // - It then fades to the next section's darker color (#07101c) at the bottom.
   const seamlessGradientStyle: React.CSSProperties = {
-    backgroundImage: 'linear-gradient(to bottom, 70%, 100%)',
+    backgroundImage: 'linear-gradient(top to bottom, #0c1a2e 70%, 100%)',
   };
 
   return (
