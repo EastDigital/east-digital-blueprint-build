@@ -4,7 +4,7 @@ import { InteractiveVisionBackground } from './InteractiveVisionBackground';
 export const VisionToRealitySection = () => {
   return (
     // MODIFIED LINE: The gradient now starts fading from 70% of the height to transparent.
-    <section className=<section className="relative z-10 py-16 lg:py-24 bg-gradient-to-b from-eastdigital-dark from-70% to-transparent overflow-hidden">
+    <section className="relative py-16 lg:py-24 bg-gradient-to-b from-eastdigital-dark to-gray-100 overflow-hidden">
       
       {/* CORRECTED LINE: Fixed non-standard 'to-100%transparent' to 'to-transparent' for consistency. */}
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-eastdigital-dark via-eastdigital-dark/80 to-transparent z-10"></div>
