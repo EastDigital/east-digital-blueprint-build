@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavDropdown } from './NavDropdown';
 import { AnimatedHamburger } from './AnimatedHamburger';
-import { NavbarBackground } from './NavbarBackground';
 import { NavbarLogo } from './NavbarLogo';
 import { DesktopNav } from './DesktopNav';
 import { MobileNav } from './MobileNav';
@@ -12,7 +11,6 @@ export const Navbar = () => {
   const {
     isMenuOpen,
     isDropdownOpen,
-    showCtaAnimation,
     isHomePage,
     dropdownContainerRef,
     mobileDropdownRef,
@@ -27,16 +25,10 @@ export const Navbar = () => {
 
   return (
     <>
-      {/* Gradient Animation Background - Only on Home Page */}
-      {isHomePage && (
-        <div className="fixed top-0 left-0 right-0 h-[400px] pointer-events-none z-40 bg-continuous-gradient" />
-      )}
-
-      <NavbarBackground isHomePage={isHomePage} />
-
       <header className={`w-full font-poppins fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarBackground()}`}>
+        {/* MODIFIED: Reduced vertical padding from py-5 to py-2 */}
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-5">
+          <div className="flex items-center justify-between py-2">
             <NavbarLogo />
             
             <DesktopNav 
@@ -49,7 +41,7 @@ export const Navbar = () => {
 
             <NavbarCTA 
               isHomePage={isHomePage}
-              showCtaAnimation={showCtaAnimation}
+              showCtaAnimation={false} // Animation is disabled as requested
             />
 
             <div className="lg:hidden">
@@ -70,7 +62,6 @@ export const Navbar = () => {
           />
         </div>
 
-        {/* Desktop Dropdown positioned with seamless hover connection - FIXED: removed top gap */}
         <div
           onMouseEnter={handleExpertiseEnter}
           onMouseLeave={handleExpertiseLeave}
