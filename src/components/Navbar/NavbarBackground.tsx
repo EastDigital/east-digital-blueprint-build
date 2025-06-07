@@ -1,18 +1,42 @@
-
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 interface NavbarBackgroundProps {
   isHomePage: boolean;
+  isScrolled: boolean;
 }
 
-export const NavbarBackground = ({ isHomePage }: NavbarBackgroundProps) => {
-  if (!isHomePage) return null;
+export const NavbarBackground = ({ isHomePage, isScrolled }: NavbarBackgroundProps) => {
+  // This component will only be visible on the homepage when the user has not scrolled.
+  const isVisible = isHomePage && !isScrolled;
 
   return (
-    <div className="fixed top-0 left-0 right-0 h-[400px] pointer-events-none z-40">
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-600/25 via-blue-600/20 via-cyan-500/15 to-transparent opacity-70 animate-pulse"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-pink-500/15 via-orange-400/12 via-yellow-300/8 to-transparent opacity-50 animate-pulse delay-1000"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-cyan-400/12 via-blue-500/15 via-purple-600/10 to-transparent opacity-60 animate-pulse delay-2000"></div>
+    <div
+      className={cn(
+        'fixed top-0 left-0 right-0 h-[400px] pointer-events-none z-0 transition-opacity duration-500',
+        isVisible ? 'opacity-100' : 'opacity-0'
+      )}
+    >
+      {/* This div creates the animated gradient using your brand color #FF6900.
+        The animation itself is defined in src/index.css.
+      */}
+      <div
+        className="absolute inset-0 bg-continuous-gradient"
+        style={{
+          backgroundImage: `
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 105, 0, 0.4), transparent),
+            radial-gradient(ellipse 80% 50% at 20% -15%, rgba(255, 105, 0, 0.3), transparent),
+            radial-gradient(ellipse 80% 50% at 80% -15%, rgba(255, 105, 0, 0.3), transparent)
+          `,
+          backgroundSize: '400% 400%',
+        }}
+      ></div>
+      
+      {/* This div creates a vignette effect to smoothly blend the gradient into the dark page background. */}
+      <div 
+        className="absolute inset-0" 
+        style={{ boxShadow: 'inset 0px -100px 100px -50px #0E0E0E' }}
+      ></div>
     </div>
   );
 };
