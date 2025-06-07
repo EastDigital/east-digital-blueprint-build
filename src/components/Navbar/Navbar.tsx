@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavDropdown } from './NavDropdown';
 import { AnimatedHamburger } from './AnimatedHamburger';
+import { NavbarBackground } from './NavbarBackground';
 import { NavbarLogo } from './NavbarLogo';
 import { DesktopNav } from './DesktopNav';
 import { MobileNav } from './MobileNav';
@@ -11,6 +12,7 @@ export const Navbar = () => {
   const {
     isMenuOpen,
     isDropdownOpen,
+    isScrolled,
     isHomePage,
     dropdownContainerRef,
     mobileDropdownRef,
@@ -25,10 +27,12 @@ export const Navbar = () => {
 
   return (
     <>
+      {/* Re-introduced NavbarBackground to handle the animated gradient */}
+      <NavbarBackground isHomePage={isHomePage} isScrolled={isScrolled} />
+
       <header className={`w-full font-poppins fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarBackground()}`}>
-        {/* MODIFIED: Reduced vertical padding from py-5 to py-2 */}
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-3">
+          <div className="flex items-center justify-between py-2">
             <NavbarLogo />
             
             <DesktopNav 
@@ -41,7 +45,7 @@ export const Navbar = () => {
 
             <NavbarCTA 
               isHomePage={isHomePage}
-              showCtaAnimation={false} // Animation is disabled as requested
+              showCtaAnimation={false}
             />
 
             <div className="lg:hidden">
