@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -109,14 +108,9 @@ export const useNavbarLogic = () => {
     setIsMenuOpen(false);
   };
 
+  // MODIFIED: This function now consistently returns a dark glassmorphism style.
   const getNavbarBackground = () => {
-    if (!isHomePage) {
-      return 'bg-eastdigital-dark';
-    }
-    
-    return isScrolled 
-      ? 'bg-eastdigital-dark/90 backdrop-blur-md' 
-      : 'bg-transparent';
+    return 'bg-black/50 backdrop-blur-lg border-b border-white/10';
   };
 
   return {

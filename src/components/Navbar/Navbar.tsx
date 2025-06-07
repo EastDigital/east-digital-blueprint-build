@@ -35,9 +35,8 @@ export const Navbar = () => {
       <NavbarBackground isHomePage={isHomePage} />
 
       <header className={`w-full font-poppins fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarBackground()}`}>
-        {/* MODIFIED: Changed py-5 to py-3 to reduce navbar height */}
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-3">
+          <div className="flex items-center justify-between py-5">
             <NavbarLogo />
             
             <DesktopNav 
@@ -71,4 +70,18 @@ export const Navbar = () => {
           />
         </div>
 
-        {/* Desktop Dropdown
+        {/* Desktop Dropdown positioned with seamless hover connection - FIXED: removed top gap */}
+        <div
+          onMouseEnter={handleExpertiseEnter}
+          onMouseLeave={handleExpertiseLeave}
+          className={`desktop-dropdown hidden lg:block absolute left-0 right-0 z-50 ${isDropdownOpen ? 'block' : 'hidden'}`}
+          style={{ top: '100%' }}
+        >
+          <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} />
+        </div>
+      </header>
+    </>
+  );
+};
+
+export default Navbar;
