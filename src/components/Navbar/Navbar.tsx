@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
@@ -125,20 +126,22 @@ export const Navbar = () => {
       return 'bg-eastdigital-dark';
     }
     
-    // Home page: only show background when scrolled
+    // Home page: only show background when scrolled - removed border that causes white line
     return isScrolled 
-      ? 'bg-eastdigital-dark/90 backdrop-blur-md border-b border-gray-800/30' 
+      ? 'bg-eastdigital-dark/90 backdrop-blur-md' 
       : 'bg-transparent';
   };
 
   return (
     <>
-      {/* Gradient Animation Background - Only on Home Page */}
+      {/* Enhanced Gradient Animation Background - Only on Home Page */}
       {isHomePage && (
-        <div className="fixed top-0 left-0 right-0 h-[200px] pointer-events-none z-40">
-          <div className="absolute inset-0 bg-gradient-to-b from-purple-600/20 via-blue-600/15 to-transparent opacity-60 animate-pulse"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-orange-400/10 to-transparent opacity-40 animate-pulse delay-1000"></div>
-          <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/10 via-blue-500/10 to-transparent opacity-50 animate-pulse delay-2000"></div>
+        <div className="fixed top-0 left-0 right-0 h-[300px] pointer-events-none z-40">
+          <div className="absolute inset-0 bg-gradient-to-b from-purple-600/25 via-blue-600/20 via-cyan-500/15 to-transparent opacity-70 animate-pulse"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-pink-500/15 via-orange-400/12 via-yellow-300/8 to-transparent opacity-50 animate-pulse delay-1000"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/12 via-blue-500/15 via-purple-600/10 to-transparent opacity-60 animate-pulse delay-2000"></div>
+          {/* Additional seamless blend layer */}
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-eastdigital-dark/20"></div>
         </div>
       )}
 
@@ -169,13 +172,13 @@ export const Navbar = () => {
                     onMouseEnter={handleExpertiseEnter}
                     onMouseLeave={handleExpertiseLeave}
                   >
-                    {/* Glassmorphism background that covers both button and creates seamless connection */}
+                    {/* Enhanced Glassmorphism background with rounded corners like ai.google.com */}
                     {isDropdownOpen && (
-                      <div className="absolute -top-5 -left-6 -right-6 h-[calc(100%+25px)] bg-[#000000]/85 backdrop-blur-md rounded-t-[15px] z-40"></div>
+                      <div className="absolute -top-3 -left-4 -right-4 h-[calc(100%+20px)] bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-lg z-40"></div>
                     )}
                     
                     <button 
-                      className={`relative z-50 flex items-center text-base font-normal tracking-wider transition-colors duration-200 px-2 py-1 ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
+                      className={`relative z-50 flex items-center text-base font-normal tracking-wider transition-colors duration-200 px-3 py-2 rounded-xl ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
                       onClick={toggleDropdown}
                     >
                       Expertise
@@ -219,7 +222,7 @@ export const Navbar = () => {
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="lg:hidden py-4 pb-6 border-t border-gray-800 animate-fade-in">
+            <div className="lg:hidden py-4 pb-6 animate-fade-in">
               <nav className="flex flex-col space-y-6 ml-2.5">
                 <a href="/" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Home</a>
                 
