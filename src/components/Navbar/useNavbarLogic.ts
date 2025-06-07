@@ -5,41 +5,24 @@ export const useNavbarLogic = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showCtaAnimation, setShowCtaAnimation] = useState(false);
   
   const dropdownContainerRef = useRef<HTMLDivElement>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
 
   // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 0);
-
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-
-      if (isHomePage) {
-        scrollTimeoutRef.current = setTimeout(() => {
-          setShowCtaAnimation(scrollTop > 0);
-        }, 2000);
-      }
+      setIsScrolled(window.scrollY > 0);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
     };
-  }, [isHomePage]);
+  }, []);
 
   // Handle clicks outside the dropdown
   useEffect(() => {
@@ -108,17 +91,18 @@ export const useNavbarLogic = () => {
     setIsMenuOpen(false);
   };
 
-  // MODIFIED: This function now consistently returns a dark glassmorphism style.
+  // MODIFIED: This function now provides a dark glassmorphism effect on scroll for all pages.
   const getNavbarBackground = () => {
-    return 'bg-black/50 backdrop-blur-lg border-b border-white/10';
+    return isScrolled 
+      ? 'bg-black/70 backdrop-blur-lg border-b border-white/10' 
+      : 'bg-transparent';
   };
 
   return {
     isMenuOpen,
     isDropdownOpen,
     isScrolled,
-    showCtaAnimation,
-    isHomePage,
+    isHomePage: location.pathname === '/',
     dropdownContainerRef,
     mobileDropdownRef,
     toggleMenu,
