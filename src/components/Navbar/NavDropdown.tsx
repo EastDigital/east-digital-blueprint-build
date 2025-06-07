@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import NavDropdownItem from './NavDropdownItem';
 
@@ -50,11 +49,14 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
     }
   ];
 
+  // These classes match the scrolled navbar's style for a consistent glassmorphism effect.
+  const glassmorphismClasses = "bg-black/70 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl overflow-hidden";
+
   if (isMobile) {
     return (
       <div 
         ref={dropdownRef}
-        className="bg-eastdigital-dark/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden animate-fade-in"
+        className={`${glassmorphismClasses} animate-fade-in`}
       >
         <div className="flex flex-col md:flex-row">
           {expertiseData.map((item, index) => (
@@ -81,7 +83,7 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
   return (
     <div ref={dropdownRef} className="w-full">
       <div className="mx-[10%]">
-        <div className="bg-eastdigital-dark/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+        <div className={glassmorphismClasses}>
           <div className="flex">
             {expertiseData.map((item, index) => (
               <React.Fragment key={index}>
