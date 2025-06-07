@@ -80,6 +80,11 @@ export const Navbar = () => {
         >
           <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} />
         </div>
+{/* Gradient Animation Background - Only on Home Page */}
+{isHomePage && (
+  <div className="fixed top-0 left-0 right-0 h-[400px] pointer-events-none z-40 bg-continuous-gradient" />
+)}
+      
       </header>
     </>
   );
