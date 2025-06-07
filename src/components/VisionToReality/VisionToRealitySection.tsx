@@ -6,21 +6,10 @@ export const VisionToRealitySection = () => {
   // - The top 70% is the section's original color (#0c1a2e).
   // - It then fades to the next section's darker color (#07101c) at the bottom.
   const seamlessGradientStyle: React.CSSProperties = {
-    backgroundImage: 'linear-gradient(top to bottom, #0c1a2e 70%, 100%)',
+    backgroundImage: 'linear-gradient(top to bottom, ##8a5115 70%, #8a5115 100%)',
   };
 
-  return (
-    // 1. We apply the gradient with an inline style.
-    // 2. We remove any Tailwind background classes (like bg-eastdigital-dark or bg-gradient-*) to avoid conflicts.
-    <section 
-      className="relative py-16 lg:py-24"
-      style={seamlessGradientStyle}
-    >
-      
-      {/* No other changes are needed below this line. */}
-      {/* The canvas inside InteractiveVisionBackground should have a transparent background to let this gradient show through. */}
-
-      
+  
       
       <InteractiveVisionBackground />
       
