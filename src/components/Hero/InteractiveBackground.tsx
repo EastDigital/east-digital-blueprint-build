@@ -1,31 +1,3 @@
-// In InteractiveBackground.tsx
-
-const resizeCanvas = () => {
-  const dpr = window.devicePixelRatio || 1; // Get the device pixel ratio
-
-  canvas.width = window.innerWidth * dpr; // Scale canvas width
-  canvas.height = window.innerHeight * dpr; // Scale canvas height
-
-  canvas.style.width = `${window.innerWidth}px`; // Set the display size
-  canvas.style.height = `${window.innerHeight}px`; // Set the display size
-
-  ctx.scale(dpr, dpr); // Scale the drawing context
-
-  initParticles();
-};
-// Idea for your animate() function, inside the particlesRef.current.forEach loop
-
-const dx = particle.x - mouseRef.current.x;
-const dy = particle.y - mouseRef.current.y;
-const distance = Math.sqrt(dx * dx + dy * dy);
-const repelRadius = 100; // How close the mouse needs to be
-
-if (distance < repelRadius) {
-  const force = (repelRadius - distance) / repelRadius;
-  particle.x += (dx / distance) * force * 0.5; // Push particle away
-  particle.y += (dy / distance) * force * 0.5;
-}
-
 import React, { useEffect, useRef } from 'react';
 
 export const InteractiveBackground = () => {
@@ -76,13 +48,39 @@ export const InteractiveBackground = () => {
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
+// In InteractiveBackground.tsx
+
+const resizeCanvas = () => {
+  const dpr = window.devicePixelRatio || 1; // Get the device pixel ratio
+
+  canvas.width = window.innerWidth * dpr; // Scale canvas width
+  canvas.height = window.innerHeight * dpr; // Scale canvas height
+
+  canvas.style.width = `${window.innerWidth}px`; // Set the display size
+  canvas.style.height = `${window.innerHeight}px`; // Set the display size
+
+  ctx.scale(dpr, dpr); // Scale the drawing context
+
+  initParticles();
+};
 
     // Simplified animation loop
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       timeRef.current += 0.005; // Much slower time progression
-      
+      // Idea for your animate() function, inside the particlesRef.current.forEach loop
+
+const dx = particle.x - mouseRef.current.x;
+const dy = particle.y - mouseRef.current.y;
+const distance = Math.sqrt(dx * dx + dy * dy);
+const repelRadius = 100; // How close the mouse needs to be
+
+if (distance < repelRadius) {
+  const force = (repelRadius - distance) / repelRadius;
+  particle.x += (dx / distance) * force * 0.5; // Push particle away
+  particle.y += (dy / distance) * force * 0.5;
+}
       // Subtle gradient background
       const gradient = ctx.createRadialGradient(
         canvas.width / 2, 
