@@ -74,7 +74,12 @@
   }
 }
 
+/* All other animations and the new Aurora effect are now correctly placed
+  inside a single @layer utilities block. This is the standard way to
+  extend Tailwind and will solve the loading issue.
+*/
 @layer utilities {
+
   /* --- START: Aurora Background Effect --- */
   .header-aurora {
     position: relative;
@@ -95,12 +100,12 @@
   }
 
   .header-aurora::before {
-    background-color: rgba(255, 105, 0, 0.15);
+    background-color: rgba(255, 105, 0, 0.15); /* Your brand color */
     animation: move-light-1 18s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
   }
 
   .header-aurora::after {
-    background-color: rgba(255, 105, 0, 0.1);
+    background-color: rgba(255, 105, 0, 0.1); /* A slightly dimmer version */
     width: 500px;
     height: 500px;
     animation: move-light-2 24s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
