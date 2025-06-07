@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 
@@ -10,10 +9,11 @@ interface NavbarCTAProps {
 export const NavbarCTA = ({ isHomePage, showCtaAnimation }: NavbarCTAProps) => {
   return (
     <div className="hidden lg:block">
+      {/* MODIFIED: Replaced orange button style with glassmorphism style */}
       <Button 
-        className={`transition-all duration-500 ease-in-out bg-eastdigital-orange border border-eastdigital-orange hover:bg-eastdigital-orange/90 rounded-[60px] py-3 px-6 text-base font-semibold text-white ${
+        className={`transition-all duration-300 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 rounded-[60px] py-3 px-6 text-base font-semibold text-white ${
           isHomePage && showCtaAnimation 
-            ? 'shadow-lg shadow-eastdigital-orange/30' 
+            ? 'shadow-lg shadow-white/10' 
             : ''
         }`}
       >
