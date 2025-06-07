@@ -1,7 +1,13 @@
+
 import React from 'react';
 import { InteractiveVisionBackground } from './InteractiveVisionBackground';
+
 export const VisionToRealitySection = () => {
-  return <section className="relative py-16 lg:py-24 bg-gradient-to-b from-eastdigital-dark to-gray-900 overflow-hidden">
+  return (
+    <section className="relative py-16 lg:py-24 bg-gradient-to-b from-eastdigital-dark to-gray-900 overflow-hidden">
+      {/* Enhanced seamless gradient blending from hero section */}
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-eastdigital-dark via-eastdigital-dark/80 to-transparent z-10"></div>
+      
       <InteractiveVisionBackground />
       
       <div className="absolute inset-0 opacity-5">
@@ -23,10 +29,13 @@ export const VisionToRealitySection = () => {
             </span>
           </h2>
 
-          <p className="text-lg lg:text-xl text-eastdigital-lightgray leading-relaxed max-w-3xl mx-auto animate-fade-in font-light">At East Digital, we bring real estate concepts to life through immersive visuals, performance-driven marketing, and smart digital solutions. Our services—ranging from 3D architectural rendering and VR walkthroughs to targeted ad campaigns and corporate branding—are tailored to help developers, architects, brokers, and brands stand out in a competitive market.
-        </p>
+          <p className="text-lg lg:text-xl text-eastdigital-lightgray leading-relaxed max-w-3xl mx-auto animate-fade-in font-light">
+            At East Digital, we bring real estate concepts to life through immersive visuals, performance-driven marketing, and smart digital solutions. Our services—ranging from 3D architectural rendering and VR walkthroughs to targeted ad campaigns and corporate branding—are tailored to help developers, architects, brokers, and brands stand out in a competitive market.
+          </p>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default VisionToRealitySection;
