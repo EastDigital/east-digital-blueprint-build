@@ -7,18 +7,24 @@ interface NavbarBackgroundProps {
 }
 
 export const NavbarBackground = ({ isHomePage, isScrolled }: NavbarBackgroundProps) => {
-  // The animated background is only visible on the homepage when scrolled to the top.
+  // The background is only visible on the homepage when not scrolled.
   const isVisible = isHomePage && !isScrolled;
 
   return (
     <div
       className={cn(
-        'fixed top-0 left-0 right-0 h-[400px] pointer-events-none transition-opacity duration-500',
+        'fixed top-0 left-0 right-0 h-[400px] pointer-events-none z-0 transition-opacity duration-500',
         isVisible ? 'opacity-100' : 'opacity-0'
       )}
     >
       {/* This single div creates the entire animated effect via the .header-aurora class. */}
       <div className="absolute inset-0 header-aurora"></div>
+      
+      {/* This div creates a vignette effect to smoothly blend the edges. */}
+      <div 
+        className="absolute inset-0" 
+        style={{ boxShadow: 'inset 0px -100px 100px -50px #0E0E0E' }}
+      ></div>
     </div>
   );
 };
