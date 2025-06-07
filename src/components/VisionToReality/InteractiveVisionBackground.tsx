@@ -65,9 +65,9 @@ export const InteractiveVisionBackground = () => {
         canvas.height / 2, 
         Math.max(canvas.width, canvas.height) * 0.8
       );
-      gradient.addColorStop(0, 'rgba(255, 105, 0, 0.03)');
-      gradient.addColorStop(0.5, 'rgba(107, 114, 128, 0.02)');
-      gradient.addColorStop(1, 'rgba(255, 105, 0, 0.04)');
+      gradient.addColorStop(0, 'rgba(255, 105, 0, 0.0)');
+      gradient.addColorStop(0.5, 'rgba(107, 114, 128, 0.0)');
+      gradient.addColorStop(1, 'rgba(255, 105, 0, 0.0)');
       
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
