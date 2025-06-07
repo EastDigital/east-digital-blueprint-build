@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 
@@ -30,13 +29,13 @@ export const DesktopNav = ({
             onMouseEnter={onExpertiseEnter}
             onMouseLeave={onExpertiseLeave}
           >
-            {/* Compact rounded glass effect like Google's design */}
+            {/* MODIFIED: Classes updated for Google AI-style glassmorphism effect */}
             {isDropdownOpen && (
-              <div className="absolute -top-0 -left-2 -right-2 h-[calc(100%+8px)] bg-white/8 backdrop-blur-sm rounded-xl border border-white/10 z-40"></div>
+              <div className="absolute -inset-y-1.5 -inset-x-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 z-40 transition-all duration-300"></div>
             )}
             
             <button 
-              className={`relative z-50 flex items-center text-base font-normal tracking-wider transition-colors duration-200 px-2 py-1 rounded-lg ${isDropdownOpen ? 'text-eastdigital-orange' : 'text-white hover:text-eastdigital-hover'}`}
+              className={`relative z-50 flex items-center text-base font-normal tracking-wider transition-colors duration-200 px-2 py-1 rounded-lg ${isDropdownOpen ? 'text-white' : 'text-white hover:text-eastdigital-hover'}`}
               onClick={onDropdownToggle}
             >
               Expertise
