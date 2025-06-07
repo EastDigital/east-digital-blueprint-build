@@ -29,9 +29,9 @@ export const DesktopNav = ({
             onMouseEnter={onExpertiseEnter}
             onMouseLeave={onExpertiseLeave}
           >
-            {/* MODIFIED: Classes updated for Google AI-style glassmorphism effect */}
+            {/* MODIFIED: Changed -inset-y-1.5 to -inset-y-1 to reduce height and improve vertical alignment. */}
             {isDropdownOpen && (
-              <div className="absolute -inset-y-1.5 -inset-x-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 z-40 transition-all duration-300"></div>
+              <div className="absolute -inset-y-1 -inset-x-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 z-40 transition-all duration-300"></div>
             )}
             
             <button 
