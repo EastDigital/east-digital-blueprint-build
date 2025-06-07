@@ -1,6 +1,17 @@
 import React from 'react';
 import { InteractiveVisionBackground } from './InteractiveVisionBackground';
 
+// In VisionToRealitySection.js
+
+export const VisionToRealitySection = () => {
+  return (
+    // ADD `relative` AND `z-10` HERE
+    <section className="relative z-10 py-16 lg:py-24 bg-gradient-to-b from-eastdigital-dark from-70% to-transparent overflow-hidden">
+      {/* ... Rest of your component code ... */}
+    </section>
+  );
+};
+
 export const VisionToRealitySection = () => {
   return (
     // MODIFIED LINE: The gradient now starts fading from 70% of the height to transparent.
