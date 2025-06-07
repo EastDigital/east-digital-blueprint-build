@@ -7,7 +7,7 @@ interface NavbarBackgroundProps {
 }
 
 export const NavbarBackground = ({ isHomePage, isScrolled }: NavbarBackgroundProps) => {
-  // This component will only be visible on the homepage when the user has not scrolled.
+  // The background is only visible on the homepage when not scrolled.
   const isVisible = isHomePage && !isScrolled;
 
   return (
@@ -17,22 +17,10 @@ export const NavbarBackground = ({ isHomePage, isScrolled }: NavbarBackgroundPro
         isVisible ? 'opacity-100' : 'opacity-0'
       )}
     >
-      {/* This div creates the animated gradient using your brand color #FF6900.
-        The animation itself is defined in src/index.css.
-      */}
-      <div
-        className="absolute inset-0 bg-continuous-gradient"
-        style={{
-          backgroundImage: `
-            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 105, 0, 0.4), transparent),
-            radial-gradient(ellipse 80% 50% at 20% -15%, rgba(255, 105, 0, 0.3), transparent),
-            radial-gradient(ellipse 80% 50% at 80% -15%, rgba(255, 105, 0, 0.3), transparent)
-          `,
-          backgroundSize: '400% 400%',
-        }}
-      ></div>
+      {/* This div now gets all its styling from the .aurora-background class in index.css */}
+      <div className="absolute inset-0 aurora-background"></div>
       
-      {/* This div creates a vignette effect to smoothly blend the gradient into the dark page background. */}
+      {/* This div creates a vignette effect to smoothly blend the edges. */}
       <div 
         className="absolute inset-0" 
         style={{ boxShadow: 'inset 0px -100px 100px -50px #0E0E0E' }}
