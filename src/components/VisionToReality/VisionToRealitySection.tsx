@@ -1,13 +1,25 @@
 import React from 'react';
 import { InteractiveVisionBackground } from './InteractiveVisionBackground';
 
+// Define the mask style as a reusable object
+const maskStyle: React.CSSProperties = {
+  WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+  maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+};
+
 export const VisionToRealitySection = () => {
   return (
-    // MODIFIED LINE: The gradient now starts fading from 70% of the height to transparent.
-    <section className="relative py-16 lg:py-24 overflow-hidden">
+    // MODIFIED LINE:
+    // 1. Removed the bg-gradient-* classes.
+    // 2. Added a solid background color (bg-eastdigital-dark).
+    // 3. Applied the mask using an inline style.
+    <section 
+      className="relative py-16 lg:py-24 bg-eastdigital-dark overflow-hidden"
+      style={maskStyle}
+    >
       
-      {/* CORRECTED LINE: Fixed non-standard 'to-100%transparent' to 'to-transparent' for consistency. */}
-      <div className="absolute inset-0 bg-continuous-gradient"></div>
+      {/* No changes needed for the rest of the component */}
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-eastdigital-dark via-eastdigital-dark/80 to-transparent z-10"></div>
       
       <InteractiveVisionBackground />
       
