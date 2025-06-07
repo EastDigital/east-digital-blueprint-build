@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { NavDropdown } from './NavDropdown';
@@ -139,8 +140,8 @@ export const Navbar = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-purple-600/25 via-blue-600/20 via-cyan-500/15 to-transparent opacity-70 animate-pulse"></div>
           <div className="absolute inset-0 bg-gradient-to-br from-pink-500/15 via-orange-400/12 via-yellow-300/8 to-transparent opacity-50 animate-pulse delay-1000"></div>
           <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/12 via-blue-500/15 via-purple-600/10 to-transparent opacity-60 animate-pulse delay-2000"></div>
-          {/* Additional seamless blend layer */}
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-eastdigital-dark/20"></div>
+          {/* Enhanced seamless blend layer with better gradient fade */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-eastdigital-dark/10 to-eastdigital-dark/40"></div>
         </div>
       )}
 
@@ -219,45 +220,55 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu with Enhanced Background */}
           {isMenuOpen && (
-            <div className="lg:hidden py-4 pb-6 animate-fade-in">
-              <nav className="flex flex-col space-y-6 ml-2.5">
-                <a href="/" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Home</a>
-                
-                <div ref={mobileDropdownRef}>
-                  <button 
-                    className="flex justify-between items-center text-base font-normal tracking-wider text-white w-full"
-                    onClick={toggleDropdown}
-                  >
-                    <span>Expertise</span>
-                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                  </button>
+            <div className="lg:hidden relative">
+              {/* Mobile Menu Background with Home Page Gradient */}
+              <div className="absolute inset-0 -mx-4 py-4 pb-6">
+                <div className="absolute inset-0 bg-gradient-to-b from-purple-600/25 via-blue-600/20 via-cyan-500/15 to-transparent opacity-70"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-pink-500/15 via-orange-400/12 via-yellow-300/8 to-transparent opacity-50"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/12 via-blue-500/15 via-purple-600/10 to-transparent opacity-60"></div>
+                <div className="absolute inset-0 bg-eastdigital-dark/80 backdrop-blur-xl"></div>
+              </div>
+              
+              <div className="relative z-10 py-4 pb-6 animate-fade-in">
+                <nav className="flex flex-col space-y-6 ml-2.5">
+                  <a href="/" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Home</a>
                   
-                  {isDropdownOpen && (
-                    <div className="mt-4">
-                      <NavDropdown 
-                        isOpen={isDropdownOpen} 
-                        onClose={closeDropdown} 
-                        isMobile={true}
-                        onItemClick={handleMobileDropdownItemClick}
-                      />
-                    </div>
-                  )}
-                </div>
+                  <div ref={mobileDropdownRef}>
+                    <button 
+                      className="flex justify-between items-center text-base font-normal tracking-wider text-white w-full"
+                      onClick={toggleDropdown}
+                    >
+                      <span>Expertise</span>
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {isDropdownOpen && (
+                      <div className="mt-4">
+                        <NavDropdown 
+                          isOpen={isDropdownOpen} 
+                          onClose={closeDropdown} 
+                          isMobile={true}
+                          onItemClick={handleMobileDropdownItemClick}
+                        />
+                      </div>
+                    )}
+                  </div>
 
-                <a href="/impact" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Impact</a>
-                <a href="/approach" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Approach</a>
-                <a href="/connect" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Connect</a>
-                
-                <div className="pt-2">
-                  <Button 
-                    className="w-full bg-eastdigital-orange text-white border border-eastdigital-orange hover:bg-eastdigital-orange/90 transition-colors duration-200 rounded-[60px] py-3 px-6 text-base font-semibold"
-                  >
-                    Get Your Blueprint
-                  </Button>
-                </div>
-              </nav>
+                  <a href="/impact" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Impact</a>
+                  <a href="/approach" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Approach</a>
+                  <a href="/connect" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Connect</a>
+                  
+                  <div className="pt-2">
+                    <Button 
+                      className="w-full bg-eastdigital-orange text-white border border-eastdigital-orange hover:bg-eastdigital-orange/90 transition-colors duration-200 rounded-[60px] py-3 px-6 text-base font-semibold"
+                    >
+                      Get Your Blueprint
+                    </Button>
+                  </div>
+                </nav>
+              </div>
             </div>
           )}
         </div>

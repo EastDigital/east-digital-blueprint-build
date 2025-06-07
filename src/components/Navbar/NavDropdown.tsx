@@ -80,8 +80,6 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
 
   return (
     <div ref={dropdownRef} className="w-full">
-      <div className="h-2"></div>
-      
       <div className="mx-[10%]">
         <div className="bg-eastdigital-dark/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
           <div className="flex">
