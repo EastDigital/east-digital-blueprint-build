@@ -12,7 +12,6 @@ export const useNavbarLogic = () => {
   
   const location = useLocation();
 
-  // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -24,7 +23,6 @@ export const useNavbarLogic = () => {
     };
   }, []);
 
-  // Handle clicks outside the dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (dropdownContainerRef.current && !dropdownContainerRef.current.contains(event.target as Node)) {
@@ -91,10 +89,10 @@ export const useNavbarLogic = () => {
     setIsMenuOpen(false);
   };
 
-  // MODIFIED: This function now provides a dark glassmorphism effect on scroll for all pages.
   const getNavbarBackground = () => {
+    // MODIFIED: Removed the 'border-b border-white/10' classes
     return isScrolled 
-      ? 'bg-black/70 backdrop-blur-lg border-b border-white/10' 
+      ? 'bg-black/70 backdrop-blur-lg' 
       : 'bg-transparent';
   };
 
