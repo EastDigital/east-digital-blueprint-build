@@ -212,7 +212,15 @@
     }
   }
 
-  .bg-continuous-gradient {
+  /*
+    This new class contains all the styling for the animated gradient.
+    It uses your brand color #FF6900 (as rgba) for the effect.
+  */
+  .aurora-background {
+    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 105, 0, 0.3), transparent),
+                      radial-gradient(ellipse 80% 50% at 20% -15%, rgba(255, 105, 0, 0.2), transparent),
+                      radial-gradient(ellipse 80% 50% at 80% -15%, rgba(255, 105, 0, 0.2), transparent);
+    background-size: 400% 400%;
     animation: gradient-move 15s ease-in-out infinite;
   }
 }
