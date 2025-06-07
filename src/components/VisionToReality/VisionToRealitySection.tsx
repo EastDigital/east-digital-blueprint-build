@@ -20,7 +20,7 @@ export const VisionToRealitySection = () => {
       {/* No other changes are needed below this line. */}
       {/* The canvas inside InteractiveVisionBackground should have a transparent background to let this gradient show through. */}
 
-      <div className="h-24 bg-gradient-to-r from-eastdigital-orange to-transparent"></div>
+      
       
       <InteractiveVisionBackground />
       
