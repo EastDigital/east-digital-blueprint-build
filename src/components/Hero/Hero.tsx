@@ -5,8 +5,7 @@ import { InteractiveBackground } from './InteractiveBackground';
 
 export const Hero = () => {
   return (
-    // MODIFIED: Changed bg-eastdigital-dark to bg-transparent to allow the
-    // aurora effect from the NavbarBackground to be visible.
+    // MODIFIED: The background is now transparent to let the aurora show through.
     <section className="relative min-h-screen bg-transparent overflow-hidden flex flex-col mx-0 pb-0 py-[100px] my-0">
       <InteractiveBackground />
       
