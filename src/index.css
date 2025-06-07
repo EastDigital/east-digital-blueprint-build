@@ -200,27 +200,56 @@
   }
 }
 @layer utilities {
-  @keyframes gradient-move {
-    0% {
-      background-position: 0% 50%;
+  /* Keyframes for the fluid light source movement */
+  @keyframes move-light-1 {
+    from {
+      transform: translate(-60%, -80%);
     }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
+    to {
+      transform: translate(120%, 60%);
     }
   }
 
-  /*
-    This new class contains all the styling for the animated gradient.
-    It uses your brand color #FF6900 (as rgba) for the effect.
-  */
-  .aurora-background {
-    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 105, 0, 0.3), transparent),
-                      radial-gradient(ellipse 80% 50% at 20% -15%, rgba(255, 105, 0, 0.2), transparent),
-                      radial-gradient(ellipse 80% 50% at 80% -15%, rgba(255, 105, 0, 0.2), transparent);
-    background-size: 400% 400%;
-    animation: gradient-move 15s ease-in-out infinite;
+  @keyframes move-light-2 {
+    from {
+      transform: translate(80%, 40%);
+    }
+    to {
+      transform: translate(-80%, -60%);
+    }
+  }
+
+  /* This is the container for our new gradient effect */
+  .header-aurora {
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+    z-index: -1; /* Place it behind the navbar content */
+  }
+
+  /* These two pseudo-elements are the "lights" of the aurora */
+  .header-aurora::before,
+  .header-aurora::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(90px); /* Creates the soft, blurry effect */
+    will-change: transform;
+  }
+
+  /* The first light source, using your brand color */
+  .header-aurora::before {
+    background-color: rgba(255, 105, 0, 0.15);
+    animation: move-light-1 18s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  }
+
+  /* The second light source, for depth */
+  .header-aurora::after {
+    background-color: rgba(255, 105, 0, 0.1);
+    width: 500px;
+    height: 500px;
+    animation: move-light-2 24s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
   }
 }
