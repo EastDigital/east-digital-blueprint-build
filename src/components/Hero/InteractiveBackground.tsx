@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 
 export const InteractiveBackground = () => {
@@ -23,8 +24,16 @@ export const InteractiveBackground = () => {
 
     // Set canvas size
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+
+      ctx.scale(dpr, dpr);
+
       initParticles();
     };
 
@@ -32,55 +41,29 @@ export const InteractiveBackground = () => {
     const initParticles = () => {
       particlesRef.current = [];
       const isMobile = window.innerWidth < 768;
-      const particleCount = isMobile ? 15 : 25; // Much fewer particles
+      const particleCount = isMobile ? 15 : 25;
       
       for (let i = 0; i < particleCount; i++) {
         particlesRef.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.2, // Slower movement
+          vx: (Math.random() - 0.5) * 0.2,
           vy: (Math.random() - 0.5) * 0.2,
           size: Math.random() * 2 + 1,
-          opacity: Math.random() * 0.3 + 0.1 // Lower opacity
+          opacity: Math.random() * 0.3 + 0.1
         });
       }
     };
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-// In InteractiveBackground.tsx
-
-const resizeCanvas = () => {
-  const dpr = window.devicePixelRatio || 1; // Get the device pixel ratio
-
-  canvas.width = window.innerWidth * dpr; // Scale canvas width
-  canvas.height = window.innerHeight * dpr; // Scale canvas height
-
-  canvas.style.width = `${window.innerWidth}px`; // Set the display size
-  canvas.style.height = `${window.innerHeight}px`; // Set the display size
-
-  ctx.scale(dpr, dpr); // Scale the drawing context
-
-  initParticles();
-};
 
     // Simplified animation loop
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      timeRef.current += 0.005; // Much slower time progression
-      // Idea for your animate() function, inside the particlesRef.current.forEach loop
-
-const dx = particle.x - mouseRef.current.x;
-const dy = particle.y - mouseRef.current.y;
-const distance = Math.sqrt(dx * dx + dy * dy);
-const repelRadius = 100; // How close the mouse needs to be
-
-if (distance < repelRadius) {
-  const force = (repelRadius - distance) / repelRadius;
-  particle.x += (dx / distance) * force * 0.5; // Push particle away
-  particle.y += (dy / distance) * force * 0.5;
-}
+      timeRef.current += 0.005;
+      
       // Subtle gradient background
       const gradient = ctx.createRadialGradient(
         canvas.width / 2, 
@@ -97,7 +80,7 @@ if (distance < repelRadius) {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Simple floating geometric elements - much fewer and slower
+      // Simple floating geometric elements
       for (let i = 0; i < 3; i++) {
         const x = canvas.width * (0.2 + i * 0.3) + Math.sin(timeRef.current + i * 2) * 20;
         const y = canvas.height * (0.3 + Math.sin(timeRef.current * 0.3 + i) * 0.1) + Math.cos(timeRef.current * 0.5 + i * 1.5) * 30;
@@ -107,7 +90,6 @@ if (distance < repelRadius) {
         ctx.translate(x, y);
         ctx.rotate(timeRef.current * 0.3 + i * 0.5);
         
-        // Simple shapes with very low opacity
         ctx.beginPath();
         if (i % 2 === 0) {
           ctx.rect(-size/2, -size/2, size, size);
@@ -153,6 +135,18 @@ if (distance < repelRadius) {
 
       // Update and draw minimal particles
       particlesRef.current.forEach((particle) => {
+        // Mouse repel effect
+        const dx = particle.x - mouseRef.current.x;
+        const dy = particle.y - mouseRef.current.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const repelRadius = 100;
+
+        if (distance < repelRadius) {
+          const force = (repelRadius - distance) / repelRadius;
+          particle.x += (dx / distance) * force * 0.5;
+          particle.y += (dy / distance) * force * 0.5;
+        }
+
         particle.x += particle.vx;
         particle.y += particle.vy;
 
