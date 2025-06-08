@@ -1,7 +1,8 @@
-
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
-import { getProjectsByCategory } from '@/data/supabaseProjects';
+// IMPORTANT: Make sure you have a function that gets ALL projects, not just by category.
+// I've named it getAllProjects here. You may need to create this in your supabaseProjects file.
+import { getAllProjects } from '@/data/supabaseProjects'; 
 import { PortfolioHeader } from './PortfolioHeader';
 import { CategoryFilter } from './CategoryFilter';
 import { ViewModeToggle } from './ViewModeToggle';
@@ -16,70 +17,71 @@ interface Project {
   name: string;
   description: string;
   featuredImage: string;
-  category: string;
+  // This should match the 'label' in your CategoryFilter component
+  category: string; 
   tags: string[];
   isCurrentlyActive: boolean;
 }
 
 export const PortfolioSection = () => {
   const [activeCategory, setActiveCategory] = useState('All Projects');
-  const [displayedProjects, setDisplayedProjects] = useState(INITIAL_PROJECTS);
-  const [isLoading, setIsLoading] = useState(false);
+  const [displayedCount, setDisplayedCount] = useState(INITIAL_PROJECTS);
+  const [isLoading, setIsLoading] = useState(true); // Single loading state for initial fetch
+  const [isLoadingMore, setIsLoadingMore] = useState(false); // For the "Load More" button
   const [allProjects, setAllProjects] = useState<Project[]>([]);
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  // Fetch projects when category changes
+  // --- REFACTORED: Fetch ALL projects only ONCE when the component mounts ---
   useEffect(() => {
-    const fetchProjects = async () => {
-      setIsInitialLoading(true);
-      console.log('Getting projects for category:', activeCategory);
+    const fetchAllProjects = async () => {
+      setIsLoading(true);
       try {
-        const projects = await getProjectsByCategory(activeCategory);
+        // You'll need a function like this that just gets every project.
+        const projects = await getAllProjects();
         setAllProjects(projects);
       } catch (error) {
         console.error('Error fetching projects:', error);
         setAllProjects([]);
       } finally {
-        setIsInitialLoading(false);
+        setIsLoading(false);
       }
     };
 
-    fetchProjects();
-  }, [activeCategory]);
+    fetchAllProjects();
+  }, []); // The empty dependency array [] means this effect runs only once.
+
+  // --- REFACTORED: Filtering is now done instantly on the client-side ---
+  const filteredProjects = useMemo(() => {
+    console.log(`Filtering for: ${activeCategory}`);
+    if (activeCategory === 'All Projects') {
+      return allProjects;
+    }
+    // Assumes project.category matches the label from CategoryFilter
+    return allProjects.filter(project => project.category === activeCategory);
+  }, [allProjects, activeCategory]);
 
   const currentProjects = useMemo(() => {
-    return allProjects.slice(0, displayedProjects);
-  }, [allProjects, displayedProjects]);
+    return filteredProjects.slice(0, displayedCount);
+  }, [filteredProjects, displayedCount]);
 
-  const hasMore = displayedProjects < allProjects.length;
+  const hasMore = displayedCount < filteredProjects.length;
 
-  const loadMoreProjects = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log('Load more clicked, current displayed:', displayedProjects, 'total:', allProjects.length);
+  const loadMoreProjects = useCallback(async () => {
+    if (isLoadingMore || !hasMore) return;
     
-    if (isLoading || !hasMore) {
-      console.log('Cannot load more - isLoading:', isLoading, 'hasMore:', hasMore);
-      return;
-    }
-    
-    setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 500));
-    setDisplayedProjects(prev => {
-      const newCount = Math.min(prev + PROJECTS_PER_LOAD, allProjects.length);
-      console.log('New displayed count:', newCount);
-      return newCount;
-    });
-    setIsLoading(false);
-  }, [isLoading, hasMore, allProjects.length, displayedProjects]);
+    setIsLoadingMore(true);
+    await new Promise(resolve => setTimeout(resolve, 500)); // Simulate network delay
+    setDisplayedCount(prev => prev + PROJECTS_PER_LOAD);
+    setIsLoadingMore(false);
+  }, [isLoadingMore, hasMore]);
 
+  // --- REFACTORED: This handler now just updates state. It's much simpler. ---
   const handleCategoryChange = useCallback((categoryLabel: string) => {
-    console.log('Category changed to:', categoryLabel);
     setActiveCategory(categoryLabel);
-    setDisplayedProjects(INITIAL_PROJECTS);
+    setDisplayedCount(INITIAL_PROJECTS); // Reset the count for the new category
   }, []);
 
-  if (isInitialLoading) {
+  if (isLoading) {
     return (
       <section className="py-16 lg:py-24" style={{ backgroundColor: '#141414' }}>
         <div className="container mx-auto px-4">
@@ -97,7 +99,6 @@ export const PortfolioSection = () => {
       <div className="container mx-auto px-4">
         <PortfolioHeader />
 
-        {/* Filter Controls */}
         <div className="flex flex-col lg:flex-row justify-between items-center gap-6 mb-8 lg:mb-12">
           <CategoryFilter 
             activeCategory={activeCategory}
@@ -109,11 +110,10 @@ export const PortfolioSection = () => {
           />
         </div>
 
-        {/* Projects Count */}
-        {allProjects.length > 0 && (
+        {filteredProjects.length > 0 && (
           <div className="flex justify-between items-center mb-6">
             <p className="text-gray-400 text-sm">
-              Showing {Math.min(displayedProjects, allProjects.length)} of {allProjects.length} projects
+              Showing {currentProjects.length} of {filteredProjects.length} projects
             </p>
             {activeCategory !== 'All Projects' && (
               <div className="text-sm text-gray-500">
@@ -123,28 +123,29 @@ export const PortfolioSection = () => {
           </div>
         )}
 
-        {/* Projects Content */}
-        {allProjects.length > 0 ? (
+        {filteredProjects.length > 0 ? (
           <>
             <ProjectsGrid 
               projects={currentProjects}
               viewMode={viewMode}
               initialProjects={INITIAL_PROJECTS}
             />
+            
+            <LoadingIndicator isLoading={isLoadingMore} />
 
-            <LoadingIndicator isLoading={isLoading} />
-
-            {hasMore && !isLoading && (
+            {hasMore && !isLoadingMore && (
               <LoadMoreButton 
                 onLoadMore={loadMoreProjects}
-                remainingCount={allProjects.length - displayedProjects}
+                remainingCount={filteredProjects.length - displayedCount}
               />
             )}
 
-            <EndOfProjectsMessage 
-              totalProjects={allProjects.length}
-              initialProjects={INITIAL_PROJECTS}
-            />
+            {!hasMore && (
+              <EndOfProjectsMessage 
+                totalProjects={filteredProjects.length}
+                initialProjects={INITIAL_PROJECTS}
+              />
+            )}
           </>
         ) : (
           <EmptyProjectsState />
