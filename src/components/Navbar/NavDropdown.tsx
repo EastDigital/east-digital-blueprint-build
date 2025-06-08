@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import NavDropdownItem from './NavDropdownItem';
 
@@ -49,7 +50,8 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
     }
   ];
 
-  const glassmorphismClasses = "bg-black/70 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl overflow-hidden";
+  // Enhanced glassmorphism classes that match the navbar background
+  const glassmorphismClasses = "bg-eastdigital-dark/95 backdrop-blur-md border border-white/10 shadow-2xl rounded-2xl overflow-hidden";
 
   if (isMobile) {
     return (
@@ -81,7 +83,7 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
 
   return (
     <div ref={dropdownRef} className="w-full">
-      {/* MODIFIED: The glassmorphism classes are now applied to the outer container that defines the margin */}
+      {/* Enhanced glassmorphism background that matches navbar styling */}
       <div className={`mx-[10%] ${glassmorphismClasses}`}>
         <div className="flex">
           {expertiseData.map((item, index) => (
