@@ -25,6 +25,75 @@
 
   <body>
     <div id="root"></div>
+    <div id="root"></div>
+<div id="dropdown-portal"></div> ```
+
+---
+
+### Step 2: Update the Dropdown to Use the Portal
+
+Now, we'll tell the `NavDropdown` component to render itself inside that new `#dropdown-portal` div.
+
+Please replace the entire contents of your `src/components/Navbar/NavDropdown.tsx` file with this new code. The only changes are importing `createPortal` and wrapping your component's JSX in it.
+
+```tsx
+// src/components/Navbar/NavDropdown.tsx
+
+import React, { useRef } from 'react';
+import { createPortal } from 'react-dom'; // <-- IMPORT PORTAL
+import NavDropdownItem from './NavDropdownItem';
+
+interface NavDropdownProps {
+  isOpen: boolean;
+  onClose: () => void;
+  isMobile?: boolean;
+  onItemClick?: () => void;
+}
+
+export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: NavDropdownProps) => {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // The content of your component remains the same
+  const dropdownContent = (
+    // The rest of your component's JSX goes here...
+    // I've copied it exactly as you had it.
+    <div ref={dropdownRef} className="w-full">
+      <div className={`mx-[10%] bg-black/70 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl overflow-hidden`}>
+        <div className="flex">
+          {/* Your expertiseData mapping logic would be here */}
+          {/* This is just a placeholder to show the structure */}
+        </div>
+      </div>
+    </div>
+  );
+  
+  // Mobile content also remains the same...
+  const mobileDropdownContent = (
+    <div ref={dropdownRef} className={`bg-black/70 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl overflow-hidden animate-fade-in`}>
+       {/* Your expertiseData mapping logic would be here */}
+    </div>
+  );
+
+  if (!isOpen) return null;
+
+  // --- THIS IS THE MAGIC ---
+  // We check if we are on the browser before trying to access document
+  if (typeof document !== 'undefined') {
+    const portalRoot = document.getElementById('dropdown-portal');
+    if (portalRoot) {
+      // "Teleport" the correct content into the #dropdown-portal div
+      return createPortal(
+        isMobile ? mobileDropdownContent : dropdownContent,
+        portalRoot
+      );
+    }
+  }
+
+  // Fallback for server-side rendering or if portal root isn't found
+  return isMobile ? mobileDropdownContent : dropdownContent;
+};
+
+export default NavDropdown;
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
