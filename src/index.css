@@ -74,8 +74,13 @@
   }
 }
 
+/*
+  The Perfect Aurora Background Effect
+  - Uses your brand color and a complementary color for depth.
+  - Highly performant using CSS transforms and filters.
+  - Stays behind your content.
+*/
 @layer utilities {
-  /* --- START: Aurora Background Effect --- */
   .aurora-background {
     position: absolute;
     top: 0;
@@ -83,40 +88,46 @@
     right: 0;
     bottom: 0;
     overflow: hidden;
-    z-index: 0; /* Sits at the bottom of its parent's stacking context */
+    z-index: -1; /* This is what keeps it in the background */
   }
 
+  /* These two pseudo-elements are our "lights" */
   .aurora-background::before,
   .aurora-background::after {
     content: '';
     position: absolute;
-    width: 600px;
+    width: 600px; /* The size of the light blob */
     height: 600px;
     border-radius: 50%;
-    filter: blur(100px);
-    will-change: transform;
-    mix-blend-mode: plus-lighter; /* This creates a beautiful light effect on dark backgrounds */
+    /* The blur is what creates the soft, diffused aurora look */
+    filter: blur(120px); 
+    /* This blend mode creates a beautiful additive light effect on dark backgrounds */
+    mix-blend-mode: plus-lighter;
     opacity: 0.5;
+    /* This tells the browser to optimize for transform animations */
+    will-change: transform;
   }
 
+  /* The first light source: Your brand color */
   .aurora-background::before {
-    background-color: rgba(255, 105, 0, 0.2); /* Your brand color */
+    background-color: rgba(255, 105, 0, 0.2); /* #FF6900 at 20% opacity */
     animation: move-aurora-1 20s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
   }
 
+  /* The second light source: A complementary indigo for depth */
   .aurora-background::after {
-    background-color: rgba(99, 102, 241, 0.15); /* A complementary indigo for depth */
+    background-color: rgba(99, 102, 241, 0.15); 
     animation: move-aurora-2 25s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
   }
 
+  /* Keyframes that define the fluid, non-linear movement of the lights */
   @keyframes move-aurora-1 {
-    from { transform: translate(-50%, -60%); }
-    to { transform: translate(100%, 80%); }
+    from { transform: translate(-50%, -60%) rotate(0deg); }
+    to { transform: translate(100%, 80%) rotate(180deg); }
   }
 
   @keyframes move-aurora-2 {
-    from { transform: translate(60%, 80%); }
-    to { transform: translate(-100%, -40%); }
+    from { transform: translate(60%, 80%) rotate(0deg); }
+    to { transform: translate(-100%, -40%) rotate(360deg); }
   }
-  /* --- END: Aurora Background Effect --- */
 }
