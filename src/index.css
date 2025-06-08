@@ -70,8 +70,83 @@
   * {
     @apply border-border;
   }
+  
+  /* Enhanced Smooth Scrolling for Fluid Experience */
+  html {
+    scroll-behavior: smooth;
+    /* Enhanced scroll performance */
+    -webkit-overflow-scrolling: touch;
+    /* Better momentum scrolling on iOS */
+    overscroll-behavior: none;
+    /* Prevent bounce effects */
+  }
+  
   body {
     @apply bg-background text-foreground font-poppins;
+    /* Optimize scrolling performance */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Enhanced scroll performance */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced Scrollbar Styling for Desktop */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 105, 0, 0.3);
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 105, 0, 0.5);
+  }
+
+  /* Smooth transitions for all elements */
+  * {
+    transition-property: transform, opacity, background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+}
+
+/* Enhanced Smooth Scrolling Utilities */
+@layer utilities {
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroll-snap-y {
+    scroll-snap-type: y mandatory;
+  }
+
+  .scroll-snap-start {
+    scroll-snap-align: start;
+  }
+
+  .scroll-snap-center {
+    scroll-snap-align: center;
+  }
+
+  /* Mobile-optimized scrolling */
+  @media (max-width: 768px) {
+    .mobile-smooth-scroll {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+      scroll-behavior: smooth;
+    }
   }
 }
 
@@ -283,9 +358,4 @@
     0% { opacity: 0.8; }
     100% { opacity: 1.0; }
   }
-}
-/* --- TEST CODE --- */
-.test-red-background {
-  background-color: red !important;
-  z-index: 9999 !important; /* Make sure it's on top of everything */
 }
