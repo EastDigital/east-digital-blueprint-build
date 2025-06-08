@@ -72,7 +72,7 @@ export const Navbar = () => {
           className={`desktop-dropdown hidden lg:block absolute left-0 right-0 z-50 ${isDropdownOpen ? 'block' : 'hidden'}`}
           style={{ top: '100%' }}
         >
-          <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} />
+          <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} anchorRef={dropdownContainerRef} />
         </div>
       </header>
     </>
