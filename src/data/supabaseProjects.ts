@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 
 export interface SupabaseProject {
@@ -76,6 +75,31 @@ export const getSupabaseProjects = async (): Promise<SupabaseProject[]> => {
   }
 
   return data || [];
+};
+
+// Get ALL projects for Impact page (formatted for PortfolioSection component)
+export const getAllProjects = async () => {
+  const { data, error } = await supabase
+    .from('projects')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching all projects:', error);
+    return [];
+  }
+
+  return data?.map(project => ({
+    id: project.id,
+    name: project.name,
+    description: project.description || '',
+    featuredImage: project.featured_image || '/placeholder.svg',
+    featuredVideo: project.featured_video,
+    videoThumbnail: project.video_thumbnail,
+    category: project.category || '',
+    tags: project.tags || [],
+    isCurrentlyActive: project.status === 'active'
+  })) || [];
 };
 
 // Get projects for carousel (show_in_carousel = true) with proper deduplication
