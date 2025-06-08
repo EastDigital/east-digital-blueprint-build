@@ -1,14 +1,14 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
 	darkMode: ["class"],
+    // --- START: THE FIX IS HERE ---
+    // This corrected content array tells Tailwind to scan all the right files.
 	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
+		"./index.html",
+		"./src/**/*.{js,ts,jsx,tsx}",
 	],
+    // --- END: THE FIX IS HERE ---
 	prefix: "",
 	theme: {
 		container: {
