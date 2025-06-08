@@ -131,3 +131,8 @@
     to { transform: translate(-100%, -40%) rotate(360deg); }
   }
 }
+/* --- TEST CODE --- */
+.test-red-background {
+  background-color: red !important;
+  z-index: 9999 !important; /* Make sure it's on top of everything */
+}
