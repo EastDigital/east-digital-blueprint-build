@@ -1,82 +1,96 @@
-import React from 'react';
-import { NavDropdown } from './NavDropdown';
-import { AnimatedHamburger } from './AnimatedHamburger';
-import { NavbarLogo } from './NavbarLogo';
-import { DesktopNav } from './DesktopNav';
-import { MobileNav } from './MobileNav';
-import { NavbarCTA } from './NavbarCTA';
-import { useNavbarLogic } from './useNavbarLogic';
-import { NavbarBackground } from './NavbarBackground';
+// src/components/Navbar/NavDropdown.tsx
 
-export const Navbar = () => {
-  const {
-    isMenuOpen,
-    isDropdownOpen,
-    isScrolled,
-    isHomePage,
-    dropdownContainerRef,
-    mobileDropdownRef,
-    toggleMenu,
-    toggleDropdown,
-    closeDropdown,
-    handleExpertiseEnter,
-    handleExpertiseLeave,
-    handleMobileDropdownItemClick,
-    getNavbarBackground,
-  } = useNavbarLogic();
+import React, { useState, useLayoutEffect, RefObject } from 'react';
+import { createPortal } from 'react-dom';
+import NavDropdownItem from './NavDropdownItem';
 
-  return (
-    <>
-      <NavbarBackground isHomePage={isHomePage} isScrolled={isScrolled} />
+// Define the structure for expertise data
+interface SubItem {
+  title: string;
+  anchor: string;
+}
+interface ExpertiseItem {
+  title: string;
+  link: string;
+  shortText: string;
+  subItems: SubItem[];
+  bottomText: string;
+}
 
-      <header className={`w-full font-poppins fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarBackground()}`}>
-        <div className="container mx-auto px-4">
-          {/* MODIFIED: Increased vertical padding from py-2 back to py-5 */}
-          <div className="flex items-center justify-between py-5">
-            <NavbarLogo />
-            
-            <DesktopNav 
-              isDropdownOpen={isDropdownOpen}
-              onExpertiseEnter={handleExpertiseEnter}
-              onExpertiseLeave={handleExpertiseLeave}
-              onDropdownToggle={toggleDropdown}
-              dropdownContainerRef={dropdownContainerRef}
-            />
+// Update props to accept the anchorRef
+interface NavDropdownProps {
+  isOpen: boolean;
+  onClose: () => void;
+  isMobile?: boolean;
+  onItemClick?: () => void;
+  anchorRef: RefObject<HTMLDivElement>; // This ref points to the "Expertise" link container
+}
 
-            <NavbarCTA 
-              isHomePage={isHomePage}
-              showCtaAnimation={false}
-            />
+export const NavDropdown = ({ isOpen, anchorRef, isMobile = false, onItemClick }: NavDropdownProps) => {
+  const [style, setStyle] = useState<React.CSSProperties>({ opacity: 0 });
+  
+  // Your expertiseData array goes here, I'm using a placeholder for brevity
+  const expertiseData: ExpertiseItem[] = [
+      // ... your full data array
+  ];
 
-            <div className="lg:hidden">
-              <AnimatedHamburger 
-                isOpen={isMenuOpen}
-                onClick={toggleMenu}
+  // This effect calculates the dropdown's position when it opens
+  useLayoutEffect(() => {
+    if (isOpen && anchorRef.current) {
+      const rect = anchorRef.current.getBoundingClientRect();
+      setStyle({
+        opacity: 1,
+        position: 'fixed',
+        top: `${rect.bottom + 10}px`, // Position it 10px below the anchor
+        left: '0px',
+        width: '100vw',
+      });
+    } else {
+      setStyle({ opacity: 0, pointerEvents: 'none' }); // Hide it when closed
+    }
+  }, [isOpen, anchorRef]);
+
+  if (!isOpen) {
+    return null;
+  }
+
+  const glassmorphismClasses = "bg-black/70 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl overflow-hidden";
+
+  // The actual JSX content of the dropdown
+  const dropdownContent = (
+    <div style={style} className="z-50 transition-opacity duration-300">
+      <div className={`mx-[10%] ${glassmorphismClasses}`}>
+        <div className="flex">
+          {expertiseData.map((item, index) => (
+            <React.Fragment key={index}>
+              <NavDropdownItem
+                title={item.title}
+                link={item.link}
+                shortText={item.shortText}
+                subItems={item.subItems}
+                bottomText={item.bottomText}
               />
-            </div>
-          </div>
-
-          <MobileNav 
-            isMenuOpen={isMenuOpen}
-            isDropdownOpen={isDropdownOpen}
-            onDropdownToggle={toggleDropdown}
-            closeDropdown={closeDropdown}
-            onMobileDropdownItemClick={handleMobileDropdownItemClick}
-            mobileDropdownRef={mobileDropdownRef}
-          />
+              {index < expertiseData.length - 1 && (
+                <div className="w-px bg-white/10"></div>
+              )}
+            </React.Fragment>
+          ))}
         </div>
-
-        <div
-          onMouseEnter={handleExpertiseEnter}
-          onMouseLeave={handleExpertiseLeave}
-          className={`desktop-dropdown hidden lg:block absolute left-0 right-0 z-50 ${isDropdownOpen ? 'block' : 'hidden'}`}
-          style={{ top: '100%' }}
-        >
-          <NavDropdown isOpen={isDropdownOpen} onClose={closeDropdown} anchorRef={dropdownContainerRef} />
-        </div>
-      </header>
-    </>
+      </div>
+    </div>
   );
+
+  // The Portal logic remains the same
+  const portalContainer = typeof document !== 'undefined' 
+    ? document.getElementById('dropdown-portal') 
+    : null;
+
+  if (portalContainer) {
+    // We only render the desktop version in the portal
+    return createPortal(isMobile ? null : dropdownContent, portalContainer);
+  }
+
+  return null;
 };
 
-export default Navbar;
+export default NavDropdown;
