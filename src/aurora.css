@@ -1,15 +1,15 @@
 /*
-  This is the complete CSS for the animated aurora background.
-  It uses your brand color #FF6900 and is inspired by the Google AI website's effect.
+  The FINAL Aurora Background CSS
+  - Works perfectly with the fading logic in the Index.tsx component.
+  - Performance-focused and uses your brand colors.
 */
 @layer utilities {
   .aurora-background {
-    position: relative;
+    /* Position is handled by Tailwind's `fixed inset-0` classes now */
     overflow: hidden;
-    z-index: -1; /* This keeps it in the background */
+    z-index: -1; 
   }
 
-  /* These pseudo-elements are the blurred, colored "lights" */
   .aurora-background::before,
   .aurora-background::after {
     content: '';
@@ -17,40 +17,33 @@
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    filter: blur(100px); /* This creates the soft, diffused look */
+    filter: blur(120px);
+    mix-blend-mode: plus-lighter;
+    /* IMPORTANT: The opacity is now REMOVED from here. 
+      It is fully controlled by your React component's conditional classes.
+    */
     will-change: transform;
-    top: 50%;
-    left: 50%;
   }
 
-  /* The first light source, using your orange brand color */
+  /* The first light source: Your brand color */
   .aurora-background::before {
-    background-color: rgba(255, 105, 0, 0.15);
-    animation: move-aurora-1 20s ease-in-out infinite alternate;
+    background-color: rgba(255, 105, 0, 0.2); /* #FF6900 */
+    animation: move-aurora-1 20s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
   }
 
-  /* A second light source, slightly dimmer for depth */
+  /* The second light source: A complementary indigo for depth */
   .aurora-background::after {
-    background-color: rgba(255, 105, 0, 0.1);
-    animation: move-aurora-2 25s ease-in-out infinite alternate;
+    background-color: rgba(99, 102, 241, 0.15); 
+    animation: move-aurora-2 25s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
   }
 
-  /* Keyframes that define the fluid movement of the lights */
   @keyframes move-aurora-1 {
-    from {
-      transform: translate(-60%, -70%) rotate(0deg);
-    }
-    to {
-      transform: translate(80%, 100%) rotate(360deg);
-    }
+    from { transform: translate(-50%, -60%) rotate(0deg); }
+    to { transform: translate(100%, 80%) rotate(180deg); }
   }
 
   @keyframes move-aurora-2 {
-    from {
-      transform: translate(50%, 100%) rotate(0deg);
-    }
-    to {
-      transform: translate(-100%, -60%) rotate(-360deg);
-    }
+    from { transform: translate(60%, 80%) rotate(0deg); }
+    to { transform: translate(-100%, -40%) rotate(360deg); }
   }
 }
