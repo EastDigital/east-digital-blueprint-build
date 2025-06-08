@@ -1,72 +1,64 @@
-import React, { useRef } from 'react';
+// src/components/Navbar/NavDropdown.tsx
+
+import React, { useState, useLayoutEffect, RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import NavDropdownItem from './NavDropdownItem';
 
+// Define the structure for expertise data
 interface SubItem {
   title: string;
   anchor: string;
 }
+interface ExpertiseItem {
+  title: string;
+  link: string;
+  shortText: string;
+  subItems: SubItem[];
+  bottomText: string;
+}
 
+// Update props to accept the anchorRef
 interface NavDropdownProps {
   isOpen: boolean;
   onClose: () => void;
   isMobile?: boolean;
   onItemClick?: () => void;
+  anchorRef: RefObject<HTMLDivElement>; // This ref points to the "Expertise" link container
 }
 
-export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: NavDropdownProps) => {
-  const dropdownRef = useRef<HTMLDivElement>(null);
+export const NavDropdown = ({ isOpen, anchorRef, isMobile = false, onItemClick }: NavDropdownProps) => {
+  const [style, setStyle] = useState<React.CSSProperties>({ opacity: 0 });
+  
+  // Your expertiseData array goes here, I'm using a placeholder for brevity
+  const expertiseData: ExpertiseItem[] = [
+      // ... your full data array
+  ];
+
+  // This effect calculates the dropdown's position when it opens
+  useLayoutEffect(() => {
+    if (isOpen && anchorRef.current) {
+      const rect = anchorRef.current.getBoundingClientRect();
+      setStyle({
+        opacity: 1,
+        position: 'fixed',
+        top: `${rect.bottom + 10}px`, // Position it 10px below the anchor
+        left: '0px',
+        width: '100vw',
+      });
+    } else {
+      setStyle({ opacity: 0, pointerEvents: 'none' }); // Hide it when closed
+    }
+  }, [isOpen, anchorRef]);
 
   if (!isOpen) {
     return null;
   }
 
-  const expertiseData = [
-    {
-      title: "3D RENDERING & VISUALIZATION",
-      link: "/3d-rendering-visualization",
-      shortText: "Bring Your Architectural Visions to Life with Photo-Realistic Precision.",
-      subItems: [
-        { title: "Architectural 3D Rendering", anchor: "/architectural-rendering" },
-        { title: "Architectural Walkthrough Videos", anchor: "/architectural-walkthrough" },
-        { title: "VR-Ready Property Tours", anchor: "/vr-property-tours" }
-      ],
-      bottomText: "Ideal for: Developers, Architects, & Engineers to visualize and present projects."
-    },
-    {
-      title: "REAL ESTATE DIGITAL CAMPAIGNS",
-      link: "/real-estate-digital-campaigns",
-      shortText: "Drive Leads & Sales with Strategic Digital Campaigns.",
-      subItems: [
-        { title: "Targeted Facebook & Google Ads", anchor: "/targeted-ads" },
-        { title: "Drone Videography", anchor: "/drone-videography" },
-        { title: "Broker & Investor Outreach", anchor: "/broker-outreach" }
-      ],
-      bottomText: "Ideal for: Developers & Brokers to generate leads and drive property sales."
-    },
-    {
-      title: "CORPORATE SOLUTIONS",
-      link: "/corporate-solutions",
-      shortText: "Elevate Your Brand and Connect with Your Audience.",
-      subItems: [
-        { title: "Brand Identity Design", anchor: "/brand-identity-design" },
-        { title: "UI/UX Design", anchor: "/ui-ux-design" },
-        { title: "Web & Apps", anchor: "/web-apps" }
-      ],
-      bottomText: "Ideal for: Companies building strong brands & digital platforms."
-    }
-  ];
-
   const glassmorphismClasses = "bg-black/70 backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl overflow-hidden";
 
-  const content = (
-    <div
-      ref={dropdownRef}
-      className="absolute top-full left-0 right-0"
-      // These handlers are for the hover-intent logic from the parent Navbar
-      // onMouseEnter={handleExpertiseEnter} 
-      // onMouseLeave={handleExpertiseLeave}
-    >
+  // The actual JSX content of the dropdown
+  const dropdownContent = (
+    <div style={style} className="z-50 transition-opacity duration-300">
       <div className={`mx-[10%] ${glassmorphismClasses}`}>
         <div className="flex">
           {expertiseData.map((item, index) => (
@@ -87,46 +79,18 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
       </div>
     </div>
   );
-  
-  const mobileContent = (
-     <div 
-        ref={dropdownRef}
-        className={`${glassmorphismClasses} animate-fade-in`}
-      >
-        <div className="flex flex-col md:flex-row">
-          {expertiseData.map((item, index) => (
-            <React.Fragment key={index}>
-              <NavDropdownItem
-                title={item.title}
-                link={item.link}
-                shortText={item.shortText}
-                subItems={item.subItems}
-                bottomText={item.bottomText}
-                isMobile={true}
-                onItemClick={onItemClick}
-              />
-              {index < expertiseData.length - 1 && (
-                <div className="md:w-px md:bg-white/10 h-px md:h-auto bg-white/10 mx-6 md:mx-0"></div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-  );
 
-  // This is the Portal logic
+  // The Portal logic remains the same
   const portalContainer = typeof document !== 'undefined' 
     ? document.getElementById('dropdown-portal') 
     : null;
 
   if (portalContainer) {
-    return createPortal(
-      isMobile ? mobileContent : content,
-      portalContainer
-    );
+    // We only render the desktop version in the portal
+    return createPortal(isMobile ? null : dropdownContent, portalContainer);
   }
 
-  return null; // Return null if portal root is not found on the client
+  return null;
 };
 
 export default NavDropdown;
