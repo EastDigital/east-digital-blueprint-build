@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 
 export interface SupabaseProject {
@@ -99,19 +98,25 @@ export const getAllProjects = async () => {
   }
 
   console.log(`Fetched ${data?.length || 0} projects from database`);
+  console.log('Raw project data:', data);
 
-  return data?.map(project => ({
-    id: project.id,
-    name: project.name,
-    description: project.description || '',
-    featuredImage: project.featured_image || '/placeholder.svg',
-    featuredVideo: project.featured_video,
-    videoThumbnail: project.video_thumbnail,
-    // Map database category to display category
-    category: categoryDisplayMap[project.category || ''] || project.category || '',
-    tags: project.tags || [],
-    isCurrentlyActive: project.status === 'active'
-  })) || [];
+  return data?.map(project => {
+    const mappedProject = {
+      id: project.id,
+      name: project.name,
+      description: project.description || '',
+      featuredImage: project.featured_image || '/placeholder.svg',
+      featuredVideo: project.featured_video,
+      videoThumbnail: project.video_thumbnail,
+      // Map database category to display category
+      category: categoryDisplayMap[project.category || ''] || project.category || '',
+      tags: project.tags || [],
+      isCurrentlyActive: project.status === 'active',
+      client: project.client || 'Client Name'
+    };
+    console.log('Mapped project:', mappedProject);
+    return mappedProject;
+  }) || [];
 };
 
 // Get projects for carousel (show_in_carousel = true) with proper deduplication

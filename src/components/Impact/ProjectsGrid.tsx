@@ -1,15 +1,18 @@
 
 import React from 'react';
-import { MinimalProjectCard } from './MinimalProjectCard';
+import { SimpleProjectCard } from './SimpleProjectCard';
 
 interface Project {
   id: string;
   name: string;
   description: string;
   featuredImage: string;
+  featuredVideo?: string;
+  videoThumbnail?: string;
   category: string;
   tags: string[];
   isCurrentlyActive: boolean;
+  client?: string;
 }
 
 interface ProjectsGridProps {
@@ -19,10 +22,6 @@ interface ProjectsGridProps {
 }
 
 export const ProjectsGrid = ({ projects, viewMode, initialProjects }: ProjectsGridProps) => {
-  const getProjectStatus = (isCurrentlyActive: boolean): "completed" | "in-progress" | "upcoming" => {
-    return isCurrentlyActive ? "in-progress" : "completed";
-  };
-
   return (
     <div className={`grid gap-6 lg:gap-8 mb-12 ${
       viewMode === 'grid' 
@@ -38,14 +37,14 @@ export const ProjectsGrid = ({ projects, viewMode, initialProjects }: ProjectsGr
             animationFillMode: 'forwards'
           }}
         >
-          <MinimalProjectCard 
+          <SimpleProjectCard 
             project={{
               id: project.id,
               title: project.name,
               featuredImage: project.featuredImage,
-              category: project.category,
-              status: getProjectStatus(project.isCurrentlyActive),
-              subtitle: project.description
+              featuredVideo: project.featuredVideo,
+              videoThumbnail: project.videoThumbnail,
+              client: project.client || 'Client Name'
             }} 
           />
         </div>
