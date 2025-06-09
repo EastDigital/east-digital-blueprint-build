@@ -1,7 +1,6 @@
+
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
-// IMPORTANT: Make sure you have a function that gets ALL projects, not just by category.
-// I've named it getAllProjects here. You may need to create this in your supabaseProjects file.
 import { getAllProjects } from '@/data/supabaseProjects'; 
 import { PortfolioHeader } from './PortfolioHeader';
 import { CategoryFilter } from './CategoryFilter';
@@ -17,7 +16,6 @@ interface Project {
   name: string;
   description: string;
   featuredImage: string;
-  // This should match the 'label' in your CategoryFilter component
   category: string; 
   tags: string[];
   isCurrentlyActive: boolean;
@@ -26,21 +24,21 @@ interface Project {
 export const PortfolioSection = () => {
   const [activeCategory, setActiveCategory] = useState('All Projects');
   const [displayedCount, setDisplayedCount] = useState(INITIAL_PROJECTS);
-  const [isLoading, setIsLoading] = useState(true); // Single loading state for initial fetch
-  const [isLoadingMore, setIsLoadingMore] = useState(false); // For the "Load More" button
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [allProjects, setAllProjects] = useState<Project[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  // --- REFACTORED: Fetch ALL projects only ONCE when the component mounts ---
   useEffect(() => {
     const fetchAllProjects = async () => {
       setIsLoading(true);
       try {
-        // You'll need a function like this that just gets every project.
+        console.log('PortfolioSection: Starting to fetch projects...');
         const projects = await getAllProjects();
+        console.log('PortfolioSection: Fetched projects:', projects);
         setAllProjects(projects);
       } catch (error) {
-        console.error('Error fetching projects:', error);
+        console.error('PortfolioSection: Error fetching projects:', error);
         setAllProjects([]);
       } finally {
         setIsLoading(false);
@@ -48,16 +46,24 @@ export const PortfolioSection = () => {
     };
 
     fetchAllProjects();
-  }, []); // The empty dependency array [] means this effect runs only once.
+  }, []);
 
-  // --- REFACTORED: Filtering is now done instantly on the client-side ---
   const filteredProjects = useMemo(() => {
-    console.log(`Filtering for: ${activeCategory}`);
+    console.log(`PortfolioSection: Filtering for category: ${activeCategory}`);
+    console.log('PortfolioSection: All projects:', allProjects);
+    
     if (activeCategory === 'All Projects') {
+      console.log('PortfolioSection: Showing all projects');
       return allProjects;
     }
-    // Assumes project.category matches the label from CategoryFilter
-    return allProjects.filter(project => project.category === activeCategory);
+    
+    const filtered = allProjects.filter(project => {
+      console.log(`Project "${project.name}" has category: "${project.category}"`);
+      return project.category === activeCategory;
+    });
+    
+    console.log(`PortfolioSection: Filtered projects for "${activeCategory}":`, filtered);
+    return filtered;
   }, [allProjects, activeCategory]);
 
   const currentProjects = useMemo(() => {
@@ -70,15 +76,15 @@ export const PortfolioSection = () => {
     if (isLoadingMore || !hasMore) return;
     
     setIsLoadingMore(true);
-    await new Promise(resolve => setTimeout(resolve, 500)); // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 500));
     setDisplayedCount(prev => prev + PROJECTS_PER_LOAD);
     setIsLoadingMore(false);
   }, [isLoadingMore, hasMore]);
 
-  // --- REFACTORED: This handler now just updates state. It's much simpler. ---
   const handleCategoryChange = useCallback((categoryLabel: string) => {
+    console.log(`PortfolioSection: Category changed to: ${categoryLabel}`);
     setActiveCategory(categoryLabel);
-    setDisplayedCount(INITIAL_PROJECTS); // Reset the count for the new category
+    setDisplayedCount(INITIAL_PROJECTS);
   }, []);
 
   if (isLoading) {

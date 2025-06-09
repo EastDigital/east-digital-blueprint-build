@@ -1,3 +1,4 @@
+
 import { supabase } from '@/integrations/supabase/client';
 
 export interface SupabaseProject {
@@ -62,6 +63,13 @@ export interface ProjectDetailsType {
   tags: string[];
 }
 
+// Category mapping from database values to display labels
+const categoryDisplayMap: { [key: string]: string } = {
+  '3d-rendering': '3D Rendering & Visualization',
+  'digital-marketing': 'Digital Marketing Campaigns',
+  'corporate-solutions': 'Corporate Solutions'
+};
+
 // Get all projects from Supabase
 export const getSupabaseProjects = async (): Promise<SupabaseProject[]> => {
   const { data, error } = await supabase
@@ -79,6 +87,7 @@ export const getSupabaseProjects = async (): Promise<SupabaseProject[]> => {
 
 // Get ALL projects for Impact page (formatted for PortfolioSection component)
 export const getAllProjects = async () => {
+  console.log('Fetching all projects...');
   const { data, error } = await supabase
     .from('projects')
     .select('*')
@@ -89,6 +98,8 @@ export const getAllProjects = async () => {
     return [];
   }
 
+  console.log(`Fetched ${data?.length || 0} projects from database`);
+
   return data?.map(project => ({
     id: project.id,
     name: project.name,
@@ -96,7 +107,8 @@ export const getAllProjects = async () => {
     featuredImage: project.featured_image || '/placeholder.svg',
     featuredVideo: project.featured_video,
     videoThumbnail: project.video_thumbnail,
-    category: project.category || '',
+    // Map database category to display category
+    category: categoryDisplayMap[project.category || ''] || project.category || '',
     tags: project.tags || [],
     isCurrentlyActive: project.status === 'active'
   })) || [];
@@ -158,7 +170,8 @@ export const getProjectsByCategory = async (category: string) => {
     featuredImage: project.featured_image || '/placeholder.svg',
     featuredVideo: project.featured_video,
     videoThumbnail: project.video_thumbnail,
-    category: project.category || '',
+    // Map database category to display category
+    category: categoryDisplayMap[project.category || ''] || project.category || '',
     tags: project.tags || [],
     isCurrentlyActive: project.status === 'active'
   })) || [];
@@ -188,7 +201,7 @@ export const getProjectById = async (id: string): Promise<ProjectDetailsType | n
     featuredImage: data.featured_image || '/placeholder.svg',
     featuredVideo: data.featured_video,
     videoThumbnail: data.video_thumbnail,
-    category: data.category || '',
+    category: categoryDisplayMap[data.category || ''] || data.category || '',
     duration: data.duration || '',
     location: data.location || '',
     team: data.team_size || '',
@@ -231,7 +244,7 @@ export const getProjectBySlug = async (slug: string): Promise<ProjectDetailsType
     featuredImage: data.featured_image || '/placeholder.svg',
     featuredVideo: data.featured_video,
     videoThumbnail: data.video_thumbnail,
-    category: data.category || '',
+    category: categoryDisplayMap[data.category || ''] || data.category || '',
     duration: data.duration || '',
     location: data.location || '',
     team: data.team_size || '',

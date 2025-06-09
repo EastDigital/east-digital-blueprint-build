@@ -2,10 +2,10 @@
 import React from 'react';
 
 const categories = [
-  { id: 'ALL', label: 'All Projects' },
-  { id: '3d-rendering', label: '3D Rendering & Visualization' },
-  { id: 'digital-marketing', label: 'Digital Marketing Campaigns' },
-  { id: 'corporate-solutions', label: 'Corporate Solutions' }
+  { id: 'ALL', label: 'All Projects', dbValue: null },
+  { id: '3d-rendering', label: '3D Rendering & Visualization', dbValue: '3d-rendering' },
+  { id: 'digital-marketing', label: 'Digital Marketing Campaigns', dbValue: 'digital-marketing' },
+  { id: 'corporate-solutions', label: 'Corporate Solutions', dbValue: 'corporate-solutions' }
 ];
 
 interface CategoryFilterProps {
@@ -32,3 +32,6 @@ export const CategoryFilter = ({ activeCategory, onCategoryChange }: CategoryFil
     </div>
   );
 };
+
+// Export the categories for use in other components
+export const categoryMappings = categories;
