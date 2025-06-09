@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 interface SimpleProjectCardProps {
   project: {
     id: string;
-    title: string;
+    name: string;
     featuredImage: string;
     client: string;
     featuredVideo?: string;
@@ -51,7 +51,7 @@ export const SimpleProjectCard = ({ project }: SimpleProjectCardProps) => {
           ) : (
             <img 
               src={project.featuredImage} 
-              alt={project.title}
+              alt={project.name}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           )}
@@ -63,7 +63,7 @@ export const SimpleProjectCard = ({ project }: SimpleProjectCardProps) => {
         {/* Content Section - Simplified */}
         <div className="p-6">
           <h3 className="text-lg font-semibold text-white group-hover:text-eastdigital-orange transition-colors duration-300 mb-2">
-            {project.title}
+            {project.name}
           </h3>
           <p className="text-gray-400 text-sm">
             {project.client}

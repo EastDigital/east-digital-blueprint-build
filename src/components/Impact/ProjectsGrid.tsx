@@ -40,7 +40,7 @@ export const ProjectsGrid = ({ projects, viewMode, initialProjects }: ProjectsGr
           <SimpleProjectCard 
             project={{
               id: project.id,
-              title: project.name,
+              name: project.name,
               featuredImage: project.featuredImage,
               featuredVideo: project.featuredVideo,
               videoThumbnail: project.videoThumbnail,
