@@ -1,15 +1,14 @@
-
 import React from 'react';
 import { LiquidGlassCard } from '@/components/LiquidGlass/LiquidGlassCard';
 import { LiquidGlassButton } from '@/components/LiquidGlass/LiquidGlassButton';
-
 export const MissionSection = () => {
-  return (
-    <section className="relative py-24 lg:py-32 bg-gradient-to-b from-eastdigital-dark via-gray-900/50 to-eastdigital-dark overflow-hidden">
+  return <section className="relative py-24 lg:py-32 bg-gradient-to-b from-eastdigital-dark via-gray-900/50 to-eastdigital-dark overflow-hidden">
       {/* Liquid Glass Background Orbs */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-eastdigital-orange/20 via-transparent to-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-blue-500/15 via-eastdigital-orange/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-blue-500/15 via-eastdigital-orange/10 to-transparent rounded-full blur-3xl animate-pulse" style={{
+        animationDelay: '2s'
+      }}></div>
       </div>
 
       <div className="relative z-10 container mx-auto px-4">
@@ -18,22 +17,14 @@ export const MissionSection = () => {
           <div className="inline-flex items-center px-6 py-2 bg-eastdigital-orange/10 border border-eastdigital-orange/20 rounded-full mb-8 backdrop-blur-xl">
             <span className="text-eastdigital-orange text-sm font-medium tracking-widest uppercase">Our Mission</span>
           </div>
-          <h2 className="text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl">
-            Empowering Digital Excellence
-          </h2>
-          <p className="text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed text-lg">
-            At East Digital, we're dedicated to transforming ideas into impactful digital solutions. We specialize in 3D architectural visualization, strategic digital marketing, and comprehensive branding that drives real results for businesses across industries.
-          </p>
+          <h2 className="text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl">Turning Real Estate Vision into Digital Reality</h2>
+          <p className="text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed text-lg">At East Digital, we bring real estate concepts to life through immersive visuals, performance-driven marketing, and smart digital solutions. Our services—ranging from 3D architectural rendering and VR walkthroughs to targeted ad campaigns and corporate branding—are tailored to help developers, architects, brokers, and brands stand out in a competitive market.</p>
         </div>
 
         {/* Mission Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {/* Vision Card */}
-          <LiquidGlassCard 
-            variant="default" 
-            className="p-8 group text-center"
-            interactive={true}
-          >
+          <LiquidGlassCard variant="default" className="p-8 group text-center" interactive={true}>
             <div className="w-16 h-16 bg-gradient-to-br from-eastdigital-orange/20 to-eastdigital-orange/10 rounded-2xl border border-eastdigital-orange/30 flex items-center justify-center mx-auto mb-6 backdrop-blur-xl group-hover:from-eastdigital-orange/30 group-hover:to-eastdigital-orange/20 transition-all duration-300">
               <span className="text-eastdigital-orange text-2xl">👁️</span>
             </div>
@@ -46,11 +37,7 @@ export const MissionSection = () => {
           </LiquidGlassCard>
 
           {/* Mission Card */}
-          <LiquidGlassCard 
-            variant="default" 
-            className="p-8 group text-center"
-            interactive={true}
-          >
+          <LiquidGlassCard variant="default" className="p-8 group text-center" interactive={true}>
             <div className="w-16 h-16 bg-gradient-to-br from-eastdigital-orange/20 to-eastdigital-orange/10 rounded-2xl border border-eastdigital-orange/30 flex items-center justify-center mx-auto mb-6 backdrop-blur-xl group-hover:from-eastdigital-orange/30 group-hover:to-eastdigital-orange/20 transition-all duration-300">
               <span className="text-eastdigital-orange text-2xl">🎯</span>
             </div>
@@ -63,11 +50,7 @@ export const MissionSection = () => {
           </LiquidGlassCard>
 
           {/* Values Card */}
-          <LiquidGlassCard 
-            variant="default" 
-            className="p-8 group text-center md:col-span-2 lg:col-span-1"
-            interactive={true}
-          >
+          <LiquidGlassCard variant="default" className="p-8 group text-center md:col-span-2 lg:col-span-1" interactive={true}>
             <div className="w-16 h-16 bg-gradient-to-br from-eastdigital-orange/20 to-eastdigital-orange/10 rounded-2xl border border-eastdigital-orange/30 flex items-center justify-center mx-auto mb-6 backdrop-blur-xl group-hover:from-eastdigital-orange/30 group-hover:to-eastdigital-orange/20 transition-all duration-300">
               <span className="text-eastdigital-orange text-2xl">⭐</span>
             </div>
@@ -82,15 +65,10 @@ export const MissionSection = () => {
 
         {/* Call to Action */}
         <div className="text-center">
-          <LiquidGlassButton 
-            variant="primary" 
-            size="lg"
-            className="px-8 py-4 font-semibold"
-          >
+          <LiquidGlassButton variant="primary" size="lg" className="px-8 py-4 font-semibold">
             Partner With Us
           </LiquidGlassButton>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
