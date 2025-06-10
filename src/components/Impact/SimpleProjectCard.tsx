@@ -22,6 +22,8 @@ export const SimpleProjectCard = ({ project }: SimpleProjectCardProps) => {
     navigate(`/project/${project.id}`);
   };
 
+  console.log('SimpleProjectCard: Rendering project:', project.name);
+
   return (
     <div className="group">
       <div 
@@ -53,6 +55,10 @@ export const SimpleProjectCard = ({ project }: SimpleProjectCardProps) => {
               src={project.featuredImage} 
               alt={project.name}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              onError={(e) => {
+                console.log('Image failed to load:', project.featuredImage);
+                e.currentTarget.src = '/placeholder.svg';
+              }}
             />
           )}
           

@@ -6,6 +6,7 @@ import { PortfolioHeader } from './PortfolioHeader';
 import { CategoryFilter } from './CategoryFilter';
 import { ViewModeToggle } from './ViewModeToggle';
 import { ProjectsGrid } from './ProjectsGrid';
+import { ProjectsAnimations } from './ProjectsAnimations';
 import { LoadingIndicator, LoadMoreButton, EndOfProjectsMessage, EmptyProjectsState } from './ProjectsLoadingStates';
 
 const INITIAL_PROJECTS = 9;
@@ -31,17 +32,28 @@ export const PortfolioSection = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [allProjects, setAllProjects] = useState<Project[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAllProjects = async () => {
       setIsLoading(true);
+      setError(null);
       try {
         console.log('PortfolioSection: Starting to fetch projects...');
         const projects = await getAllProjects();
         console.log('PortfolioSection: Fetched projects:', projects);
-        setAllProjects(projects);
+        
+        if (!projects || projects.length === 0) {
+          console.log('PortfolioSection: No projects found');
+          setError('No projects found');
+        } else {
+          console.log('PortfolioSection: Successfully loaded', projects.length, 'projects');
+        }
+        
+        setAllProjects(projects || []);
       } catch (error) {
         console.error('PortfolioSection: Error fetching projects:', error);
+        setError('Failed to load projects');
         setAllProjects([]);
       } finally {
         setIsLoading(false);
@@ -70,7 +82,9 @@ export const PortfolioSection = () => {
   }, [allProjects, activeCategory]);
 
   const currentProjects = useMemo(() => {
-    return filteredProjects.slice(0, displayedCount);
+    const projects = filteredProjects.slice(0, displayedCount);
+    console.log('PortfolioSection: Current projects to display:', projects);
+    return projects;
   }, [filteredProjects, displayedCount]);
 
   const hasMore = displayedCount < filteredProjects.length;
@@ -103,8 +117,28 @@ export const PortfolioSection = () => {
     );
   }
 
+  if (error) {
+    return (
+      <section className="py-16 lg:py-24" style={{ backgroundColor: '#141414' }}>
+        <div className="container mx-auto px-4">
+          <PortfolioHeader />
+          <div className="text-center py-16">
+            <p className="text-red-400 text-lg mb-4">{error}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="bg-eastdigital-orange text-white px-6 py-2 rounded-lg hover:bg-eastdigital-orange/90 transition-colors"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 lg:py-24" style={{ backgroundColor: '#141414' }}>
+      <ProjectsAnimations />
       <div className="container mx-auto px-4">
         <PortfolioHeader />
 
@@ -117,6 +151,13 @@ export const PortfolioSection = () => {
             viewMode={viewMode}
             onViewModeChange={setViewMode}
           />
+        </div>
+
+        {/* Debug info - remove in production */}
+        <div className="mb-4 p-4 bg-gray-800 rounded-lg">
+          <p className="text-gray-300 text-sm">
+            Debug: Total projects: {allProjects.length}, Filtered: {filteredProjects.length}, Current: {currentProjects.length}
+          </p>
         </div>
 
         {filteredProjects.length > 0 && (
@@ -132,7 +173,7 @@ export const PortfolioSection = () => {
           </div>
         )}
 
-        {filteredProjects.length > 0 ? (
+        {currentProjects.length > 0 ? (
           <>
             <ProjectsGrid 
               projects={currentProjects}
@@ -149,7 +190,7 @@ export const PortfolioSection = () => {
               />
             )}
 
-            {!hasMore && (
+            {!hasMore && currentProjects.length > INITIAL_PROJECTS && (
               <EndOfProjectsMessage 
                 totalProjects={filteredProjects.length}
                 initialProjects={INITIAL_PROJECTS}
