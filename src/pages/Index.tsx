@@ -6,6 +6,7 @@ import { VisionToRealitySection } from '@/components/VisionToReality/VisionToRea
 import { AboutSection } from '@/components/About/AboutSection';
 import { IndustrySection } from '@/components/Industry/IndustrySection';
 import Footer from '@/components/Footer/Footer';
+import { LiquidGlassContainer } from '@/components/LiquidGlass/LiquidGlassContainer';
 import { useNavbarLogic } from '@/components/Navbar/useNavbarLogic';
 import { cn } from '@/lib/utils';
 
@@ -14,7 +15,7 @@ const Index = () => {
   const showAurora = isHomePage && !isScrolled;
 
   return (
-    <div className="min-h-screen flex flex-col bg-eastdigital-dark relative isolate">
+    <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate" withParticles={true}>
       <div
         className={cn(
           'aurora-background fixed inset-0 transition-opacity duration-500',
@@ -30,7 +31,7 @@ const Index = () => {
         <IndustrySection />
         <Footer />
       </div>
-    </div>
+    </LiquidGlassContainer>
   );
 };
 

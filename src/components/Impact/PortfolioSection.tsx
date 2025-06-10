@@ -153,13 +153,6 @@ export const PortfolioSection = () => {
           />
         </div>
 
-        {/* Debug info - remove in production */}
-        <div className="mb-4 p-4 bg-gray-800 rounded-lg">
-          <p className="text-gray-300 text-sm">
-            Debug: Total projects: {allProjects.length}, Filtered: {filteredProjects.length}, Current: {currentProjects.length}
-          </p>
-        </div>
-
         {filteredProjects.length > 0 && (
           <div className="flex justify-between items-center mb-6">
             <p className="text-gray-400 text-sm">
