@@ -31,7 +31,7 @@ export const MissionSection = () => {
             <h3 className="text-xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300">
               Our Vision
             </h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="text-gray-300 leading-relaxed text-base">
               To be the leading digital partner for businesses worldwide, delivering innovative solutions that bridge the gap between imagination and reality through cutting-edge technology and creative excellence.
             </p>
           </LiquidGlassCard>
@@ -44,7 +44,7 @@ export const MissionSection = () => {
             <h3 className="text-xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300">
               Our Mission
             </h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="text-gray-300 leading-relaxed text-base">
               We empower businesses to achieve their digital aspirations through exceptional 3D visualizations, targeted marketing campaigns, and strategic branding solutions that create lasting impact and drive measurable growth.
             </p>
           </LiquidGlassCard>
@@ -57,7 +57,7 @@ export const MissionSection = () => {
             <h3 className="text-xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300">
               Our Values
             </h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="text-gray-300 leading-relaxed text-base">
               Innovation, quality, and client success drive everything we do. We believe in transparent communication, continuous learning, and delivering solutions that exceed expectations while building long-term partnerships.
             </p>
           </LiquidGlassCard>
