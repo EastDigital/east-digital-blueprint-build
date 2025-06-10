@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { NavDropdown } from './NavDropdown';
 import { AnimatedHamburger } from './AnimatedHamburger';
@@ -31,8 +32,8 @@ export const Navbar = () => {
 
       <header className={`w-full font-poppins fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarBackground()}`}>
         <div className="container mx-auto px-4">
-          {/* MODIFIED: Increased vertical padding from py-2 back to py-5 */}
-          <div className="flex items-center justify-between py-5">
+          {/* FIXED: Consistent height - using h-20 for both states */}
+          <div className="flex items-center justify-between h-20">
             <NavbarLogo />
             
             <DesktopNav 

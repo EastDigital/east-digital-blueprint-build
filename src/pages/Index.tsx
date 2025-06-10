@@ -2,7 +2,7 @@
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 import { Hero } from '@/components/Hero/Hero';
-import { VisionToRealitySection } from '@/components/VisionToReality/VisionToRealitySection';
+import { MissionSection } from '@/components/Mission/MissionSection';
 import { AboutSection } from '@/components/About/AboutSection';
 import { IndustrySection } from '@/components/Industry/IndustrySection';
 import Footer from '@/components/Footer/Footer';
@@ -26,7 +26,7 @@ const Index = () => {
       <div className="relative z-10 flex flex-col">
         <Navbar />
         <Hero />
-        <VisionToRealitySection />
+        <MissionSection />
         <AboutSection />
         <IndustrySection />
         <Footer />

@@ -1,6 +1,9 @@
+
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import { LiquidGlassCard } from '@/components/LiquidGlass/LiquidGlassCard';
+import { LiquidGlassButton } from '@/components/LiquidGlass/LiquidGlassButton';
 import { Target, Lightbulb, Rocket, Users, Zap, Shield } from 'lucide-react';
+
 export const AboutSection = () => {
   const approaches = [{
     icon: Target,
@@ -27,33 +30,43 @@ export const AboutSection = () => {
     title: "Future-Proof Solutions",
     description: "We create adaptable 3D, marketing, and branding solutions, designed to scale for future industry demands."
   }];
-  return <section className="relative bg-eastdigital-dark overflow-hidden py-0 lg:py-[100px]">
-      {/* Background Animation */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-eastdigital-orange/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-10 w-32 h-32 bg-gradient-to-tr from-eastdigital-orange/15 to-transparent rounded-full blur-2xl animate-pulse" style={{
-        animationDelay: '3s'
-      }}></div>
+
+  return (
+    <section className="relative bg-eastdigital-dark overflow-hidden py-0 lg:py-[100px]">
+      {/* Liquid Glass Background Animation */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-10 right-10 w-96 h-96 bg-gradient-to-br from-eastdigital-orange/15 via-transparent to-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-10 w-80 h-80 bg-gradient-to-tl from-blue-500/12 via-eastdigital-orange/8 to-transparent rounded-full blur-3xl animate-pulse" style={{
+          animationDelay: '3s'
+        }}></div>
       </div>
 
       <div className="relative z-10 container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16 lg:mb-20">
-          <div className="inline-flex items-center px-4 py-2 bg-eastdigital-orange/10 border border-eastdigital-orange/20 rounded-full mb-6">
+          <div className="inline-flex items-center px-4 py-2 bg-eastdigital-orange/10 border border-eastdigital-orange/20 rounded-full mb-6 backdrop-blur-xl">
             <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">Our Methodology</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl">
             Our Approach
           </h2>
-          <p className="text-xl text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed lg:text-lg font-light">We combine industry-specific insights with creative expertise to deliver specialized 3D visualizations, targeted digital marketing, and impactful branding solutions. Our approach ensures your projects not only meet today's goals but are also primed for tomorrow's opportunities.</p>
+          <p className="text-xl text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed lg:text-lg font-light">
+            We combine industry-specific insights with creative expertise to deliver specialized 3D visualizations, targeted digital marketing, and impactful branding solutions. Our approach ensures your projects not only meet today's goals but are also primed for tomorrow's opportunities.
+          </p>
         </div>
 
-        {/* Approach Grid */}
+        {/* Approach Grid with Liquid Glass Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-16">
-          {approaches.map((approach, index) => <div key={index} className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-8 hover:border-eastdigital-orange/30 transition-all duration-300 hover:transform hover:scale-105">
-              {/* Icon */}
-              <div className="w-16 h-16 bg-gradient-to-br from-eastdigital-orange to-eastdigital-orange/80 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <approach.icon className="h-8 w-8 text-white" />
+          {approaches.map((approach, index) => (
+            <LiquidGlassCard
+              key={index}
+              variant="default"
+              className="p-8 group"
+              interactive={true}
+            >
+              {/* Icon with Liquid Glass Effect */}
+              <div className="w-16 h-16 bg-gradient-to-br from-eastdigital-orange/20 to-eastdigital-orange/10 rounded-2xl border border-eastdigital-orange/30 flex items-center justify-center mb-6 backdrop-blur-xl group-hover:from-eastdigital-orange/30 group-hover:to-eastdigital-orange/20 group-hover:scale-110 transition-all duration-300">
+                <approach.icon className="h-8 w-8 text-eastdigital-orange" />
               </div>
               
               {/* Content */}
@@ -64,15 +77,13 @@ export const AboutSection = () => {
                 {approach.description}
               </p>
 
-              {/* Hover Effect Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-eastdigital-orange/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"></div>
-            </div>)}
+              {/* Enhanced bottom glow */}
+              <div className="absolute bottom-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-eastdigital-orange/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </LiquidGlassCard>
+          ))}
         </div>
 
-        {/* Stats Section */}
-        
-
-        {/* CTA */}
+        {/* CTA with Liquid Glass Buttons */}
         <div className="text-center">
           <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
             Ready to Experience Our Approach?
@@ -81,15 +92,25 @@ export const AboutSection = () => {
             Let's discuss how our proven methodology can accelerate your digital transformation and deliver exceptional results.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 text-white px-8 py-3 text-lg rounded-[60px] transition-all duration-300 hover:shadow-lg hover:shadow-eastdigital-orange/30">
+            <LiquidGlassButton 
+              variant="primary" 
+              size="lg"
+              className="px-8 py-3 text-lg font-medium"
+            >
               Get Your Blueprint
-            </Button>
-            <Button variant="outline" className="border-eastdigital-orange text-eastdigital-orange hover:bg-eastdigital-orange hover:text-white px-8 py-3 text-lg rounded-[60px] transition-all duration-300">
+            </LiquidGlassButton>
+            <LiquidGlassButton 
+              variant="secondary" 
+              size="lg"
+              className="px-8 py-3 text-lg font-medium"
+            >
               View Our Process
-            </Button>
+            </LiquidGlassButton>
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default AboutSection;

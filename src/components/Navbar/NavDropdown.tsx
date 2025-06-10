@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import NavDropdownItem from './NavDropdownItem';
 
@@ -49,8 +50,8 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
     }
   ];
 
-  // Enhanced glassmorphism classes that match the navbar background
-  const glassmorphismClasses = "bg-eastdigital-dark/95 backdrop-blur-md border border-white/10 shadow-2xl rounded-2xl overflow-hidden";
+  // Enhanced glassmorphism with better readability
+  const glassmorphismClasses = "bg-eastdigital-dark/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden";
 
   if (isMobile) {
     return (
@@ -71,7 +72,7 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
                 onItemClick={onItemClick}
               />
               {index < expertiseData.length - 1 && (
-                <div className="md:w-px md:bg-white/10 h-px md:h-auto bg-white/10 mx-6 md:mx-0"></div>
+                <div className="md:w-px md:bg-white/20 h-px md:h-auto bg-white/20 mx-6 md:mx-0"></div>
               )}
             </React.Fragment>
           ))}
@@ -82,24 +83,31 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
 
   return (
     <div ref={dropdownRef} className="w-full">
-      {/* Enhanced glassmorphism background that matches navbar styling */}
+      {/* Enhanced glassmorphism background with better contrast */}
       <div className={`mx-[10%] ${glassmorphismClasses}`}>
-        <div className="flex">
-          {expertiseData.map((item, index) => (
-            <React.Fragment key={index}>
-              <NavDropdownItem
-                title={item.title}
-                link={item.link}
-                shortText={item.shortText}
-                subItems={item.subItems}
-                bottomText={item.bottomText}
-              />
-              {index < expertiseData.length - 1 && (
-                <div className="w-px bg-white/10"></div>
-              )}
-            </React.Fragment>
-          ))}
+        {/* Enhanced content background for better readability */}
+        <div className="bg-gradient-to-br from-eastdigital-dark/95 via-eastdigital-dark/90 to-eastdigital-dark/95 backdrop-blur-xl">
+          <div className="flex">
+            {expertiseData.map((item, index) => (
+              <React.Fragment key={index}>
+                <NavDropdownItem
+                  title={item.title}
+                  link={item.link}
+                  shortText={item.shortText}
+                  subItems={item.subItems}
+                  bottomText={item.bottomText}
+                />
+                {index < expertiseData.length - 1 && (
+                  <div className="w-px bg-white/20"></div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
+        
+        {/* Enhanced liquid glass reflection */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-eastdigital-orange/40 to-transparent"></div>
       </div>
     </div>
   );

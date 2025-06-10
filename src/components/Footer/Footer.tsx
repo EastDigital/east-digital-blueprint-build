@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Phone, ArrowUp } from 'lucide-react';
@@ -101,14 +100,17 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Services Grid with Liquid Glass Cards */}
+        {/* Services Grid with Functional Links */}
         <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-12">
           {/* 3D Rendering Services */}
           <LiquidGlassCard variant="default" className="p-6 group">
             <div className="relative z-10">
-              <h3 className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300">
+              <button 
+                onClick={() => handleNavigation('/3d-rendering-visualization')}
+                className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300 text-left w-full"
+              >
                 3D RENDERING & VISUALIZATION
-              </h3>
+              </button>
               <p className="text-gray-400 text-sm mb-6">
                 Bring Your Architectural Visions to Life<br />
                 with Photo-Realistic Precision.
@@ -116,15 +118,30 @@ const Footer = () => {
               <ul className="space-y-3 mb-6">
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  Architectural 3d Rendering
+                  <button 
+                    onClick={() => handleNavigation('/architectural-rendering')}
+                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
+                  >
+                    Architectural 3d Rendering
+                  </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  Architectural Walkthrough Videos
+                  <button 
+                    onClick={() => handleNavigation('/architectural-walkthrough')}
+                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
+                  >
+                    Architectural Walkthrough Videos
+                  </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  VR-Ready Property Tours
+                  <button 
+                    onClick={() => handleNavigation('/vr-property-tours')}
+                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
+                  >
+                    VR-Ready Property Tours
+                  </button>
                 </li>
               </ul>
               <p className="text-gray-400 text-sm">
@@ -137,9 +154,12 @@ const Footer = () => {
           {/* Digital Campaigns Services */}
           <LiquidGlassCard variant="default" className="p-6 group">
             <div className="relative z-10">
-              <h3 className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300">
+              <button 
+                onClick={() => handleNavigation('/real-estate-digital-campaigns')}
+                className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300 text-left w-full"
+              >
                 REAL ESTATE DIGITAL CAMPAIGNS
-              </h3>
+              </button>
               <p className="text-gray-400 text-sm mb-6">
                 Drive Leads & Sales with Strategic<br />
                 Digital Campaigns.
@@ -147,15 +167,30 @@ const Footer = () => {
               <ul className="space-y-3 mb-6">
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  Targeted Facebook & Google Ads
+                  <button 
+                    onClick={() => handleNavigation('/targeted-ads')}
+                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
+                  >
+                    Targeted Facebook & Google Ads
+                  </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  Drone Videography
+                  <button 
+                    onClick={() => handleNavigation('/drone-videography')}
+                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
+                  >
+                    Drone Videography
+                  </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  Broker & Investor Outreach
+                  <button 
+                    onClick={() => handleNavigation('/broker-outreach')}
+                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
+                  >
+                    Broker & Investor Outreach
+                  </button>
                 </li>
               </ul>
               <p className="text-gray-400 text-sm">
@@ -168,9 +203,12 @@ const Footer = () => {
           {/* Corporate Solutions */}
           <LiquidGlassCard variant="default" className="p-6 group">
             <div className="relative z-10">
-              <h3 className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300">
+              <button 
+                onClick={() => handleNavigation('/corporate-solutions')}
+                className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300 text-left w-full"
+              >
                 CORPORATE SOLUTIONS
-              </h3>
+              </button>
               <p className="text-gray-400 text-sm mb-6">
                 Elevate Your Brand and Connect<br />
                 with Your Audience.
@@ -178,15 +216,30 @@ const Footer = () => {
               <ul className="space-y-3 mb-6">
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  Brand Identity Design
+                  <button 
+                    onClick={() => handleNavigation('/brand-identity-design')}
+                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
+                  >
+                    Brand Identity Design
+                  </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  UI/UX Design
+                  <button 
+                    onClick={() => handleNavigation('/ui-ux-design')}
+                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
+                  >
+                    UI/UX Design
+                  </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  Web & Apps
+                  <button 
+                    onClick={() => handleNavigation('/web-apps')}
+                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
+                  >
+                    Web & Apps
+                  </button>
                 </li>
               </ul>
               <p className="text-gray-400 text-sm">
@@ -197,7 +250,7 @@ const Footer = () => {
           </LiquidGlassCard>
         </div>
 
-        {/* Bottom Navigation and Social */}
+        {/* Bottom Navigation and Social with Enhanced Back to Top */}
         <LiquidGlassCard variant="subtle" className="p-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-8 mb-6 md:mb-0">
@@ -212,27 +265,28 @@ const Footer = () => {
 
             <div className="flex items-center space-x-4">
               <div className="flex space-x-3">
-                <LiquidGlassButton variant="ghost" size="sm" className="w-8 h-8 p-0">
+                <LiquidGlassButton variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-full">
                   <span className="text-white text-sm">▶</span>
                 </LiquidGlassButton>
-                <LiquidGlassButton variant="ghost" size="sm" className="w-8 h-8 p-0">
+                <LiquidGlassButton variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-full">
                   <span className="text-white text-sm">in</span>
                 </LiquidGlassButton>
-                <LiquidGlassButton variant="ghost" size="sm" className="w-8 h-8 p-0">
+                <LiquidGlassButton variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-full">
                   <span className="text-white text-sm">X</span>
                 </LiquidGlassButton>
-                <LiquidGlassButton variant="ghost" size="sm" className="w-8 h-8 p-0">
+                <LiquidGlassButton variant="ghost" size="sm" className="w-8 h-8 p-0 rounded-full">
                   <span className="text-white text-sm">📷</span>
                 </LiquidGlassButton>
               </div>
               
+              {/* Enhanced Back to Top Button with Liquid Glass */}
               <LiquidGlassButton 
                 onClick={scrollToTop} 
                 variant="primary"
                 size="sm"
-                className="w-10 h-10 p-0 rounded-full ml-4"
+                className="w-12 h-12 p-0 rounded-full ml-4 flex items-center justify-center group hover:scale-110 transition-all duration-300"
               >
-                <ArrowUp className="h-5 w-5 text-white" />
+                <ArrowUp className="h-5 w-5 text-white group-hover:text-white transition-colors duration-300" />
               </LiquidGlassButton>
             </div>
           </div>
