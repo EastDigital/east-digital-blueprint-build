@@ -2,13 +2,11 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-interface LiquidGlassButtonProps {
+interface LiquidGlassButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   className?: string;
   variant?: 'primary' | 'secondary' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
-  onClick?: () => void;
-  disabled?: boolean;
 }
 
 export const LiquidGlassButton = ({ 
@@ -16,8 +14,8 @@ export const LiquidGlassButton = ({
   className, 
   variant = 'primary',
   size = 'md',
-  onClick,
-  disabled = false
+  disabled = false,
+  ...props
 }: LiquidGlassButtonProps) => {
   const baseClasses = "relative overflow-hidden rounded-full font-medium transition-all duration-300 border backdrop-blur-xl";
   
@@ -37,9 +35,9 @@ export const LiquidGlassButton = ({
 
   return (
     <button
-      onClick={onClick}
       disabled={disabled}
       className={cn(baseClasses, variantClasses[variant], sizeClasses[size], disabledClasses, className)}
+      {...props}
     >
       {/* Subtle shimmer effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent -translate-x-full hover:translate-x-full transition-transform duration-1000"></div>
