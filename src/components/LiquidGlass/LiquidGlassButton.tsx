@@ -22,9 +22,9 @@ export const LiquidGlassButton = ({
   const baseClasses = "relative overflow-hidden rounded-full font-medium transition-all duration-300 border backdrop-blur-xl";
   
   const variantClasses = {
-    primary: "bg-eastdigital-orange/20 border-eastdigital-orange/40 text-white hover:bg-eastdigital-orange/30 hover:border-eastdigital-orange/60",
-    secondary: "bg-white/[0.05] border-white/20 text-white hover:bg-white/[0.1] hover:border-white/40",
-    ghost: "bg-transparent border-transparent text-white hover:bg-white/[0.05] hover:border-white/20"
+    primary: "bg-eastdigital-orange/[0.15] border-eastdigital-orange/[0.25] text-white hover:bg-eastdigital-orange/[0.25] hover:border-eastdigital-orange/[0.4]",
+    secondary: "bg-white/[0.03] border-white/[0.08] text-white hover:bg-white/[0.06] hover:border-white/[0.15]",
+    ghost: "bg-transparent border-transparent text-white hover:bg-white/[0.03] hover:border-white/[0.08]"
   };
 
   const sizeClasses = {
@@ -41,8 +41,8 @@ export const LiquidGlassButton = ({
       disabled={disabled}
       className={cn(baseClasses, variantClasses[variant], sizeClasses[size], disabledClasses, className)}
     >
-      {/* Liquid Glass Shimmer Effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-1000"></div>
+      {/* Subtle shimmer effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent -translate-x-full hover:translate-x-full transition-transform duration-1000"></div>
       
       {/* Content */}
       <span className="relative z-10">{children}</span>
