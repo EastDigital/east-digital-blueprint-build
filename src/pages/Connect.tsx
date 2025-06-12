@@ -7,13 +7,23 @@ import Footer from '@/components/Footer/Footer';
 import { ContactForm } from '@/components/Contact/ContactForm';
 import { LiquidGlassCard } from '@/components/LiquidGlass/LiquidGlassCard';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { useNavbarLogic } from '@/components/Navbar/useNavbarLogic';
+import { cn } from '@/lib/utils';
 
 const Connect = () => {
+  const { isScrolled } = useNavbarLogic();
+  const showAurora = !isScrolled; // Show aurora when not scrolled
+
   return (
     <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate" withParticles={true}>
-      {/* Aurora Background - consistent with home page */}
-      <div className="fixed inset-0 opacity-60 z-0">
-        <InteractiveAurora intensity="medium" />
+      {/* Enhanced Aurora Background - consistent with homepage */}
+      <div
+        className={cn(
+          'fixed inset-0 transition-opacity duration-500 z-0',
+          showAurora ? 'opacity-100' : 'opacity-40'
+        )}
+      >
+        <InteractiveAurora intensity="high" />
       </div>
 
       <div className="relative z-10 flex flex-col min-h-screen">
