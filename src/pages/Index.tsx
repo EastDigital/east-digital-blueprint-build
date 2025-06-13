@@ -18,16 +18,16 @@ const Index = () => {
 
   return (
     <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate" withParticles={true}>
-      {/* Animated Background for added life */}
+      {/* Enhanced Animated Background for homepage life */}
       <div className="fixed inset-0 z-0">
         <AnimatedBackground />
       </div>
 
-      {/* Subtle Gradient Aurora Background - Homepage only */}
+      {/* Subtle Gradient Aurora Background - Homepage only, more refined */}
       <div
         className={cn(
-          'fixed inset-0 transition-opacity duration-500 z-5',
-          showAurora ? 'opacity-100' : 'opacity-30'
+          'fixed inset-0 transition-opacity duration-700 z-5',
+          showAurora ? 'opacity-100' : 'opacity-0'
         )}
       >
         <GradientAurora />

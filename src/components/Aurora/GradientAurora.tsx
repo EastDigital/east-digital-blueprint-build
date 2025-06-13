@@ -11,12 +11,10 @@ export const GradientAurora = ({ className = '' }: GradientAuroraProps) => {
   const timeRef = useRef(0);
 
   const auroraColors = [
-    '#FF6900', // East Digital Orange
-    '#FFE0CA', // Light orange
-    '#00FFB7', // Cyan
-    '#9D4EDD', // Purple
-    '#FF006E', // Pink
-    '#8338EC', // Violet
+    'rgba(255, 105, 0, 0.03)', // East Digital Orange - very subtle
+    'rgba(255, 224, 202, 0.02)', // Light orange - very subtle
+    'rgba(0, 255, 183, 0.015)', // Cyan - very subtle
+    'rgba(157, 78, 221, 0.02)', // Purple - very subtle
   ];
 
   useEffect(() => {
@@ -37,53 +35,53 @@ export const GradientAurora = ({ className = '' }: GradientAuroraProps) => {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      timeRef.current += 0.01;
+      timeRef.current += 0.005;
 
-      // Create flowing gradient bands from top to bottom
-      const numBands = 4;
-      const bandHeight = canvas.height / numBands;
+      // Create a subtle gradient from top to bottom
+      const mainGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      
+      // Very subtle color transitions
+      const topIntensity = 0.08 + Math.sin(timeRef.current * 0.5) * 0.02;
+      const midIntensity = 0.04 + Math.cos(timeRef.current * 0.3) * 0.015;
+      const bottomIntensity = 0.02 + Math.sin(timeRef.current * 0.7) * 0.01;
 
-      for (let i = 0; i < numBands; i++) {
-        // Create gradient for each band
-        const gradient = ctx.createLinearGradient(0, i * bandHeight, 0, (i + 1) * bandHeight);
-        
-        const color1 = auroraColors[i % auroraColors.length];
-        const color2 = auroraColors[(i + 1) % auroraColors.length];
-        
-        // Animated opacity for subtle flowing effect
-        const opacity1 = 0.03 + Math.sin(timeRef.current * 2 + i * 0.5) * 0.02;
-        const opacity2 = 0.02 + Math.cos(timeRef.current * 1.5 + i * 0.7) * 0.015;
-        
-        gradient.addColorStop(0, `${color1}${Math.floor(opacity1 * 255).toString(16).padStart(2, '0')}`);
-        gradient.addColorStop(0.5, `${color2}${Math.floor(opacity2 * 255).toString(16).padStart(2, '0')}`);
-        gradient.addColorStop(1, `${color1}${Math.floor(opacity1 * 0.5 * 255).toString(16).padStart(2, '0')}`);
+      mainGradient.addColorStop(0, `rgba(255, 105, 0, ${topIntensity})`);
+      mainGradient.addColorStop(0.3, `rgba(157, 78, 221, ${midIntensity})`);
+      mainGradient.addColorStop(0.7, `rgba(0, 255, 183, ${midIntensity * 0.8})`);
+      mainGradient.addColorStop(1, `rgba(255, 224, 202, ${bottomIntensity})`);
 
-        // Apply wave-like horizontal movement
-        const waveOffset = Math.sin(timeRef.current + i * 0.8) * 50;
-        
-        ctx.save();
-        ctx.translate(waveOffset, 0);
-        ctx.fillStyle = gradient;
-        ctx.fillRect(-100, i * bandHeight, canvas.width + 200, bandHeight + 20);
-        ctx.restore();
-      }
+      ctx.fillStyle = mainGradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Add subtle vertical flowing streaks
+      // Add subtle horizontal waves for movement
       for (let i = 0; i < 3; i++) {
-        const x = (canvas.width / 4) * (i + 1) + Math.sin(timeRef.current * 0.8 + i) * 100;
-        const streakGradient = ctx.createLinearGradient(x, 0, x, canvas.height);
+        const waveY = (canvas.height / 4) * (i + 1);
+        const waveHeight = 100 + Math.sin(timeRef.current + i) * 30;
         
-        const color = auroraColors[Math.floor(timeRef.current * 0.2 + i) % auroraColors.length];
-        const opacity = 0.02 + Math.sin(timeRef.current * 1.2 + i * 1.5) * 0.01;
+        const waveGradient = ctx.createLinearGradient(0, waveY - waveHeight, 0, waveY + waveHeight);
+        const waveIntensity = 0.015 + Math.sin(timeRef.current * 0.8 + i * 0.5) * 0.005;
         
-        streakGradient.addColorStop(0, `${color}${Math.floor(opacity * 255).toString(16).padStart(2, '0')}`);
-        streakGradient.addColorStop(0.5, `${color}${Math.floor(opacity * 0.8 * 255).toString(16).padStart(2, '0')}`);
-        streakGradient.addColorStop(1, `${color}00`);
+        waveGradient.addColorStop(0, 'rgba(255, 105, 0, 0)');
+        waveGradient.addColorStop(0.5, `rgba(255, 105, 0, ${waveIntensity})`);
+        waveGradient.addColorStop(1, 'rgba(255, 105, 0, 0)');
 
         ctx.save();
-        ctx.filter = 'blur(8px)';
-        ctx.fillStyle = streakGradient;
-        ctx.fillRect(x - 40, 0, 80, canvas.height);
+        ctx.fillStyle = waveGradient;
+        
+        // Create wave shape
+        ctx.beginPath();
+        for (let x = 0; x <= canvas.width; x += 20) {
+          const y = waveY + Math.sin((x / 200) + timeRef.current + i) * (waveHeight / 3);
+          if (x === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+        ctx.lineTo(canvas.width, waveY + waveHeight);
+        ctx.lineTo(0, waveY + waveHeight);
+        ctx.closePath();
+        ctx.fill();
         ctx.restore();
       }
 
