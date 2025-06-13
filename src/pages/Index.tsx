@@ -7,7 +7,8 @@ import { AboutSection } from '@/components/About/AboutSection';
 import { IndustrySection } from '@/components/Industry/IndustrySection';
 import Footer from '@/components/Footer/Footer';
 import { LiquidGlassContainer } from '@/components/LiquidGlass/LiquidGlassContainer';
-import { InteractiveAurora } from '@/components/Aurora/InteractiveAurora';
+import { GradientAurora } from '@/components/Aurora/GradientAurora';
+import { AnimatedBackground } from '@/components/Background/AnimatedBackground';
 import { useNavbarLogic } from '@/components/Navbar/useNavbarLogic';
 import { cn } from '@/lib/utils';
 
@@ -17,14 +18,19 @@ const Index = () => {
 
   return (
     <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate" withParticles={true}>
-      {/* Enhanced Aurora Background */}
+      {/* Animated Background for added life */}
+      <div className="fixed inset-0 z-0">
+        <AnimatedBackground />
+      </div>
+
+      {/* Subtle Gradient Aurora Background - Homepage only */}
       <div
         className={cn(
-          'fixed inset-0 transition-opacity duration-500 z-0',
-          showAurora ? 'opacity-100' : 'opacity-40'
+          'fixed inset-0 transition-opacity duration-500 z-5',
+          showAurora ? 'opacity-100' : 'opacity-30'
         )}
       >
-        <InteractiveAurora intensity="high" />
+        <GradientAurora />
       </div>
 
       <div className="relative z-10 flex flex-col">

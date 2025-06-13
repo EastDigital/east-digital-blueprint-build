@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { InteractiveAurora } from '../Aurora/InteractiveAurora';
+import { GradientAurora } from '../Aurora/GradientAurora';
 
 interface NavbarBackgroundProps {
   isHomePage: boolean;
@@ -18,9 +18,9 @@ export const NavbarBackground = ({ isHomePage, isScrolled }: NavbarBackgroundPro
           : 'bg-black/20 backdrop-blur-2xl border-b border-white/10'
       )}
     >
-      {/* Aurora effect for navbar */}
+      {/* Aurora effect for navbar - homepage only */}
       {isHomePage && !isScrolled && (
-        <InteractiveAurora intensity="medium" className="opacity-60" />
+        <GradientAurora className="opacity-40" />
       )}
       
       {/* Liquid Glass Reflection */}

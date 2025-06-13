@@ -1,19 +1,11 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import { LiquidGlassContainer } from '@/components/LiquidGlass/LiquidGlassContainer';
-import { InteractiveAurora } from '@/components/Aurora/InteractiveAurora';
 import { LiquidGlassCard } from '@/components/LiquidGlass/LiquidGlassCard';
-import { useNavbarLogic } from '@/components/Navbar/useNavbarLogic';
-import { cn } from '@/lib/utils';
 import { Target, Lightbulb, Cog, Rocket } from 'lucide-react';
 
 const Approach = () => {
-  const { isScrolled } = useNavbarLogic();
-  // Match homepage aurora behavior - show when not scrolled, reduce opacity when scrolled
-  const showAurora = !isScrolled;
-
   const approachSteps = [
     {
       icon: Target,
@@ -43,17 +35,6 @@ const Approach = () => {
 
   return (
     <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate" withParticles={true}>
-      {/* Enhanced Aurora Background - exactly like homepage */}
-      <div
-        className={cn(
-          'fixed inset-0 transition-opacity duration-500 z-0',
-          showAurora ? 'opacity-100' : 'opacity-40'
-        )}
-      >
-        <InteractiveAurora intensity="high" />
-      </div>
-
-      {/* Content structure matching homepage */}
       <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />
         
