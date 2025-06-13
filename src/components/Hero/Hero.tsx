@@ -2,18 +2,10 @@
 import React from 'react';
 import { HeroContent } from './HeroContent';
 import { ProjectCarousel } from './ProjectCarousel';
-import { InteractiveBackground } from './InteractiveBackground';
-import { InteractiveAurora } from '../Aurora/InteractiveAurora';
 
 export const Hero = () => {
   return (
     <section className="relative min-h-screen bg-black overflow-hidden flex flex-col mx-0 pb-0 py-[100px] my-0">
-      <InteractiveBackground />
-      <InteractiveAurora intensity="high" className="z-5" />
-      
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30 pointer-events-none z-10"></div>
-      
       <div className="relative z-20 container mx-auto px-2 sm:px-4 flex flex-col justify-between min-h-[calc(40vh-30px)] sm:min-h-[calc(40vh-30px)]">
         <div className="pt-[60px] pb-0 py-0">
           <HeroContent />
