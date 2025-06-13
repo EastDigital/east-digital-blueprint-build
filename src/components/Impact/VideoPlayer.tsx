@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 
@@ -128,7 +127,9 @@ export const VideoPlayer = ({ onPlay, onPause, dominantColor }: VideoPlayerProps
             }}
             style={{ zIndex: 1 }}
           >
-            <source src="https://www.eastdigital.in/web-images/3d-arch-demo.mp4" type="video/mp4" />
+            {/* --- START: THIS IS THE FIX --- */}
+            <source src="https://www.eastdigital.in/img/3d-arch-demo.mp4" type="video/mp4" />
+            {/* --- END: THIS IS THE FIX --- */}
             Your browser does not support the video tag.
           </video>
         </>
