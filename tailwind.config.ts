@@ -92,22 +92,29 @@ export default {
 					from: { height: 'var(--radix-accordion-content-height)' },
 					to: { height: '0' },
 				},
-        // --- START: CORRECTED CODE IS HERE ---
-        blob: {
-          "0%, 100%": { transform: "translate(0px, 0px) scale(1)" },
-          "33%": { transform: "translate(30px, -50px) scale(1.2)" },
-          "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+        // --- START: NEW AURORA KEYFRAMES ---
+        "aurora-1": {
+          "0%, 100%": { transform: "translate(-20%, -20%)" },
+          "50%": { transform: "translate(20%, 20%)" },
         },
-        // --- END: CORRECTED CODE IS HERE ---
+        "aurora-2": {
+          "0%, 100%": { transform: "translate(20%, 20%)" },
+          "50%": { transform: "translate(-20%, -20%)" },
+        },
+        "aurora-3": {
+          "0%, 100%": { transform: "translate(10%, -10%)" },
+          "50%": { transform: "translate(-10%, 10%)" },
+        },
+        // --- END: NEW AURORA KEYFRAMES ---
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-        // --- START: CORRECTED CODE IS HERE ---
-        blob1: "blob 20s infinite ease-in-out",
-        blob2: "blob 30s infinite ease-in-out",
-        blob3: "blob 25s infinite ease-in-out",
-        // --- END: CORRECTED CODE IS HERE ---
+        // --- START: NEW AURORA ANIMATIONS ---
+        "aurora-1": "aurora-1 25s infinite alternate ease-in-out",
+        "aurora-2": "aurora-2 30s infinite alternate ease-in-out",
+        "aurora-3": "aurora-3 35s infinite alternate ease-in-out",
+        // --- END: NEW AURORA ANIMATIONS ---
 			},
 		},
 	},
