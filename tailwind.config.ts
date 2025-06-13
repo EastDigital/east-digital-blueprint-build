@@ -112,3 +112,18 @@ export default {
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+
+extend: {
+  animation: {
+    blob1: "blob 20s infinite ease-in-out",
+    blob2: "blob 30s infinite ease-in-out",
+    blob3: "blob 25s infinite ease-in-out",
+  },
+  keyframes: {
+    blob: {
+      "0%, 100%": { transform: "translate(0px, 0px) scale(1)" },
+      "33%": { transform: "translate(30px, -50px) scale(1.2)" },
+      "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+    },
+  },
+},
