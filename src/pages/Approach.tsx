@@ -11,6 +11,7 @@ import { Target, Lightbulb, Cog, Rocket } from 'lucide-react';
 
 const Approach = () => {
   const { isScrolled } = useNavbarLogic();
+  // Match homepage aurora behavior - show when not scrolled, reduce opacity when scrolled
   const showAurora = !isScrolled;
 
   const approachSteps = [
@@ -42,7 +43,7 @@ const Approach = () => {
 
   return (
     <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate" withParticles={true}>
-      {/* Enhanced Aurora Background - consistent with homepage */}
+      {/* Enhanced Aurora Background - exactly like homepage */}
       <div
         className={cn(
           'fixed inset-0 transition-opacity duration-500 z-0',
@@ -52,6 +53,7 @@ const Approach = () => {
         <InteractiveAurora intensity="high" />
       </div>
 
+      {/* Content structure matching homepage */}
       <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />
         

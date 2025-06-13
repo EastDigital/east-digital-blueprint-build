@@ -12,11 +12,12 @@ import { cn } from '@/lib/utils';
 
 const Impact = () => {
   const { isScrolled, isHomePage } = useNavbarLogic();
-  const showAurora = !isScrolled; // Show aurora when not scrolled
+  // Match homepage aurora behavior - show when not scrolled, reduce opacity when scrolled
+  const showAurora = !isScrolled;
 
   return (
     <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate" withParticles={true}>
-      {/* Enhanced Aurora Background - consistent with homepage */}
+      {/* Enhanced Aurora Background - exactly like homepage */}
       <div
         className={cn(
           'fixed inset-0 transition-opacity duration-500 z-0',
@@ -26,6 +27,7 @@ const Impact = () => {
         <InteractiveAurora intensity="high" />
       </div>
 
+      {/* Content structure matching homepage */}
       <div className="relative z-10 flex flex-col">
         <Navbar />
         
