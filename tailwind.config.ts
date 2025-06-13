@@ -2,13 +2,10 @@ import type { Config } from "tailwindcss";
 
 export default {
 	darkMode: ["class"],
-    // --- START: THE FIX IS HERE ---
-    // This corrected content array tells Tailwind to scan all the right files.
 	content: [
 		"./index.html",
 		"./src/**/*.{js,ts,jsx,tsx}",
 	],
-    // --- END: THE FIX IS HERE ---
 	prefix: "",
 	theme: {
 		container: {
@@ -88,35 +85,31 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' },
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' },
 				},
+        // --- START: CORRECTED CODE IS HERE ---
         blob: {
           "0%, 100%": { transform: "translate(0px, 0px) scale(1)" },
           "33%": { transform: "translate(30px, -50px) scale(1.2)" },
           "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
         },
+        // --- END: CORRECTED CODE IS HERE ---
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
+        // --- START: CORRECTED CODE IS HERE ---
         blob1: "blob 20s infinite ease-in-out",
         blob2: "blob 30s infinite ease-in-out",
         blob3: "blob 25s infinite ease-in-out",
-			}
-		}
+        // --- END: CORRECTED CODE IS HERE ---
+			},
+		},
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
