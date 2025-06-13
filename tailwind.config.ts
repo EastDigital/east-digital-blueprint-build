@@ -92,29 +92,7 @@ export default {
 					from: { height: 'var(--radix-accordion-content-height)' },
 					to: { height: '0' },
 				},
-        // --- START: NEW AURORA KEYFRAMES ---
-        "aurora-1": {
-          "0%, 100%": { transform: "translate(-20%, -20%)" },
-          "50%": { transform: "translate(20%, 20%)" },
-        },
-        "aurora-2": {
-          "0%, 100%": { transform: "translate(20%, 20%)" },
-          "50%": { transform: "translate(-20%, -20%)" },
-        },
-        "aurora-3": {
-          "0%, 100%": { transform: "translate(10%, -10%)" },
-          "50%": { transform: "translate(-10%, 10%)" },
-        },
-        // --- END: NEW AURORA KEYFRAMES ---
-			},
-			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out',
-        // --- START: NEW AURORA ANIMATIONS ---
-        "aurora-1": "aurora-1 25s infinite alternate ease-in-out",
-        "aurora-2": "aurora-2 30s infinite alternate ease-in-out",
-        "aurora-3": "aurora-3 35s infinite alternate ease-in-out",
-        // --- END: NEW AURORA ANIMATIONS ---
+   
 			},
 		},
 	},
