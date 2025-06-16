@@ -264,15 +264,9 @@
   }
 }
 
-/*
-  Seamless Looping Aurora Background Effect with Performance Optimization
-  - Mobile (< 768px): Minimal quality for performance
-  - Tablet (768px - 1200px): Medium quality
-  - Desktop (> 1200px): High quality 4K effect
-  - All animations now loop seamlessly with no gaps
-*/
+/* Aurora Gradient Background - Inspired by ai.google */
 @layer utilities {
-  .aurora-background {
+  .aurora-gradient-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -280,543 +274,141 @@
     bottom: 0;
     overflow: hidden;
     z-index: -1;
-    /* Performance optimizations */
-    will-change: auto;
-    backface-visibility: hidden;
-    transform: translateZ(0);
+    background: linear-gradient(
+      135deg,
+      #0c0c0c 0%,
+      #1a1a1a 25%,
+      #0f0f0f 50%,
+      #1e1e1e 75%,
+      #0a0a0a 100%
+    );
   }
 
-  /* Mobile: Minimal Quality Aurora (< 768px) - Seamless Loop */
-  @media (max-width: 767px) {
-    .aurora-background::before,
-    .aurora-background::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      /* Minimal blur for mobile performance */
-      filter: blur(60px) saturate(1.0);
-      mix-blend-mode: plus-lighter;
-      will-change: transform;
-      /* Smaller sizes for mobile */
-      width: 300px;
-      height: 300px;
-    }
-
-    .aurora-background::before {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255, 105, 0, 0.2) 0%,
-        rgba(255, 105, 0, 0.1) 50%,
-        transparent 100%
-      );
-      animation: aurora-mobile-seamless-1 30s linear infinite;
-    }
-
-    .aurora-background::after {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(139, 69, 219, 0.15) 0%,
-        rgba(139, 69, 219, 0.08) 50%,
-        transparent 100%
-      );
-      animation: aurora-mobile-seamless-2 40s linear infinite;
-    }
-
-    .aurora-background {
-      background-image: radial-gradient(
-        ellipse 250px 250px at var(--aurora-x, 50%) var(--aurora-y, 50%),
-        rgba(20, 184, 166, 0.1) 0%,
-        transparent 70%
-      );
-      animation: aurora-mobile-seamless-3 50s linear infinite;
-    }
-  }
-
-  /* Tablet: Medium Quality Aurora (768px - 1199px) - Seamless Loop */
-  @media (min-width: 768px) and (max-width: 1199px) {
-    .aurora-background::before,
-    .aurora-background::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      /* Medium blur for tablet */
-      filter: blur(120px) saturate(1.1);
-      mix-blend-mode: plus-lighter;
-      will-change: transform;
-      /* Medium sizes for tablets */
-      width: 500px;
-      height: 500px;
-    }
-
-    .aurora-background::before {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255, 105, 0, 0.3) 0%,
-        rgba(255, 105, 0, 0.18) 35%,
-        rgba(255, 105, 0, 0.08) 70%,
-        transparent 100%
-      );
-      animation: aurora-tablet-seamless-1 45s linear infinite;
-    }
-
-    .aurora-background::after {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(139, 69, 219, 0.25) 0%,
-        rgba(139, 69, 219, 0.15) 35%,
-        rgba(139, 69, 219, 0.06) 70%,
-        transparent 100%
-      );
-      animation: aurora-tablet-seamless-2 60s linear infinite;
-    }
-
-    .aurora-background {
-      background-image: radial-gradient(
-        ellipse 400px 400px at var(--aurora-x, 30%) var(--aurora-y, 70%),
-        rgba(20, 184, 166, 0.2) 0%,
-        rgba(20, 184, 166, 0.1) 50%,
-        transparent 100%
-      );
-      animation: aurora-tablet-seamless-3 75s linear infinite;
-    }
-  }
-
-  /* Desktop: High Quality 4K Aurora (≥ 1200px) - Seamless Loop */
-  @media (min-width: 1200px) {
-    .aurora-background::before,
-    .aurora-background::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      /* High-quality blur for desktop */
-      filter: blur(180px) saturate(1.2) brightness(1.1);
-      mix-blend-mode: plus-lighter;
-      will-change: transform;
-      /* Large sizes for desktop */
-      width: 800px;
-      height: 800px;
-    }
-
-    .aurora-background::before {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255, 105, 0, 0.4) 0%,
-        rgba(255, 105, 0, 0.25) 25%,
-        rgba(255, 105, 0, 0.15) 50%,
-        rgba(255, 105, 0, 0.08) 75%,
-        transparent 100%
-      );
-      animation: aurora-desktop-seamless-1 60s linear infinite;
-    }
-
-    .aurora-background::after {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(139, 69, 219, 0.35) 0%,
-        rgba(139, 69, 219, 0.22) 25%,
-        rgba(139, 69, 219, 0.12) 50%,
-        rgba(139, 69, 219, 0.06) 75%,
-        transparent 100%
-      );
-      animation: aurora-desktop-seamless-2 80s linear infinite;
-    }
-
-    .aurora-background {
-      background-image: radial-gradient(
-        ellipse 600px 600px at var(--aurora-x, 30%) var(--aurora-y, 70%),
-        rgba(20, 184, 166, 0.3) 0%,
-        rgba(20, 184, 166, 0.18) 25%,
-        rgba(20, 184, 166, 0.1) 50%,
-        rgba(20, 184, 166, 0.05) 75%,
-        transparent 100%
-      );
-      animation: aurora-desktop-seamless-3 100s linear infinite,
-                 aurora-seamless-pulse 12s ease-in-out infinite alternate;
-    }
-  }
-
-  /* Mobile Seamless Animation Keyframes */
-  @keyframes aurora-mobile-seamless-1 {
-    0% { transform: translate(-10vw, -20vh) scale(0.8) rotate(0deg); opacity: 0.4; }
-    25% { transform: translate(60vw, 40vh) scale(1.0) rotate(90deg); opacity: 0.6; }
-    50% { transform: translate(110vw, -10vh) scale(0.9) rotate(180deg); opacity: 0.5; }
-    75% { transform: translate(40vw, 80vh) scale(1.1) rotate(270deg); opacity: 0.7; }
-    100% { transform: translate(-10vw, -20vh) scale(0.8) rotate(360deg); opacity: 0.4; }
-  }
-
-  @keyframes aurora-mobile-seamless-2 {
-    0% { transform: translate(80vw, 10vh) scale(0.9) rotate(45deg); opacity: 0.3; }
-    20% { transform: translate(20vw, 70vh) scale(1.1) rotate(117deg); opacity: 0.5; }
-    40% { transform: translate(-20vw, 30vh) scale(0.8) rotate(189deg); opacity: 0.4; }
-    60% { transform: translate(50vw, 90vh) scale(1.2) rotate(261deg); opacity: 0.6; }
-    80% { transform: translate(100vw, 50vh) scale(0.9) rotate(333deg); opacity: 0.5; }
-    100% { transform: translate(80vw, 10vh) scale(0.9) rotate(405deg); opacity: 0.3; }
-  }
-
-  @keyframes aurora-mobile-seamless-3 {
-    0% { --aurora-x: 20%; --aurora-y: 80%; }
-    20% { --aurora-x: 80%; --aurora-y: 20%; }
-    40% { --aurora-x: 50%; --aurora-y: 90%; }
-    60% { --aurora-x: 10%; --aurora-y: 40%; }
-    80% { --aurora-x: 90%; --aurora-y: 70%; }
-    100% { --aurora-x: 20%; --aurora-y: 80%; }
-  }
-
-  /* Tablet Seamless Animation Keyframes */
-  @keyframes aurora-tablet-seamless-1 {
-    0% { transform: translate(-15vw, -25vh) rotate(0deg) scale(0.8); opacity: 0.5; }
-    16.66% { transform: translate(50vw, 15vh) rotate(60deg) scale(1.1); opacity: 0.7; }
-    33.33% { transform: translate(90vw, 70vh) rotate(120deg) scale(0.9); opacity: 0.6; }
-    50% { transform: translate(120vw, 30vh) rotate(180deg) scale(1.2); opacity: 0.8; }
-    66.66% { transform: translate(60vw, 100vh) rotate(240deg) scale(0.7); opacity: 0.5; }
-    83.33% { transform: translate(20vw, 90vh) rotate(300deg) scale(1.0); opacity: 0.7; }
-    100% { transform: translate(-15vw, -25vh) rotate(360deg) scale(0.8); opacity: 0.5; }
-  }
-
-  @keyframes aurora-tablet-seamless-2 {
-    0% { transform: translate(100vw, 10vh) rotate(45deg) scale(1.0); opacity: 0.6; }
-    25% { transform: translate(30vw, 50vh) rotate(135deg) scale(0.8); opacity: 0.7; }
-    50% { transform: translate(70vw, 100vh) rotate(225deg) scale(1.2); opacity: 0.5; }
-    75% { transform: translate(-10vw, 60vh) rotate(315deg) scale(0.9); opacity: 0.8; }
-    100% { transform: translate(100vw, 10vh) rotate(405deg) scale(1.0); opacity: 0.6; }
-  }
-
-  @keyframes aurora-tablet-seamless-3 {
-    0% { --aurora-x: 25%; --aurora-y: 75%; }
-    20% { --aurora-x: 75%; --aurora-y: 25%; }
-    40% { --aurora-x: 50%; --aurora-y: 90%; }
-    60% { --aurora-x: 10%; --aurora-y: 50%; }
-    80% { --aurora-x: 90%; --aurora-y: 80%; }
-    100% { --aurora-x: 25%; --aurora-y: 75%; }
-  }
-
-  /* Desktop Seamless Animation Keyframes */
-  @keyframes aurora-desktop-seamless-1 {
-    0% { transform: translate(-20vw, -30vh) rotate(0deg) scale(0.8); opacity: 0.6; }
-    12.5% { transform: translate(40vw, 20vh) rotate(45deg) scale(1.2); opacity: 0.8; }
-    25% { transform: translate(80vw, -10vh) rotate(90deg) scale(0.9); opacity: 0.7; }
-    37.5% { transform: translate(120vw, 60vh) rotate(135deg) scale(1.1); opacity: 0.9; }
-    50% { transform: translate(90vw, 100vh) rotate(180deg) scale(0.7); opacity: 0.6; }
-    62.5% { transform: translate(30vw, 80vh) rotate(225deg) scale(1.3); opacity: 0.8; }
-    75% { transform: translate(-10vw, 40vh) rotate(270deg) scale(0.8); opacity: 0.7; }
-    87.5% { transform: translate(10vw, 10vh) rotate(315deg) scale(1.0); opacity: 0.9; }
-    100% { transform: translate(-20vw, -30vh) rotate(360deg) scale(0.8); opacity: 0.6; }
-  }
-
-  @keyframes aurora-desktop-seamless-2 {
-    0% { transform: translate(110vw, 20vh) rotate(45deg) scale(1.1); opacity: 0.7; }
-    14.28% { transform: translate(70vw, -20vh) rotate(96.43deg) scale(0.9); opacity: 0.8; }
-    28.57% { transform: translate(20vw, 30vh) rotate(147.86deg) scale(1.3); opacity: 0.6; }
-    42.86% { transform: translate(-30vw, 70vh) rotate(199.29deg) scale(0.8); opacity: 0.9; }
-    57.14% { transform: translate(50vw, 110vh) rotate(250.72deg) scale(1.0); opacity: 0.7; }
-    71.43% { transform: translate(100vw, 85vh) rotate(302.15deg) scale(1.2); opacity: 0.8; }
-    85.71% { transform: translate(130vw, 50vh) rotate(353.58deg) scale(0.9); opacity: 0.6; }
-    100% { transform: translate(110vw, 20vh) rotate(405deg) scale(1.1); opacity: 0.7; }
-  }
-
-  @keyframes aurora-desktop-seamless-3 {
-    0% { --aurora-x: 30%; --aurora-y: 70%; filter: blur(160px) saturate(1.1) hue-rotate(0deg); }
-    12.5% { --aurora-x: 80%; --aurora-y: 20%; filter: blur(200px) saturate(1.3) hue-rotate(45deg); }
-    25% { --aurora-x: 10%; --aurora-y: 40%; filter: blur(140px) saturate(0.9) hue-rotate(90deg); }
-    37.5% { --aurora-x: 90%; --aurora-y: 80%; filter: blur(220px) saturate(1.4) hue-rotate(135deg); }
-    50% { --aurora-x: 50%; --aurora-y: 10%; filter: blur(180px) saturate(1.0) hue-rotate(180deg); }
-    62.5% { --aurora-x: 20%; --aurora-y: 90%; filter: blur(160px) saturate(1.2) hue-rotate(225deg); }
-    75% { --aurora-x: 70%; --aurora-y: 60%; filter: blur(200px) saturate(1.1) hue-rotate(270deg); }
-    87.5% { --aurora-x: 40%; --aurora-y: 30%; filter: blur(170px) saturate(1.15) hue-rotate(315deg); }
-    100% { --aurora-x: 30%; --aurora-y: 70%; filter: blur(160px) saturate(1.1) hue-rotate(360deg); }
-  }
-
-  @keyframes aurora-seamless-pulse {
-    0% { opacity: 0.8; }
-    100% { opacity: 1.0; }
-  }
-
-  /* Performance optimization for low-end devices */
-  @media (prefers-reduced-motion: reduce) {
-    .aurora-background,
-    .aurora-background::before,
-    .aurora-background::after {
-      animation: none;
-      filter: blur(40px);
-      opacity: 0.3;
-    }
-  }
-}
-/*
-  Seamless Looping Aurora Background Effect with Performance Optimization
-  - Mobile (< 768px): Minimal quality for performance
-  - Tablet (768px - 1200px): Medium quality
-  - Desktop (> 1200px): High quality 4K effect
-  - All animations now loop seamlessly with no gaps
-*/
-@layer utilities {
-  .aurora-background {
+  .aurora-gradient-layer-1,
+  .aurora-gradient-layer-2,
+  .aurora-gradient-layer-3 {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    overflow: hidden;
-    z-index: -1;
-    /* Performance optimizations */
-    will-change: auto;
-    backface-visibility: hidden;
-    transform: translateZ(0);
+    opacity: 0.8;
+    mix-blend-mode: screen;
+    filter: blur(120px);
   }
 
-  /* Mobile: Minimal Quality Aurora (< 768px) - Seamless Loop */
-  @media (max-width: 767px) {
-    .aurora-background::before,
-    .aurora-background::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      /* Minimal blur for mobile performance */
-      filter: blur(60px) saturate(1.0);
-      mix-blend-mode: plus-lighter;
-      will-change: transform;
-      /* Smaller sizes for mobile */
-      width: 300px;
-      height: 300px;
-    }
-
-    .aurora-background::before {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255, 105, 0, 0.2) 0%,
-        rgba(255, 105, 0, 0.1) 50%,
-        transparent 100%
-      );
-      animation: aurora-mobile-seamless-1 30s linear infinite;
-    }
-
-    .aurora-background::after {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(139, 69, 219, 0.15) 0%,
-        rgba(139, 69, 219, 0.08) 50%,
-        transparent 100%
-      );
-      animation: aurora-mobile-seamless-2 40s linear infinite;
-    }
-
-    .aurora-background {
-      background-image: radial-gradient(
-        ellipse 250px 250px at var(--aurora-x, 50%) var(--aurora-y, 50%),
-        rgba(20, 184, 166, 0.1) 0%,
-        transparent 70%
-      );
-      animation: aurora-mobile-seamless-3 50s linear infinite;
-    }
+  .aurora-gradient-layer-1 {
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      rgba(255, 105, 0, 0.3) 20%,
+      rgba(139, 69, 219, 0.2) 40%,
+      transparent 60%,
+      rgba(20, 184, 166, 0.25) 80%,
+      transparent 100%
+    );
+    animation: aurora-flow-1 20s ease-in-out infinite;
   }
 
-  /* Tablet: Medium Quality Aurora (768px - 1199px) - Seamless Loop */
-  @media (min-width: 768px) and (max-width: 1199px) {
-    .aurora-background::before,
-    .aurora-background::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      /* Medium blur for tablet */
-      filter: blur(120px) saturate(1.1);
-      mix-blend-mode: plus-lighter;
-      will-change: transform;
-      /* Medium sizes for tablets */
-      width: 500px;
-      height: 500px;
-    }
+  .aurora-gradient-layer-2 {
+    background: linear-gradient(
+      -45deg,
+      transparent 0%,
+      rgba(139, 69, 219, 0.2) 25%,
+      transparent 50%,
+      rgba(255, 105, 0, 0.25) 75%,
+      transparent 100%
+    );
+    animation: aurora-flow-2 25s ease-in-out infinite reverse;
+    opacity: 0.6;
+  }
 
-    .aurora-background::before {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255, 105, 0, 0.3) 0%,
-        rgba(255, 105, 0, 0.18) 35%,
-        rgba(255, 105, 0, 0.08) 70%,
-        transparent 100%
-      );
-      animation: aurora-tablet-seamless-1 45s linear infinite;
-    }
+  .aurora-gradient-layer-3 {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      rgba(20, 184, 166, 0.15) 30%,
+      rgba(255, 105, 0, 0.1) 60%,
+      transparent 100%
+    );
+    animation: aurora-flow-3 30s ease-in-out infinite;
+    opacity: 0.4;
+  }
 
-    .aurora-background::after {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(139, 69, 219, 0.25) 0%,
-        rgba(139, 69, 219, 0.15) 35%,
-        rgba(139, 69, 219, 0.06) 70%,
-        transparent 100%
-      );
-      animation: aurora-tablet-seamless-2 60s linear infinite;
+  @keyframes aurora-flow-1 {
+    0%, 100% {
+      transform: translateX(-50%) translateY(-50%) rotate(0deg) scale(1);
+      opacity: 0.8;
     }
-
-    .aurora-background {
-      background-image: radial-gradient(
-        ellipse 400px 400px at var(--aurora-x, 30%) var(--aurora-y, 70%),
-        rgba(20, 184, 166, 0.2) 0%,
-        rgba(20, 184, 166, 0.1) 50%,
-        transparent 100%
-      );
-      animation: aurora-tablet-seamless-3 75s linear infinite;
+    25% {
+      transform: translateX(-30%) translateY(-30%) rotate(90deg) scale(1.1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translateX(0%) translateY(0%) rotate(180deg) scale(0.9);
+      opacity: 0.7;
+    }
+    75% {
+      transform: translateX(30%) translateY(30%) rotate(270deg) scale(1.05);
+      opacity: 0.85;
     }
   }
 
-  /* Desktop: High Quality 4K Aurora (≥ 1200px) - Seamless Loop */
-  @media (min-width: 1200px) {
-    .aurora-background::before,
-    .aurora-background::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      /* High-quality blur for desktop */
-      filter: blur(180px) saturate(1.2) brightness(1.1);
-      mix-blend-mode: plus-lighter;
-      will-change: transform;
-      /* Large sizes for desktop */
-      width: 800px;
-      height: 800px;
+  @keyframes aurora-flow-2 {
+    0%, 100% {
+      transform: translateX(50%) translateY(50%) rotate(45deg) scale(0.8);
+      opacity: 0.6;
     }
-
-    .aurora-background::before {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255, 105, 0, 0.4) 0%,
-        rgba(255, 105, 0, 0.25) 25%,
-        rgba(255, 105, 0, 0.15) 50%,
-        rgba(255, 105, 0, 0.08) 75%,
-        transparent 100%
-      );
-      animation: aurora-desktop-seamless-1 60s linear infinite;
+    33% {
+      transform: translateX(-20%) translateY(20%) rotate(135deg) scale(1.2);
+      opacity: 0.8;
     }
-
-    .aurora-background::after {
-      background: radial-gradient(
-        ellipse at center,
-        rgba(139, 69, 219, 0.35) 0%,
-        rgba(139, 69, 219, 0.22) 25%,
-        rgba(139, 69, 219, 0.12) 50%,
-        rgba(139, 69, 219, 0.06) 75%,
-        transparent 100%
-      );
-      animation: aurora-desktop-seamless-2 80s linear infinite;
-    }
-
-    .aurora-background {
-      background-image: radial-gradient(
-        ellipse 600px 600px at var(--aurora-x, 30%) var(--aurora-y, 70%),
-        rgba(20, 184, 166, 0.3) 0%,
-        rgba(20, 184, 166, 0.18) 25%,
-        rgba(20, 184, 166, 0.1) 50%,
-        rgba(20, 184, 166, 0.05) 75%,
-        transparent 100%
-      );
-      animation: aurora-desktop-seamless-3 100s linear infinite,
-                 aurora-seamless-pulse 12s ease-in-out infinite alternate;
+    66% {
+      transform: translateX(20%) translateY(-20%) rotate(225deg) scale(0.9);
+      opacity: 0.5;
     }
   }
 
-  /* Mobile Seamless Animation Keyframes */
-  @keyframes aurora-mobile-seamless-1 {
-    0% { transform: translate(-10vw, -20vh) scale(0.8) rotate(0deg); opacity: 0.4; }
-    25% { transform: translate(60vw, 40vh) scale(1.0) rotate(90deg); opacity: 0.6; }
-    50% { transform: translate(110vw, -10vh) scale(0.9) rotate(180deg); opacity: 0.5; }
-    75% { transform: translate(40vw, 80vh) scale(1.1) rotate(270deg); opacity: 0.7; }
-    100% { transform: translate(-10vw, -20vh) scale(0.8) rotate(360deg); opacity: 0.4; }
-  }
-
-  @keyframes aurora-mobile-seamless-2 {
-    0% { transform: translate(80vw, 10vh) scale(0.9) rotate(45deg); opacity: 0.3; }
-    20% { transform: translate(20vw, 70vh) scale(1.1) rotate(117deg); opacity: 0.5; }
-    40% { transform: translate(-20vw, 30vh) scale(0.8) rotate(189deg); opacity: 0.4; }
-    60% { transform: translate(50vw, 90vh) scale(1.2) rotate(261deg); opacity: 0.6; }
-    80% { transform: translate(100vw, 50vh) scale(0.9) rotate(333deg); opacity: 0.5; }
-    100% { transform: translate(80vw, 10vh) scale(0.9) rotate(405deg); opacity: 0.3; }
-  }
-
-  @keyframes aurora-mobile-seamless-3 {
-    0% { --aurora-x: 20%; --aurora-y: 80%; }
-    20% { --aurora-x: 80%; --aurora-y: 20%; }
-    40% { --aurora-x: 50%; --aurora-y: 90%; }
-    60% { --aurora-x: 10%; --aurora-y: 40%; }
-    80% { --aurora-x: 90%; --aurora-y: 70%; }
-    100% { --aurora-x: 20%; --aurora-y: 80%; }
-  }
-
-  /* Tablet Seamless Animation Keyframes */
-  @keyframes aurora-tablet-seamless-1 {
-    0% { transform: translate(-15vw, -25vh) rotate(0deg) scale(0.8); opacity: 0.5; }
-    16.66% { transform: translate(50vw, 15vh) rotate(60deg) scale(1.1); opacity: 0.7; }
-    33.33% { transform: translate(90vw, 70vh) rotate(120deg) scale(0.9); opacity: 0.6; }
-    50% { transform: translate(120vw, 30vh) rotate(180deg) scale(1.2); opacity: 0.8; }
-    66.66% { transform: translate(60vw, 100vh) rotate(240deg) scale(0.7); opacity: 0.5; }
-    83.33% { transform: translate(20vw, 90vh) rotate(300deg) scale(1.0); opacity: 0.7; }
-    100% { transform: translate(-15vw, -25vh) rotate(360deg) scale(0.8); opacity: 0.5; }
-  }
-
-  @keyframes aurora-tablet-seamless-2 {
-    0% { transform: translate(100vw, 10vh) rotate(45deg) scale(1.0); opacity: 0.6; }
-    25% { transform: translate(30vw, 50vh) rotate(135deg) scale(0.8); opacity: 0.7; }
-    50% { transform: translate(70vw, 100vh) rotate(225deg) scale(1.2); opacity: 0.5; }
-    75% { transform: translate(-10vw, 60vh) rotate(315deg) scale(0.9); opacity: 0.8; }
-    100% { transform: translate(100vw, 10vh) rotate(405deg) scale(1.0); opacity: 0.6; }
-  }
-
-  @keyframes aurora-tablet-seamless-3 {
-    0% { --aurora-x: 25%; --aurora-y: 75%; }
-    20% { --aurora-x: 75%; --aurora-y: 25%; }
-    40% { --aurora-x: 50%; --aurora-y: 90%; }
-    60% { --aurora-x: 10%; --aurora-y: 50%; }
-    80% { --aurora-x: 90%; --aurora-y: 80%; }
-    100% { --aurora-x: 25%; --aurora-y: 75%; }
-  }
-
-  /* Desktop Seamless Animation Keyframes */
-  @keyframes aurora-desktop-seamless-1 {
-    0% { transform: translate(-20vw, -30vh) rotate(0deg) scale(0.8); opacity: 0.6; }
-    12.5% { transform: translate(40vw, 20vh) rotate(45deg) scale(1.2); opacity: 0.8; }
-    25% { transform: translate(80vw, -10vh) rotate(90deg) scale(0.9); opacity: 0.7; }
-    37.5% { transform: translate(120vw, 60vh) rotate(135deg) scale(1.1); opacity: 0.9; }
-    50% { transform: translate(90vw, 100vh) rotate(180deg) scale(0.7); opacity: 0.6; }
-    62.5% { transform: translate(30vw, 80vh) rotate(225deg) scale(1.3); opacity: 0.8; }
-    75% { transform: translate(-10vw, 40vh) rotate(270deg) scale(0.8); opacity: 0.7; }
-    87.5% { transform: translate(10vw, 10vh) rotate(315deg) scale(1.0); opacity: 0.9; }
-    100% { transform: translate(-20vw, -30vh) rotate(360deg) scale(0.8); opacity: 0.6; }
-  }
-
-  @keyframes aurora-desktop-seamless-2 {
-    0% { transform: translate(110vw, 20vh) rotate(45deg) scale(1.1); opacity: 0.7; }
-    14.28% { transform: translate(70vw, -20vh) rotate(96.43deg) scale(0.9); opacity: 0.8; }
-    28.57% { transform: translate(20vw, 30vh) rotate(147.86deg) scale(1.3); opacity: 0.6; }
-    42.86% { transform: translate(-30vw, 70vh) rotate(199.29deg) scale(0.8); opacity: 0.9; }
-    57.14% { transform: translate(50vw, 110vh) rotate(250.72deg) scale(1.0); opacity: 0.7; }
-    71.43% { transform: translate(100vw, 85vh) rotate(302.15deg) scale(1.2); opacity: 0.8; }
-    85.71% { transform: translate(130vw, 50vh) rotate(353.58deg) scale(0.9); opacity: 0.6; }
-    100% { transform: translate(110vw, 20vh) rotate(405deg) scale(1.1); opacity: 0.7; }
-  }
-
-  @keyframes aurora-desktop-seamless-3 {
-    0% { --aurora-x: 30%; --aurora-y: 70%; filter: blur(160px) saturate(1.1) hue-rotate(0deg); }
-    12.5% { --aurora-x: 80%; --aurora-y: 20%; filter: blur(200px) saturate(1.3) hue-rotate(45deg); }
-    25% { --aurora-x: 10%; --aurora-y: 40%; filter: blur(140px) saturate(0.9) hue-rotate(90deg); }
-    37.5% { --aurora-x: 90%; --aurora-y: 80%; filter: blur(220px) saturate(1.4) hue-rotate(135deg); }
-    50% { --aurora-x: 50%; --aurora-y: 10%; filter: blur(180px) saturate(1.0) hue-rotate(180deg); }
-    62.5% { --aurora-x: 20%; --aurora-y: 90%; filter: blur(160px) saturate(1.2) hue-rotate(225deg); }
-    75% { --aurora-x: 70%; --aurora-y: 60%; filter: blur(200px) saturate(1.1) hue-rotate(270deg); }
-    87.5% { --aurora-x: 40%; --aurora-y: 30%; filter: blur(170px) saturate(1.15) hue-rotate(315deg); }
-    100% { --aurora-x: 30%; --aurora-y: 70%; filter: blur(160px) saturate(1.1) hue-rotate(360deg); }
-  }
-
-  @keyframes aurora-seamless-pulse {
-    0% { opacity: 0.8; }
-    100% { opacity: 1.0; }
+  @keyframes aurora-flow-3 {
+    0%, 100% {
+      transform: translateX(0%) translateY(0%) scale(1);
+      opacity: 0.4;
+    }
+    20% {
+      transform: translateX(-40%) translateY(40%) scale(1.3);
+      opacity: 0.6;
+    }
+    40% {
+      transform: translateX(40%) translateY(-40%) scale(0.7);
+      opacity: 0.3;
+    }
+    60% {
+      transform: translateX(-20%) translateY(-20%) scale(1.1);
+      opacity: 0.5;
+    }
+    80% {
+      transform: translateX(20%) translateY(20%) scale(0.9);
+      opacity: 0.4;
+    }
   }
 
   /* Performance optimization for low-end devices */
   @media (prefers-reduced-motion: reduce) {
-    .aurora-background,
-    .aurora-background::before,
-    .aurora-background::after {
+    .aurora-gradient-layer-1,
+    .aurora-gradient-layer-2,
+    .aurora-gradient-layer-3 {
       animation: none;
-      filter: blur(40px);
       opacity: 0.3;
+    }
+  }
+
+  /* Mobile optimization */
+  @media (max-width: 768px) {
+    .aurora-gradient-layer-1,
+    .aurora-gradient-layer-2,
+    .aurora-gradient-layer-3 {
+      filter: blur(80px);
+      opacity: 0.5;
     }
   }
 }
