@@ -1,0 +1,149 @@
+
+/* Aurora Gradient Background - Inspired by ai.google */
+@layer utilities {
+  .aurora-gradient-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: -1;
+    background: linear-gradient(
+      135deg,
+      #0c0c0c 0%,
+      #1a1a1a 25%,
+      #0f0f0f 50%,
+      #1e1e1e 75%,
+      #0a0a0a 100%
+    );
+  }
+
+  .aurora-gradient-layer-1,
+  .aurora-gradient-layer-2,
+  .aurora-gradient-layer-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.8;
+    mix-blend-mode: screen;
+    filter: blur(120px);
+  }
+
+  .aurora-gradient-layer-1 {
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      rgba(255, 105, 0, 0.3) 20%,
+      rgba(139, 69, 219, 0.2) 40%,
+      transparent 60%,
+      rgba(20, 184, 166, 0.25) 80%,
+      transparent 100%
+    );
+    animation: aurora-flow-1 20s ease-in-out infinite;
+  }
+
+  .aurora-gradient-layer-2 {
+    background: linear-gradient(
+      -45deg,
+      transparent 0%,
+      rgba(139, 69, 219, 0.2) 25%,
+      transparent 50%,
+      rgba(255, 105, 0, 0.25) 75%,
+      transparent 100%
+    );
+    animation: aurora-flow-2 25s ease-in-out infinite reverse;
+    opacity: 0.6;
+  }
+
+  .aurora-gradient-layer-3 {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      rgba(20, 184, 166, 0.15) 30%,
+      rgba(255, 105, 0, 0.1) 60%,
+      transparent 100%
+    );
+    animation: aurora-flow-3 30s ease-in-out infinite;
+    opacity: 0.4;
+  }
+
+  @keyframes aurora-flow-1 {
+    0%, 100% {
+      transform: translateX(-50%) translateY(-50%) rotate(0deg) scale(1);
+      opacity: 0.8;
+    }
+    25% {
+      transform: translateX(-30%) translateY(-30%) rotate(90deg) scale(1.1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translateX(0%) translateY(0%) rotate(180deg) scale(0.9);
+      opacity: 0.7;
+    }
+    75% {
+      transform: translateX(30%) translateY(30%) rotate(270deg) scale(1.05);
+      opacity: 0.85;
+    }
+  }
+
+  @keyframes aurora-flow-2 {
+    0%, 100% {
+      transform: translateX(50%) translateY(50%) rotate(45deg) scale(0.8);
+      opacity: 0.6;
+    }
+    33% {
+      transform: translateX(-20%) translateY(20%) rotate(135deg) scale(1.2);
+      opacity: 0.8;
+    }
+    66% {
+      transform: translateX(20%) translateY(-20%) rotate(225deg) scale(0.9);
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes aurora-flow-3 {
+    0%, 100% {
+      transform: translateX(0%) translateY(0%) scale(1);
+      opacity: 0.4;
+    }
+    20% {
+      transform: translateX(-40%) translateY(40%) scale(1.3);
+      opacity: 0.6;
+    }
+    40% {
+      transform: translateX(40%) translateY(-40%) scale(0.7);
+      opacity: 0.3;
+    }
+    60% {
+      transform: translateX(-20%) translateY(-20%) scale(1.1);
+      opacity: 0.5;
+    }
+    80% {
+      transform: translateX(20%) translateY(20%) scale(0.9);
+      opacity: 0.4;
+    }
+  }
+
+  /* Performance optimization for low-end devices */
+  @media (prefers-reduced-motion: reduce) {
+    .aurora-gradient-layer-1,
+    .aurora-gradient-layer-2,
+    .aurora-gradient-layer-3 {
+      animation: none;
+      opacity: 0.3;
+    }
+  }
+
+  /* Mobile optimization */
+  @media (max-width: 768px) {
+    .aurora-gradient-layer-1,
+    .aurora-gradient-layer-2,
+    .aurora-gradient-layer-3 {
+      filter: blur(80px);
+      opacity: 0.5;
+    }
+  }
+}

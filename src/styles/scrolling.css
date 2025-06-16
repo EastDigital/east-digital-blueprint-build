@@ -1,0 +1,41 @@
+
+/* Enhanced Smooth Scrolling for Fluid Experience */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Enhanced scroll performance */
+    -webkit-overflow-scrolling: touch;
+    /* Better momentum scrolling on iOS */
+    overscroll-behavior: none;
+    /* Prevent bounce effects */
+  }
+}
+
+/* Enhanced Smooth Scrolling Utilities */
+@layer utilities {
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroll-snap-y {
+    scroll-snap-type: y mandatory;
+  }
+
+  .scroll-snap-start {
+    scroll-snap-align: start;
+  }
+
+  .scroll-snap-center {
+    scroll-snap-align: center;
+  }
+
+  /* Mobile-optimized scrolling */
+  @media (max-width: 768px) {
+    .mobile-smooth-scroll {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+      scroll-behavior: smooth;
+    }
+  }
+}
