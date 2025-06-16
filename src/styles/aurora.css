@@ -1,5 +1,5 @@
 
-/* Aurora Gradient Background - Enhanced visibility version */
+/* Aurora Gradient Background - Fixed and Enhanced */
 @layer utilities {
   .aurora-gradient-background {
     position: absolute;
@@ -8,14 +8,13 @@
     right: 0;
     bottom: 0;
     overflow: hidden;
-    z-index: -1;
     background: linear-gradient(
       135deg,
-      #0a0a0f 0%,
-      #1a1a2e 25%,
-      #16213e 50%,
-      #0f0f23 75%,
-      #0a0a0f 100%
+      #000000 0%,
+      #0a0a0f 25%,
+      #1a1a2e 50%,
+      #16213e 75%,
+      #000000 100%
     );
   }
 
@@ -27,21 +26,22 @@
     left: -50%;
     right: -50%;
     bottom: -50%;
-    opacity: 1;
     mix-blend-mode: screen;
-    filter: blur(100px);
+    filter: blur(80px);
+    will-change: transform, opacity;
   }
 
   .aurora-gradient-layer-1 {
     background: linear-gradient(
       45deg,
       transparent 0%,
-      rgba(255, 105, 0, 0.6) 15%,
-      rgba(139, 69, 219, 0.4) 35%,
+      rgba(255, 105, 0, 0.8) 15%,
+      rgba(139, 69, 219, 0.6) 35%,
       transparent 55%,
-      rgba(20, 184, 166, 0.5) 75%,
+      rgba(20, 184, 166, 0.7) 75%,
       transparent 100%
     );
+    opacity: 0.9;
     animation: aurora-flow-1 20s ease-in-out infinite;
   }
 
@@ -49,10 +49,10 @@
     background: linear-gradient(
       -45deg,
       transparent 0%,
-      rgba(139, 69, 219, 0.5) 20%,
+      rgba(139, 69, 219, 0.7) 20%,
       transparent 45%,
-      rgba(255, 105, 0, 0.4) 70%,
-      rgba(20, 184, 166, 0.3) 90%,
+      rgba(255, 105, 0, 0.6) 70%,
+      rgba(20, 184, 166, 0.5) 90%,
       transparent 100%
     );
     animation: aurora-flow-2 25s ease-in-out infinite reverse;
@@ -61,43 +61,43 @@
 
   .aurora-gradient-layer-3 {
     background: radial-gradient(
-      ellipse 150% 80% at 50% 50%,
+      ellipse 120% 80% at 50% 50%,
       transparent 0%,
-      rgba(20, 184, 166, 0.3) 25%,
-      rgba(255, 105, 0, 0.25) 50%,
-      rgba(139, 69, 219, 0.2) 75%,
+      rgba(20, 184, 166, 0.4) 25%,
+      rgba(255, 105, 0, 0.35) 50%,
+      rgba(139, 69, 219, 0.3) 75%,
       transparent 100%
     );
     animation: aurora-flow-3 30s ease-in-out infinite;
-    opacity: 0.6;
+    opacity: 0.7;
   }
 
   @keyframes aurora-flow-1 {
     0%, 100% {
-      transform: translateX(-50%) translateY(-50%) rotate(0deg) scale(1.2);
-      opacity: 1;
-    }
-    25% {
-      transform: translateX(-30%) translateY(-30%) rotate(90deg) scale(1.4);
+      transform: translateX(-50%) translateY(-50%) rotate(0deg) scale(1.5);
       opacity: 0.9;
     }
+    25% {
+      transform: translateX(-30%) translateY(-30%) rotate(90deg) scale(1.8);
+      opacity: 1;
+    }
     50% {
-      transform: translateX(0%) translateY(0%) rotate(180deg) scale(1.1);
+      transform: translateX(0%) translateY(0%) rotate(180deg) scale(1.3);
       opacity: 0.8;
     }
     75% {
-      transform: translateX(30%) translateY(30%) rotate(270deg) scale(1.3);
+      transform: translateX(30%) translateY(30%) rotate(270deg) scale(1.6);
       opacity: 0.95;
     }
   }
 
   @keyframes aurora-flow-2 {
     0%, 100% {
-      transform: translateX(50%) translateY(50%) rotate(45deg) scale(1.1);
+      transform: translateX(50%) translateY(50%) rotate(45deg) scale(1.4);
       opacity: 0.8;
     }
     33% {
-      transform: translateX(-20%) translateY(20%) rotate(135deg) scale(1.5);
+      transform: translateX(-20%) translateY(20%) rotate(135deg) scale(1.7);
       opacity: 1;
     }
     66% {
@@ -108,24 +108,33 @@
 
   @keyframes aurora-flow-3 {
     0%, 100% {
-      transform: translateX(0%) translateY(0%) scale(1.3);
-      opacity: 0.6;
-    }
-    20% {
-      transform: translateX(-40%) translateY(40%) scale(1.6);
-      opacity: 0.8;
-    }
-    40% {
-      transform: translateX(40%) translateY(-40%) scale(1.0);
-      opacity: 0.5;
-    }
-    60% {
-      transform: translateX(-20%) translateY(-20%) scale(1.4);
+      transform: translateX(0%) translateY(0%) scale(1.6);
       opacity: 0.7;
     }
-    80% {
-      transform: translateX(20%) translateY(20%) scale(1.2);
+    20% {
+      transform: translateX(-40%) translateY(40%) scale(1.9);
+      opacity: 0.9;
+    }
+    40% {
+      transform: translateX(40%) translateY(-40%) scale(1.2);
       opacity: 0.6;
+    }
+    60% {
+      transform: translateX(-20%) translateY(-20%) scale(1.7);
+      opacity: 0.8;
+    }
+    80% {
+      transform: translateX(20%) translateY(20%) scale(1.4);
+      opacity: 0.7;
+    }
+  }
+
+  /* Fallback for browsers that don't support backdrop-filter */
+  @supports not (backdrop-filter: blur(20px)) {
+    .aurora-gradient-layer-1,
+    .aurora-gradient-layer-2,
+    .aurora-gradient-layer-3 {
+      filter: blur(60px);
     }
   }
 
@@ -135,17 +144,17 @@
     .aurora-gradient-layer-2,
     .aurora-gradient-layer-3 {
       animation: none;
-      opacity: 0.5;
+      opacity: 0.4;
     }
   }
 
-  /* Mobile optimization - still visible but lighter */
+  /* Mobile optimization */
   @media (max-width: 768px) {
     .aurora-gradient-layer-1,
     .aurora-gradient-layer-2,
     .aurora-gradient-layer-3 {
-      filter: blur(80px);
-      opacity: 0.7;
+      filter: blur(60px);
+      opacity: 0.6;
     }
   }
 }
