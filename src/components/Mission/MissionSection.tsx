@@ -1,13 +1,15 @@
+
 import React from 'react';
 import { LiquidGlassCard } from '@/components/LiquidGlass/LiquidGlassCard';
 import { LiquidGlassButton } from '@/components/LiquidGlass/LiquidGlassButton';
-export const MissionSection = () => {
-  return <section className="relative py-24 lg:py-32 bg-black overflow-hidden">
-      {/* Minimal background ambience */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-eastdigital-orange/[0.015] rounded-full blur-[150px]"></div>
-      </div>
+import { SubtleBackground } from '@/components/common/SubtleBackground';
 
+export const MissionSection = () => {
+  return (
+    <section className="relative py-24 lg:py-32 bg-black overflow-hidden">
+      {/* Subtle background details */}
+      <SubtleBackground variant="gradient" />
+      
       <div className="relative z-10 container mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-20">
@@ -67,5 +69,6 @@ export const MissionSection = () => {
           </LiquidGlassButton>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };

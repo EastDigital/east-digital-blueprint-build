@@ -32,7 +32,6 @@ export const Navbar = () => {
 
       <header className={`w-full font-poppins fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarBackground()}`}>
         <div className="container mx-auto px-4">
-          {/* FIXED: Consistent height - using h-20 for both states */}
           <div className="flex items-center justify-between h-20">
             <NavbarLogo />
             
@@ -49,10 +48,12 @@ export const Navbar = () => {
               showCtaAnimation={false}
             />
 
-            <div className="lg:hidden">
+            {/* Fixed hamburger menu positioning */}
+            <div className="lg:hidden flex items-center justify-center">
               <AnimatedHamburger 
                 isOpen={isMenuOpen}
                 onClick={toggleMenu}
+                className="relative z-50"
               />
             </div>
           </div>

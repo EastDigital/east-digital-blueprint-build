@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -90,7 +91,6 @@ export const useNavbarLogic = () => {
   };
 
   const getNavbarBackground = () => {
-    // MODIFIED: Removed the 'border-b border-white/10' classes
     return isScrolled 
       ? 'bg-black/70 backdrop-blur-lg' 
       : 'bg-transparent';
