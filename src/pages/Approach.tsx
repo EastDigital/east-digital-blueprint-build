@@ -1,8 +1,10 @@
+
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import { LiquidGlassContainer } from '@/components/LiquidGlass/LiquidGlassContainer';
 import { LiquidGlassCard } from '@/components/LiquidGlass/LiquidGlassCard';
+import { SubtleBackground } from '@/components/common/SubtleBackground';
 import { Target, Lightbulb, Cog, Rocket } from 'lucide-react';
 
 const Approach = () => {
@@ -38,8 +40,11 @@ const Approach = () => {
       <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />
         
-        <main className="flex-1 pt-24 pb-16">
-          <div className="container mx-auto px-4">
+        <main className="flex-1 pt-24 pb-16 relative">
+          {/* Subtle background details */}
+          <SubtleBackground variant="gradient" />
+          
+          <div className="container mx-auto px-4 relative z-10">
             {/* Hero Section */}
             <div className="text-center mb-20">
               <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">

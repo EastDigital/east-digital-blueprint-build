@@ -2,6 +2,7 @@
 import React from 'react';
 import { LiquidGlassCard } from '@/components/LiquidGlass/LiquidGlassCard';
 import { LiquidGlassButton } from '@/components/LiquidGlass/LiquidGlassButton';
+import { SubtleBackground } from '@/components/common/SubtleBackground';
 
 export const VisionToRealitySection = () => {
   const approaches = [
@@ -32,12 +33,9 @@ export const VisionToRealitySection = () => {
   ];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-gradient-to-b from-eastdigital-dark via-gray-900/50 to-eastdigital-dark overflow-hidden">
-      {/* Liquid Glass Background Orbs */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-eastdigital-orange/20 via-transparent to-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-blue-500/15 via-eastdigital-orange/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-      </div>
+    <section className="relative py-24 lg:py-32 bg-black overflow-hidden">
+      {/* Subtle background details */}
+      <SubtleBackground variant="gradient" />
 
       <div className="relative z-10 container mx-auto px-4">
         {/* Header Section */}
