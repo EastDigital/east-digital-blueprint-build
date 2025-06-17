@@ -48,8 +48,8 @@ export const Navbar = () => {
               showCtaAnimation={false}
             />
 
-            {/* Fixed hamburger menu positioning */}
-            <div className="lg:hidden flex items-center justify-center">
+            {/* Fixed hamburger menu positioning with proper constraints */}
+            <div className="lg:hidden flex items-center justify-center w-10 h-10 mr-0">
               <AnimatedHamburger 
                 isOpen={isMenuOpen}
                 onClick={toggleMenu}

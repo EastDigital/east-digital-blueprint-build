@@ -34,7 +34,7 @@ export const MobileNav = ({
       </div>
       
       <div className="relative z-10 py-4 pb-6 animate-fade-in">
-        <nav className="flex flex-col space-y-6 ml-2.5">
+        <nav className="flex flex-col space-y-6 ml-2.5 mr-4">
           <a href="/" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Home</a>
           
           <div ref={mobileDropdownRef}>
