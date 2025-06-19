@@ -18,8 +18,8 @@ const Index = () => {
         <Navbar />
         <Hero />
         <MissionSection />
-        <AboutSection />
         <SectorsShowcase />
+        <AboutSection />
         <Footer />
       </div>
     </LiquidGlassContainer>
