@@ -94,7 +94,7 @@ const SectorsShowcase = () => {
         </div>
 
         <div>
-          <h3 className="text-2xl font-semibold mb-6">{activeSector.title}</h3>
+          <h3 className="text-base font-normal mb-6 text-eastdigital-lightgray">{activeSector.title}</h3>
           <Link to={activeSector.link}>
             <Card className="relative w-full max-w-5xl mx-auto aspect-video rounded-2xl overflow-hidden border-gray-700 group cursor-pointer">
               {activeSector.video ? (
