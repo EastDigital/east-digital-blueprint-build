@@ -56,15 +56,15 @@ const SectorsShowcase = () => {
   const [activeSector, setActiveSector] = useState(sectorsData[0]);
 
   return (
-    <div className="bg-slate-900 text-white py-20 px-4">
+    <div className="bg-black text-white py-20 px-4">
       <div className="max-w-7xl mx-auto text-center">
-        <span className="text-sm font-bold text-brand-orange border border-brand-orange/50 rounded-full px-4 py-1">
+        <span className="text-sm font-bold text-eastdigital-orange border border-eastdigital-orange/50 rounded-full px-4 py-1">
           INDUSTRY EXPERTISE
         </span>
         <h2 className="text-4xl md:text-5xl font-bold mt-4">
           Sectors We Transform
         </h2>
-        <p className="text-lg text-slate-400 mt-4 max-w-3xl mx-auto">
+        <p className="text-lg text-eastdigital-lightgray mt-4 max-w-3xl mx-auto">
           Delivering innovative solutions across diverse industries with
           precision and expertise.
         </p>
@@ -77,7 +77,7 @@ const SectorsShowcase = () => {
               className={cn(
                 "px-5 py-2 text-sm font-medium rounded-full transition-all duration-300",
                 activeSector.id === sector.id
-                  ? "bg-brand-orange text-white shadow-lg"
+                  ? "bg-eastdigital-orange text-white shadow-lg"
                   : "bg-gray-800 text-gray-300 hover:bg-gray-700"
               )}
             >
@@ -97,11 +97,11 @@ const SectorsShowcase = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
             <div className="absolute bottom-0 left-0 p-8 text-left text-white">
               <div className="relative pl-6">
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-orange rounded-full" />
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-eastdigital-orange rounded-full" />
                 <h4 className="text-2xl font-bold">
                   {activeSector.showcaseTitle}
                 </h4>
-                <p className="mt-2 max-w-md text-slate-200">
+                <p className="mt-2 max-w-md text-eastdigital-lightgray">
                   {activeSector.showcaseDescription}
                 </p>
               </div>
