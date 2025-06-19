@@ -1,4 +1,4 @@
-
+/* src/styles/scrolling.css */
 /* Enhanced Smooth Scrolling for Fluid Experience */
 @layer base {
   html {
@@ -37,5 +37,14 @@
       overscroll-behavior-y: contain;
       scroll-behavior: smooth;
     }
+  }
+
+  /* For hiding scrollbars */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
