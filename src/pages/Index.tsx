@@ -1,10 +1,10 @@
-
+// src/pages/Index.tsx
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 import { Hero } from '@/components/Hero/Hero';
 import { MissionSection } from '@/components/Mission/MissionSection';
 import { AboutSection } from '@/components/About/AboutSection';
-import { IndustrySection } from '@/components/Industry/IndustrySection';
+import SectorsShowcase from '@/components/SectorsShowcase';
 import Footer from '@/components/Footer/Footer';
 import { LiquidGlassContainer } from '@/components/LiquidGlass/LiquidGlassContainer';
 import { useNavbarLogic } from '@/components/Navbar/useNavbarLogic';
@@ -19,7 +19,7 @@ const Index = () => {
         <Hero />
         <MissionSection />
         <AboutSection />
-        <IndustrySection />
+        <SectorsShowcase />
         <Footer />
       </div>
     </LiquidGlassContainer>
