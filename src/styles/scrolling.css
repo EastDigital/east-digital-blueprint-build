@@ -1,4 +1,4 @@
-/* src/styles/scrolling.css */
+// src/styles/scrolling.css
 /* Enhanced Smooth Scrolling for Fluid Experience */
 @layer base {
   html {
@@ -8,6 +8,7 @@
     /* Better momentum scrolling on iOS */
     overscroll-behavior: none;
     /* Prevent bounce effects */
+    overflow-x: hidden;
   }
 }
 
