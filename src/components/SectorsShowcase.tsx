@@ -3,13 +3,13 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-// Data for the showcase sections. You can easily update this with real project data.
+// Data for the showcase sections.
 const sectorsData = [
   {
     id: "corporates",
     name: "Corporates",
     title: "Enterprise Solutions & Brand Development",
-    image: "/Showcase.jpg", // Make sure Showcase.jpg is in your `public` folder
+    image: "https://www.eastdigital.in/img/product_afc_001.jpg",
     showcaseTitle: "Branding Identity for Optik Club",
     showcaseDescription:
       "We partner with corporate clients to develop powerful brand identities, from logo design to comprehensive marketing collateral that drives brand recognition and growth.",
@@ -18,7 +18,7 @@ const sectorsData = [
     id: "real-estate",
     name: "Real Estate",
     title: "Architectural Visualization & Digital Marketing",
-    image: "/Showcase.jpg", // Placeholder - replace with a real estate image
+    image: "https://www.eastdigital.in/img/product_afc_001.jpg",
     showcaseTitle: "High-Fidelity Renders for Luxury Villas",
     showcaseDescription:
       "We provide property developers with 3D visuals, VR walkthroughs, marketing, and tech to launch projects and drive sales.",
@@ -27,7 +27,7 @@ const sectorsData = [
     id: "engineering",
     name: "Engineering",
     title: "Precision Modeling & Technical Animation",
-    image: "/Showcase.jpg", // Placeholder - replace with an engineering image
+    image: "https://www.eastdigital.in/img/product_afc_001.jpg",
     showcaseTitle: "3D Modeling for Industrial Machinery",
     showcaseDescription:
       "Our team creates precise 3D models and animations for complex engineering projects, aiding in prototyping, visualization, and client presentations.",
@@ -36,7 +36,7 @@ const sectorsData = [
     id: "architecture",
     name: "Architecture",
     title: "Immersive Architectural Walkthroughs",
-    image: "/Showcase.jpg", // Placeholder - replace with an architecture image
+    image: "https://www.eastdigital.in/img/product_afc_001.jpg",
     showcaseTitle: "VR-Ready Tour of a Modern Office Complex",
     showcaseDescription:
       "Transform blueprints into immersive experiences. We build photorealistic VR tours and architectural walkthrough videos that captivate stakeholders.",
@@ -45,7 +45,7 @@ const sectorsData = [
     id: "manufacturing",
     name: "Manufacturing",
     title: "Product Visualization & Prototyping",
-    image: "/Showcase.jpg", // Placeholder - replace with a manufacturing image
+    image: "https://www.eastdigital.in/img/product_afc_001.jpg",
     showcaseTitle: "Digital Prototype for a New Product Line",
     showcaseDescription:
       "From concept to digital prototype, we provide detailed 3D product renderings that accelerate design cycles and enhance marketing efforts.",
@@ -58,9 +58,9 @@ const SectorsShowcase = () => {
   return (
     <div className="bg-black text-white py-20 px-4">
       <div className="max-w-7xl mx-auto text-center">
-        <span className="text-sm font-bold text-eastdigital-orange border border-eastdigital-orange/50 rounded-full px-4 py-1">
-          INDUSTRY EXPERTISE
-        </span>
+        <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-eastdigital-orange/8 via-eastdigital-orange/12 to-eastdigital-orange/8 border border-eastdigital-orange/15 rounded-full mb-6 backdrop-blur-2xl shadow-lg shadow-eastdigital-orange/10">
+            <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">INDUSTRY EXPERTISE</span>
+        </div>
         <h2 className="text-4xl md:text-5xl font-bold mt-4">
           Sectors We Transform
         </h2>
@@ -75,10 +75,10 @@ const SectorsShowcase = () => {
               key={sector.id}
               onClick={() => setActiveSector(sector)}
               className={cn(
-                "px-5 py-2 text-sm font-medium rounded-full transition-all duration-300",
+                "px-6 py-3 text-sm font-semibold rounded-full transition-all duration-300 backdrop-blur-md",
                 activeSector.id === sector.id
                   ? "bg-eastdigital-orange text-white shadow-lg"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
               )}
             >
               {sector.name}
