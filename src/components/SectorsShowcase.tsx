@@ -1,0 +1,116 @@
+// src/components/SectorsShowcase.tsx
+import { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+
+// Data for the showcase sections. You can easily update this with real project data.
+const sectorsData = [
+  {
+    id: "corporates",
+    name: "Corporates",
+    title: "Enterprise Solutions & Brand Development",
+    image: "/Showcase.jpg", // Make sure Showcase.jpg is in your `public` folder
+    showcaseTitle: "Branding Identity for Optik Club",
+    showcaseDescription:
+      "We partner with corporate clients to develop powerful brand identities, from logo design to comprehensive marketing collateral that drives brand recognition and growth.",
+  },
+  {
+    id: "real-estate",
+    name: "Real Estate",
+    title: "Architectural Visualization & Digital Marketing",
+    image: "/Showcase.jpg", // Placeholder - replace with a real estate image
+    showcaseTitle: "High-Fidelity Renders for Luxury Villas",
+    showcaseDescription:
+      "We provide property developers with 3D visuals, VR walkthroughs, marketing, and tech to launch projects and drive sales.",
+  },
+  {
+    id: "engineering",
+    name: "Engineering",
+    title: "Precision Modeling & Technical Animation",
+    image: "/Showcase.jpg", // Placeholder - replace with an engineering image
+    showcaseTitle: "3D Modeling for Industrial Machinery",
+    showcaseDescription:
+      "Our team creates precise 3D models and animations for complex engineering projects, aiding in prototyping, visualization, and client presentations.",
+  },
+  {
+    id: "architecture",
+    name: "Architecture",
+    title: "Immersive Architectural Walkthroughs",
+    image: "/Showcase.jpg", // Placeholder - replace with an architecture image
+    showcaseTitle: "VR-Ready Tour of a Modern Office Complex",
+    showcaseDescription:
+      "Transform blueprints into immersive experiences. We build photorealistic VR tours and architectural walkthrough videos that captivate stakeholders.",
+  },
+  {
+    id: "manufacturing",
+    name: "Manufacturing",
+    title: "Product Visualization & Prototyping",
+    image: "/Showcase.jpg", // Placeholder - replace with a manufacturing image
+    showcaseTitle: "Digital Prototype for a New Product Line",
+    showcaseDescription:
+      "From concept to digital prototype, we provide detailed 3D product renderings that accelerate design cycles and enhance marketing efforts.",
+  },
+];
+
+const SectorsShowcase = () => {
+  const [activeSector, setActiveSector] = useState(sectorsData[0]);
+
+  return (
+    <div className="bg-slate-900 text-white py-20 px-4">
+      <div className="max-w-7xl mx-auto text-center">
+        <span className="text-sm font-bold text-brand-orange border border-brand-orange/50 rounded-full px-4 py-1">
+          INDUSTRY EXPERTISE
+        </span>
+        <h2 className="text-4xl md:text-5xl font-bold mt-4">
+          Sectors We Transform
+        </h2>
+        <p className="text-lg text-slate-400 mt-4 max-w-3xl mx-auto">
+          Delivering innovative solutions across diverse industries with
+          precision and expertise.
+        </p>
+
+        <div className="flex justify-center items-center flex-wrap gap-4 my-10">
+          {sectorsData.map((sector) => (
+            <button
+              key={sector.id}
+              onClick={() => setActiveSector(sector)}
+              className={cn(
+                "px-5 py-2 text-sm font-medium rounded-full transition-all duration-300",
+                activeSector.id === sector.id
+                  ? "bg-brand-orange text-white shadow-lg"
+                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+              )}
+            >
+              {sector.name}
+            </button>
+          ))}
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-semibold mb-6">{activeSector.title}</h3>
+          <Card className="relative w-full max-w-5xl mx-auto aspect-video rounded-2xl overflow-hidden border-gray-700">
+            <img
+              src={activeSector.image}
+              alt={activeSector.showcaseTitle}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 p-8 text-left text-white">
+              <div className="relative pl-6">
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-orange rounded-full" />
+                <h4 className="text-2xl font-bold">
+                  {activeSector.showcaseTitle}
+                </h4>
+                <p className="mt-2 max-w-md text-slate-200">
+                  {activeSector.showcaseDescription}
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SectorsShowcase;
