@@ -59,7 +59,6 @@ const sectorsData = [
   },
 ];
 
-
 const SectorsShowcase = () => {
   const [activeSector, setActiveSector] = useState(sectorsData[0]);
 
@@ -77,59 +76,76 @@ const SectorsShowcase = () => {
           precision and expertise.
         </p>
 
-        <div className="flex justify-center items-center flex-wrap gap-2 sm:gap-4 my-8 md:my-10">
-          {sectorsData.map((sector) => (
-            <button
-              key={sector.id}
-              onClick={() => setActiveSector(sector)}
-              className={cn(
-                "px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm font-semibold rounded-full transition-all duration-300 backdrop-blur-md",
-                activeSector.id === sector.id
-                  ? "bg-eastdigital-orange text-white shadow-lg"
-                  : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
-              )}
-            >
-              {sector.name}
-            </button>
-          ))}
+        {/* Scrollable Tabs */}
+        <div className="w-full overflow-x-auto scrollbar-hide my-8 md:my-10 pb-2">
+            <div className="flex flex-nowrap justify-start md:justify-center items-center gap-2 sm:gap-4 w-max md:w-auto mx-auto px-4 md:px-0">
+                {sectorsData.map((sector) => (
+                    <button
+                        key={sector.id}
+                        onClick={() => setActiveSector(sector)}
+                        className={cn(
+                            "flex-shrink-0 px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm font-semibold rounded-full transition-all duration-300 backdrop-blur-md",
+                            activeSector.id === sector.id
+                            ? "bg-eastdigital-orange text-white shadow-lg"
+                            : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
+                        )}
+                    >
+                        {sector.name}
+                    </button>
+                ))}
+            </div>
         </div>
 
         <div>
           <h3 className="text-base font-normal mb-4 sm:mb-6 text-eastdigital-lightgray">{activeSector.title}</h3>
-          <Link to={activeSector.link}>
-            <Card className="relative w-full max-w-5xl mx-auto aspect-video rounded-xl md:rounded-2xl overflow-hidden border-gray-700 group cursor-pointer">
-              {activeSector.video ? (
-                <video
-                  key={activeSector.video}
-                  src={activeSector.video}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                />
-              ) : (
-                <img
-                  key={activeSector.image}
-                  src={activeSector.image}
-                  alt={activeSector.showcaseTitle}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              <div className="absolute bottom-0 left-0 p-4 sm:p-6 md:p-8 text-left text-white">
-                <div className="relative pl-4 sm:pl-6">
-                  <div className="absolute left-0 top-1 bottom-1 w-1 bg-eastdigital-orange rounded-full" />
-                  <h4 className="text-lg sm:text-xl md:text-2xl font-bold">
-                    {activeSector.showcaseTitle}
-                  </h4>
-                  <p className="mt-1 sm:mt-2 max-w-md text-sm sm:text-base font-normal text-eastdigital-lightgray">
-                    {activeSector.showcaseDescription}
-                  </p>
+          
+          <div className="max-w-5xl mx-auto">
+            <Link to={activeSector.link} className="group cursor-pointer">
+              <Card className="relative w-full aspect-video rounded-xl md:rounded-2xl overflow-hidden border-gray-700">
+                {activeSector.video ? (
+                  <video
+                    key={activeSector.video}
+                    src={activeSector.video}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <img
+                    key={activeSector.image}
+                    src={activeSector.image}
+                    alt={activeSector.showcaseTitle}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                )}
+                {/* Desktop-only Overlay */}
+                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="hidden md:absolute bottom-0 left-0 p-4 sm:p-6 md:p-8 text-left text-white">
+                  <div className="relative pl-4 sm:pl-6">
+                    <div className="absolute left-0 top-1 bottom-1 w-1 bg-eastdigital-orange rounded-full" />
+                    <h4 className="text-lg sm:text-xl md:text-2xl font-bold">
+                      {activeSector.showcaseTitle}
+                    </h4>
+                    <p className="mt-1 sm:mt-2 max-w-md text-sm sm:text-base font-normal text-eastdigital-lightgray">
+                      {activeSector.showcaseDescription}
+                    </p>
+                  </div>
                 </div>
+              </Card>
+
+              {/* Mobile-only Text Content */}
+              <div className="block md:hidden mt-4 text-left">
+                  <h4 className="text-lg font-bold text-white">
+                      {activeSector.showcaseTitle}
+                  </h4>
+                  <p className="mt-1 text-sm font-normal text-eastdigital-lightgray">
+                      {activeSector.showcaseDescription}
+                  </p>
               </div>
-            </Card>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
