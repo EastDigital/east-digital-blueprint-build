@@ -59,30 +59,31 @@ const sectorsData = [
   },
 ];
 
+
 const SectorsShowcase = () => {
   const [activeSector, setActiveSector] = useState(sectorsData[0]);
 
   return (
-    <div className="bg-black text-white py-20 px-4">
+    <div className="bg-black text-white py-12 sm:py-16 lg:py-20 px-4">
       <div className="max-w-7xl mx-auto text-center">
         <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-eastdigital-orange/8 via-eastdigital-orange/12 to-eastdigital-orange/8 border border-eastdigital-orange/15 rounded-full mb-6 backdrop-blur-2xl shadow-lg shadow-eastdigital-orange/10">
           <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">INDUSTRY EXPERTISE</span>
         </div>
-        <h2 className="text-4xl md:text-5xl font-bold">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
           Sectors We Transform
         </h2>
-        <p className="text-lg text-eastdigital-lightgray mt-4 max-w-3xl mx-auto">
+        <p className="text-base sm:text-lg text-eastdigital-lightgray mt-4 max-w-3xl mx-auto">
           Delivering innovative solutions across diverse industries with
           precision and expertise.
         </p>
 
-        <div className="flex justify-center items-center flex-wrap gap-4 my-10">
+        <div className="flex justify-center items-center flex-wrap gap-2 sm:gap-4 my-8 md:my-10">
           {sectorsData.map((sector) => (
             <button
               key={sector.id}
               onClick={() => setActiveSector(sector)}
               className={cn(
-                "px-6 py-3 text-sm font-semibold rounded-full transition-all duration-300 backdrop-blur-md",
+                "px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm font-semibold rounded-full transition-all duration-300 backdrop-blur-md",
                 activeSector.id === sector.id
                   ? "bg-eastdigital-orange text-white shadow-lg"
                   : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
@@ -94,11 +95,12 @@ const SectorsShowcase = () => {
         </div>
 
         <div>
-          <h3 className="text-base font-normal mb-6 text-eastdigital-lightgray">{activeSector.title}</h3>
+          <h3 className="text-base font-normal mb-4 sm:mb-6 text-eastdigital-lightgray">{activeSector.title}</h3>
           <Link to={activeSector.link}>
-            <Card className="relative w-full max-w-5xl mx-auto aspect-video rounded-2xl overflow-hidden border-gray-700 group cursor-pointer">
+            <Card className="relative w-full max-w-5xl mx-auto aspect-video rounded-xl md:rounded-2xl overflow-hidden border-gray-700 group cursor-pointer">
               {activeSector.video ? (
                 <video
+                  key={activeSector.video}
                   src={activeSector.video}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   autoPlay
@@ -108,19 +110,20 @@ const SectorsShowcase = () => {
                 />
               ) : (
                 <img
+                  key={activeSector.image}
                   src={activeSector.image}
                   alt={activeSector.showcaseTitle}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
-              <div className="absolute bottom-0 left-0 p-8 text-left text-white">
-                <div className="relative pl-6">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-eastdigital-orange rounded-full" />
-                  <h4 className="text-2xl font-bold">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-4 sm:p-6 md:p-8 text-left text-white">
+                <div className="relative pl-4 sm:pl-6">
+                  <div className="absolute left-0 top-1 bottom-1 w-1 bg-eastdigital-orange rounded-full" />
+                  <h4 className="text-lg sm:text-xl md:text-2xl font-bold">
                     {activeSector.showcaseTitle}
                   </h4>
-                  <p className="mt-2 max-w-md text-base font-normal text-eastdigital-lightgray">
+                  <p className="mt-1 sm:mt-2 max-w-md text-sm sm:text-base font-normal text-eastdigital-lightgray">
                     {activeSector.showcaseDescription}
                   </p>
                 </div>
