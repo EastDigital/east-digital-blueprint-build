@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -27,10 +26,7 @@ export const HeroContent = () => {
       </p>
       
       <Link to="/enquiry">
-        <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins w-[150px] relative overflow-hidden group animate-border-pulse">
-          {/* Animated border effect */}
-          <div className="absolute inset-0 rounded-[60px] p-[2px] bg-gradient-to-r from-eastdigital-orange via-white to-eastdigital-orange bg-[length:300%_300%] animate-gradient-border opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div className="absolute inset-[2px] bg-eastdigital-orange rounded-[60px] group-hover:bg-eastdigital-orange/90"></div>
+        <Button className="google-ai-button bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins w-[150px] relative overflow-hidden group">
           <span className="relative z-10">Connect</span>
         </Button>
       </Link>

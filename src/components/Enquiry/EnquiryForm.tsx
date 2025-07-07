@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -98,14 +97,14 @@ export const EnquiryForm = () => {
 
   if (isSubmitted && currentStep === steps.length - 1) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-black flex items-center justify-center p-4">
         <SuccessStep formData={formData} />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-12 px-4">
+    <div className="min-h-screen bg-black py-8 px-4">
       <div className="max-w-4xl mx-auto h-full flex flex-col">
         {/* Header */}
         <div className="text-center mb-8">
@@ -145,7 +144,7 @@ export const EnquiryForm = () => {
         />
 
         {/* Form Content */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col min-h-[600px]">
           <LiquidGlassCard className="flex-1 overflow-hidden">
             <div className="relative h-full">
               <AnimatePresence mode="wait" custom={direction}>
@@ -156,7 +155,7 @@ export const EnquiryForm = () => {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute inset-0 flex flex-col"
+                  className="absolute inset-0 flex flex-col overflow-y-auto"
                 >
                   {renderStep()}
                 </motion.div>
@@ -188,7 +187,7 @@ export const EnquiryForm = () => {
               <Button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="flex items-center gap-2 bg-eastdigital-orange hover:bg-eastdigital-orange/90"
+                className="flex items-center gap-2 bg-eastdigital-orange hover:bg-eastdigital-orange/90 google-ai-button"
               >
                 {isSubmitting ? (
                   <>
@@ -205,7 +204,7 @@ export const EnquiryForm = () => {
             ) : (
               <Button
                 onClick={nextStep}
-                className="flex items-center gap-2 bg-eastdigital-orange hover:bg-eastdigital-orange/90"
+                className="flex items-center gap-2 bg-eastdigital-orange hover:bg-eastdigital-orange/90 google-ai-button"
               >
                 Next
                 <ChevronRight className="h-4 w-4" />
