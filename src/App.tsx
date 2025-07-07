@@ -16,7 +16,7 @@ import ArchitecturalRendering from "./pages/ArchitecturalRendering";
 import ArchitecturalWalkthrough from "./pages/ArchitecturalWalkthrough";
 import VRPropertyTours from "./pages/VRPropertyTours";
 import DroneVideography from "./pages/DroneVideography";
-import { ThreeDRenderingVisualization } from "./pages/3DRenderingVisualization";
+import ThreeDRenderingVisualization from "./pages/3DRenderingVisualization";
 import RealEstateDigitalCampaigns from "./pages/RealEstateDigitalCampaigns";
 import TargetedAds from "./pages/TargetedAds";
 import BrokerOutreach from "./pages/BrokerOutreach";
