@@ -77,6 +77,105 @@ export type Database = {
         }
         Relationships: []
       }
+      enquiries: {
+        Row: {
+          completion_days: number
+          country: string
+          created_at: string | null
+          email: string
+          id: string
+          instant_proposal_paid: boolean | null
+          instant_proposal_requested: boolean | null
+          message: string | null
+          name: string
+          payment_id: string | null
+          phone: string
+          proposal_pdf_url: string | null
+          status: Database["public"]["Enums"]["enquiry_status"] | null
+          total_estimate: number | null
+          updated_at: string | null
+          uploaded_files: string[] | null
+        }
+        Insert: {
+          completion_days: number
+          country: string
+          created_at?: string | null
+          email: string
+          id?: string
+          instant_proposal_paid?: boolean | null
+          instant_proposal_requested?: boolean | null
+          message?: string | null
+          name: string
+          payment_id?: string | null
+          phone: string
+          proposal_pdf_url?: string | null
+          status?: Database["public"]["Enums"]["enquiry_status"] | null
+          total_estimate?: number | null
+          updated_at?: string | null
+          uploaded_files?: string[] | null
+        }
+        Update: {
+          completion_days?: number
+          country?: string
+          created_at?: string | null
+          email?: string
+          id?: string
+          instant_proposal_paid?: boolean | null
+          instant_proposal_requested?: boolean | null
+          message?: string | null
+          name?: string
+          payment_id?: string | null
+          phone?: string
+          proposal_pdf_url?: string | null
+          status?: Database["public"]["Enums"]["enquiry_status"] | null
+          total_estimate?: number | null
+          updated_at?: string | null
+          uploaded_files?: string[] | null
+        }
+        Relationships: []
+      }
+      enquiry_services: {
+        Row: {
+          created_at: string | null
+          enquiry_id: string | null
+          estimated_price: number | null
+          id: string
+          quantity: number | null
+          sub_service_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          enquiry_id?: string | null
+          estimated_price?: number | null
+          id?: string
+          quantity?: number | null
+          sub_service_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          enquiry_id?: string | null
+          estimated_price?: number | null
+          id?: string
+          quantity?: number | null
+          sub_service_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enquiry_services_enquiry_id_fkey"
+            columns: ["enquiry_id"]
+            isOneToOne: false
+            referencedRelation: "enquiries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "enquiry_services_sub_service_id_fkey"
+            columns: ["sub_service_id"]
+            isOneToOne: false
+            referencedRelation: "sub_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       industries: {
         Row: {
           color: string
@@ -186,6 +285,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      parent_services: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_order: number | null
+          id: string
+          is_active: boolean | null
+          name: string
+          slug: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          slug: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          slug?: string
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       projects: {
         Row: {
@@ -328,6 +460,59 @@ export type Database = {
         }
         Relationships: []
       }
+      sub_services: {
+        Row: {
+          base_price: number
+          created_at: string | null
+          description: string | null
+          display_order: number | null
+          id: string
+          is_active: boolean | null
+          minimum_quantity: number | null
+          name: string
+          parent_service_id: string | null
+          pricing_unit: string | null
+          slug: string
+          updated_at: string | null
+        }
+        Insert: {
+          base_price?: number
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          minimum_quantity?: number | null
+          name: string
+          parent_service_id?: string | null
+          pricing_unit?: string | null
+          slug: string
+          updated_at?: string | null
+        }
+        Update: {
+          base_price?: number
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          minimum_quantity?: number | null
+          name?: string
+          parent_service_id?: string | null
+          pricing_unit?: string | null
+          slug?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sub_services_parent_service_id_fkey"
+            columns: ["parent_service_id"]
+            isOneToOne: false
+            referencedRelation: "parent_services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       trusted_devices: {
         Row: {
           admin_user_id: string
@@ -377,7 +562,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      enquiry_status: "pending" | "processing" | "completed" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -504,6 +689,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      enquiry_status: ["pending", "processing", "completed", "cancelled"],
+    },
   },
 } as const
