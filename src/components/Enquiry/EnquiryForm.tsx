@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, ChevronLeft, Check, Star, Sparkles } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check, Sparkles } from 'lucide-react';
 import { LiquidGlassCard } from '@/components/LiquidGlass/LiquidGlassCard';
 import { StepIndicator } from './StepIndicator';
 import { ContactStep } from './steps/ContactStep';
@@ -62,7 +62,6 @@ export const EnquiryForm = () => {
   const handleInstantProposal = async () => {
     const success = await requestInstantProposal();
     if (success) {
-      // Redirect to payment or show success
       console.log('Instant proposal requested');
     }
   };
@@ -107,7 +106,7 @@ export const EnquiryForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto h-full flex flex-col">
         {/* Header */}
         <div className="text-center mb-8">
           <motion.div
@@ -146,23 +145,25 @@ export const EnquiryForm = () => {
         />
 
         {/* Form Content */}
-        <LiquidGlassCard className="overflow-hidden">
-          <div className="relative min-h-[500px]">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={currentStep}
-                custom={direction}
-                initial={{ opacity: 0, x: direction > 0 ? 100 : -100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="absolute inset-0"
-              >
-                {renderStep()}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </LiquidGlassCard>
+        <div className="flex-1 flex flex-col">
+          <LiquidGlassCard className="flex-1 overflow-hidden">
+            <div className="relative h-full">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={currentStep}
+                  custom={direction}
+                  initial={{ opacity: 0, x: direction > 0 ? 100 : -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="absolute inset-0 flex flex-col"
+                >
+                  {renderStep()}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </LiquidGlassCard>
+        </div>
 
         {/* Navigation */}
         {currentStep < steps.length - 1 && (
