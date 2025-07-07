@@ -68,49 +68,53 @@ export const TimelineStep: React.FC<StepProps> = ({
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid gap-4">
             {timelineOptions.map((option) => (
-              <LiquidGlassCard
+              <div
                 key={option.value}
-                className={cn(
-                  "p-6 cursor-pointer transition-all duration-300",
-                  formData.completionDays === option.value
-                    ? "ring-2 ring-eastdigital-orange bg-eastdigital-orange/10"
-                    : "hover:bg-white/5"
-                )}
+                className="cursor-pointer"
                 onClick={() => handleTimelineSelect(option.value)}
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="text-2xl">{option.icon}</div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white">
-                        {option.label}
-                      </h3>
-                      <p className={cn(
-                        "text-sm",
-                        option.multiplier > 1 ? "text-yellow-400" :
-                        option.multiplier < 1 ? "text-green-400" : "text-gray-400"
-                      )}>
-                        {option.subtitle}
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="text-right">
-                    {option.multiplier !== 1 && (
-                      <div className={cn(
-                        "text-sm font-medium",
-                        option.multiplier > 1 ? "text-yellow-400" : "text-green-400"
-                      )}>
-                        {option.multiplier > 1 ? '+' : ''}{((option.multiplier - 1) * 100).toFixed(0)}%
+                <LiquidGlassCard
+                  className={cn(
+                    "p-6 transition-all duration-300",
+                    formData.completionDays === option.value
+                      ? "ring-2 ring-eastdigital-orange bg-eastdigital-orange/10"
+                      : "hover:bg-white/5"
+                  )}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="text-2xl">{option.icon}</div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">
+                          {option.label}
+                        </h3>
+                        <p className={cn(
+                          "text-sm",
+                          option.multiplier > 1 ? "text-yellow-400" :
+                          option.multiplier < 1 ? "text-green-400" : "text-gray-400"
+                        )}>
+                          {option.subtitle}
+                        </p>
                       </div>
-                    )}
-                    <div className="flex items-center gap-2 text-gray-400">
-                      <Clock className="h-4 w-4" />
-                      <span>{option.value} days</span>
+                    </div>
+                    
+                    <div className="text-right">
+                      {option.multiplier !== 1 && (
+                        <div className={cn(
+                          "text-sm font-medium",
+                          option.multiplier > 1 ? "text-yellow-400" : "text-green-400"
+                        )}>
+                          {option.multiplier > 1 ? '+' : ''}{((option.multiplier - 1) * 100).toFixed(0)}%
+                        </div>
+                      )}
+                      <div className="flex items-center gap-2 text-gray-400">
+                        <Clock className="h-4 w-4" />
+                        <span>{option.value} days</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </LiquidGlassCard>
+                </LiquidGlassCard>
+              </div>
             ))}
           </div>
 

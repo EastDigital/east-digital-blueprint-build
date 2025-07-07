@@ -100,95 +100,99 @@ export const ServicesStep: React.FC<StepProps> = ({
                     const isSelected = quantity > 0;
                     
                     return (
-                      <LiquidGlassCard
+                      <div
                         key={service.id}
-                        className={cn(
-                          "p-6 transition-all duration-300 cursor-pointer",
-                          isSelected
-                            ? "ring-2 ring-eastdigital-orange bg-eastdigital-orange/10"
-                            : "hover:bg-white/5"
-                        )}
+                        className="cursor-pointer"
                         onClick={() => {
                           if (!isSelected) {
                             handleServiceChange(service.id, minQuantity);
                           }
                         }}
                       >
-                        <div className="flex justify-between items-start mb-4">
-                          <div className="flex-1">
-                            <h4 className="font-semibold text-white mb-2">
-                              {service.name}
-                            </h4>
-                            {service.description && (
-                              <p className="text-gray-400 text-sm mb-3">
-                                {service.description}
-                              </p>
-                            )}
-                            <div className="flex items-center gap-2">
-                              <span className="text-eastdigital-orange font-bold">
-                                ${service.base_price}
-                              </span>
-                              <span className="text-gray-400 text-sm">
-                                {service.pricing_unit === 'fixed' ? 'fixed' : `per ${service.pricing_unit}`}
-                              </span>
-                            </div>
-                            {service.minimum_quantity > 1 && (
-                              <p className="text-gray-400 text-xs mt-1">
-                                Min: {service.minimum_quantity}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-
-                        <AnimatePresence>
-                          {isSelected && (
-                            <motion.div
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
-                              exit={{ opacity: 0, height: 0 }}
-                              className="flex items-center justify-between pt-4 border-t border-white/10"
-                            >
-                              <div className="flex items-center gap-3">
-                                <Button
-                                  type="button"
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleServiceChange(service.id, Math.max(0, quantity - 1));
-                                  }}
-                                  className="h-8 w-8 p-0"
-                                >
-                                  <Minus className="h-4 w-4" />
-                                </Button>
-                                
-                                <span className="font-medium text-white min-w-[2rem] text-center">
-                                  {quantity}
-                                </span>
-                                
-                                <Button
-                                  type="button"
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleServiceChange(service.id, quantity + 1);
-                                  }}
-                                  className="h-8 w-8 p-0"
-                                >
-                                  <Plus className="h-4 w-4" />
-                                </Button>
-                              </div>
-                              
-                              <div className="text-right">
-                                <p className="text-eastdigital-orange font-bold">
-                                  ${(service.base_price * quantity).toFixed(2)}
-                                </p>
-                              </div>
-                            </motion.div>
+                        <LiquidGlassCard
+                          className={cn(
+                            "p-6 transition-all duration-300",
+                            isSelected
+                              ? "ring-2 ring-eastdigital-orange bg-eastdigital-orange/10"
+                              : "hover:bg-white/5"
                           )}
-                        </AnimatePresence>
-                      </LiquidGlassCard>
+                        >
+                          <div className="flex justify-between items-start mb-4">
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-white mb-2">
+                                {service.name}
+                              </h4>
+                              {service.description && (
+                                <p className="text-gray-400 text-sm mb-3">
+                                  {service.description}
+                                </p>
+                              )}
+                              <div className="flex items-center gap-2">
+                                <span className="text-eastdigital-orange font-bold">
+                                  ${service.base_price}
+                                </span>
+                                <span className="text-gray-400 text-sm">
+                                  {service.pricing_unit === 'fixed' ? 'fixed' : `per ${service.pricing_unit}`}
+                                </span>
+                              </div>
+                              {service.minimum_quantity > 1 && (
+                                <p className="text-gray-400 text-xs mt-1">
+                                  Min: {service.minimum_quantity}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+
+                          <AnimatePresence>
+                            {isSelected && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="flex items-center justify-between pt-4 border-t border-white/10"
+                              >
+                                <div className="flex items-center gap-3">
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleServiceChange(service.id, Math.max(0, quantity - 1));
+                                    }}
+                                    className="h-8 w-8 p-0"
+                                  >
+                                    <Minus className="h-4 w-4" />
+                                  </Button>
+                                  
+                                  <span className="font-medium text-white min-w-[2rem] text-center">
+                                    {quantity}
+                                  </span>
+                                  
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleServiceChange(service.id, quantity + 1);
+                                    }}
+                                    className="h-8 w-8 p-0"
+                                  >
+                                    <Plus className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                                
+                                <div className="text-right">
+                                  <p className="text-eastdigital-orange font-bold">
+                                    ${(service.base_price * quantity).toFixed(2)}
+                                  </p>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </LiquidGlassCard>
+                      </div>
                     );
                   })}
               </div>
