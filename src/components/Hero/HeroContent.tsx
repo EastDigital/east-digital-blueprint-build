@@ -1,11 +1,14 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+
 export const HeroContent = () => {
-  return <div className="text-left sm:text-center max-w-5xl mx-auto px-[15px] py-[31px]">
+  return (
+    <div className="text-left sm:text-center max-w-5xl mx-auto px-[15px] py-[31px]">
       <p style={{
-      fontSize: '18px'
-    }} className="text-white font-poppins font-thin tracking-[1px] py-0">
+        fontSize: '18px'
+      }} className="text-white font-poppins font-thin tracking-[1px] py-0">
         Real Estate Developers
       </p>
       
@@ -17,16 +20,20 @@ export const HeroContent = () => {
       </h1>
       
       <p style={{
-      color: '#FFE0CA'
-    }} className="text-sm sm:text-base md:text-lg max-w-3xl sm:mx-auto mb-3 sm:mb-8 md:mb-8 font-poppins font-light leading-relaxed py-0">
+        color: '#FFE0CA'
+      }} className="text-sm sm:text-base md:text-lg max-w-3xl sm:mx-auto mb-3 sm:mb-8 md:mb-8 font-poppins font-light leading-relaxed py-0">
         With over 100 clients using East Digital™<br />
         to power their creative sales and marketing.
       </p>
       
-      <Link to="/connect">
-        <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins w-[150px]">
-          Connect
+      <Link to="/enquiry">
+        <Button className="bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins w-[150px] relative overflow-hidden group animate-border-pulse">
+          {/* Animated border effect */}
+          <div className="absolute inset-0 rounded-[60px] p-[2px] bg-gradient-to-r from-eastdigital-orange via-white to-eastdigital-orange bg-[length:300%_300%] animate-gradient-border opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute inset-[2px] bg-eastdigital-orange rounded-[60px] group-hover:bg-eastdigital-orange/90"></div>
+          <span className="relative z-10">Connect</span>
         </Button>
       </Link>
-    </div>;
+    </div>
+  );
 };

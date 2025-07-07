@@ -32,6 +32,17 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
 
   const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Restrict to only info@eastdigital.in
+    if (email !== 'info@eastdigital.in') {
+      toast({
+        title: "Access Denied",
+        description: "Admin access is restricted to authorized email addresses only.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -70,6 +81,16 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
           title: "OTP Sent",
           description: "Please check your email for the verification code.",
         });
+        
+        // Show OTP in console for demo purposes
+        if (data.otp) {
+          console.log('Demo OTP:', data.otp);
+          toast({
+            title: "Demo Mode",
+            description: `OTP: ${data.otp} (check console for development)`,
+            variant: "default",
+          });
+        }
       } else {
         throw new Error(data.error || 'Failed to send OTP');
       }
@@ -148,7 +169,7 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
           </CardTitle>
           <CardDescription className="text-gray-400">
             {step === 'email' 
-              ? 'Enter your admin email to receive verification code'
+              ? 'Authorized admin access only'
               : 'Enter the 6-digit code sent to your email'
             }
           </CardDescription>
@@ -164,9 +185,13 @@ export const OTPAdminLogin = ({ onLoginSuccess }: OTPAdminLoginProps) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="bg-gray-800 border-gray-700 text-white"
-                  placeholder="Enter admin email"
+                  placeholder="info@eastdigital.in"
                   required
+                  readOnly
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  Admin access is restricted to authorized email addresses
+                </p>
               </div>
               <Button
                 type="submit"

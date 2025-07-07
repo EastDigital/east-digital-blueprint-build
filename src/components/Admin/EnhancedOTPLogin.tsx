@@ -97,6 +97,18 @@ export const EnhancedOTPLogin = () => {
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Restrict to only info@eastdigital.in
+    if (email !== 'info@eastdigital.in') {
+      setError('Admin access is restricted to authorized email addresses only.');
+      toast({
+        title: "Access Denied",
+        description: "Admin access is restricted to authorized email addresses only.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
     setError('');
 
@@ -249,7 +261,7 @@ export const EnhancedOTPLogin = () => {
           </CardTitle>
           <CardDescription className="text-gray-400">
             {step === 'email' 
-              ? 'Enter your admin email to continue' 
+              ? 'Authorized admin access only' 
               : 'Enter the verification code sent to your email'
             }
           </CardDescription>
@@ -268,11 +280,15 @@ export const EnhancedOTPLogin = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@eastdigital.in"
+                    placeholder="info@eastdigital.in"
                     className="pl-10 bg-gray-800 border-gray-700 text-white"
                     required
+                    readOnly
                   />
                 </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  Admin access is restricted to authorized email addresses
+                </p>
               </div>
 
               <div className="flex items-center space-x-2">
