@@ -31,8 +31,8 @@ export const Navbar = () => {
       <NavbarBackground isHomePage={isHomePage} isScrolled={isScrolled} />
 
       <header className={`w-full font-poppins fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarBackground()}`}>
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
+        <div className="container mx-auto px-4 w-full max-w-full overflow-hidden">
+          <div className="flex items-center justify-between h-20 w-full">
             <NavbarLogo />
             
             <DesktopNav 
@@ -49,7 +49,7 @@ export const Navbar = () => {
             />
 
             {/* Fixed hamburger menu positioning with proper constraints */}
-            <div className="lg:hidden flex items-center justify-center w-10 h-10 mr-0">
+            <div className="lg:hidden flex items-center justify-center w-10 h-10 ml-auto flex-shrink-0">
               <AnimatedHamburger 
                 isOpen={isMenuOpen}
                 onClick={toggleMenu}

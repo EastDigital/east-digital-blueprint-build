@@ -1,4 +1,4 @@
-// src/styles/scrolling.css
+
 /* Enhanced Smooth Scrolling for Fluid Experience */
 @layer base {
   html {
@@ -9,6 +9,17 @@
     overscroll-behavior: none;
     /* Prevent bounce effects */
     overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  #root {
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 }
 
@@ -37,6 +48,8 @@
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-y: contain;
       scroll-behavior: smooth;
+      overflow-x: hidden;
+      max-width: 100vw;
     }
   }
 
@@ -47,5 +60,11 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  
+  /* Prevent horizontal overflow utilities */
+  .prevent-overflow {
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 }

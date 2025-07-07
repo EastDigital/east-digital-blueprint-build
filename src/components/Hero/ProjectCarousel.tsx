@@ -140,7 +140,7 @@ export const ProjectCarousel = () => {
 
   if (carouselProjects.length === 0) {
     return (
-      <div className="w-full">
+      <div className="w-full max-w-full overflow-hidden">
         <div className="flex items-center justify-center h-[225px] sm:h-[370px] text-gray-400">
           <p>No carousel projects found. Add projects in the admin panel.</p>
         </div>
@@ -154,10 +154,10 @@ export const ProjectCarousel = () => {
     : carouselProjects;
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-full overflow-hidden">
       <div 
         ref={carouselRef}
-        className="flex gap-3 sm:gap-4 md:gap-6 overflow-hidden pl-0 sm:pl-4 md:pl-4 lg:pl-4 cursor-grab active:cursor-grabbing select-none"
+        className="flex gap-3 sm:gap-4 md:gap-6 overflow-x-auto overflow-y-hidden scrollbar-hide pl-0 sm:pl-4 md:pl-4 lg:pl-4 cursor-grab active:cursor-grabbing select-none"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onMouseDown={handleMouseDown}

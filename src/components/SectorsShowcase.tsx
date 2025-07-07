@@ -1,4 +1,4 @@
-// src/components/SectorsShowcase.tsx
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -63,8 +63,8 @@ const SectorsShowcase = () => {
   const [activeSector, setActiveSector] = useState(sectorsData[0]);
 
   return (
-    <div className="bg-black text-white py-12 sm:py-16 lg:py-20 px-4">
-      <div className="max-w-7xl mx-auto text-center">
+    <div className="bg-black text-white py-12 sm:py-16 lg:py-20 px-4 w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto text-center w-full">
         <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-eastdigital-orange/8 via-eastdigital-orange/12 to-eastdigital-orange/8 border border-eastdigital-orange/15 rounded-full mb-6 backdrop-blur-2xl shadow-lg shadow-eastdigital-orange/10">
           <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">INDUSTRY EXPERTISE</span>
         </div>
@@ -76,31 +76,33 @@ const SectorsShowcase = () => {
           precision and expertise.
         </p>
 
-        {/* Scrollable Tabs */}
-        <div className="w-full overflow-x-auto scrollbar-hide my-8 md:my-10 pb-2">
-            <div className="flex flex-nowrap justify-start md:justify-center items-center gap-2 sm:gap-4 w-max md:w-auto mx-auto px-4 md:px-0">
-                {sectorsData.map((sector) => (
-                    <button
-                        key={sector.id}
-                        onClick={() => setActiveSector(sector)}
-                        className={cn(
-                            "flex-shrink-0 px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm font-semibold rounded-full transition-all duration-300 backdrop-blur-md",
-                            activeSector.id === sector.id
-                            ? "bg-eastdigital-orange text-white shadow-lg"
-                            : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
-                        )}
-                    >
-                        {sector.name}
-                    </button>
-                ))}
+        {/* Fixed Mobile Scrollable Tabs */}
+        <div className="w-full my-8 md:my-10">
+          <div className="w-full overflow-x-auto scrollbar-hide">
+            <div className="flex flex-nowrap justify-start md:justify-center items-center gap-2 sm:gap-4 min-w-max px-4 md:px-0 pb-2">
+              {sectorsData.map((sector) => (
+                <button
+                  key={sector.id}
+                  onClick={() => setActiveSector(sector)}
+                  className={cn(
+                    "flex-shrink-0 whitespace-nowrap px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm font-semibold rounded-full transition-all duration-300 backdrop-blur-md",
+                    activeSector.id === sector.id
+                      ? "bg-eastdigital-orange text-white shadow-lg"
+                      : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
+                  )}
+                >
+                  {sector.name}
+                </button>
+              ))}
             </div>
+          </div>
         </div>
 
-        <div>
+        <div className="w-full">
           <h3 className="text-base font-normal mb-4 sm:mb-6 text-eastdigital-lightgray">{activeSector.title}</h3>
           
-          <div className="max-w-5xl mx-auto">
-            <Link to={activeSector.link} className="group cursor-pointer">
+          <div className="max-w-5xl mx-auto w-full">
+            <Link to={activeSector.link} className="group cursor-pointer block w-full">
               <Card className="relative w-full aspect-video rounded-xl md:rounded-2xl overflow-hidden border-gray-700">
                 {activeSector.video ? (
                   <video
@@ -136,13 +138,13 @@ const SectorsShowcase = () => {
               </Card>
 
               {/* Mobile-only Text Content */}
-              <div className="block md:hidden mt-4 text-left">
-                  <h4 className="text-lg font-bold text-white">
-                      {activeSector.showcaseTitle}
-                  </h4>
-                  <p className="mt-1 text-sm font-normal text-eastdigital-lightgray">
-                      {activeSector.showcaseDescription}
-                  </p>
+              <div className="block md:hidden mt-4 text-left px-2">
+                <h4 className="text-lg font-bold text-white">
+                  {activeSector.showcaseTitle}
+                </h4>
+                <p className="mt-1 text-sm font-normal text-eastdigital-lightgray">
+                  {activeSector.showcaseDescription}
+                </p>
               </div>
             </Link>
           </div>

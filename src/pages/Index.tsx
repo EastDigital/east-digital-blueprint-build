@@ -1,4 +1,4 @@
-// src/pages/Index.tsx
+
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 import { Hero } from '@/components/Hero/Hero';
@@ -13,8 +13,8 @@ const Index = () => {
   const { isScrolled, isHomePage } = useNavbarLogic();
 
   return (
-    <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate" withParticles={true}>
-      <div className="relative z-10 flex flex-col">
+    <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate w-full max-w-full overflow-x-hidden" withParticles={true}>
+      <div className="relative z-10 flex flex-col w-full max-w-full">
         <Navbar />
         <Hero />
         <MissionSection />
