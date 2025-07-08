@@ -102,6 +102,25 @@
     background: rgba(255, 105, 0, 0.5);
   }
 
+  /* Custom scrollbar for form content */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 107, 53, 0.4);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 107, 53, 0.6);
+  }
+
   /* Smooth transitions for all elements */
   * {
     transition-property: transform, opacity, background-color, border-color, color, fill, stroke;
@@ -111,6 +130,75 @@
 }
 
 @layer components {
+  /* Frosted Glass CTA Button */
+  .frosted-glass-cta {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    animation: pulse-border 10s infinite ease-in-out;
+  }
+
+  .frosted-glass-cta::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    background: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335);
+    border-radius: 50px;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .frosted-glass-cta:hover::before {
+    opacity: 1;
+  }
+
+  .frosted-glass-cta:hover {
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  @keyframes pulse-border {
+    0%, 90% {
+      border-color: rgba(255, 255, 255, 0.9);
+    }
+    5%, 25% {
+      border-color: transparent;
+    }
+  }
+
+  .frosted-glass-cta::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    background: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335);
+    border-radius: 50px;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    opacity: 0;
+    animation: pulse-gradient 10s infinite ease-in-out;
+  }
+
+  @keyframes pulse-gradient {
+    0%, 90% {
+      opacity: 0;
+    }
+    5%, 25% {
+      opacity: 1;
+    }
+  }
+
   /* Google AI-style button animation */
   .google-ai-button {
     position: relative;

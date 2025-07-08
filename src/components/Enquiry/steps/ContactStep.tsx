@@ -29,7 +29,7 @@ export const ContactStep: React.FC<StepProps> = ({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="p-8"
+      className="p-8 h-full overflow-y-auto custom-scrollbar"
     >
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">

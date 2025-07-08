@@ -8,11 +8,11 @@ import { StepProps } from '../types';
 import { cn } from '@/lib/utils';
 
 const timelineOptions = [
-  { value: 7, label: '1 Week', subtitle: 'Rush job - 50% surcharge', icon: '🚀', multiplier: 1.5 },
-  { value: 14, label: '2 Weeks', subtitle: 'Fast delivery - 25% surcharge', icon: '⚡', multiplier: 1.25 },
-  { value: 30, label: '1 Month', subtitle: 'Standard timeline', icon: '📅', multiplier: 1 },
-  { value: 60, label: '2 Months', subtitle: 'Flexible timeline - 10% discount', icon: '🎯', multiplier: 0.9 },
-  { value: 90, label: '3+ Months', subtitle: 'Long-term project - 20% discount', icon: '🏗️', multiplier: 0.8 },
+  { value: 7, label: '1 Week', subtitle: 'Rush delivery', icon: '🚀' },
+  { value: 14, label: '2 Weeks', subtitle: 'Fast delivery', icon: '⚡' },
+  { value: 30, label: '1 Month', subtitle: 'Standard timeline', icon: '📅' },
+  { value: 60, label: '2 Months', subtitle: 'Flexible timeline', icon: '🎯' },
+  { value: 90, label: '3+ Months', subtitle: 'Long-term project', icon: '🏗️' },
 ];
 
 export const TimelineStep: React.FC<StepProps> = ({
@@ -32,28 +32,12 @@ export const TimelineStep: React.FC<StepProps> = ({
     }
   };
 
-  const getBaseTotal = () => {
-    if (!formData.selectedServices) return 0;
-    
-    // This would normally come from your services calculation
-    // For now, we'll calculate a rough estimate
-    return Object.entries(formData.selectedServices).reduce((total, [serviceId, quantity]) => {
-      // This is a simplified calculation - in reality you'd look up the actual service prices
-      return total + (quantity * 100); // Placeholder calculation
-    }, 0);
-  };
-
-  const getAdjustedTotal = () => {
-    const baseTotal = getBaseTotal();
-    const timeline = timelineOptions.find(t => t.value === formData.completionDays);
-    return timeline ? baseTotal * timeline.multiplier : baseTotal;
-  };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="p-8"
+      className="p-8 h-full overflow-y-auto custom-scrollbar"
     >
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-8">
@@ -88,25 +72,13 @@ export const TimelineStep: React.FC<StepProps> = ({
                         <h3 className="text-lg font-semibold text-white">
                           {option.label}
                         </h3>
-                        <p className={cn(
-                          "text-sm",
-                          option.multiplier > 1 ? "text-yellow-400" :
-                          option.multiplier < 1 ? "text-green-400" : "text-gray-400"
-                        )}>
+                        <p className="text-sm text-gray-400">
                           {option.subtitle}
                         </p>
                       </div>
                     </div>
                     
                     <div className="text-right">
-                      {option.multiplier !== 1 && (
-                        <div className={cn(
-                          "text-sm font-medium",
-                          option.multiplier > 1 ? "text-yellow-400" : "text-green-400"
-                        )}>
-                          {option.multiplier > 1 ? '+' : ''}{((option.multiplier - 1) * 100).toFixed(0)}%
-                        </div>
-                      )}
                       <div className="flex items-center gap-2 text-gray-400">
                         <Clock className="h-4 w-4" />
                         <span>{option.value} days</span>

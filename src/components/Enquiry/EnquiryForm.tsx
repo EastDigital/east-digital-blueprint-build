@@ -146,7 +146,7 @@ export const EnquiryForm = () => {
         {/* Form Content */}
         <div className="flex-1 flex flex-col min-h-[600px]">
           <LiquidGlassCard className="flex-1 overflow-hidden">
-            <div className="relative h-full">
+            <div className="relative h-full min-h-[600px]">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                   key={currentStep}
@@ -155,9 +155,11 @@ export const EnquiryForm = () => {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute inset-0 flex flex-col overflow-y-auto"
+                  className="absolute inset-0 flex flex-col"
                 >
-                  {renderStep()}
+                  <div className="flex-1 overflow-y-auto custom-scrollbar">
+                    {renderStep()}
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>
