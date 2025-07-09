@@ -21,8 +21,8 @@ export const HeroContent = () => {
       <p style={{
         color: '#FFE0CA'
       }} className="text-sm sm:text-base md:text-lg max-w-3xl sm:mx-auto mb-3 sm:mb-8 md:mb-8 font-poppins font-light leading-relaxed py-0">
-        With over 100 clients using East Digital™<br />
-        to power their creative sales and marketing.
+        We help developers, architects, and engineers accelerate sales through <br />
+        high-impact videos, branding, and digital campaigns.
       </p>
       
       <Link to="/enquiry">
