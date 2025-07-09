@@ -8,7 +8,7 @@ export const HeroContent = () => {
       <p style={{
         fontSize: '18px'
       }} className="text-white font-poppins font-thin tracking-[1px] py-0">
-        Stories That Sell Spaces
+        At East Digital™ We Create Stories That Sell Spaces
       </p>
       
       <h1 className="leading-[1.1] sm:text-4xl md:text-6xl lg:text-7xl mb-4 sm:mb-6 md:mb-8 text-white font-poppins mt-3 sm:mt-4 md:mt-6 py-0 font-bold text-5xl">
