@@ -8,7 +8,7 @@ export const HeroContent = () => {
       <p style={{
         fontSize: '18px'
       }} className="text-white font-poppins font-thin tracking-[1px] py-0">
-        Real Estate Developers
+        Stories That Sell Spaces
       </p>
       
       <h1 className="leading-[1.1] sm:text-4xl md:text-6xl lg:text-7xl mb-4 sm:mb-6 md:mb-8 text-white font-poppins mt-3 sm:mt-4 md:mt-6 py-0 font-bold text-5xl">
@@ -22,7 +22,7 @@ export const HeroContent = () => {
         color: '#FFE0CA'
       }} className="text-sm sm:text-base md:text-lg max-w-3xl sm:mx-auto mb-3 sm:mb-8 md:mb-8 font-poppins font-light leading-relaxed py-0">
         We help developers, architects, and engineers accelerate sales through <br />
-        high-impact videos, branding, and digital campaigns.
+        high-impact 3d visuals, videos, branding, and digital campaigns.
       </p>
       
       <Link to="/enquiry">
