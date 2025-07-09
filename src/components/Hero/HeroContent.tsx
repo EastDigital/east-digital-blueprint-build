@@ -12,9 +12,9 @@ export const HeroContent = () => {
       </p>
       
       <h1 className="leading-[1.1] sm:text-4xl md:text-6xl lg:text-7xl mb-4 sm:mb-6 md:mb-8 text-white font-poppins mt-3 sm:mt-4 md:mt-6 py-0 font-bold text-5xl">
-        Drive Sales<br />
+        Story-driven marketing <br />
         <span className="bg-gradient-to-r from-eastdigital-orange to-eastdigital-hover bg-clip-text text-transparent">
-          Elevate Marketing
+          that builds trust and drives sales
         </span>
       </h1>
       
