@@ -219,15 +219,12 @@
   @keyframes float-bg {
     0%, 100% { 
       background-position: 0% 0%, 100% 100%, 50% 0%;
-      transform: scale(1);
     }
     33% { 
       background-position: 30% 20%, 70% 80%, 80% 30%;
-      transform: scale(1.05);
     }
     66% { 
       background-position: 70% 80%, 30% 20%, 20% 70%;
-      transform: scale(0.95);
     }
   }
 
