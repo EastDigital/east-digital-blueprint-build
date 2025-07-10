@@ -38,9 +38,14 @@ export const EnhancedOTPLogin = () => {
         .select('id, email')
         .eq('email', email)
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
 
-      if (adminError || !adminCheck) {
+      if (adminError) {
+        console.error('Database error:', adminError);
+        throw new Error('Database connection error. Please try again.');
+      }
+
+      if (!adminCheck) {
         throw new Error('This email is not authorized for admin access.');
       }
 
