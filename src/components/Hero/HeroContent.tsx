@@ -24,9 +24,11 @@ export const HeroContent = () => {
       </p>
       
       <Link to="/enquiry">
-        <Button className="google-ai-button bg-eastdigital-orange hover:bg-eastdigital-orange/90 border border-eastdigital-orange rounded-[60px] py-3 px-8 text-sm md:text-base font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 font-poppins w-[150px] relative overflow-hidden group">
-          <span className="relative z-10">Connect</span>
-        </Button>
+        <button className="frosted-glass-cta group relative overflow-hidden">
+          <span className="relative z-10 flex items-center gap-2 font-poppins font-medium text-white">
+            Connect
+          </span>
+        </button>
       </Link>
     </div>;
 };

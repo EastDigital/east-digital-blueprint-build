@@ -13,7 +13,7 @@ const Index = () => {
   const { isScrolled, isHomePage } = useNavbarLogic();
 
   return (
-    <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate w-full max-w-full overflow-x-hidden" withParticles={true}>
+    <LiquidGlassContainer className="min-h-screen flex flex-col relative isolate w-full max-w-full overflow-x-hidden dynamic-bg geometric-bg" withParticles={true}>
       <div className="relative z-10 flex flex-col w-full max-w-full">
         <Navbar />
         <Hero />

@@ -25,13 +25,8 @@ export const MobileNav = ({
 
   return (
     <div className="lg:hidden relative">
-      {/* Mobile Menu Background with Home Page Gradient */}
-      <div className="absolute inset-0 -mx-4 py-4 pb-6">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-600/25 via-blue-600/20 via-cyan-500/15 to-transparent opacity-70"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/15 via-orange-400/12 via-yellow-300/8 to-transparent opacity-50"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/12 via-blue-500/15 via-purple-600/10 to-transparent opacity-60"></div>
-        <div className="absolute inset-0 bg-eastdigital-dark/80 backdrop-blur-xl"></div>
-      </div>
+      {/* Modern Mobile Glass Background */}
+      <div className="absolute inset-0 -mx-4 py-4 pb-6 glass-mobile-nav"></div>
       
       <div className="relative z-10 py-4 pb-6 animate-fade-in">
         <nav className="flex flex-col space-y-6 ml-2.5 mr-4">

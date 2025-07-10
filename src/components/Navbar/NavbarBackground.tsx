@@ -14,7 +14,7 @@ export const NavbarBackground = ({ isHomePage, isScrolled }: NavbarBackgroundPro
         'fixed top-0 left-0 right-0 h-20 pointer-events-none transition-all duration-500 z-40',
         isHomePage && !isScrolled 
           ? 'bg-transparent' 
-          : 'bg-black/70 backdrop-blur-lg'
+          : 'glass-navbar'
       )}
     />
   );

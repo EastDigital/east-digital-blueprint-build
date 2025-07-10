@@ -50,8 +50,8 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
     }
   ];
 
-  // Enhanced glassmorphism with better readability
-  const glassmorphismClasses = "bg-eastdigital-dark/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden";
+  // Modern glassmorphism with dark theme
+  const glassmorphismClasses = "glass-dropdown rounded-2xl overflow-hidden";
 
   if (isMobile) {
     return (
@@ -83,10 +83,8 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
 
   return (
     <div ref={dropdownRef} className="w-full">
-      {/* Enhanced glassmorphism background with better contrast */}
-      <div className={`mx-[10%] ${glassmorphismClasses}`}>
-        {/* Enhanced content background for better readability */}
-        <div className="bg-gradient-to-br from-eastdigital-dark/95 via-eastdigital-dark/90 to-eastdigital-dark/95 backdrop-blur-xl">
+        {/* Modern glassmorphism background */}
+        <div className={`mx-[10%] ${glassmorphismClasses}`}>
           <div className="flex">
             {expertiseData.map((item, index) => (
               <React.Fragment key={index}>
@@ -98,16 +96,15 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
                   bottomText={item.bottomText}
                 />
                 {index < expertiseData.length - 1 && (
-                  <div className="w-px bg-white/20"></div>
+                  <div className="w-px bg-white/10"></div>
                 )}
               </React.Fragment>
             ))}
           </div>
-        </div>
         
-        {/* Enhanced liquid glass reflection */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-eastdigital-orange/40 to-transparent"></div>
+        {/* Subtle glass reflection */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"></div>
       </div>
     </div>
   );
