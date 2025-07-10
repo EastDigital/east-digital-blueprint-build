@@ -59,9 +59,9 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
         ref={dropdownRef}
         className={`${glassmorphismClasses} animate-fade-in`}
       >
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col space-y-6">
           {expertiseData.map((item, index) => (
-            <React.Fragment key={index}>
+            <div key={index}>
               <NavDropdownItem
                 title={item.title}
                 link={item.link}
@@ -72,9 +72,9 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
                 onItemClick={onItemClick}
               />
               {index < expertiseData.length - 1 && (
-                <div className="md:w-px md:bg-white/20 h-px md:h-auto bg-white/20 mx-6 md:mx-0"></div>
+                <div className="h-px bg-white/20 mx-6 mt-6"></div>
               )}
-            </React.Fragment>
+            </div>
           ))}
         </div>
       </div>
@@ -87,7 +87,7 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
         <div className={`mx-[10%] ${glassmorphismClasses}`}>
           <div className="flex">
             {expertiseData.map((item, index) => (
-              <React.Fragment key={index}>
+              <div key={index} className="flex-1">
                 <NavDropdownItem
                   title={item.title}
                   link={item.link}
@@ -98,7 +98,7 @@ export const NavDropdown = ({ isOpen, onClose, isMobile = false, onItemClick }: 
                 {index < expertiseData.length - 1 && (
                   <div className="w-px bg-white/10"></div>
                 )}
-              </React.Fragment>
+              </div>
             ))}
           </div>
         

@@ -24,12 +24,11 @@ export const MobileNav = ({
   if (!isMenuOpen) return null;
 
   return (
-    <div className="lg:hidden relative">
+    <div className="lg:hidden fixed inset-x-0 top-20 z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
       {/* Modern Mobile Glass Background */}
-      <div className="absolute inset-0 -mx-4 py-4 pb-6 glass-mobile-nav"></div>
-      
-      <div className="relative z-10 py-4 pb-6 animate-fade-in">
-        <nav className="flex flex-col space-y-6 ml-2.5 mr-4">
+      <div className="glass-mobile-nav mx-4 rounded-2xl">
+        <div className="py-6 animate-fade-in">
+          <nav className="flex flex-col space-y-6 px-6">
           <a href="/" className="text-base font-normal tracking-wider text-white hover:text-eastdigital-hover transition-colors duration-200">Home</a>
           
           <div ref={mobileDropdownRef}>
@@ -42,7 +41,7 @@ export const MobileNav = ({
             </button>
             
             {isDropdownOpen && (
-              <div className="mt-4">
+              <div className="mt-4 -mx-6">
                 <NavDropdown 
                   isOpen={isDropdownOpen} 
                   onClose={closeDropdown} 
@@ -59,12 +58,13 @@ export const MobileNav = ({
           
           <div className="pt-2">
             <Button 
-              className="w-full bg-eastdigital-orange text-white border border-eastdigital-orange hover:bg-eastdigital-orange/90 transition-colors duration-200 rounded-[60px] py-3 px-6 text-base font-semibold"
+              className="w-full google-ai-button text-white border-0 hover:bg-eastdigital-orange/90 transition-colors duration-200 rounded-[60px] py-3 px-6 text-base font-semibold"
             >
               Get Your Blueprint
             </Button>
           </div>
         </nav>
+        </div>
       </div>
     </div>
   );
