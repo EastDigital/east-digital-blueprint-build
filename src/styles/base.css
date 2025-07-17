@@ -206,19 +206,26 @@
   .dark-geometric-bg {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #0f172a 50%, #1e293b 75%, #0f172a 100%);
     background-image: 
-      radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 30%),
-      radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.06) 0%, transparent 30%),
-      radial-gradient(circle at 40% 40%, rgba(34, 197, 94, 0.04) 0%, transparent 30%),
-      linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.015) 50%, transparent 70%),
+      radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 40% 40%, rgba(34, 197, 94, 0.1) 0%, transparent 40%),
+      linear-gradient(45deg, transparent 20%, rgba(255, 255, 255, 0.05) 50%, transparent 80%),
       repeating-linear-gradient(
         45deg,
         transparent,
-        transparent 60px,
-        rgba(255, 255, 255, 0.01) 61px,
-        rgba(255, 255, 255, 0.01) 62px
+        transparent 40px,
+        rgba(255, 255, 255, 0.03) 41px,
+        rgba(255, 255, 255, 0.03) 43px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 80px,
+        rgba(59, 130, 246, 0.02) 81px,
+        rgba(59, 130, 246, 0.02) 82px
       );
-    background-size: 600px 600px, 500px 500px, 800px 800px, 100px 100px, 120px 120px;
-    background-position: 0% 0%, 100% 100%, 50% 50%, 0% 0%, 25% 25%;
+    background-size: 400px 400px, 350px 350px, 500px 500px, 80px 80px, 60px 60px, 120px 120px;
+    background-position: 0% 0%, 100% 100%, 50% 50%, 0% 0%, 25% 25%, 75% 75%;
     animation: geometric-shift 40s ease-in-out infinite;
   }
 
