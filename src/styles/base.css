@@ -155,45 +155,48 @@
   }
 
   /* Frosted Glass CTA Button */
-  .frosted-glass-cta {
-    background: linear-gradient(180deg, hsla(0, 0%, 96%, .2) -30.77%, hsla(0, 0%, 56%, .2) 123.08%);
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
-    border: 1px solid hsla(0, 0%, 100%, .2);
-    border-radius: 25px;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    overflow: hidden; /* Added to contain the pseudo-element */
-  }
-  
-  .frosted-glass-cta::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(
-      from var(--angle),
-      transparent 0%,
-      #FF6B35 10%,
-      transparent 20%
-    );
-    transform: translate(-50%, -50%) rotate(var(--angle));
-    animation: spin 4s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-  
-  .frosted-glass-cta:hover::before {
-    opacity: 1;
-  }
+ .frosted-glass-cta {
+   background: linear-gradient(180deg, hsla(0, 0%, 96%, .2) -30.77%, hsla(0, 0%, 56%, .2) 123.08%);
+   -webkit-backdrop-filter: blur(3px);
+   backdrop-filter: blur(3px);
+   border: 1px solid hsla(0, 0%, 100%, .2);
+   border-radius: 25px;
+   padding: 12px 24px;
+   font-size: 16px;
+   font-weight: 500;
+   font-family: 'Poppins', sans-serif;
+   color: white;
+   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+   position: relative;
+   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+   overflow: hidden; /* Ensures the pseudo-element stays within the button */
+ }
+
+ .frosted-glass-cta::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   border-radius: inherit;
+   z-index: -1;
+   border: 3px solid transparent;
+   background: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335, #4285F4);
+   background-size: 400%;
+   animation: gradient-border 4s linear infinite;
+   opacity: 0;
+   transition: opacity 0.3s ease-in-out;
+ }
+
+ .frosted-glass-cta:hover::before {
+   opacity: 1;
+ }
+
+ @keyframes gradient-border {
+   0% { background-position: 0% 50%; }
+   100% { background-position: 100% 50%; }
+ }
   
   @property --angle {
     syntax: '<angle>';
