@@ -169,28 +169,42 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    overflow: hidden; /* Added to contain the pseudo-element */
   }
-
+  
   .frosted-glass-cta::before {
     content: '';
     position: absolute;
-    inset: -1px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(168, 85, 247, 0.6));
-    border-radius: 50px;
-    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from var(--angle),
+      transparent 0%,
+      #FF6B35 10%,
+      transparent 20%
+    );
+    transform: translate(-50%, -50%) rotate(var(--angle));
+    animation: spin 4s linear infinite;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease-in-out;
   }
-
+  
   .frosted-glass-cta:hover::before {
     opacity: 1;
   }
+  
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
 
-  .frosted-glass-cta:hover {
-    border-color: rgba(148, 163, 184, 0.3);
-    background: rgba(15, 23, 42, 0.8);
-    transform: translateY(-1px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  @keyframes spin {
+    to {
+      --angle: 360deg;
+    }
   }
 
   /* Enhanced Background Patterns */
@@ -226,37 +240,6 @@
     }
     66% { 
       background-position: 70% 80%, 30% 20%, 20% 70%;
-    }
-  }
-
-  @keyframes pulse-border {
-    0%, 90% {
-      border-color: rgba(255, 255, 255, 0.9);
-    }
-    5%, 25% {
-      border-color: transparent;
-    }
-  }
-
-  .frosted-glass-cta::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    padding: 2px;
-    background: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335);
-    border-radius: 50px;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    opacity: 0;
-    animation: pulse-gradient 10s infinite ease-in-out;
-  }
-
-  @keyframes pulse-gradient {
-    0%, 90% {
-      opacity: 0;
-    }
-    5%, 25% {
-      opacity: 1;
     }
   }
 
