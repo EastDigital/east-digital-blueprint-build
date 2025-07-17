@@ -86,7 +86,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   }, []);
   const displayImage = videoThumbnail || image;
   const hasVideo = video && !videoError;
-  return <div className="relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] lg:w-[420px] h-[180px] sm:h-[200px] md:h-[240px] lg:h-[280px] rounded-2xl overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-105 hover:shadow-2xl" onClick={handleCardClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+  return <div className="relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] lg:w-[420px] h-[234px] sm:h-[240px] md:h-[288px] lg:h-[336px] rounded-2xl overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-105 hover:shadow-2xl" onClick={handleCardClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {/* Background Image/Video */}
       <div className="absolute inset-0">
         {hasVideo ? <>

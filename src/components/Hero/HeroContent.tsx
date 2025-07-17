@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 export const HeroContent = () => {
-  return <div className="text-left sm:text-center max-w-5xl mx-auto px-[15px] py-[31px]">
+  return <div className="text-left max-w-5xl ml-5 px-[15px] py-[31px]">
       <p style={{
       fontSize: '18px'
     }} className="text-white font-poppins font-thin tracking-[1px] py-0">
