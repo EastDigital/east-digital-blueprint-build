@@ -202,31 +202,21 @@
     }
   }
 
-  /* Enhanced Dark Geometric Background */
-  .dark-geometric-bg {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #0f172a 50%, #1e293b 75%, #0f172a 100%);
+  /* Enhanced Background Patterns */
+  .dynamic-bg {
+    background: linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #000000 50%, #0f0f0f 75%, #000000 100%);
+    background-size: 400% 400%;
+    animation: subtle-shift 20s ease-in-out infinite;
+  }
+
+  .geometric-bg {
     background-image: 
-      radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
-      radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.12) 0%, transparent 40%),
-      radial-gradient(circle at 40% 40%, rgba(34, 197, 94, 0.1) 0%, transparent 40%),
-      linear-gradient(45deg, transparent 20%, rgba(255, 255, 255, 0.05) 50%, transparent 80%),
-      repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 40px,
-        rgba(255, 255, 255, 0.03) 41px,
-        rgba(255, 255, 255, 0.03) 43px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 80px,
-        rgba(59, 130, 246, 0.02) 81px,
-        rgba(59, 130, 246, 0.02) 82px
-      );
-    background-size: 400px 400px, 350px 350px, 500px 500px, 80px 80px, 60px 60px, 120px 120px;
-    background-position: 0% 0%, 100% 100%, 50% 50%, 0% 0%, 25% 25%, 75% 75%;
-    animation: geometric-shift 40s ease-in-out infinite;
+      radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.06) 0%, transparent 50%);
+    background-size: 800px 800px, 600px 600px, 1000px 1000px;
+    background-position: 0% 0%, 100% 100%, 50% 0%;
+    animation: float-bg 30s ease-in-out infinite;
   }
 
   @keyframes subtle-shift {
@@ -236,18 +226,15 @@
     75% { background-position: 0% 100%; }
   }
 
-  @keyframes geometric-shift {
+  @keyframes float-bg {
     0%, 100% { 
-      background-position: 0% 0%, 100% 100%, 50% 50%, 0% 0%, 25% 25%;
+      background-position: 0% 0%, 100% 100%, 50% 0%;
     }
-    25% { 
-      background-position: 25% 25%, 75% 75%, 75% 25%, 25% 25%, 50% 50%;
+    33% { 
+      background-position: 30% 20%, 70% 80%, 80% 30%;
     }
-    50% { 
-      background-position: 50% 50%, 50% 50%, 25% 75%, 50% 50%, 75% 75%;
-    }
-    75% { 
-      background-position: 75% 75%, 25% 25%, 0% 50%, 75% 75%, 0% 50%;
+    66% { 
+      background-position: 70% 80%, 30% 20%, 20% 70%;
     }
   }
 
@@ -255,7 +242,7 @@
   .google-ai-button {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(45deg, #FF6B35, #ffccb9,);
+    background: linear-gradient(45deg, #FF6B35, #FF8F65, #FF6B35, #FF8F65);
     background-size: 400% 400%;
     animation: google-ai-gradient 3s ease infinite;
   }
@@ -285,7 +272,7 @@
     position: absolute;
     inset: 0;
     padding: 2px;
-    background: linear-gradient(45deg, #FF6B35, #ffccb9,);
+    background: linear-gradient(45deg, #FF6B35, #FF8F65, #FFB085, #FF6B35);
     background-size: 400% 400%;
     border-radius: inherit;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -310,8 +297,15 @@
       background-position: 200% 50%;
     }
   }
-}
-.video-texture-overlay {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39sbGxvb29paP9HNj2cAAAAyElEQVR42t2RSA4EAwTORbm33//7vRQUA9g3S7JSkg9ILTDiPSM5GggPszJLoT4P30I1i0A7Pj0f2a4A4W6jptc2f9s2mklV5mImv8v+b2q7v2i7i32L83f3Zf/7f/23f/9z/5v+v+V//3v/u/7/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/yvy39b/y/3f+a/7s/g70yQf3s9f3Zz8f5f0t7z0Y/78/3f+z/2f+z/7v/y/5f/rf+v/zf+f/y/4v/b/5v+v/5f+z/5v+3/2f+3/7f/a/7f/a/7v/6v/q/7f/g/4v/g/4v/p/7v/q/5v/q/5v/q/5v/q/5v/q/7v/g/4f/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4veAAAAAElFTkSuQmCC');
-    opacity: 0.05;
+
+  /* Video Texture Overlay */
+  .video-texture-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.2) 100%),
+      url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39sbGxvb29paP9HNj2cAAAAyElEQVR42t2RSA4EAwTORbm33//7vRQUA9g3S7JSkg9ILTDiPSM5GggPszJLoT4P30I1i0A7Pj0f2a4A4W6jptc2f9s2mklV5mImv8v+b2q7v2i7i32L83f3Zf/7f/23f/9z/5v+v+V//3v/u/7/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/yvy39b/y/3f+a/7s/g70yQf3s9f3Zz8f5f0t7z0Y/78/3f+z/2f+z/7v/y/5f/rf+v/zf+f/y/4v/b/5v+v/5f+z/5v+3/2f+3/7f/a/7f/a/7v/6v/q/7f/g/4v/g/4v/p/7v/q/5v/q/5v/q/5v/q/5v/q/7v/g/4f/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4veAAAAAElFTkSuQmCC');
+    background-blend-mode: overlay;
+    opacity: 0.2;
   }
+}
