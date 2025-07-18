@@ -4,7 +4,7 @@ import { LiquidGlassButton } from '@/components/LiquidGlass/LiquidGlassButton';
 import { SubtleBackground } from '@/components/common/SubtleBackground';
 import { Eye, Target, Star } from 'lucide-react';
 export const MissionSection = () => {
-  return <section className="relative py-24 lg:py-32 bg-black overflow-hidden">
+  return <section className="relative py-24 lg:py-32 overflow-hidden bg-zinc-950">
       {/* Subtle background details */}
       <SubtleBackground variant="gradient" />
       
