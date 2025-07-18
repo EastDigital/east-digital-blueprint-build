@@ -194,7 +194,6 @@
   .video-texture-overlay {
     position: absolute;
     inset: 0;
-    background-image: 
       /* Gradient: Darker at the bottom for readability */
       linear-gradient(to top, 
         rgba(0, 0, 0, 0.85) 0%, 
