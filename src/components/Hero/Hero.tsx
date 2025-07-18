@@ -14,7 +14,7 @@ export const Hero = () => {
           playsInline
           className="w-full h-full object-cover"
           poster="https://www.eastdigital.in/img/product_afc_001.jpg"
-          src="https://www.eastdigital.in/img/3d-arch-demo.mp4"
+          src="https://www.eastdigital.in/img/hero_video_folio.mp4"
         />
         {/* The single, corrected overlay div */}
         <div className="absolute inset-0 video-texture-overlay"></div>
