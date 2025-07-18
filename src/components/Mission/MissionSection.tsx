@@ -31,10 +31,10 @@ export const MissionSection = () => {
                 </div>
               </div>
               
-              <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300">
+              <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300 text-left">
                 Our Vision
               </h3>
-              <p className="leading-relaxed text-base text-eastdigital-lightgray/90 group-hover:text-eastdigital-lightgray transition-colors duration-300">
+              <p className="leading-relaxed text-base text-eastdigital-lightgray/90 group-hover:text-eastdigital-lightgray transition-colors duration-300 text-left">
                 To be the leading digital partner for businesses worldwide, delivering innovative solutions that bridge the gap between imagination and reality through cutting-edge technology and creative excellence.
               </p>
             </div>
@@ -54,10 +54,10 @@ export const MissionSection = () => {
                 </div>
               </div>
               
-              <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300">
+              <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300 text-left">
                 Our Mission
               </h3>
-              <p className="leading-relaxed text-base text-eastdigital-lightgray/90 group-hover:text-eastdigital-lightgray transition-colors duration-300">
+              <p className="leading-relaxed text-base text-eastdigital-lightgray/90 group-hover:text-eastdigital-lightgray transition-colors duration-300 text-left">
                 We empower businesses to achieve their digital aspirations through exceptional 3D visualizations, targeted marketing campaigns, and strategic branding solutions that create lasting impact and drive measurable growth.
               </p>
             </div>
@@ -77,10 +77,10 @@ export const MissionSection = () => {
                 </div>
               </div>
               
-              <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300">
+              <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-eastdigital-orange transition-colors duration-300 text-left">
                 Our Values
               </h3>
-              <p className="leading-relaxed text-base text-eastdigital-lightgray/90 group-hover:text-eastdigital-lightgray transition-colors duration-300">
+              <p className="leading-relaxed text-base text-eastdigital-lightgray/90 group-hover:text-eastdigital-lightgray transition-colors duration-300 text-left">
                 Innovation, quality, and client success drive everything we do. We believe in transparent communication, continuous learning, and delivering solutions that exceed expectations while building long-term partnerships.
               </p>
             </div>
