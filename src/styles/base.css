@@ -126,24 +126,24 @@
 @layer components {
   /* Modern Glassmorphism Navbar */
   .glass-navbar {
-    background: rgba(30, 30, 30, 0.7); /* Charcoal grey */
-    backdrop-filter: blur(10px);
+    background: rgba(30, 30, 30, 0.75); /* Charcoal grey */
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
   }
 
   /* Modern Glassmorphism Dropdown */
   .glass-dropdown {
-    background: rgba(30, 30, 30, 0.8); /* Charcoal grey */
-    backdrop-filter: blur(10px);
+    background: rgba(30, 30, 30, 0.75); /* Charcoal grey */
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
   }
 
   /* Enhanced Mobile Glass Effect */
   .glass-mobile-nav {
-    background: rgba(30, 30, 30, 0.85); /* Charcoal grey */
-    backdrop-filter: blur(10px);
+    background: rgba(30, 30, 30, 0.85); /* Slightly more opaque for mobile readability */
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
   }
