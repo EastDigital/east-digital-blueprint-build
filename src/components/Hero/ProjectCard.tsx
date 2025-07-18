@@ -156,17 +156,3 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             }}
           >
             {name}
-          </h3>
-          {hasVideo && (
-            <p className="text-gray-300 text-sm mt-1 opacity-80">
-              {isHovering ? 'Playing preview...' : 'Hover to preview'}
-            </p>
-          )}
-        </div>
-
-        {/* Hover Effect */}
-        <div className="absolute inset-0 bg-eastdigital-orange/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 py-0"></div>
-      </div>
-    </div>
-  );
-};
