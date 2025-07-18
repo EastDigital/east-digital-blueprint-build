@@ -1,16 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 export const HeroContent = () => {
-  return (
-    <div className="text-left sm:text-center max-w-5xl mx-auto px-[15px] py-[31px]">
+  return <div className="text-left sm:text-center max-w-5xl mx-auto -bottom-0 -bottom-0 ">
       <p style={{
       fontSize: '18px'
     }} className="text-white font-poppins font-thin tracking-[1px] py-0">
         At East Digital™ We Create Stories That Sell Spaces
       </p>
       
-      <h1 className="leading-[1.1] sm:text-4xl md:text-6xl mb-4 sm:mb-6 md:mb-8 text-white font-poppins mt-3 sm:mt-4 md:mt-6 py-0 font-bold text-5xl lg:text-4xl">
+      <h1 className="leading-[1.1] sm:text-4xl md:text-6xl mb-4 sm:mb-6 md:mb-8 text-white font-poppins mt-3 sm:mt-4 md:mt-6 py-0 font-bold lg:text-4xl text-2xl">
         Story-driven marketing <br />
         <span className="bg-gradient-to-r from-eastdigital-orange to-eastdigital-hover bg-clip-text text-transparent">
           that builds trust and drives sales
@@ -31,6 +29,5 @@ export const HeroContent = () => {
           </span>
         </button>
       </Link>
-    </div>
-  );
+    </div>;
 };
