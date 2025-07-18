@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Play, Pause } from 'lucide-react';
+
 interface ProjectCardProps {
   name: string;
   image: string;
@@ -87,9 +88,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const displayImage = videoThumbnail || image;
   const hasVideo = video && !videoError;
   return (
-    <div className="relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] lg:w-[420px] h-[180px] sm:h-[200px] md:h-[240px] lg:h-[280px] cursor-pointer group transition-all duration-300 hover:scale-105 hover:shadow-2xl" onClick={handleCardClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div 
+      className="relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] lg:w-[420px] h-[180px] sm:h-[200px] md:h-[240px] lg:h-[280px] cursor-pointer group transition-shadow duration-300 hover:shadow-2xl" 
+      onClick={handleCardClick} 
+      onMouseEnter={handleMouseEnter} 
+      onMouseLeave={handleMouseLeave}
+    >
       {/* Glassmorphism Border */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/20 via-white/5 to-eastdigital-orange/20 backdrop-blur-xl border border-white/10 transition-all duration-300 group-hover:border-eastdigital-orange/30 group-hover:shadow-[0_0_30px_rgba(255,107,53,0.2)]"></div>
+      <div className="card-glass-border"></div>
       
       {/* Inner Content Container */}
       <div className="relative h-full w-full rounded-2xl overflow-hidden m-[5px]">
