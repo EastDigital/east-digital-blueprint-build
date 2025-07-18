@@ -317,4 +317,18 @@
       inset 0 0 300px rgba(0,0,0,0.03),
       inset 0 -100px 200px rgba(0,0,0,0.1);
   }
+  /* Glassmorphism border for project cards */
+  .glassmorphism-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1rem; /* Matches the parent's rounded-2xl */
+    padding: 5px; /* Creates the 5px border */
+    background: linear-gradient(180deg, hsla(0, 0%, 96%, .2) -30.77%, hsla(0, 0%, 56%, .2) 123.08%);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
 }
