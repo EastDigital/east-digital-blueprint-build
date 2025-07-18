@@ -11,7 +11,7 @@ export const Hero = () => {
       </div>
 
       {/* Hero Content (takes up the main space) */}
-      <div className="relative z-10 container mx-auto px-2 sm:px-4 flex-grow flex items-center justify-center">
+      <div className="relative z-10 container mx-auto px-2 sm:px-1 flex-grow flex items-center justify-center">
         <HeroContent />
       </div>
       
