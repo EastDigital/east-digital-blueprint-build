@@ -298,24 +298,18 @@
     }
   }
 
-  /* Video Texture Overlay - Smooth gradient without tiling */
+  /* Video Texture Overlay */
   .video-texture-overlay {
     position: absolute;
     inset: 0;
-    background: 
-      /* Pure smooth gradient from bottom to top */
-      linear-gradient(to top, 
-        rgba(0, 0, 0, 0.85) 0%,
-        rgba(0, 0, 0, 0.75) 15%,
-        rgba(0, 0, 0, 0.5) 35%,
-        rgba(0, 0, 0, 0.3) 60%,
-        rgba(0, 0, 0, 0.15) 85%,
-        rgba(0, 0, 0, 0.05) 100%
-      );
-    /* Subtle film grain effect without patterns */
-    box-shadow: 
-      inset 0 0 300px rgba(0,0,0,0.03),
-      inset 0 -100px 200px rgba(0,0,0,0.1);
+    /* This combines the gradient and the texture pattern */
+    background-image: 
+      /* Gradient: Darker at the bottom for readability */
+      linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.2) 100%),
+      /* Texture: Fine noise pattern */
+      url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39sbGxvb29paP9HNj2cAAAAyElEQVR42t2RSA4EAwTORbm33//7vRQUA9g3S7JSkg9ILTDiPSM5GggPszJLoT4P30I1i0A7Pj0f2a4A4W6jptc2f9s2mklV5mImv8v+b2q7v2i7i32L83f3Zf/7f/23f/9z/5v+v+V//3v/u/7/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/z/yvy3/r/u/5f9r/yvy39b/y/3f+a/7s/g70yQf3s9f3Zz8f5f0t7z0Y/78/3f+z/2f+z/7v/y/5f/rf+v/zf+f/y/4v/b/5v+v/5f+z/5v+3/2f+3/7f/a/7f/a/7v/6v/q/7f/g/4v/g/4v/p/7v/q/5v/q/5v/q/5v/q/5v/q/7v/g/4f/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4v/g/4veAAAAAElFTkSuQmCC');
+    background-blend-mode: overlay;
+    opacity: 0.25;
   }
   
 /* Glassmorphism border for project cards */
