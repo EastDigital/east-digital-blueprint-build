@@ -57,7 +57,7 @@ const SectorsShowcase = () => {
         <h2 className="sm:text-4xl md:text-5xl font-bold text-2xl text-left">
           Sectors We Transform
         </h2>
-        <p className="text-base sm:text-lg text-eastdigital-lightgray mt-4 max-w-3xl mx-auto text-left">
+        <p className="text-base sm:text-lg text-eastdigital-lightgray mt-4 max-w-3xl mx-auto text-left font-light">
           Delivering innovative solutions across diverse industries with
           precision and expertise.
         </p>

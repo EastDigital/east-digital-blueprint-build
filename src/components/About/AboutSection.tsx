@@ -55,7 +55,7 @@ export const AboutSection = () => {
           <h2 className="md:text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl drop-shadow-2xl text-2xl text-left">
             Our Approach
           </h2>
-          <p className="text-xl text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed lg:text-lg font-light opacity-90 text-left">
+          <p className="text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed lg:text-lg font-light opacity-90 text-left text-base">
             We combine industry-specific insights with creative expertise to deliver specialized 3D visualizations, targeted digital marketing, and impactful branding solutions. Our approach ensures your projects not only meet today's goals but are also primed for tomorrow's opportunities.
           </p>
         </div>
