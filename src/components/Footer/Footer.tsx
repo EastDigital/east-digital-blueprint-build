@@ -27,12 +27,12 @@ const Footer = () => {
         {/* Call to Action Section with Liquid Glass */}
         <LiquidGlassCard variant="intense" className="text-center mb-16 p-12 border-2 border-eastdigital-orange/30">
           <div className="relative z-10">
-            <p className="text-lg mb-4 text-orange-200 text-left">Let's Talk</p>
-            <h2 className="md:text-3xl font-semibold mb-6 max-w-4xl mx-auto leading-tight text-gray-100 lg:text-4xl text-left text-xl">
+            <p className="text-lg mb-4 text-orange-200 text-center">Let's Talk</p>
+            <h2 className="md:text-3xl font-semibold mb-6 max-w-4xl mx-auto leading-tight text-gray-100 lg:text-4xl text-xl text-center">
               Your Digital Presence<br />
               Is About To Take Off
             </h2>
-            <p className="text-gray-400 mb-8 max-w-2xl mx-auto text-left text-base">
+            <p className="text-gray-400 mb-8 max-w-2xl mx-auto text-base text-center">
               Schedule a free consultation with our team<br />
               or generate costing by yourself.
             </p>

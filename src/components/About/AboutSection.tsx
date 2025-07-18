@@ -52,10 +52,10 @@ export const AboutSection = () => {
           <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-eastdigital-orange/8 via-eastdigital-orange/12 to-eastdigital-orange/8 border border-eastdigital-orange/15 rounded-full mb-6 backdrop-blur-2xl shadow-lg shadow-eastdigital-orange/10">
             <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase text-center">Our Methodology</span>
           </div>
-          <h2 className="md:text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl drop-shadow-2xl text-2xl text-left">
+          <h2 className="md:text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl drop-shadow-2xl text-2xl text-center">
             Our Approach
           </h2>
-          <p className="text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed lg:text-lg font-light opacity-90 text-left text-base">
+          <p className="text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed lg:text-lg font-light opacity-90 text-base text-center">
             We combine industry-specific insights with creative expertise to deliver specialized 3D visualizations, targeted digital marketing, and impactful branding solutions. Our approach ensures your projects not only meet today's goals but are also primed for tomorrow's opportunities.
           </p>
         </div>
@@ -86,10 +86,10 @@ export const AboutSection = () => {
 
         {/* CTA with Enhanced Liquid Glass Buttons */}
         <div className="text-center">
-          <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 drop-shadow-xl text-left">
+          <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 drop-shadow-xl text-center">
             Ready to Experience Our Approach?
           </h3>
-          <p className="text-eastdigital-lightgray mb-8 max-w-2xl mx-auto opacity-90 text-lg text-left">
+          <p className="text-eastdigital-lightgray mb-8 max-w-2xl mx-auto opacity-90 text-lg text-center">
             Let's discuss how our proven methodology can accelerate your digital transformation and deliver exceptional results.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

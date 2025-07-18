@@ -49,15 +49,15 @@ const sectorsData = [{
 }];
 const SectorsShowcase = () => {
   const [activeSector, setActiveSector] = useState(sectorsData[0]);
-  return <div className="bg-black text-white py-12 sm:py-16 lg:py-20 px-4 w-full overflow-hidden">
+  return <div className="bg-black text-white py-0 sm:py-16 lg:py-20 px-4 w-full overflow-hidden">
       <div className="max-w-7xl mx-auto text-center w-full">
         <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-eastdigital-orange/8 via-eastdigital-orange/12 to-eastdigital-orange/8 border border-eastdigital-orange/15 rounded-full mb-6 backdrop-blur-2xl shadow-lg shadow-eastdigital-orange/10">
           <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">INDUSTRY EXPERTISE</span>
         </div>
-        <h2 className="sm:text-4xl md:text-5xl font-bold text-2xl text-left">
+        <h2 className="sm:text-4xl md:text-5xl font-bold text-2xl text-center">
           Sectors We Transform
         </h2>
-        <p className="text-base sm:text-lg text-eastdigital-lightgray mt-4 max-w-3xl mx-auto text-left font-light">
+        <p className="text-base sm:text-lg text-eastdigital-lightgray mt-4 max-w-3xl mx-auto font-light text-center">
           Delivering innovative solutions across diverse industries with
           precision and expertise.
         </p>
@@ -74,7 +74,7 @@ const SectorsShowcase = () => {
         </div>
 
         <div className="w-full">
-          <h3 className="text-base font-normal mb-4 sm:mb-6 text-eastdigital-lightgray text-left">{activeSector.title}</h3>
+          <h3 className="text-base font-normal mb-4 sm:mb-6 text-eastdigital-lightgray text-center">{activeSector.title}</h3>
           
           <div className="max-w-5xl mx-auto w-full">
             <Link to={activeSector.link} className="group cursor-pointer block w-full">
