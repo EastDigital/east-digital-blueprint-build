@@ -14,8 +14,8 @@ export const MissionSection = () => {
           <div className="inline-flex items-center px-6 py-2 bg-eastdigital-orange/[0.05] border border-eastdigital-orange/[0.08] rounded-full mb-8 backdrop-blur-xl">
             <span className="text-eastdigital-orange text-sm font-medium tracking-widest uppercase">Our Mission</span>
           </div>
-          <h2 className="font-bold text-white mb-6 leading-tight lg:text-4xl text-2xl">Turning Real Estate Vision into Digital Reality</h2>
-          <p className="max-w-4xl mx-auto leading-relaxed text-lg text-eastdigital-lightgray font-light">At East Digital, we bring real estate concepts to life through immersive visuals, performance-driven marketing, and smart digital solutions. Our services—ranging from 3D architectural rendering and VR walkthroughs to targeted ad campaigns and corporate branding—are tailored to help developers, architects, brokers, and brands stand out in a competitive market.</p>
+          <h2 className="font-bold text-white mb-6 leading-tight lg:text-4xl text-2xl text-left">Turning Real Estate Vision into Digital Reality</h2>
+          <p className="max-w-4xl mx-auto leading-relaxed text-lg text-eastdigital-lightgray font-light text-left">At East Digital, we bring real estate concepts to life through immersive visuals, performance-driven marketing, and smart digital solutions. Our services—ranging from 3D architectural rendering and VR walkthroughs to targeted ad campaigns and corporate branding—are tailored to help developers, architects, brokers, and brands stand out in a competitive market.</p>
         </div>
 
         {/* Mission Cards Grid - Modern Layout */}

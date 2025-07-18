@@ -54,10 +54,10 @@ const SectorsShowcase = () => {
         <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-eastdigital-orange/8 via-eastdigital-orange/12 to-eastdigital-orange/8 border border-eastdigital-orange/15 rounded-full mb-6 backdrop-blur-2xl shadow-lg shadow-eastdigital-orange/10">
           <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">INDUSTRY EXPERTISE</span>
         </div>
-        <h2 className="sm:text-4xl md:text-5xl font-bold text-2xl">
+        <h2 className="sm:text-4xl md:text-5xl font-bold text-2xl text-left">
           Sectors We Transform
         </h2>
-        <p className="text-base sm:text-lg text-eastdigital-lightgray mt-4 max-w-3xl mx-auto">
+        <p className="text-base sm:text-lg text-eastdigital-lightgray mt-4 max-w-3xl mx-auto text-left">
           Delivering innovative solutions across diverse industries with
           precision and expertise.
         </p>
@@ -74,7 +74,7 @@ const SectorsShowcase = () => {
         </div>
 
         <div className="w-full">
-          <h3 className="text-base font-normal mb-4 sm:mb-6 text-eastdigital-lightgray">{activeSector.title}</h3>
+          <h3 className="text-base font-normal mb-4 sm:mb-6 text-eastdigital-lightgray text-left">{activeSector.title}</h3>
           
           <div className="max-w-5xl mx-auto w-full">
             <Link to={activeSector.link} className="group cursor-pointer block w-full">

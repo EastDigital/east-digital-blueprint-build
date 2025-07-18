@@ -3,48 +3,40 @@ import { useNavigate } from 'react-router-dom';
 import { MapPin, Phone, ArrowUp } from 'lucide-react';
 import { LiquidGlassCard } from '@/components/LiquidGlass/LiquidGlassCard';
 import { LiquidGlassButton } from '@/components/LiquidGlass/LiquidGlassButton';
-
 const Footer = () => {
   const navigate = useNavigate();
-  
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   };
-
   const handleNavigation = (path: string) => {
     navigate(path);
   };
-
-  return (
-    <footer className="relative bg-black text-white py-16 lg:py-20 overflow-hidden">
+  return <footer className="relative bg-black text-white py-16 lg:py-20 overflow-hidden">
       {/* Liquid Glass Background */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-gradient-to-br from-eastdigital-orange/10 via-transparent to-purple-500/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-tl from-blue-500/8 via-eastdigital-orange/5 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-tl from-blue-500/8 via-eastdigital-orange/5 to-transparent rounded-full blur-3xl animate-pulse" style={{
+        animationDelay: '3s'
+      }}></div>
       </div>
 
       <div className="relative z-10 container mx-auto px-4">
         {/* Call to Action Section with Liquid Glass */}
         <LiquidGlassCard variant="intense" className="text-center mb-16 p-12 border-2 border-eastdigital-orange/30">
           <div className="relative z-10">
-            <p className="text-lg mb-4 text-orange-200">Let's Talk</p>
-            <h2 className="text-2xl md:text-3xl font-semibold mb-6 max-w-4xl mx-auto leading-tight text-gray-100 lg:text-4xl">
+            <p className="text-lg mb-4 text-orange-200 text-left">Let's Talk</p>
+            <h2 className="md:text-3xl font-semibold mb-6 max-w-4xl mx-auto leading-tight text-gray-100 lg:text-4xl text-left text-xl">
               Your Digital Presence<br />
               Is About To Take Off
             </h2>
-            <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
+            <p className="text-gray-400 mb-8 max-w-2xl mx-auto text-left text-base">
               Schedule a free consultation with our team<br />
               or generate costing by yourself.
             </p>
-            <LiquidGlassButton 
-              onClick={() => handleNavigation('/connect')} 
-              variant="primary"
-              size="lg"
-              className="px-8 py-4 text-lg font-medium"
-            >
+            <LiquidGlassButton onClick={() => handleNavigation('/connect')} variant="primary" size="lg" className="px-8 py-4 text-lg font-medium">
               Get Started
             </LiquidGlassButton>
           </div>
@@ -105,10 +97,7 @@ const Footer = () => {
           {/* 3D Rendering Services */}
           <LiquidGlassCard variant="default" className="p-6 group">
             <div className="relative z-10">
-              <button 
-                onClick={() => handleNavigation('/3d-rendering-visualization')}
-                className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300 text-left w-full"
-              >
+              <button onClick={() => handleNavigation('/3d-rendering-visualization')} className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300 text-left w-full">
                 3D RENDERING & VISUALIZATION
               </button>
               <p className="text-gray-400 text-sm mb-6">
@@ -118,28 +107,19 @@ const Footer = () => {
               <ul className="space-y-3 mb-6">
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  <button 
-                    onClick={() => handleNavigation('/architectural-rendering')}
-                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
-                  >
+                  <button onClick={() => handleNavigation('/architectural-rendering')} className="text-left hover:text-eastdigital-orange transition-colors duration-300">
                     Architectural 3d Rendering
                   </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  <button 
-                    onClick={() => handleNavigation('/architectural-walkthrough')}
-                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
-                  >
+                  <button onClick={() => handleNavigation('/architectural-walkthrough')} className="text-left hover:text-eastdigital-orange transition-colors duration-300">
                     Architectural Walkthrough Videos
                   </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  <button 
-                    onClick={() => handleNavigation('/vr-property-tours')}
-                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
-                  >
+                  <button onClick={() => handleNavigation('/vr-property-tours')} className="text-left hover:text-eastdigital-orange transition-colors duration-300">
                     VR-Ready Property Tours
                   </button>
                 </li>
@@ -154,10 +134,7 @@ const Footer = () => {
           {/* Digital Campaigns Services */}
           <LiquidGlassCard variant="default" className="p-6 group">
             <div className="relative z-10">
-              <button 
-                onClick={() => handleNavigation('/real-estate-digital-campaigns')}
-                className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300 text-left w-full"
-              >
+              <button onClick={() => handleNavigation('/real-estate-digital-campaigns')} className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300 text-left w-full">
                 REAL ESTATE DIGITAL CAMPAIGNS
               </button>
               <p className="text-gray-400 text-sm mb-6">
@@ -167,28 +144,19 @@ const Footer = () => {
               <ul className="space-y-3 mb-6">
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  <button 
-                    onClick={() => handleNavigation('/targeted-ads')}
-                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
-                  >
+                  <button onClick={() => handleNavigation('/targeted-ads')} className="text-left hover:text-eastdigital-orange transition-colors duration-300">
                     Targeted Facebook & Google Ads
                   </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  <button 
-                    onClick={() => handleNavigation('/drone-videography')}
-                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
-                  >
+                  <button onClick={() => handleNavigation('/drone-videography')} className="text-left hover:text-eastdigital-orange transition-colors duration-300">
                     Drone Videography
                   </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  <button 
-                    onClick={() => handleNavigation('/broker-outreach')}
-                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
-                  >
+                  <button onClick={() => handleNavigation('/broker-outreach')} className="text-left hover:text-eastdigital-orange transition-colors duration-300">
                     Broker & Investor Outreach
                   </button>
                 </li>
@@ -203,10 +171,7 @@ const Footer = () => {
           {/* Corporate Solutions */}
           <LiquidGlassCard variant="default" className="p-6 group">
             <div className="relative z-10">
-              <button 
-                onClick={() => handleNavigation('/corporate-solutions')}
-                className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300 text-left w-full"
-              >
+              <button onClick={() => handleNavigation('/corporate-solutions')} className="text-lg mb-4 font-normal text-orange-300 group-hover:text-eastdigital-orange transition-colors duration-300 text-left w-full">
                 CORPORATE SOLUTIONS
               </button>
               <p className="text-gray-400 text-sm mb-6">
@@ -216,28 +181,19 @@ const Footer = () => {
               <ul className="space-y-3 mb-6">
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  <button 
-                    onClick={() => handleNavigation('/brand-identity-design')}
-                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
-                  >
+                  <button onClick={() => handleNavigation('/brand-identity-design')} className="text-left hover:text-eastdigital-orange transition-colors duration-300">
                     Brand Identity Design
                   </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  <button 
-                    onClick={() => handleNavigation('/ui-ux-design')}
-                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
-                  >
+                  <button onClick={() => handleNavigation('/ui-ux-design')} className="text-left hover:text-eastdigital-orange transition-colors duration-300">
                     UI/UX Design
                   </button>
                 </li>
                 <li className="text-white font-medium flex items-center">
                   <div className="w-1.5 h-1.5 bg-eastdigital-orange rounded-full mr-3"></div>
-                  <button 
-                    onClick={() => handleNavigation('/web-apps')}
-                    className="text-left hover:text-eastdigital-orange transition-colors duration-300"
-                  >
+                  <button onClick={() => handleNavigation('/web-apps')} className="text-left hover:text-eastdigital-orange transition-colors duration-300">
                     Web & Apps
                   </button>
                 </li>
@@ -280,12 +236,7 @@ const Footer = () => {
               </div>
               
               {/* Enhanced Back to Top Button with Liquid Glass */}
-              <LiquidGlassButton 
-                onClick={scrollToTop} 
-                variant="primary"
-                size="sm"
-                className="w-12 h-12 p-0 rounded-full ml-4 flex items-center justify-center group hover:scale-110 transition-all duration-300"
-              >
+              <LiquidGlassButton onClick={scrollToTop} variant="primary" size="sm" className="w-12 h-12 p-0 rounded-full ml-4 flex items-center justify-center group hover:scale-110 transition-all duration-300">
                 <ArrowUp className="h-5 w-5 text-white group-hover:text-white transition-colors duration-300" />
               </LiquidGlassButton>
             </div>
@@ -303,8 +254,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
