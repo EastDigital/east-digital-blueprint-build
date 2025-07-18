@@ -94,7 +94,7 @@ export const AboutSection = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             
-            <LiquidGlassButton variant="secondary" size="lg" className="px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl hover:shadow-white/10 transition-shadow duration-300">
+            <LiquidGlassButton variant="secondary" size="lg" className="px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl hover:shadow-white/10 transition-shadow duration-300 rounded-md text-center">
               View Our Process
             </LiquidGlassButton>
           </div>
