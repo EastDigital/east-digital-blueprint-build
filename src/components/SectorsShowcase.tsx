@@ -77,7 +77,7 @@ const SectorsShowcase = () => {
           <h3 className="text-base font-normal mb-4 sm:mb-6 text-eastdigital-lightgray text-center">{activeSector.title}</h3>
           
           <div className="max-w-5xl mx-auto w-full">
-            <Link to={activeSector.link} className="group cursor-pointer block w-full">
+            <Link to={activeSector.link} className="group cursor-pointer block w-full py-[30px]">
               <Card className="relative w-full aspect-video rounded-xl md:rounded-2xl overflow-hidden border-gray-700">
                 {activeSector.video ? <video key={activeSector.video} src={activeSector.video} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" autoPlay loop muted playsInline /> : <img key={activeSector.image} src={activeSector.image} alt={activeSector.showcaseTitle} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />}
                 {/* Desktop-only Overlay */}

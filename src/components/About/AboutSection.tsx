@@ -48,7 +48,7 @@ export const AboutSection = () => {
 
       <div className="relative z-10 container mx-auto px-4">
         {/* Header with Enhanced Glass Styling */}
-        <div className="text-center mb-16 lg:mb-20">
+        <div className="text-center mb-16 lg:mb-20 py-[30px]">
           <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-eastdigital-orange/8 via-eastdigital-orange/12 to-eastdigital-orange/8 border border-eastdigital-orange/15 rounded-full mb-6 backdrop-blur-2xl shadow-lg shadow-eastdigital-orange/10">
             <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase text-center">Our Methodology</span>
           </div>
