@@ -89,25 +89,25 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const hasVideo = video && !videoError;
   return (
     <div 
-      className="relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] lg:w-[420px] h-[180px] sm:h-[200px] md:h-[240px] lg:h-[280px] cursor-pointer group transition-shadow duration-300 hover:shadow-2xl" 
+      className="relative flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] lg:w-[420px] h-[180px] sm:h-[200px] md:h-[240px] lg:h-[280px] rounded-2xl cursor-pointer group transition-all duration-300 hover:shadow-2xl" 
       onClick={handleCardClick} 
       onMouseEnter={handleMouseEnter} 
       onMouseLeave={handleMouseLeave}
     >
-      {/* Glassmorphism Border */}
+      {/* Static Glassmorphism Border */}
       <div className="card-glass-border"></div>
+      {/* Animated Gradient Border (visible on hover) */}
+      <div className="card-animated-border"></div>
       
       {/* Inner Content Container */}
-      <div className="relative h-full w-full rounded-2xl overflow-hidden m-[5px]">
+      <div className="relative h-full w-full rounded-2xl overflow-hidden">
         {/* Background Image/Video */}
         <div className="absolute inset-0">
           {hasVideo ? (
             <>
-              {/* Video element - always present but conditionally visible */}
-              <video ref={videoRef} className={`w-full h-full object-cover transition-opacity duration-300 ${isVideoPlaying ? 'opacity-100' : 'opacity-0'}`} src={video} muted playsInline onError={handleVideoError} style={{
-                pointerEvents: 'none'
-              }} />
-              {/* Thumbnail/Image - shown when video is not playing */}
+              {/* Video element */}
+              <video ref={videoRef} className={`w-full h-full object-cover transition-opacity duration-300 ${isVideoPlaying ? 'opacity-100' : 'opacity-0'}`} src={video} muted playsInline onError={handleVideoError} style={{ pointerEvents: 'none' }} />
+              {/* Thumbnail/Image */}
               <img src={displayImage} alt={name} className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${isVideoPlaying ? 'opacity-0' : 'opacity-100'} group-hover:scale-110`} />
             </>
           ) : (
@@ -115,23 +115,19 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           )}
         </div>
 
-        {/* Top Dark Overlay - Increased by 10% */}
+        {/* Top Dark Overlay */}
         <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/80 to-transparent"></div>
 
-        {/* Video Play Button - Only show when not auto-playing on hover */}
+        {/* Video Play Button */}
         {hasVideo && !isHovering && (
           <button onClick={handleVideoToggle} className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 backdrop-blur-sm z-10" aria-label={isVideoPlaying ? "Pause video" : "Play video"}>
             {isVideoPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
           </button>
         )}
 
-        {/* Content - Moved higher */}
+        {/* Content */}
         <div className="absolute top-0 left-0 right-0 p-3 sm:p-4 z-10 py-[8px]">
-          <h3 className="text-lg sm:text-xl md:text-2xl font-normal leading-tight" style={{
-            color: '#FFE0CA',
-            fontFamily: 'Poppins, sans-serif',
-            fontSize: '16px'
-          }}>
+          <h3 className="text-lg sm:text-xl md:text-2xl font-normal leading-tight" style={{ color: '#FFE0CA', fontFamily: 'Poppins, sans-serif', fontSize: '16px' }}>
             {name}
           </h3>
           {hasVideo && (
