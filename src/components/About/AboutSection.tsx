@@ -85,7 +85,7 @@ export const AboutSection = () => {
         </div>
 
         {/* CTA with Enhanced Liquid Glass Buttons */}
-        <div className="text-center">
+        <div className="text-center py-[30px]">
           <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 drop-shadow-xl text-center">
             Ready to Experience Our Approach?
           </h3>
@@ -93,9 +93,7 @@ export const AboutSection = () => {
             Let's discuss how our proven methodology can accelerate your digital transformation and deliver exceptional results.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <LiquidGlassButton variant="primary" size="lg" className="px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl hover:shadow-eastdigital-orange/20 transition-shadow duration-300">
-              Get Your Blueprint
-            </LiquidGlassButton>
+            
             <LiquidGlassButton variant="secondary" size="lg" className="px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl hover:shadow-white/10 transition-shadow duration-300">
               View Our Process
             </LiquidGlassButton>
