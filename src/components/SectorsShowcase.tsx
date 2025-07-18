@@ -50,7 +50,7 @@ const sectorsData = [{
 const SectorsShowcase = () => {
   const [activeSector, setActiveSector] = useState(sectorsData[0]);
   return <div className="bg-black text-white py-0 sm:py-16 lg:py-20 px-4 w-full overflow-hidden">
-      <div className="max-w-7xl mx-auto text-center w-full">
+      <div className="max-w-7xl mx-auto text-center w-full py-[20px]">
         <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-eastdigital-orange/8 via-eastdigital-orange/12 to-eastdigital-orange/8 border border-eastdigital-orange/15 rounded-full mb-6 backdrop-blur-2xl shadow-lg shadow-eastdigital-orange/10">
           <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">INDUSTRY EXPERTISE</span>
         </div>
