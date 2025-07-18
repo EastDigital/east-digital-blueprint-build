@@ -1,13 +1,10 @@
-
 import React from 'react';
 import { LiquidGlassCard } from '@/components/LiquidGlass/LiquidGlassCard';
 import { LiquidGlassButton } from '@/components/LiquidGlass/LiquidGlassButton';
 import { SubtleBackground } from '@/components/common/SubtleBackground';
 import { Eye, Target, Star } from 'lucide-react';
-
 export const MissionSection = () => {
-  return (
-    <section className="relative py-24 lg:py-32 bg-black overflow-hidden">
+  return <section className="relative py-24 lg:py-32 bg-black overflow-hidden">
       {/* Subtle background details */}
       <SubtleBackground variant="gradient" />
       
@@ -17,7 +14,7 @@ export const MissionSection = () => {
           <div className="inline-flex items-center px-6 py-2 bg-eastdigital-orange/[0.05] border border-eastdigital-orange/[0.08] rounded-full mb-8 backdrop-blur-xl">
             <span className="text-eastdigital-orange text-sm font-medium tracking-widest uppercase">Our Mission</span>
           </div>
-          <h2 className="text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl">Turning Real Estate Vision into Digital Reality</h2>
+          <h2 className="font-bold text-white mb-6 leading-tight lg:text-4xl text-2xl">Turning Real Estate Vision into Digital Reality</h2>
           <p className="max-w-4xl mx-auto leading-relaxed text-lg text-eastdigital-lightgray font-light">At East Digital, we bring real estate concepts to life through immersive visuals, performance-driven marketing, and smart digital solutions. Our services—ranging from 3D architectural rendering and VR walkthroughs to targeted ad campaigns and corporate branding—are tailored to help developers, architects, brokers, and brands stand out in a competitive market.</p>
         </div>
 
@@ -100,6 +97,5 @@ export const MissionSection = () => {
           </LiquidGlassButton>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };

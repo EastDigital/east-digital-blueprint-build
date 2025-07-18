@@ -52,7 +52,7 @@ export const AboutSection = () => {
           <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-eastdigital-orange/8 via-eastdigital-orange/12 to-eastdigital-orange/8 border border-eastdigital-orange/15 rounded-full mb-6 backdrop-blur-2xl shadow-lg shadow-eastdigital-orange/10">
             <span className="text-eastdigital-orange text-sm font-medium tracking-wider uppercase">Our Methodology</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl drop-shadow-2xl">
+          <h2 className="md:text-5xl font-bold text-white mb-6 leading-tight lg:text-4xl drop-shadow-2xl text-2xl">
             Our Approach
           </h2>
           <p className="text-xl text-eastdigital-lightgray max-w-4xl mx-auto leading-relaxed lg:text-lg font-light opacity-90">
