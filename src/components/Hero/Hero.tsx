@@ -16,8 +16,8 @@ export const Hero = () => {
           poster="https://www.eastdigital.in/img/product_afc_001.jpg"
           src="https://www.eastdigital.in/img/3d-arch-demo.mp4"
         />
-        {/* Darkening overlay + Texture */}
-        <div className="absolute inset-0 bg-black/60 video-texture-overlay"></div>
+        {/* Darkening gradient overlay + Texture */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20 video-texture-overlay"></div>
       </div>
 
       {/* Hero Content (takes up the main space) */}
