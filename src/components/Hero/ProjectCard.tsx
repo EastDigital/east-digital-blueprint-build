@@ -156,3 +156,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             }}
           >
             {name}
+          </h3>
+        </div>
+      </div>
+    </div>
+  );
+};
