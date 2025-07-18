@@ -92,7 +92,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/20 via-white/5 to-eastdigital-orange/20 backdrop-blur-xl border border-white/10 transition-all duration-300 group-hover:border-eastdigital-orange/30 group-hover:shadow-[0_0_30px_rgba(255,107,53,0.2)]"></div>
       
       {/* Inner Content Container */}
-      <div className="relative h-full w-full rounded-2xl overflow-hidden m-[3px]">
+      <div className="relative h-full w-full rounded-2xl overflow-hidden m-[5px]">
         {/* Background Image/Video */}
         <div className="absolute inset-0">
           {hasVideo ? (
