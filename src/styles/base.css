@@ -298,7 +298,7 @@
     }
   }
 
-     /* Video Texture Overlay - Smooth gradient without tiling */
+  /* Video Texture Overlay - Smooth gradient without tiling */
   .video-texture-overlay {
     position: absolute;
     inset: 0;
