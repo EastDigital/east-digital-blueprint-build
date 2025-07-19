@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 export const HeroContent = () => {
   return <div className="text-left sm:text-center max-w-5xl -bottom-0 -bottom-0 mx-[0px]">
-      <p className="text-base sm:text-lg font-poppins font-thin tracking-[1px] py-0" style={{ color: '#FFD194' }}>
+      <p className="text-base sm:text-lg font-poppins font-thin tracking-[1px] py-0" style={{ color: '#fadccd' }}>
         We Create Stories That Sell Spaces
       </p>
       
