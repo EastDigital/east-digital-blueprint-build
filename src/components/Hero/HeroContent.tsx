@@ -2,20 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 export const HeroContent = () => {
   return <div className="text-left sm:text-center max-w-5xl -bottom-0 -bottom-0 mx-[0px]">
-      <p style={{
-      fontSize: '16px'
-    }} className="text-white font-poppins font-thin tracking-[1px] py-0 text-sm">We Create Stories That Sell Spaces</p>
+      <p className="text-base sm:text-lg font-poppins font-thin tracking-[1px] py-0" style={{ color: '#eea849' }}>
+        We Create Stories That Sell Spaces
+      </p>
       
-      <h1 className="bg-gradient-to-r from-eastdigital-orange to #FFE0CA">
+      <h1 
+        className="text-[22px] sm:text-[28px] font-poppins font-bold bg-gradient-to-b from-[#f46b45] to-[#eea849] bg-clip-text text-transparent mt-3 sm:mt-4 md:mt-6 mb-4 sm:mb-6 md:mb-8"
+        style={{ lineHeight: '26px' }}
+      >
         Story-driven marketing <br />
-        <span className="bg-gradient-to-r from-eastdigital-orange to #FFE0CA">
-          that builds trust and drives sales
-        </span>
+        that builds trust and drives sales
       </h1>
       
-      <p style={{
-      color: '#FFE0CA'
-    }} className="text-sm sm:text-base md:text-lg max-w-3xl sm:mx-auto mb-3 sm:mb-8 md:mb-8 font-poppins font-light leading-relaxed py-0">
+      <p 
+        className="text-sm sm:text-base max-w-3xl sm:mx-auto mb-3 sm:mb-8 md:mb-8 font-poppins font-thin leading-relaxed py-0"
+        style={{ color: '#eea849' }}
+      >
         We help developers, architects, and engineers accelerate sales through <br />
         high-impact 3d visuals, videos, branding, and digital campaigns.
       </p>
