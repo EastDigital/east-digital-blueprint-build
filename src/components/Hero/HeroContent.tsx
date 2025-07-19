@@ -7,7 +7,7 @@ export const HeroContent = () => {
       </p>
       
       <h1 
-        className="text-[22px] sm:text-[28px] font-poppins font-bold bg-gradient-to-b from-[#ff6b35] to-[fadccd] bg-clip-text text-transparent mt-3 sm:mt-4 md:mt-6 mb-4 sm:mb-6 md:mb-8"
+        className="text-[22px] sm:text-[28px] font-poppins font-bold bg-gradient-to-b from-[#ff6b35] to-[#fadccd] bg-clip-text text-transparent mt-3 sm:mt-4 md:mt-6 mb-4 sm:mb-6 md:mb-8"
         style={{ lineHeight: '26px' }}
       >
         Story-driven marketing <br />
@@ -16,7 +16,7 @@ export const HeroContent = () => {
       
       <p 
         className="text-sm sm:text-base max-w-3xl sm:mx-auto mb-3 sm:mb-8 md:mb-8 font-poppins font-thin leading-relaxed py-0"
-        style={{ color: 'fadccd' }}
+        style={{ color: '#fadccd' }}
       >
         We help developers, architects, and engineers accelerate sales through <br />
         high-impact 3d visuals, videos, branding, and digital campaigns.
