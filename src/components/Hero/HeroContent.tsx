@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 export const HeroContent = () => {
   return <div className="text-left sm:text-center max-w-5xl -bottom-0 -bottom-0 mx-[0px]">
       <p style={{
-      fontSize: '18px'
+      fontSize: '16px'
     }} className="text-white font-poppins font-thin tracking-[1px] py-0 text-sm">We Create Stories That Sell Spaces</p>
       
-      <h1 className="leading-[1.1] sm:text-4xl mb-4 sm:mb-6 md:mb-8 text-white font-poppins mt-3 sm:mt-4 md:mt-6 font-bold lg:text-4xl md:text-3xl text-xl my-[7px] py-0">
+      <h1 className="bg-gradient-to-r from-eastdigital-orange to #FFE0CA">
         Story-driven marketing <br />
-        <span className="bg-gradient-to-r from-eastdigital-orange to-eastdigital-hover bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-eastdigital-orange to #FFE0CA">
           that builds trust and drives sales
         </span>
       </h1>
