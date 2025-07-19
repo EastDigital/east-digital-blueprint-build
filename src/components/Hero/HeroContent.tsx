@@ -18,8 +18,7 @@ export const HeroContent = () => {
         className="text-sm sm:text-base max-w-3xl sm:mx-auto mb-3 sm:mb-8 md:mb-8 font-poppins font-thin leading-relaxed py-0"
         style={{ color: '#fadccd' }}
       >
-        We help developers, architects, and engineers accelerate sales through <br />
-        high-impact 3d visuals, videos, branding, and digital campaigns.
+        We help developers, architects, and engineers accelerate sales through high-impact 3d visuals, videos, branding, and digital campaigns.
       </p>
       
       <Link to="/enquiry">
