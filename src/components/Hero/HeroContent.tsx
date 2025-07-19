@@ -6,7 +6,7 @@ export const HeroContent = () => {
       fontSize: '18px'
     }} className="text-white font-poppins font-thin tracking-[1px] py-0">We Create Stories That Sell Spaces</p>
       
-      <h1 className="leading-[1.1] sm:text-4xl md:text-6xl mb-4 sm:mb-6 md:mb-8 text-white font-poppins mt-3 sm:mt-4 md:mt-6 py-0 font-bold lg:text-4xl text-2xl">
+      <h1 className="leading-[1.1] sm:text-4xl mb-4 sm:mb-6 md:mb-8 text-white font-poppins mt-3 sm:mt-4 md:mt-6 py-0 font-bold lg:text-4xl md:text-3xl text-xl">
         Story-driven marketing <br />
         <span className="bg-gradient-to-r from-eastdigital-orange to-eastdigital-hover bg-clip-text text-transparent">
           that builds trust and drives sales
