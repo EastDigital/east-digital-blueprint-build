@@ -4,7 +4,7 @@ export const HeroContent = () => {
   return <div className="text-left sm:text-center max-w-5xl -bottom-0 -bottom-0 mx-[0px]">
       <p style={{
       fontSize: '18px'
-    }} className="text-white font-poppins font-thin tracking-[1px] py-0">We Create Stories That Sell Spaces</p>
+    }} className="text-white font-poppins font-thin tracking-[1px] py-0 text-sm">We Create Stories That Sell Spaces</p>
       
       <h1 className="leading-[1.1] sm:text-4xl mb-4 sm:mb-6 md:mb-8 text-white font-poppins mt-3 sm:mt-4 md:mt-6 py-0 font-bold lg:text-4xl md:text-3xl text-xl">
         Story-driven marketing <br />
