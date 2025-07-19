@@ -7,8 +7,7 @@ export const HeroContent = () => {
       <h1 className="text-[22px] sm:text-[28px] font-poppins font-bold bg-gradient-to-b from-[#ff6b35] to-[#fadccd] bg-clip-text text-transparent mt-3 sm:mt-4 md:mt-6 mb-4 sm:mb-6 md:mb-8" style={{
       lineHeight: '32px'
     }}>
-        Story-driven marketing <br />
-        that builds trust and drives sales
+        We Create Stories That Sell Spaces
       </h1>
       
       
