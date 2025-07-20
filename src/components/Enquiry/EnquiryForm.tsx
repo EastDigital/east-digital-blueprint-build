@@ -13,12 +13,11 @@ import { SuccessStep } from './steps/SuccessStep';
 import { useEnquiryForm } from './hooks/useEnquiryForm';
 
 const steps = [
-  { id: 'contact', title: 'Your Details', icon: '窓' },
-  { id: 'services', title: 'Select Services', icon: '識' },
-  { id: 'timeline', title: 'Timeline & Budget', icon: '竢ｰ' },
-  { id: 'files', title: 'Project Files', icon: '刀' },
-  { id: 'review', title: 'Review & Submit', icon: '笨ｨ' },
-  { id: 'success', title: 'Complete', icon: '脂' }
+  { id: 'contact', title: 'Personal Details' },
+  { id: 'services', title: 'Services' },
+  { id: 'timeline', title: 'Timeline' },
+  { id: 'files', title: 'Project Files' },
+  { id: 'review', title: 'Review & Submit' }
 ];
 
 export const EnquiryForm = () => {
@@ -53,7 +52,7 @@ export const EnquiryForm = () => {
       const success = await submitEnquiry();
       if (success) {
         setDirection(1);
-        setCurrentStep(steps.length - 1);
+        setCurrentStep(steps.length); // Go to success step
       }
     }
   };
@@ -62,6 +61,10 @@ export const EnquiryForm = () => {
     const success = await requestInstantProposal();
     if (success) {
       console.log('Instant proposal requested');
+      // Here you would typically redirect to a payment page
+      // For now, we'll just show the success message.
+      setDirection(1);
+      setCurrentStep(steps.length);
     }
   };
 
@@ -95,7 +98,7 @@ export const EnquiryForm = () => {
     }
   };
 
-  if (isSubmitted && currentStep === steps.length - 1) {
+  if (isSubmitted) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center p-4">
         <SuccessStep formData={formData} />
@@ -104,19 +107,10 @@ export const EnquiryForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black py-8 px-4">
+    <div className="min-h-screen bg-black py-8 px-4 enquiry-bg">
       <div className="max-w-4xl mx-auto h-full flex flex-col">
         {/* Header */}
         <div className="text-center mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 bg-eastdigital-orange/20 px-4 py-2 rounded-full mb-4"
-          >
-            <Sparkles className="h-4 w-4 text-eastdigital-orange" />
-            <span className="text-eastdigital-orange font-medium">Get Your Free Proposal</span>
-          </motion.div>
-          
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -125,15 +119,6 @@ export const EnquiryForm = () => {
           >
             Let's Build Something Amazing
           </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-gray-300 max-w-2xl mx-auto"
-          >
-            Tell us about your project and get a detailed proposal in minutes
-          </motion.p>
         </div>
 
         {/* Step Indicator */}
@@ -151,9 +136,9 @@ export const EnquiryForm = () => {
                 <motion.div
                   key={currentStep}
                   custom={direction}
-                  initial={{ opacity: 0, x: direction > 0 ? 100 : -100 }}
+                  initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
+                  exit={{ opacity: 0, x: direction > 0 ? -50 : 50 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="absolute inset-0 flex flex-col"
                 >
@@ -167,53 +152,48 @@ export const EnquiryForm = () => {
         </div>
 
         {/* Navigation */}
-        {currentStep < steps.length - 1 && (
-          <div className="flex justify-between items-center mt-8">
+        <div className="flex justify-between items-center mt-8">
+          {currentStep > 0 ? (
             <Button
               variant="outline"
               onClick={prevStep}
-              disabled={currentStep === 0}
               className="flex items-center gap-2"
             >
               <ChevronLeft className="h-4 w-4" />
               Previous
             </Button>
+          ) : (
+            <div></div> /* Placeholder for spacing */
+          )}
 
-            <div className="flex items-center gap-2 text-gray-400">
-              <span>{currentStep + 1}</span>
-              <span>/</span>
-              <span>{steps.length - 1}</span>
-            </div>
-
-            {currentStep === steps.length - 2 ? (
-              <Button
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className="flex items-center gap-2 bg-eastdigital-orange hover:bg-eastdigital-orange/90 google-ai-button"
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
-                    Submitting...
-                  </>
-                ) : (
-                  <>
-                    Submit Enquiry
-                    <Check className="h-4 w-4" />
-                  </>
-                )}
-              </Button>
-            ) : (
-              <Button
-                onClick={nextStep}
-                className="flex items-center gap-2 bg-eastdigital-orange hover:bg-eastdigital-orange/90 google-ai-button"
-              >
-                Next
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            )}
-          </div>
-        )}
+          {currentStep < steps.length - 1 ? (
+            <Button
+              onClick={nextStep}
+              className="flex items-center gap-2 bg-eastdigital-orange hover:bg-eastdigital-orange/90 google-ai-button"
+            >
+              Next
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          ) : (
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="flex items-center gap-2 bg-eastdigital-orange hover:bg-eastdigital-orange/90 google-ai-button"
+            >
+              {isSubmitting ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                  Submitting...
+                </>
+              ) : (
+                <>
+                  Submit Enquiry
+                  <Check className="h-4 w-4" />
+                </>
+              )}
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
