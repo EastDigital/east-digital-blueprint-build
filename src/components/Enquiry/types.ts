@@ -1,4 +1,3 @@
-
 export interface EnquiryFormData {
   name: string;
   email: string;
