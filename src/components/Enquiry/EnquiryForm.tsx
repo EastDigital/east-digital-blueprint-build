@@ -13,11 +13,12 @@ import { SuccessStep } from './steps/SuccessStep';
 import { useEnquiryForm } from './hooks/useEnquiryForm';
 
 const steps = [
-  { id: 'contact', title: 'Personal Details' },
-  { id: 'services', title: 'Services' },
-  { id: 'timeline', title: 'Timeline' },
-  { id: 'files', title: 'Project Files' },
-  { id: 'review', title: 'Review & Submit' }
+  { id: 'contact', title: 'Your Details', icon: '窓' },
+  { id: 'services', title: 'Select Services', icon: '識' },
+  { id: 'timeline', title: 'Timeline & Budget', icon: '竢ｰ' },
+  { id: 'files', title: 'Project Files', icon: '刀' },
+  { id: 'review', title: 'Review & Submit', icon: '笨ｨ' },
+  { id: 'success', title: 'Complete', icon: '脂' }
 ];
 
 export const EnquiryForm = () => {
