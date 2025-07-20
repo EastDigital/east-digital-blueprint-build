@@ -13,10 +13,9 @@ import { SuccessStep } from './steps/SuccessStep';
 import { useEnquiryForm } from './hooks/useEnquiryForm';
 
 const steps = [
-  { id: 'contact', title: 'Your Details', icon: '👋' },
-  { id: 'services', title: 'Select Services', icon: '🎯' },
-  { id: 'timeline', title: 'Timeline & Budget', icon: '⏰' },
-  { id: 'files', title: 'Project Files', icon: '📁' },
+  { id: 'contact', title: 'Personal Details', icon: '👤' },
+  { id: 'services', title: 'Services Selector', icon: '🎯' },
+  { id: 'files', title: 'Upload Files', icon: '📁' },
   { id: 'review', title: 'Review & Submit', icon: '✨' },
   { id: 'success', title: 'Complete', icon: '🎉' }
 ];
@@ -83,12 +82,10 @@ export const EnquiryForm = () => {
       case 1:
         return <ServicesStep {...stepProps} />;
       case 2:
-        return <TimelineStep {...stepProps} />;
-      case 3:
         return <FilesStep {...stepProps} />;
-      case 4:
+      case 3:
         return <ReviewStep {...stepProps} />;
-      case 5:
+      case 4:
         return <SuccessStep formData={formData} />;
       default:
         return <ContactStep {...stepProps} />;
@@ -104,37 +101,14 @@ export const EnquiryForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black py-8 px-4">
-      <div className="max-w-4xl mx-auto h-full flex flex-col">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 bg-eastdigital-orange/20 px-4 py-2 rounded-full mb-4"
-          >
-            <Sparkles className="h-4 w-4 text-eastdigital-orange" />
-            <span className="text-eastdigital-orange font-medium">Get Your Free Proposal</span>
-          </motion.div>
-          
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-white mb-4"
-          >
-            Let's Build Something Amazing
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-gray-300 max-w-2xl mx-auto"
-          >
-            Tell us about your project and get a detailed proposal in minutes
-          </motion.p>
-        </div>
+    <div className="relative bg-black py-8 px-4">
+      {/* Background texture */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.02%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FF6B35]/3 via-transparent to-[#EEA849]/3"></div>
+      </div>
+      
+      <div className="relative max-w-5xl mx-auto h-full flex flex-col">
 
         {/* Step Indicator */}
         <StepIndicator 
