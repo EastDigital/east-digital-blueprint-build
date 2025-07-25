@@ -1,116 +1,137 @@
 
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.8";
+import { Resend } from "npm:resend@2.0.0";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-serve(async (req) => {
+serve(async (req: Request) => {
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-    );
+    console.log('Starting OTP send process...');
+    
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const resendApiKey = Deno.env.get('RESEND_API_KEY');
+    
+    if (!supabaseUrl || !supabaseServiceKey) {
+      console.error('Missing Supabase configuration');
+      throw new Error('Server configuration error');
+    }
 
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    
     const { email } = await req.json();
+    console.log('Processing OTP request for email:', email);
+
+    if (!email) {
+      return new Response(
+        JSON.stringify({ error: 'Email is required' }),
+        { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+      );
+    }
 
     // Verify admin user exists and is active
-    const { data: adminUser, error: adminError } = await supabaseClient
+    const { data: adminUser, error: adminError } = await supabase
       .from('admin_users')
-      .select('id, email')
+      .select('id, email, is_active')
       .eq('email', email)
       .eq('is_active', true)
       .single();
 
     if (adminError || !adminUser) {
+      console.error('Admin user verification failed:', adminError);
       return new Response(
-        JSON.stringify({ success: false, error: 'Unauthorized admin access' }),
-        { 
-          status: 403, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
+        JSON.stringify({ error: 'Access denied' }),
+        { status: 403, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
       );
     }
 
-    // Generate 6-digit OTP
+    console.log('Admin user verified:', adminUser.id);
+
+    // Generate OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+    
+    // Hash the OTP for storage
+    const otpHash = await crypto.subtle.digest(
+      'SHA-256',
+      new TextEncoder().encode(otp + adminUser.id)
+    );
+    const hashHex = Array.from(new Uint8Array(otpHash))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
 
     // Store OTP verification record
-    const { data: verification, error: verificationError } = await supabaseClient
+    const { data: otpRecord, error: otpError } = await supabase
       .from('otp_verifications')
       .insert({
         admin_user_id: adminUser.id,
-        otp_hash: otp, // In production, you should hash this
+        otp_hash: hashHex,
         expires_at: expiresAt.toISOString(),
         is_used: false
       })
       .select('id')
       .single();
 
-    if (verificationError) {
-      throw verificationError;
+    if (otpError) {
+      console.error('Failed to store OTP:', otpError);
+      throw new Error('Failed to generate verification code');
     }
 
-    // Check if RESEND_API_KEY is available
-    const resendApiKey = Deno.env.get('RESEND_API_KEY');
-    
+    console.log('OTP stored with ID:', otpRecord.id);
+
+    // Send email if Resend is configured
     if (resendApiKey) {
-      // Send email using Resend with your verified domain
       try {
-        const emailResponse = await fetch('https://api.resend.com/emails', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${resendApiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            from: 'Admin Panel <admin@eastdigital.in>',
-            to: [email],
-            subject: 'Your Admin Panel OTP Code',
-            html: `
-              <h2>Admin Panel Login</h2>
-              <p>Your OTP code is: <strong style="font-size: 20px; color: #ff6b35;">${otp}</strong></p>
+        const resend = new Resend(resendApiKey);
+        
+        const emailResponse = await resend.emails.send({
+          from: "East Digital Admin <noreply@eastdigital.com>",
+          to: [email],
+          subject: "Admin Login Verification Code",
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <h1 style="color: #ff6b35;">East Digital Admin Access</h1>
+              <p>Your verification code is:</p>
+              <div style="background: #f0f0f0; padding: 20px; text-align: center; font-size: 32px; font-weight: bold; letter-spacing: 5px; margin: 20px 0;">
+                ${otp}
+              </div>
               <p>This code will expire in 10 minutes.</p>
               <p>If you didn't request this code, please ignore this email.</p>
-            `,
-          }),
+              <hr style="margin: 30px 0;">
+              <p style="color: #666; font-size: 14px;">East Digital Admin System</p>
+            </div>
+          `,
         });
 
-        if (!emailResponse.ok) {
-          const errorData = await emailResponse.text();
-          console.error('Email sending failed:', errorData);
-          throw new Error('Failed to send email');
-        }
-
-        const emailResult = await emailResponse.json();
-        console.log(`OTP email sent successfully to ${email}:`, emailResult);
+        console.log('Email sent successfully:', emailResponse.id);
       } catch (emailError) {
-        console.error('Error sending email:', emailError);
-        // Continue without failing - for development purposes
+        console.error('Email sending failed:', emailError);
+        // Don't fail the request if email fails, OTP is still stored
       }
     } else {
-      console.log('RESEND_API_KEY not configured - OTP will only be logged');
+      console.log('Resend API key not configured, skipping email');
     }
-    
-    // For demo purposes, log the OTP (remove in production)
-    console.log(`Admin OTP for ${email}: ${otp}`);
 
     return new Response(
       JSON.stringify({ 
         success: true, 
-        verificationId: verification.id,
-        // Remove this line in production:
-        otp: otp // Only for demo/testing
+        verificationId: otpRecord.id,
+        message: resendApiKey ? 'OTP sent to your email' : 'OTP generated (email not configured)',
+        // For development/testing only - remove in production
+        ...(Deno.env.get('ENVIRONMENT') === 'development' && { otp })
       }),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
       }
     );
   } catch (error) {

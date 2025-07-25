@@ -1,1 +1,10 @@
 project_id = "rawdkwlxbhpxblxnluyv"
+
+[functions.send-admin-otp]
+verify_jwt = false
+
+[functions.verify-admin-otp]
+verify_jwt = false
+
+[functions.send-contact-form]
+verify_jwt = false

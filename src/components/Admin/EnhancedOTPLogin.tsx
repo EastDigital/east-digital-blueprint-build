@@ -58,8 +58,8 @@ export const EnhancedOTPLogin = () => {
         throw error;
       }
 
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to send OTP');
+      if (!data?.success) {
+        throw new Error(data?.error || 'Failed to send OTP');
       }
 
       setVerificationId(data.verificationId);
@@ -68,15 +68,15 @@ export const EnhancedOTPLogin = () => {
       
       toast({
         title: "OTP Sent",
-        description: "Please check your email for the verification code.",
+        description: data.message || "Please check your email for the verification code.",
       });
       
       // Show OTP in console for demo
       if (data.otp) {
         console.log('Demo OTP:', data.otp);
         toast({
-          title: "Demo Mode",
-          description: `OTP: ${data.otp}`,
+          title: "Development Mode",
+          description: `OTP: ${data.otp} (check console)`,
         });
       }
     } catch (err: any) {
@@ -107,14 +107,14 @@ export const EnhancedOTPLogin = () => {
         throw error;
       }
 
-      if (!data.success) {
-        throw new Error(data.error || 'Invalid OTP');
+      if (!data?.success) {
+        throw new Error(data?.error || 'Invalid OTP');
       }
 
       login(email);
       toast({
         title: "Login Successful",
-        description: "Welcome to the admin panel.",
+        description: `Welcome back, ${data.admin?.email || email}`,
       });
     } catch (err: any) {
       console.error('Error:', err);

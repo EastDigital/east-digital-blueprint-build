@@ -157,26 +157,44 @@ export const useProjectManagement = () => {
 
     setIsSubmitting(true);
     try {
+      // Clean and prepare data for insertion
+      const projectData = {
+        ...newProjectData,
+        name: newProjectData.name.trim(),
+        subtitle: newProjectData.subtitle?.trim() || null,
+        description: newProjectData.description?.trim() || null,
+        category: newProjectData.category || null,
+        status: newProjectData.status || 'upcoming',
+        tags: newProjectData.tags?.length ? newProjectData.tags : null,
+        gallery_images: newProjectData.gallery_images?.length ? newProjectData.gallery_images : null,
+        gallery_videos: newProjectData.gallery_videos?.length ? newProjectData.gallery_videos : null,
+        gallery_image_alts: newProjectData.gallery_image_alts?.length ? newProjectData.gallery_image_alts : null,
+      };
+
       const { data, error } = await supabase
         .from('projects')
-        .insert([newProjectData])
+        .insert([projectData])
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Database error:', error);
+        throw new Error(error.message || 'Failed to create project');
+      }
 
       setProjects([data, ...projects]);
       setNewProjectData(initialFormData);
       setShowCreateForm(false);
 
       toast({
-        title: "Success",
-        description: "Project created successfully",
+        title: "Success!",
+        description: `Project "${data.name}" created successfully${data.slug ? ` with URL: /${data.slug}` : ''}`,
       });
     } catch (error: any) {
+      console.error('Error creating project:', error);
       toast({
         title: "Error",
-        description: "Failed to create project: " + error.message,
+        description: error.message || "Failed to create project",
         variant: "destructive",
       });
     } finally {
@@ -185,33 +203,57 @@ export const useProjectManagement = () => {
   };
 
   const handleUpdateProject = async () => {
-    if (!editingProject) return;
+    if (!editingProject || !editingProjectData.name.trim()) {
+      toast({
+        title: "Error",
+        description: "Project name is required",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setIsSubmitting(true);
     try {
+      // Clean and prepare data for update
+      const updateData = {
+        ...editingProjectData,
+        name: editingProjectData.name.trim(),
+        subtitle: editingProjectData.subtitle?.trim() || null,
+        description: editingProjectData.description?.trim() || null,
+        category: editingProjectData.category || null,
+        status: editingProjectData.status || 'upcoming',
+        tags: editingProjectData.tags?.length ? editingProjectData.tags : null,
+        gallery_images: editingProjectData.gallery_images?.length ? editingProjectData.gallery_images : null,
+        gallery_videos: editingProjectData.gallery_videos?.length ? editingProjectData.gallery_videos : null,
+        gallery_image_alts: editingProjectData.gallery_image_alts?.length ? editingProjectData.gallery_image_alts : null,
+        updated_at: new Date().toISOString()
+      };
+
       const { data, error } = await supabase
         .from('projects')
-        .update({
-          ...editingProjectData,
-          updated_at: new Date().toISOString()
-        })
+        .update(updateData)
         .eq('id', editingProject.id)
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Database error:', error);
+        throw new Error(error.message || 'Failed to update project');
+      }
 
       setProjects(projects.map(p => p.id === editingProject.id ? data : p));
       setEditingProject(null);
+      setEditingProjectData(initialFormData);
 
       toast({
-        title: "Success",
-        description: "Project updated successfully",
+        title: "Success!",
+        description: `Project "${data.name}" updated successfully${data.slug ? ` (URL: /${data.slug})` : ''}`,
       });
     } catch (error: any) {
+      console.error('Error updating project:', error);
       toast({
         title: "Error",
-        description: "Failed to update project: " + error.message,
+        description: error.message || "Failed to update project",
         variant: "destructive",
       });
     } finally {
