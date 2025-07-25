@@ -61,7 +61,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email to user
     const userEmailResponse = await resend.emails.send({
-      from: "EastDigital <info@eastdigital.in>",
+      from: "EastDigital <onboarding@resend.dev>",
       to: [email],
       subject: "Thank you for contacting EastDigital",
       html: `
@@ -107,7 +107,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send notification email to admin
     const adminEmailResponse = await resend.emails.send({
-      from: "EastDigital Contact Form <info@eastdigital.in>",
+      from: "EastDigital Contact Form <onboarding@resend.dev>",
       to: ["info@eastdigital.in"],
       subject: `New Contact Form Submission from ${name}`,
       html: `
